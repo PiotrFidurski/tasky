@@ -1,0 +1,14 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["cypress"],
+  "rules": {
+    "import/no-extraneous-dependencies": "off",
+
+    //Cypress rules
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "error",
+    "cypress/no-force": "warn"
+  }
+}

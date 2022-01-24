@@ -6,6 +6,7 @@ export default function Index() {
         lineHeight: '1.4',
       }}
     >
+      navba
       <h1>Welcome to Remix</h1>
       <ul>
         <li>
