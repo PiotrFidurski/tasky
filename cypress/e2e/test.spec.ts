@@ -1,9 +1,9 @@
 describe('testing tests', () => {
-  it('finds link', () => {
+  it('finds welcome message', () => {
     cy.visit('/');
 
-    cy.findByRole('link', {
-      name: /Deep Dive Jokes App Tutorial/i,
+    cy.findByRole('heading', {
+      name: /Welcome to tasky/i,
     });
   });
 });
