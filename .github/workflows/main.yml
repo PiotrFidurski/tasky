@@ -1,4 +1,4 @@
-name: run tests
+name: run lint and tests
 
 on:
   pull_request:
@@ -10,9 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
       - name: E2E Tests
         uses: cypress-io/github-action@v2
         with:
           build: npm run build
-          start: npm run startci
+          start: npm run start
           wait-on: http://localhost:3000
