@@ -6,7 +6,11 @@ import { FormStrategy } from 'remix-auth-form';
 import * as z from 'zod';
 import { db } from '~/db/db.server';
 import { badRequest } from '~/utils/badRequest';
-import { getUserSession, sessionStorage } from './session.server';
+import {
+  createUserSession,
+  getUserSession,
+  sessionStorage,
+} from './session.server';
 
 export const authenticator = new Authenticator<User | Response>(sessionStorage);
 
@@ -61,6 +65,9 @@ export async function getUser({ request }: { request: Request }) {
   return user;
 }
 
+/**
+ * @remarks Regex pattern that requires number, special character, and upper case character
+ */
 const PWD_REGEX_PATTERN =
   /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
 
@@ -70,6 +77,9 @@ const schema = z.object({
       required_error: 'Username is required.',
     })
     .min(3, 'Username must be at least 3 characters long.'),
+});
+
+const passwordSchema = z.object({
   password: z
     .string({
       required_error: 'Password is required.',
@@ -79,39 +89,105 @@ const schema = z.object({
       'Password must include special characters, numbers, and upper case letters.'
     )
     .min(8, 'Password must be at least 8 characters long.'),
+  passwordConfirmation: z.string({
+    required_error: 'Password Confirmation is required.',
+  }),
 });
+
+const registerSchema = schema
+  .merge(passwordSchema)
+  .refine((data) => data.password === data.passwordConfirmation, {
+    message: "Passwords don't match",
+    path: ['passwordConfirmation'],
+  });
+
+async function register({ username, password }: UserInput) {
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  return db.user.create({
+    data: {
+      username,
+      password: passwordHash,
+    },
+  });
+}
+
+export async function login({ username }: UserInput) {
+  const user = await db.user.findFirst({
+    where: { username },
+  });
+
+  return user;
+}
 
 authenticator.use(
   new FormStrategy(async ({ form }) => {
     try {
+      const type = form.get('type') as string;
+
       const username = form.get('username') as string;
       const password = form.get('password') as string;
+      const passwordConfirmation = form.get('passwordConfirmation') as string;
 
-      schema.parse({ username, password });
+      let user = null;
+      switch (type) {
+        case 'login':
+          {
+            schema.parse({ username, password });
 
-      const user = await findOrCreateUser({
-        username,
-        password,
-      });
+            user = await login({ username, password });
 
-      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+            if (!user) {
+              return badRequest({
+                fieldErrors: {
+                  username: `No user with that username exists.`,
+                },
+              });
+            }
 
-      if (!isPasswordCorrect) {
-        return badRequest({
-          fieldErrors: {
-            password: `The password you provided doesn't match.`,
-          },
-        });
+            const isPasswordCorrect = await bcrypt.compare(
+              password,
+              user.password
+            );
+
+            if (!isPasswordCorrect) {
+              return badRequest({
+                fieldErrors: {
+                  password: `The password you provided doesn't match.`,
+                },
+              });
+            }
+          }
+          break;
+        case 'register':
+          {
+            registerSchema.parse({ username, password, passwordConfirmation });
+
+            const existingUser = await db.user.findFirst({
+              where: { username },
+            });
+
+            if (existingUser) {
+              return badRequest({
+                fieldErrors: {
+                  username: `This username is already taken.`,
+                },
+              });
+            }
+
+            user = await register({ username, password });
+          }
+          break;
+        default:
+          break;
       }
 
-      const session = await sessionStorage.getSession();
+      if (user) {
+        return await createUserSession({ user });
+      }
 
-      session.set('userId', user.id);
-
-      return redirect('/home', {
-        headers: {
-          'Set-Cookie': await sessionStorage.commitSession(session),
-        },
+      return badRequest({
+        formError: 'Something went wrong, try again in a moment.',
       });
     } catch (error) {
       const errors = (error as z.ZodError).flatten();
@@ -120,6 +196,7 @@ authenticator.use(
         fieldErrors: {
           username: errors.fieldErrors.username?.[0],
           password: errors.fieldErrors.password?.[0],
+          passwordConfirmation: errors.fieldErrors.passwordConfirmation?.[0],
         },
       });
     }

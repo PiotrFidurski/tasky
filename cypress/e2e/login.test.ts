@@ -13,7 +13,7 @@ describe('login', () => {
     cy.get('@passwordInput').should('have.attr', 'minLength', 8);
 
     cy.get('@usernameInput').type('chimson');
-    cy.get('@passwordInput').type(`Verysecret55%{enter}`);
+    cy.get('@passwordInput').type(`Ccm5555%{enter}`);
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/home`);
 

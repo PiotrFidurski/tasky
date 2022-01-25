@@ -8,7 +8,11 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 type ActionData = {
-  fieldErrors: { username?: string; password?: string };
+  fieldErrors: {
+    username?: string;
+    password?: string;
+    passwordConfirmation?: string;
+  };
 };
 
 export default function LoginRoute() {
@@ -17,6 +21,7 @@ export default function LoginRoute() {
   return (
     <div>
       <Form method="post">
+        <input type="hidden" value="login" name="type" />
         <label htmlFor="username">
           <input
             required
@@ -43,6 +48,21 @@ export default function LoginRoute() {
             {actionData?.fieldErrors ? actionData?.fieldErrors?.password : ''}
           </span>
         </label>
+        {/* <label htmlFor="passwordConfirmation">
+          <input
+            placeholder="passwordC"
+            required
+            aria-describedby="passwordConfirmation-error-message"
+            id="passwordConfirmation"
+            aria-label="password confirmation"
+            name="passwordConfirmation"
+          />
+          <span id="passwordConfirmation-error-message">
+            {actionData?.fieldErrors
+              ? actionData?.fieldErrors?.passwordConfirmation
+              : ''}
+          </span>
+        </label> */}
         <button type="submit">Login</button>
       </Form>
     </div>
