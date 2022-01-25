@@ -14,10 +14,28 @@ export const sessionStorage = createCookieSessionStorage({
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
-    secrets: [SECRET_KEY],
+    secrets: [SECRET_KEY!],
     secure: process.env.NODE_ENV === 'production',
   },
 });
+
+/**
+ * Creates user session and redirects to homepage.
+ *
+ * @param {User} user - User model.
+ * @returns `Promise<Response>` - https://developer.mozilla.org/en-US/docs/Web/API/Response
+ */
+export async function createUserSession({ user }: { user: User }) {
+  const session = await sessionStorage.getSession();
+
+  session.set('userId', user?.id);
+
+  return redirect('/home', {
+    headers: {
+      'Set-Cookie': await sessionStorage.commitSession(session),
+    },
+  });
+}
 
 /**
  * Parses Cookie header and returns session promise.
