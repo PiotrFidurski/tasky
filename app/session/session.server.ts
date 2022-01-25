@@ -1,5 +1,4 @@
 import { User } from '@prisma/client';
-import 'dotenv/config';
 import { createCookieSessionStorage, redirect } from 'remix';
 
 const SECRET_KEY = process.env.SESSION_SECRET;

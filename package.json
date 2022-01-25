@@ -5,7 +5,7 @@
   "license": "",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev",
+    "dev": "node -r dotenv/config ./node_modules/@remix-run/dev/cli.js",
     "start": "remix-serve api/_build",
     "postinstall": "remix setup node",
     "cypress:open": "cypress open",
