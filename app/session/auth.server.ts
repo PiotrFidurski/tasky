@@ -41,28 +41,101 @@ export async function findOrCreateUser({
     return user;
   }
 
-  const isCorrectPassword = await bcrypt.compare(
-    password,
-    existingUser?.password
-  );
-
-  if (!isCorrectPassword) return null;
-
   return existingUser;
 }
 
+/**
+ * Parses the cookie header and returns `User`
+ *
+ * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request
+ * @returns `User` | `Response` - https://developer.mozilla.org/en-US/docs/Web/API/Response
+ */
+
+export async function getUser({
+  request,
+}: {
+  request: Request;
+}) {
+  const session = await sessionStorage.getSession(
+    request.headers.get('cookie')
+  );
+
+  if (!session.data.userId) {
+    return redirect('/login');
+  }
+
+  const user = await db.user.findFirst({
+    where: { id: session.data?.userId },
+  });
+
+  return user;
+}
+
+const schema = z.object({
+  username: z
+    .string({
+      required_error: 'Username is required.',
+    })
+    .min(3, 'Username must be at least 3 characters long.'),
+  password: z
+    .string({
+      required_error: 'Password is required.',
+    })
+    .min(8, 'Password must be at least 8 characters long.'),
+});
+
 authenticator.use(
   new FormStrategy(async ({ form }) => {
-    const username = form.get('username') as string;
-    const password = form.get('password') as string;
+    try {
+      const username = form.get('username') as string;
+      const password = form.get('password') as string;
 
-    // TODO: do validation here
+      schema.parse({ username, password });
 
-    const user = await findOrCreateUser({
-      username,
-      password,
-    });
+      const user = await findOrCreateUser({
+        username,
+        password,
+      });
 
-    return user;
+      const isPasswordCorrect = await bcrypt.compare(
+        password,
+        user.password
+      );
+
+      if (!isPasswordCorrect) {
+        return json(
+          {
+            fieldErrors: {
+              password: `The password you provided doesn't match.`,
+            },
+          },
+          { status: 400 }
+        );
+      }
+
+      const session = await sessionStorage.getSession();
+
+      session.set('userId', user.id);
+
+      return redirect('/home', {
+        headers: {
+          'Set-Cookie': await sessionStorage.commitSession(
+            session
+          ),
+        },
+      });
+    } catch (error) {
+      const errors = (error as z.ZodError).flatten();
+
+      return json(
+        {
+          fieldErrors: {
+            username: errors.fieldErrors.username?.[0],
+            password: errors.fieldErrors.password?.[0],
+          },
+        },
+        { status: 400 }
+      );
+    }
   })
 );
