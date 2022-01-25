@@ -1,13 +1,15 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { json, redirect } from 'remix';
 import { Authenticator } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
+import * as z from 'zod';
 import { db } from '~/db.server';
 import { sessionStorage } from './session.server';
 
-export const authenticator = new Authenticator<User | null>(
-  sessionStorage
-);
+export const authenticator = new Authenticator<
+  User | Response
+>(sessionStorage);
 
 /**
  * Partial fields of User Model
@@ -20,7 +22,7 @@ type UserInput = Pick<User, 'username' | 'password'>;
  *
  * @param {string} username - Username of the user.
  * @param {string} password - Password of the user.
- * @returns User instance or null
+ * @returns `User` or `Response`
  */
 
 export async function findOrCreateUser({

@@ -1,15 +1,10 @@
-import { LoaderFunction, useLoaderData } from 'remix';
-import { authenticator } from '~/session/auth.server';
+import { Form, LoaderFunction, useLoaderData } from 'remix';
+import { getUser } from '~/session/auth.server';
 
 export const loader: LoaderFunction = async ({
   request,
 }) => {
-  const user = await authenticator.isAuthenticated(
-    request,
-    {
-      failureRedirect: '/login',
-    }
-  );
+  const user = getUser({ request });
 
   return user;
 };
@@ -17,5 +12,12 @@ export const loader: LoaderFunction = async ({
 export default function HomeRoute() {
   const user = useLoaderData();
 
-  return <div>welcome {user.username}</div>;
+  return (
+    <div>
+      welcome {user.username}
+      <Form action="/logout" method="post">
+        <button type="submit">logout</button>
+      </Form>
+    </div>
+  );
 }
