@@ -23,5 +23,5 @@ jobs:
           start: npm run start
           wait-on: http://localhost:3000
         env:
-          SESSION_SECRET: VERYSECRETKEY
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
