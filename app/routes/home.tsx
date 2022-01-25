@@ -1,9 +1,7 @@
 import { Form, LoaderFunction, useLoaderData } from 'remix';
 import { getUser } from '~/session/auth.server';
 
-export const loader: LoaderFunction = async ({
-  request,
-}) => {
+export const loader: LoaderFunction = async ({ request }) => {
   const user = getUser({ request });
 
   return user;

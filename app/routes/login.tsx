@@ -1,19 +1,18 @@
 import { ActionFunction, Form, useActionData } from 'remix';
 import { authenticator } from '~/session/auth.server';
 
-export const action: ActionFunction = async ({
-  request,
-}) => {
-  const loginData = await authenticator.authenticate(
-    'form',
-    request
-  );
+export const action: ActionFunction = async ({ request }) => {
+  const loginData = await authenticator.authenticate('form', request);
 
   return loginData;
 };
 
+type ActionData = {
+  fieldErrors: { username?: string; password?: string };
+};
+
 export default function LoginRoute() {
-  const actionData = useActionData();
+  const actionData = useActionData<ActionData | undefined>();
 
   return (
     <div>
@@ -27,9 +26,7 @@ export default function LoginRoute() {
             name="username"
           />
           <span id="username-error-message">
-            {actionData?.fieldErrors
-              ? actionData?.fieldErrors?.username
-              : ''}
+            {actionData?.fieldErrors ? actionData?.fieldErrors?.username : ''}
           </span>
         </label>
         <label htmlFor="password">
@@ -43,9 +40,7 @@ export default function LoginRoute() {
             aria-label="password"
           />
           <span id="password-error-message">
-            {actionData?.fieldErrors
-              ? actionData?.fieldErrors?.password
-              : ''}
+            {actionData?.fieldErrors ? actionData?.fieldErrors?.password : ''}
           </span>
         </label>
         <button type="submit">Login</button>

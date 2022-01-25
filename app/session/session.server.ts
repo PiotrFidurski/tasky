@@ -1,7 +1,4 @@
-import {
-  createCookieSessionStorage,
-  redirect,
-} from 'remix';
+import { createCookieSessionStorage, redirect } from 'remix';
 
 const SECRET_KEY = process.env.SESSION_SECRET;
 
@@ -26,14 +23,8 @@ export const sessionStorage = createCookieSessionStorage({
  * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
  * @returns `Promise<Session>`
  */
-export function getUserSession({
-  request,
-}: {
-  request: Request;
-}) {
-  return sessionStorage.getSession(
-    request.headers.get('Cookie')
-  );
+export function getUserSession({ request }: { request: Request }) {
+  return sessionStorage.getSession(request.headers.get('Cookie'));
 }
 
 /**
@@ -42,18 +33,12 @@ export function getUserSession({
  * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
  * @returns `Promise<Response>` - https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
-export async function destroyUserSession({
-  request,
-}: {
-  request: Request;
-}) {
+export async function destroyUserSession({ request }: { request: Request }) {
   const session = await getUserSession({ request });
 
   return redirect('/login', {
     headers: {
-      'Set-Cookie': await sessionStorage.destroySession(
-        session
-      ),
+      'Set-Cookie': await sessionStorage.destroySession(session),
     },
   });
 }
