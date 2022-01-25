@@ -20,32 +20,6 @@ export const authenticator = new Authenticator<User | Response>(sessionStorage);
 type UserInput = Pick<User, 'username' | 'password'>;
 
 /**
- * Checks the database for existing user, if found returns the user,
- * otherwise creates brand new user.
- *
- * @param {string} username - Username of the user.
- * @param {string} password - Password of the user.
- * @returns `User`
- */
-export async function findOrCreateUser({ username, password }: UserInput) {
-  const existingUser = await db.user.findFirst({
-    where: { username },
-  });
-
-  if (!existingUser) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await db.user.create({
-      data: { username, password: hashedPassword },
-    });
-
-    return user;
-  }
-
-  return existingUser;
-}
-
-/**
  * Retrieves user for the session from the database.
  *
  * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request
@@ -71,7 +45,7 @@ export async function getUser({ request }: { request: Request }) {
 const PWD_REGEX_PATTERN =
   /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
 
-const schema = z.object({
+const loginSchema = z.object({
   username: z
     .string({
       required_error: 'Username is required.',
@@ -79,7 +53,7 @@ const schema = z.object({
     .min(3, 'Username must be at least 3 characters long.'),
 });
 
-const passwordSchema = z.object({
+const passwordValidation = z.object({
   password: z
     .string({
       required_error: 'Password is required.',
@@ -94,13 +68,20 @@ const passwordSchema = z.object({
   }),
 });
 
-const registerSchema = schema
-  .merge(passwordSchema)
+const registerSchema = loginSchema
+  .merge(passwordValidation)
   .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords don't match",
+    message: "Provided passwords don't match.",
     path: ['passwordConfirmation'],
   });
 
+/**
+ * Creates user in the database.
+ *
+ * @param {string} username - Username of the user.
+ * @param {string} password - Password of the user.
+ * @returns `Promise<User>`
+ */
 async function register({ username, password }: UserInput) {
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -112,6 +93,12 @@ async function register({ username, password }: UserInput) {
   });
 }
 
+/**
+ * Checks database for user existance.
+ *
+ * @param {string} username - Username of the user.
+ * @returns `User` or `null`
+ */
 export async function login({ username }: UserInput) {
   const user = await db.user.findFirst({
     where: { username },
@@ -130,10 +117,11 @@ authenticator.use(
       const passwordConfirmation = form.get('passwordConfirmation') as string;
 
       let user = null;
+
       switch (type) {
         case 'login':
           {
-            schema.parse({ username, password });
+            loginSchema.parse({ username, password });
 
             user = await login({ username, password });
 
