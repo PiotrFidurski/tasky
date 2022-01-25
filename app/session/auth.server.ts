@@ -94,7 +94,7 @@ async function register({ username, password }: UserInput) {
 }
 
 /**
- * Checks database for user existance.
+ * Checks database for user existence.
  *
  * @param {string} username - Username of the user.
  * @returns `User` or `null`
