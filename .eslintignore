@@ -4,4 +4,4 @@ api
 .vscode
 remix.config.js
 public
-app/db.server.ts
+app/db/db.server.ts
