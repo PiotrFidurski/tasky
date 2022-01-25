@@ -6,7 +6,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "remix-serve build",
+    "start": "remix-serve api/_build",
     "postinstall": "remix setup node",
     "cypress:open": "cypress open",
     "lint": "eslint ."
