@@ -3,22 +3,14 @@ import {
   LoaderFunction,
   redirect,
 } from 'remix';
-import { sessionStorage } from '~/session/session.server';
+import { destroyUserSession } from '~/session/session.server';
 
 export const action: ActionFunction = async ({
   request,
 }) => {
-  const session = await sessionStorage.getSession(
-    request.headers.get('cookie')
-  );
+  const logout = await destroyUserSession({ request });
 
-  return redirect('/login', {
-    headers: {
-      'Set-Cookie': await sessionStorage.destroySession(
-        session
-      ),
-    },
-  });
+  return logout;
 };
 
 export const loader: LoaderFunction = () => {

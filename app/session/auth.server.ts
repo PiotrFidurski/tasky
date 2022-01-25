@@ -1,11 +1,15 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import { json, redirect } from 'remix';
+import { redirect } from 'remix';
 import { Authenticator } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
 import * as z from 'zod';
-import { db } from '~/db.server';
-import { sessionStorage } from './session.server';
+import { db } from '~/db/db.server';
+import { badRequest } from '~/utils/badRequest';
+import {
+  getUserSession,
+  sessionStorage,
+} from './session.server';
 
 export const authenticator = new Authenticator<
   User | Response
@@ -22,7 +26,7 @@ type UserInput = Pick<User, 'username' | 'password'>;
  *
  * @param {string} username - Username of the user.
  * @param {string} password - Password of the user.
- * @returns `User` or `Response`
+ * @returns `User`
  */
 
 export async function findOrCreateUser({
@@ -47,7 +51,7 @@ export async function findOrCreateUser({
 }
 
 /**
- * Parses the cookie header and returns `User`
+ * Retrieves user for the session from the database.
  *
  * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request
  * @returns `User` | `Response` - https://developer.mozilla.org/en-US/docs/Web/API/Response
@@ -58,9 +62,7 @@ export async function getUser({
 }: {
   request: Request;
 }) {
-  const session = await sessionStorage.getSession(
-    request.headers.get('cookie')
-  );
+  const session = await getUserSession({ request });
 
   if (!session.data.userId) {
     return redirect('/login');
@@ -105,14 +107,11 @@ authenticator.use(
       );
 
       if (!isPasswordCorrect) {
-        return json(
-          {
-            fieldErrors: {
-              password: `The password you provided doesn't match.`,
-            },
+        return badRequest({
+          fieldErrors: {
+            password: `The password you provided doesn't match.`,
           },
-          { status: 400 }
-        );
+        });
       }
 
       const session = await sessionStorage.getSession();
@@ -129,15 +128,12 @@ authenticator.use(
     } catch (error) {
       const errors = (error as z.ZodError).flatten();
 
-      return json(
-        {
-          fieldErrors: {
-            username: errors.fieldErrors.username?.[0],
-            password: errors.fieldErrors.password?.[0],
-          },
+      return badRequest({
+        fieldErrors: {
+          username: errors.fieldErrors.username?.[0],
+          password: errors.fieldErrors.password?.[0],
         },
-        { status: 400 }
-      );
+      });
     }
   })
 );
