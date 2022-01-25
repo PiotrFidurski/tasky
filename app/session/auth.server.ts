@@ -61,6 +61,9 @@ export async function getUser({ request }: { request: Request }) {
   return user;
 }
 
+const PWD_REGEX_PATTERN =
+  /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
+
 const schema = z.object({
   username: z
     .string({
@@ -71,6 +74,10 @@ const schema = z.object({
     .string({
       required_error: 'Password is required.',
     })
+    .regex(
+      PWD_REGEX_PATTERN,
+      'Password must include special characters, numbers, and upper case letters.'
+    )
     .min(8, 'Password must be at least 8 characters long.'),
 });
 
