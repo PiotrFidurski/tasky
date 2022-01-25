@@ -28,7 +28,6 @@ type UserInput = Pick<User, 'username' | 'password'>;
  * @param {string} password - Password of the user.
  * @returns `User`
  */
-
 export async function findOrCreateUser({
   username,
   password,
@@ -56,7 +55,6 @@ export async function findOrCreateUser({
  * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request
  * @returns `User` | `Response` - https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
-
 export async function getUser({
   request,
 }: {

@@ -26,7 +26,6 @@ export const sessionStorage = createCookieSessionStorage({
  * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
  * @returns `Promise<Session>`
  */
-
 export function getUserSession({
   request,
 }: {
