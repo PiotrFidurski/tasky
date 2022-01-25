@@ -24,3 +24,4 @@ jobs:
           wait-on: http://localhost:3000
         env:
           SESSION_SECRET: VERYSECRETKEY
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
