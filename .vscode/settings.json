@@ -4,7 +4,7 @@
   "editor.guides.bracketPairs": true,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma",
-    "editor.wordWrapColumn": 80
+    "editor.wordWrapColumn": 100
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode"

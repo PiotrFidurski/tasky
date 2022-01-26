@@ -23,6 +23,7 @@
   "plugins": ["react", "@typescript-eslint", "import"],
   "rules": {
     "arrow-body-style": "off",
+    "import/prefer-default-export": "off",
     "react/react-in-jsx-scope": "off",
     "prefer-template": "off"
   },
