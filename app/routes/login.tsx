@@ -4,11 +4,7 @@ import { ZodError } from 'zod';
 import { login, loginSchema } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import { badRequest } from '~/utils/badRequest';
-
-export function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message;
-  return String(error);
-}
+import { getErrorMessage } from '~/utils/getErrorMessage';
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -43,6 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
   } catch (error) {
     if (error instanceof ZodError) {
       const parsedErrors = error.flatten();
+
       return badRequest({
         errors: {
           ...parsedErrors.fieldErrors,

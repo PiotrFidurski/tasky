@@ -4,7 +4,7 @@ import { db } from '~/db/db.server';
 import { register, registerSchema } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import { badRequest } from '~/utils/badRequest';
-import { getErrorMessage } from './login';
+import { getErrorMessage } from '~/utils/getErrorMessage';
 
 export const action: ActionFunction = async ({ request }) => {
   try {
