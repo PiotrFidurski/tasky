@@ -42,15 +42,9 @@ export const loginSchema = z.object({
       required_error: 'Username is required.',
     })
     .min(3, 'Username must be at least 3 characters long.'),
-  password: z
-    .string({
-      required_error: 'Password is required.',
-    })
-    .regex(
-      PWD_REGEX_PATTERN,
-      'Password must include special characters, numbers, and upper case letters.'
-    )
-    .min(8, 'Password must be at least 8 characters long.'),
+  password: z.string({
+    required_error: 'Password is required.',
+  }),
 });
 
 const passwordValidation = z.object({
@@ -76,6 +70,20 @@ export const registerSchema = loginSchema
   });
 
 /**
+ * Checks database for user existence.
+ *
+ * @param {string} username - Username of the user.
+ * @returns `User` or `null`
+ */
+export async function login({ username }: UserInput) {
+  const user = await db.user.findFirst({
+    where: { username },
+  });
+
+  return user;
+}
+
+/**
  * Creates user in the database.
  *
  * @param {string} username - Username of the user.
@@ -91,18 +99,4 @@ export async function register({ username, password }: UserInput) {
       password: passwordHash,
     },
   });
-}
-
-/**
- * Checks database for user existence.
- *
- * @param {string} username - Username of the user.
- * @returns `User` or `null`
- */
-export async function login({ username }: UserInput) {
-  const user = await db.user.findFirst({
-    where: { username },
-  });
-
-  return user;
 }

@@ -38,11 +38,11 @@ export const action: ActionFunction = async ({ request }) => {
     return await createUserSession({ user });
   } catch (error) {
     if (error instanceof ZodError) {
-      const parsedErrors = error.flatten();
+      const mergedErrors = error.flatten();
 
       return badRequest({
         errors: {
-          ...parsedErrors.fieldErrors,
+          ...mergedErrors.fieldErrors,
         },
       });
     }

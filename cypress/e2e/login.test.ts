@@ -1,3 +1,6 @@
+const username = Cypress.env('TEST_USERNAME');
+const password = Cypress.env('TEST_PASSWORD');
+
 describe('login', () => {
   it('should perform typical user login flow', () => {
     cy.visit('/login');
@@ -12,12 +15,10 @@ describe('login', () => {
 
     cy.get('@passwordInput').should('have.attr', 'minLength', 8);
 
-    cy.get('@usernameInput').type('chimson');
-    cy.get('@passwordInput').type(`Ccm5555%{enter}`);
+    cy.get('@usernameInput').type(username);
+    cy.get('@passwordInput').type(`${password}{enter}`);
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/home`);
-
-    cy.findByText(/welcome chimson/i);
 
     cy.getCookie('_auth').should('exist');
 
@@ -46,7 +47,7 @@ describe('login', () => {
 
     cy.findByText(/Username must be at least 3 characters long./i);
 
-    cy.get('@usernameInput').clear().type('chimson{enter}');
+    cy.get('@usernameInput').clear().type(`${username}{enter}`);
 
     cy.findByText(/The password you provided doesn't match./i);
 

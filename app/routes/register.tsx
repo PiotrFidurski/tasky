@@ -33,10 +33,11 @@ export const action: ActionFunction = async ({ request }) => {
     return await createUserSession({ user });
   } catch (error) {
     if (error instanceof ZodError) {
-      const parsedErrors = error.flatten();
+      const mergedErrors = error.flatten();
+
       return badRequest({
         errors: {
-          ...parsedErrors.fieldErrors,
+          ...mergedErrors.fieldErrors,
         },
       });
     }
@@ -46,7 +47,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 type ActionData = {
-  fieldErrors: {
+  errors: {
     username?: string;
     password?: string;
     passwordConfirmation?: string;
@@ -68,7 +69,7 @@ export default function LoginRoute() {
             name="username"
           />
           <span id="username-error-message">
-            {actionData?.fieldErrors ? actionData?.fieldErrors?.username : ''}
+            {actionData?.errors ? actionData?.errors?.username : ''}
           </span>
         </label>
         <label htmlFor="password">
@@ -82,7 +83,7 @@ export default function LoginRoute() {
             aria-label="password"
           />
           <span id="password-error-message">
-            {actionData?.fieldErrors ? actionData?.fieldErrors?.password : ''}
+            {actionData?.errors ? actionData?.errors?.password : ''}
           </span>
         </label>
         <label htmlFor="passwordConfirmation">
@@ -95,9 +96,7 @@ export default function LoginRoute() {
             name="passwordConfirmation"
           />
           <span id="passwordConfirmation-error-message">
-            {actionData?.fieldErrors
-              ? actionData?.fieldErrors?.passwordConfirmation
-              : ''}
+            {actionData?.errors ? actionData?.errors?.passwordConfirmation : ''}
           </span>
         </label>
         <button type="submit">Register</button>
