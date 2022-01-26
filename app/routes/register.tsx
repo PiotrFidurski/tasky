@@ -1,14 +1,10 @@
-import bcrypt from 'bcryptjs';
 import { ActionFunction, Form, useActionData } from 'remix';
 import { ZodError } from 'zod';
-import { login, loginSchema } from '~/session/auth.server';
+import { db } from '~/db/db.server';
+import { register, registerSchema } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import { badRequest } from '~/utils/badRequest';
-
-export function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message;
-  return String(error);
-}
+import { getErrorMessage } from './login';
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -16,28 +12,23 @@ export const action: ActionFunction = async ({ request }) => {
 
     const username = form.get('username') as string;
     const password = form.get('password') as string;
+    const passwordConfirmation = form.get('passwordConfirmation') as string;
 
-    loginSchema.parse({ username, password });
+    registerSchema.parse({ username, password, passwordConfirmation });
 
-    const user = await login({ username, password });
+    const existingUser = await db.user.findFirst({
+      where: { username },
+    });
 
-    if (!user) {
+    if (existingUser) {
       return badRequest({
         errors: {
-          username: [`No user with that username exists.`],
+          username: `This username is already taken.`,
         },
       });
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordCorrect) {
-      return badRequest({
-        errors: {
-          password: [`The password you provided doesn't match.`],
-        },
-      });
-    }
+    const user = await register({ username, password });
 
     return await createUserSession({ user });
   } catch (error) {
@@ -55,9 +46,10 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 type ActionData = {
-  errors: {
+  fieldErrors: {
     username?: string;
     password?: string;
+    passwordConfirmation?: string;
   };
 };
 
@@ -67,7 +59,6 @@ export default function LoginRoute() {
   return (
     <div>
       <Form method="post">
-        <input type="hidden" value="login" name="type" />
         <label htmlFor="username">
           <input
             required
@@ -77,7 +68,7 @@ export default function LoginRoute() {
             name="username"
           />
           <span id="username-error-message">
-            {actionData?.errors ? actionData?.errors?.username : ''}
+            {actionData?.fieldErrors ? actionData?.fieldErrors?.username : ''}
           </span>
         </label>
         <label htmlFor="password">
@@ -85,16 +76,31 @@ export default function LoginRoute() {
             required
             id="password"
             type="password"
-            minLength={8}
             aria-describedby="password-error-message"
+            minLength={8}
             name="password"
             aria-label="password"
           />
           <span id="password-error-message">
-            {actionData?.errors ? actionData?.errors?.password : ''}
+            {actionData?.fieldErrors ? actionData?.fieldErrors?.password : ''}
           </span>
         </label>
-        <button type="submit">Login</button>
+        <label htmlFor="passwordConfirmation">
+          <input
+            placeholder="passwordC"
+            required
+            aria-describedby="passwordConfirmation-error-message"
+            id="passwordConfirmation"
+            aria-label="password confirmation"
+            name="passwordConfirmation"
+          />
+          <span id="passwordConfirmation-error-message">
+            {actionData?.fieldErrors
+              ? actionData?.fieldErrors?.passwordConfirmation
+              : ''}
+          </span>
+        </label>
+        <button type="submit">Register</button>
       </Form>
     </div>
   );
