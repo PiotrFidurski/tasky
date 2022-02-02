@@ -1,7 +1,6 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { redirect } from 'remix';
-import * as z from 'zod';
 import { db } from '~/db/db.server';
 import { getUserSession } from './session.server';
 
@@ -19,7 +18,7 @@ type UserInput = Pick<User, 'username' | 'password'>;
 export async function getUser({ request }: { request: Request }) {
   const session = await getUserSession({ request });
 
-  if (!session.data.userId) {
+  if (!session.has('userId')) {
     return redirect('/login');
   }
 
@@ -29,45 +28,6 @@ export async function getUser({ request }: { request: Request }) {
 
   return user;
 }
-
-/**
- * @remarks Regex pattern that requires number, special character, and upper case character
- */
-const PWD_REGEX_PATTERN =
-  /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
-
-export const loginSchema = z.object({
-  username: z
-    .string({
-      required_error: 'Username is required.',
-    })
-    .min(3, 'Username must be at least 3 characters long.'),
-  password: z.string({
-    required_error: 'Password is required.',
-  }),
-});
-
-const passwordValidation = z.object({
-  password: z
-    .string({
-      required_error: 'Password is required.',
-    })
-    .regex(
-      PWD_REGEX_PATTERN,
-      'Password must include special characters, numbers, and upper case letters.'
-    )
-    .min(8, 'Password must be at least 8 characters long.'),
-  passwordConfirmation: z.string({
-    required_error: 'Password Confirmation is required.',
-  }),
-});
-
-export const registerSchema = loginSchema
-  .merge(passwordValidation)
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Provided passwords don't match.",
-    path: ['passwordConfirmation'],
-  });
 
 /**
  * Checks database for user existence.
