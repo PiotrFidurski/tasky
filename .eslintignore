@@ -2,6 +2,12 @@ node_modules
 api
 .cache
 .vscode
+
+
 remix.config.js
+postcss.config.js
+tailwind.config.js
+
+
 public
 app/db/db.server.ts
