@@ -1,7 +1,7 @@
 /**
  * Returns string representation of error
  *
- * @param {unknown} error - can be anything.
+ * @param error - can be anything.
  * @returns `String`
  */
 export function getErrorMessage(error: unknown) {

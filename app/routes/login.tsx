@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { ActionFunction, Form, useActionData } from 'remix';
 import { ZodError } from 'zod';
-import { login } from '~/session/auth.server';
+import { getUser } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import { LoginActionData, loginSchema } from '~/session/validation.server';
 import { badRequest } from '~/utils/badRequest';
@@ -13,7 +13,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     const { username, password } = loginSchema.parse(form);
 
-    const user = await login({ username, password });
+    const user = await getUser(username);
 
     if (!user) {
       return badRequest({
@@ -33,7 +33,7 @@ export const action: ActionFunction = async ({ request }) => {
       });
     }
 
-    return await createUserSession({ user });
+    return await createUserSession(user.id);
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.flatten();
@@ -53,7 +53,6 @@ export default function LoginRoute() {
   return (
     <div>
       <Form method="post">
-        <input type="hidden" value="login" name="type" />
         <label htmlFor="username">
           <input
             required
@@ -63,7 +62,7 @@ export default function LoginRoute() {
             name="username"
           />
           <span id="username-error-message">
-            {actionData?.errors ? actionData?.errors?.username : ''}
+            {actionData?.errors ? actionData.errors.username : ''}
           </span>
         </label>
         <label htmlFor="password">
@@ -77,7 +76,7 @@ export default function LoginRoute() {
             aria-label="password"
           />
           <span id="password-error-message">
-            {actionData?.errors ? actionData?.errors?.password : ''}
+            {actionData?.errors ? actionData.errors.password : ''}
           </span>
         </label>
         <button type="submit">Login</button>

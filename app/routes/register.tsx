@@ -23,14 +23,14 @@ export const action: ActionFunction = async ({ request }) => {
     if (existingUser) {
       return badRequest({
         errors: {
-          username: `This username is already taken.`,
+          username: ['This username is already taken.'],
         },
       });
     }
 
     const user = await register({ username, password });
 
-    return await createUserSession({ user });
+    return await createUserSession(user.id);
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.flatten();
@@ -61,34 +61,35 @@ export default function LoginRoute() {
             name="username"
           />
           <span id="username-error-message">
-            {actionData?.errors ? actionData?.errors?.username : ''}
+            {actionData?.errors ? actionData.errors.username : ''}
           </span>
         </label>
         <label htmlFor="password">
           <input
             required
+            minLength={8}
             id="password"
             type="password"
             aria-describedby="password-error-message"
-            minLength={8}
             name="password"
             aria-label="password"
           />
           <span id="password-error-message">
-            {actionData?.errors ? actionData?.errors?.password : ''}
+            {actionData?.errors ? actionData.errors.password : ''}
           </span>
         </label>
         <label htmlFor="passwordConfirmation">
           <input
-            placeholder="passwordC"
             required
+            minLength={8}
+            placeholder="Password confirmation"
             aria-describedby="passwordConfirmation-error-message"
             id="passwordConfirmation"
             aria-label="password confirmation"
             name="passwordConfirmation"
           />
           <span id="passwordConfirmation-error-message">
-            {actionData?.errors ? actionData?.errors?.passwordConfirmation : ''}
+            {actionData?.errors ? actionData.errors.passwordConfirmation : ''}
           </span>
         </label>
         <button type="submit">Register</button>

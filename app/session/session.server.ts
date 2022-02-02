@@ -1,4 +1,3 @@
-import { User } from '@prisma/client';
 import { createCookieSessionStorage, redirect } from 'remix';
 
 const SECRET_KEY = process.env.SESSION_SECRET;
@@ -19,15 +18,15 @@ export const sessionStorage = createCookieSessionStorage({
 });
 
 /**
- * Creates user session and redirects to homepage.
+ * Creates user session.
  *
- * @param {User} user - User model.
+ * @param userId - unique user identifier.
  * @returns `Promise<Response>` - https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
-export async function createUserSession({ user }: { user: User }) {
+export async function createUserSession(userId: string) {
   const session = await sessionStorage.getSession();
 
-  session.set('userId', user?.id);
+  session.set('userId', userId);
 
   return redirect('/home', {
     headers: {
@@ -37,9 +36,9 @@ export async function createUserSession({ user }: { user: User }) {
 }
 
 /**
- * Parses Cookie header and returns session promise.
+ * Parses Cookie header.
  *
- * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
+ * @param request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
  * @returns `Promise<Session>`
  */
 export function getUserSession({ request }: { request: Request }) {
@@ -47,9 +46,9 @@ export function getUserSession({ request }: { request: Request }) {
 }
 
 /**
- * Destroys user session and redirects to login page.
+ * Destroys user session.
  *
- * @param {Request} request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
+ * @param request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
  * @returns `Promise<Response>` - https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
 export async function destroyUserSession({ request }: { request: Request }) {

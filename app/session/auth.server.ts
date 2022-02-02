@@ -22,10 +22,10 @@ export async function getUser(username: string) {
 }
 
 /**
- * Creates user in the database.
+ * Creates new user in the database.
  *
- * @param {string} username - Username of the user.
- * @param {string} password - Password of the user.
+ * @param username - Username of the user.
+ * @param password - Password of the user.
  * @returns `Promise<User>`
  */
 export async function register({ username, password }: UserInput) {
