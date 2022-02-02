@@ -14,11 +14,7 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     const form = await request.formData();
 
-    const username = form.get('username') as string;
-    const password = form.get('password') as string;
-    const passwordConfirmation = form.get('passwordConfirmation') as string;
-
-    registerSchema.parse({ username, password, passwordConfirmation });
+    const { username, password } = registerSchema.parse(form);
 
     const existingUser = await db.user.findFirst({
       where: { username },

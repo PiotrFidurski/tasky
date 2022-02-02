@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { ActionFunction, Form, useActionData } from 'remix';
+import * as z from 'zod';
 import { ZodError } from 'zod';
 import { login } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
@@ -7,14 +8,18 @@ import { LoginActionData, loginSchema } from '~/session/validation.server';
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
+const fields = z.object({
+  username: z.string(),
+  password: z.string(),
+});
+
+type FormData = z.infer<typeof fields>;
+
 export const action: ActionFunction = async ({ request }) => {
   try {
     const form = await request.formData();
 
-    const username = form.get('username') as string;
-    const password = form.get('password') as string;
-
-    loginSchema.parse({ username, password });
+    const { username, password } = loginSchema.parse(form);
 
     const user = await login({ username, password });
 
