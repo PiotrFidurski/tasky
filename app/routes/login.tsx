@@ -1,8 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { ActionFunction, Form, useActionData } from 'remix';
 import { ZodError } from 'zod';
-import { login, loginSchema } from '~/session/auth.server';
+import { login } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
+import { LoginActionData, loginSchema } from '~/session/validation.server';
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
@@ -10,10 +11,7 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     const form = await request.formData();
 
-    const username = form.get('username') as string;
-    const password = form.get('password') as string;
-
-    loginSchema.parse({ username, password });
+    const { username, password } = loginSchema.parse(form);
 
     const user = await login({ username, password });
 
@@ -38,12 +36,10 @@ export const action: ActionFunction = async ({ request }) => {
     return await createUserSession({ user });
   } catch (error) {
     if (error instanceof ZodError) {
-      const mergedErrors = error.flatten();
+      const errors = error.flatten();
 
       return badRequest({
-        errors: {
-          ...mergedErrors.fieldErrors,
-        },
+        errors: { ...errors.fieldErrors },
       });
     }
 
@@ -51,15 +47,8 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 
-type ActionData = {
-  errors: {
-    username?: string;
-    password?: string;
-  };
-};
-
 export default function LoginRoute() {
-  const actionData = useActionData<ActionData | undefined>();
+  const actionData = useActionData<LoginActionData | undefined>();
 
   return (
     <div>
@@ -80,9 +69,9 @@ export default function LoginRoute() {
         <label htmlFor="password">
           <input
             required
+            minLength={8}
             id="password"
             type="password"
-            minLength={8}
             aria-describedby="password-error-message"
             name="password"
             aria-label="password"

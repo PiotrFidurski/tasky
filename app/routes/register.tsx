@@ -1,8 +1,12 @@
 import { ActionFunction, Form, useActionData } from 'remix';
 import { ZodError } from 'zod';
 import { db } from '~/db/db.server';
-import { register, registerSchema } from '~/session/auth.server';
+import { register } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
+import {
+  RegisterActionData,
+  registerSchema,
+} from '~/session/validation.server';
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
@@ -10,11 +14,7 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     const form = await request.formData();
 
-    const username = form.get('username') as string;
-    const password = form.get('password') as string;
-    const passwordConfirmation = form.get('passwordConfirmation') as string;
-
-    registerSchema.parse({ username, password, passwordConfirmation });
+    const { username, password } = registerSchema.parse(form);
 
     const existingUser = await db.user.findFirst({
       where: { username },
@@ -33,11 +33,11 @@ export const action: ActionFunction = async ({ request }) => {
     return await createUserSession({ user });
   } catch (error) {
     if (error instanceof ZodError) {
-      const mergedErrors = error.flatten();
+      const errors = error.flatten();
 
       return badRequest({
         errors: {
-          ...mergedErrors.fieldErrors,
+          ...errors.fieldErrors,
         },
       });
     }
@@ -46,16 +46,8 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 
-type ActionData = {
-  errors: {
-    username?: string;
-    password?: string;
-    passwordConfirmation?: string;
-  };
-};
-
 export default function LoginRoute() {
-  const actionData = useActionData<ActionData | undefined>();
+  const actionData = useActionData<RegisterActionData | undefined>();
 
   return (
     <div>
