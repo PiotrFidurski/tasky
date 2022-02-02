@@ -7,6 +7,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'remix';
+import styles from './styles/app.css';
+
+export function links() {
+  return [{ rel: 'stylesheet', href: styles }];
+}
 
 export const meta: MetaFunction = () => {
   return { title: 'Tasky' };
@@ -21,7 +26,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-gray-900">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
