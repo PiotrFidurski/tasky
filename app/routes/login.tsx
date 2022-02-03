@@ -61,7 +61,8 @@ export default function LoginRoute() {
   const transition = useTransition();
 
   return (
-    <main className="flex justify-center items-center h-screen">
+    <main className="flex flex-col justify-center items-center h-screen">
+      <h1 className="text-slate-600 font-bold text-4xl py-4">Login</h1>
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
           errorMessage={
