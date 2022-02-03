@@ -55,18 +55,18 @@ export const registerSchema = zfd
     path: ['passwordConfirmation'],
   });
 
-const errorFields = {
+const errorLoginFields = {
   username: z.array(z.string()),
   password: z.array(z.string()),
 };
 
 export const ZodLoginErrors = z.object({
-  errors: z.object(errorFields),
+  errors: z.object(errorLoginFields),
 });
 
 export const ZodRegisterErrors = z.object({
   errors: z.object({
-    ...errorFields,
+    ...errorLoginFields,
     passwordConfirmation: z.array(z.string()),
   }),
 });

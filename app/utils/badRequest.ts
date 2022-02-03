@@ -1,9 +1,9 @@
 import { json } from 'remix';
 
 /**
- * Returns bad response with 400 status code.
+ * Generic 400 response.
  *
- * @param data - generic data object.
+ * @param data - Data you want to be included in response.
  * @returns `Response` - https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
 export function badRequest<T>(data: T) {

@@ -3,14 +3,14 @@ import bcrypt from 'bcryptjs';
 import { db } from '~/db/db.server';
 
 /**
- * Partial fields of User Model
+ * Partial fields of User Model.
  */
 type UserInput = Pick<User, 'username' | 'password'>;
 
 /**
  * Checks database for user existence.
  *
- * @param username - Username of the user.
+ * @param username - Name of the user.
  * @returns `User` or `null`
  */
 export async function getUser(username: string) {

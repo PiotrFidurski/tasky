@@ -20,7 +20,7 @@ export const sessionStorage = createCookieSessionStorage({
 /**
  * Creates user session.
  *
- * @param userId - unique user identifier.
+ * @param userId - Unique user identifier.
  * @returns `Promise<Response>` - https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
 export async function createUserSession(userId: string) {
@@ -38,7 +38,7 @@ export async function createUserSession(userId: string) {
 /**
  * Parses Cookie header.
  *
- * @param request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
+ * @param request - Request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
  * @returns `Promise<Session>`
  */
 export function getUserSession({ request }: { request: Request }) {
@@ -48,7 +48,7 @@ export function getUserSession({ request }: { request: Request }) {
 /**
  * Destroys user session.
  *
- * @param request - request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
+ * @param request - Request Fetch API. https://developer.mozilla.org/en-US/docs/Web/API/Request.
  * @returns `Promise<Response>` - https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
 export async function destroyUserSession({ request }: { request: Request }) {
