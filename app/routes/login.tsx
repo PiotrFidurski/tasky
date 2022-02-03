@@ -1,5 +1,11 @@
 import bcrypt from 'bcryptjs';
-import { ActionFunction, Form, useActionData } from 'remix';
+import {
+  ActionFunction,
+  Form,
+  Link,
+  useActionData,
+  useTransition,
+} from 'remix';
 import { ZodError } from 'zod';
 import { getUser } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
@@ -50,37 +56,71 @@ export const action: ActionFunction = async ({ request }) => {
 export default function LoginRoute() {
   const actionData = useActionData<LoginActionData | undefined>();
 
+  const transition = useTransition();
+
   return (
-    <div>
-      <Form method="post">
+    <main className="flex justify-center items-center h-screen">
+      <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <label htmlFor="username">
+          <span className="text-slate-900 font-semibold">Username</span>
           <input
+            className="border-b-2 mt-2 border-slate-600 px-2 py-2 w-full focus:outline-none focus:border-b-blue-600 focus:bg-blue-200 transition-colors"
             required
-            aria-describedby="username-error-message"
             id="username"
             aria-label="username"
+            placeholder="Username"
             name="username"
           />
-          <span id="username-error-message">
-            {actionData?.errors ? actionData.errors.username : ''}
-          </span>
+          <div className="min-h-[1rem] flex items-center mt-1">
+            <span
+              aria-live="polite"
+              aria-atomic="true"
+              className="text-rose-500 font-semibold text-xs"
+            >
+              {transition.state === 'idle' && actionData?.errors
+                ? actionData.errors.username
+                : ''}
+            </span>
+          </div>
         </label>
         <label htmlFor="password">
+          <span className="text-slate-900 font-semibold">Password</span>
           <input
+            className="border-b-2 mt-2 border-slate-600 px-2 py-2 w-full focus:outline-none focus:border-b-blue-600 focus:bg-blue-200 transition-colors"
             required
-            minLength={8}
             id="password"
             type="password"
-            aria-describedby="password-error-message"
+            placeholder="Password"
             name="password"
             aria-label="password"
           />
-          <span id="password-error-message">
-            {actionData?.errors ? actionData.errors.password : ''}
-          </span>
+          <div className="min-h-[1rem] flex items-center mt-1">
+            <span
+              aria-live="polite"
+              aria-atomic="true"
+              className="text-rose-500 font-semibold text-xs"
+            >
+              {transition.state === 'idle' && actionData?.errors
+                ? actionData.errors.password
+                : ''}
+            </span>
+          </div>
         </label>
-        <button type="submit">Login</button>
+        <div className="flex items-center justify-between w-full gap-4">
+          <button
+            type="submit"
+            className="border-2 border-blue-600 w-full bg-blue-600 rounded py-2 text-white font-bold uppercase hover:bg-blue-700 hover:border-blue-700 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
+          >
+            Login
+          </button>
+          <Link
+            to="/register"
+            className="flex justify-center items-center border-2 border-blue-600 w-full rounded py-2 font-bold uppercase text-blue-600 hover:text-white hover:bg-blue-600 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
+          >
+            Register
+          </Link>
+        </div>
       </Form>
-    </div>
+    </main>
   );
 }
