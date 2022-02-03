@@ -1,4 +1,10 @@
-import { ActionFunction, Form, useActionData, useTransition } from 'remix';
+import {
+  ActionFunction,
+  Form,
+  Link,
+  useActionData,
+  useTransition,
+} from 'remix';
 import { ZodError } from 'zod';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
@@ -108,12 +114,20 @@ export default function LoginRoute() {
             name="passwordConfirmation"
           />
         </FieldWrapper>
-        <button
-          type="submit"
-          className="border-2 border-blue-600 w-full bg-blue-600 rounded py-2 text-white font-bold uppercase hover:bg-blue-700 hover:border-blue-700 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
-        >
-          Register
-        </button>
+        <div className="flex justify-between items-center gap-4">
+          <button
+            type="submit"
+            className="border-2 border-blue-600 w-full bg-blue-600 rounded py-2 text-white font-bold uppercase hover:bg-blue-700 hover:border-blue-700 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
+          >
+            Register
+          </button>
+          <Link
+            to="/login"
+            className="w-full text-center py-2 border-2 rounded border-slate-600 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
+          >
+            already have an account?
+          </Link>
+        </div>
       </Form>
     </main>
   );
