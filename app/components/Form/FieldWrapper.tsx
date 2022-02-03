@@ -11,7 +11,9 @@ function FieldWrapper({
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <label htmlFor={htmlFor} {...props}>
-      <span className="text-slate-900 font-semibold">{htmlFor}</span>
+      <span className="text-slate-900 inline-block font-semibold first-letter:capitalize">
+        {htmlFor}
+      </span>
       {children}
       <div className="min-h-[1rem] flex items-center mt-1">
         <span
