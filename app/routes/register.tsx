@@ -1,5 +1,7 @@
-import { ActionFunction, Form, useActionData } from 'remix';
+import { ActionFunction, Form, useActionData, useTransition } from 'remix';
 import { ZodError } from 'zod';
+import { FieldWrapper } from '~/components/Form/FieldWrapper';
+import { InputField } from '~/components/Form/InputField';
 import { db } from '~/db/db.server';
 import { register } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
@@ -49,51 +51,70 @@ export const action: ActionFunction = async ({ request }) => {
 export default function LoginRoute() {
   const actionData = useActionData<RegisterActionData | undefined>();
 
+  const transition = useTransition();
+
   return (
-    <div>
-      <Form method="post">
-        <label htmlFor="username">
-          <input
+    <main className="flex justify-center items-center h-screen">
+      <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
+        <FieldWrapper
+          htmlFor="username"
+          errorMessage={
+            transition.state === 'idle' && actionData?.errors
+              ? actionData.errors.username
+              : ''
+          }
+        >
+          <InputField
             required
-            aria-describedby="username-error-message"
             id="username"
             aria-label="username"
             name="username"
+            placeholder="Username"
           />
-          <span id="username-error-message">
-            {actionData?.errors ? actionData.errors.username : ''}
-          </span>
-        </label>
-        <label htmlFor="password">
-          <input
+        </FieldWrapper>
+        <FieldWrapper
+          htmlFor="password"
+          errorMessage={
+            transition.state === 'idle' && actionData?.errors
+              ? actionData.errors.password
+              : ''
+          }
+        >
+          <InputField
             required
             minLength={8}
             id="password"
             type="password"
-            aria-describedby="password-error-message"
             name="password"
+            placeholder="Password"
             aria-label="password"
           />
-          <span id="password-error-message">
-            {actionData?.errors ? actionData.errors.password : ''}
-          </span>
-        </label>
-        <label htmlFor="passwordConfirmation">
-          <input
+        </FieldWrapper>
+        <FieldWrapper
+          htmlFor="password confirmation"
+          errorMessage={
+            transition.state === 'idle' && actionData?.errors
+              ? actionData.errors.passwordConfirmation
+              : ''
+          }
+        >
+          <InputField
             required
             minLength={8}
+            type="password"
             placeholder="Password confirmation"
-            aria-describedby="passwordConfirmation-error-message"
             id="passwordConfirmation"
             aria-label="password confirmation"
             name="passwordConfirmation"
           />
-          <span id="passwordConfirmation-error-message">
-            {actionData?.errors ? actionData.errors.passwordConfirmation : ''}
-          </span>
-        </label>
-        <button type="submit">Register</button>
+        </FieldWrapper>
+        <button
+          type="submit"
+          className="border-2 border-blue-600 w-full bg-blue-600 rounded py-2 text-white font-bold uppercase hover:bg-blue-700 hover:border-blue-700 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
+        >
+          Register
+        </button>
       </Form>
-    </div>
+    </main>
   );
 }
