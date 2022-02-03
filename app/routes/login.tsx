@@ -7,6 +7,8 @@ import {
   useTransition,
 } from 'remix';
 import { ZodError } from 'zod';
+import { FieldWrapper } from '~/components/Form/FieldWrapper';
+import { InputField } from '~/components/Form/InputField';
 import { getUser } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import { LoginActionData, loginSchema } from '~/session/validation.server';
@@ -61,33 +63,33 @@ export default function LoginRoute() {
   return (
     <main className="flex justify-center items-center h-screen">
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
-        <label htmlFor="username">
-          <span className="text-slate-900 font-semibold">Username</span>
-          <input
-            className="border-b-2 mt-2 border-slate-600 px-2 py-2 w-full focus:outline-none focus:border-b-blue-600 focus:bg-blue-200 transition-colors"
+        <FieldWrapper
+          errorMessage={
+            transition.state === 'idle' && actionData?.errors
+              ? actionData.errors.username
+              : ''
+          }
+          htmlFor="username"
+        >
+          <InputField
             required
             id="username"
             aria-label="username"
             placeholder="Username"
             name="username"
           />
-          <div className="min-h-[1rem] flex items-center mt-1">
-            <span
-              aria-live="polite"
-              aria-atomic="true"
-              className="text-rose-500 font-semibold text-xs"
-            >
-              {transition.state === 'idle' && actionData?.errors
-                ? actionData.errors.username
-                : ''}
-            </span>
-          </div>
-        </label>
-        <label htmlFor="password">
-          <span className="text-slate-900 font-semibold">Password</span>
-          <input
+        </FieldWrapper>
+
+        <FieldWrapper
+          htmlFor="password"
+          errorMessage={
+            transition.state === 'idle' && actionData?.errors
+              ? actionData.errors.password
+              : ''
+          }
+        >
+          <InputField
             minLength={8}
-            className="border-b-2 mt-2 border-slate-600 px-2 py-2 w-full focus:outline-none focus:border-b-blue-600 focus:bg-blue-200 transition-colors"
             required
             id="password"
             type="password"
@@ -95,18 +97,7 @@ export default function LoginRoute() {
             name="password"
             aria-label="password"
           />
-          <div className="min-h-[1rem] flex items-center mt-1">
-            <span
-              aria-live="polite"
-              aria-atomic="true"
-              className="text-rose-500 font-semibold text-xs"
-            >
-              {transition.state === 'idle' && actionData?.errors
-                ? actionData.errors.password
-                : ''}
-            </span>
-          </div>
-        </label>
+        </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
           <button
             type="submit"
