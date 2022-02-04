@@ -1,4 +1,8 @@
 /// <reference types="cypress" />
+
+// eslint-disable-next-line import/no-import-module-exports
+import { PrismaClient } from '@prisma/client';
+
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -16,7 +20,27 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
-module.exports = () => {
+
+module.exports = (on: any) => {
+  const db = new PrismaClient();
+  db.$connect();
+
+  on('task', {
+    // remove task before test runs.
+    async removeTask() {
+      const taskToDelete = await db.task.findFirst({
+        where: { body: 'this is a test task.' },
+      });
+
+      if (taskToDelete) {
+        await db.task.delete({
+          where: { id: taskToDelete?.id },
+        });
+      }
+
+      return null;
+    },
+  });
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 };
