@@ -6,10 +6,11 @@ describe('task', () => {
   });
   it('should allow users to create new tasks', () => {
     const formData = new FormData();
+
     formData.append('username', username);
     formData.append('password', password);
-
-    cy.request('POST', '/login', formData);
+    console.log(formData, username, password);
+    cy.request('POST', 'http://localhost:3000/login', formData);
 
     cy.visit('/home');
 
