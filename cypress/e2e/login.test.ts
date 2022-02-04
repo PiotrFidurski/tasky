@@ -43,7 +43,7 @@ describe('login', () => {
     cy.get('@passwordInput').should('have.attr', 'minLength', 8);
 
     cy.get('@usernameInput').type('ch{enter}');
-    cy.get('@passwordInput').type(`Verysecret55%ss{enter}`);
+    cy.get('@passwordInput').type(`Verysecret55%sss{enter}`);
 
     cy.findByText(/Username must be at least 3 characters long./i);
 
