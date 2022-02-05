@@ -27,3 +27,4 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           CYPRESS_TEST_USERNAME: ${{ secrets.CYPRESS_TEST_USERNAME }}
           CYPRESS_TEST_PASSWORD: ${{ secrets.CYPRESS_TEST_PASSWORD }}
+          CYPRESS_TEST_COOKIE_VALUE: ${{ secrets.CYPRESS_TEST_COOKIE_VALUE }}
