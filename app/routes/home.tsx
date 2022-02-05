@@ -1,9 +1,9 @@
 import { Task, User } from '@prisma/client';
 import {
   ActionFunction,
-  Form,
   json,
   LoaderFunction,
+  Outlet,
   redirect,
   useActionData,
   useLoaderData,
@@ -12,8 +12,9 @@ import {
 import * as z from 'zod';
 import { ZodError } from 'zod';
 import { zfd } from 'zod-form-data';
-import { FieldWrapper } from '~/components/Form/FieldWrapper';
-import { InputField } from '~/components/Form/InputField';
+import { CreateTask } from '~/components/CreateTask';
+import { Sidebar } from '~/components/Sidebar';
+import { TaskComponent } from '~/components/TaskComponent';
 import { db } from '~/db/db.server';
 import { getUserSession } from '~/session/session.server';
 import { badRequest } from '~/utils/badRequest';
@@ -102,58 +103,29 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function HomeRoute() {
   const { user, tasks } = useLoaderData<LoaderData>();
+
   const actionData = useActionData<ActionData>();
+
   const transition = useTransition();
+
   return (
-    <main>
-      <h1 className="py-2 text-4xl text-slate-600">welcome {user.username}</h1>
-      <Form action="/logout" method="post">
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-2 rounded py-2"
-        >
-          logout
-        </button>
-      </Form>
-      <div className="max-w-sm m-auto px-4">
-        <Form method="post" className="py-4">
-          <h2 aria-level={1} className="py-2 text-4xl text-slate-600">
-            Create new task
-          </h2>
-          <FieldWrapper
-            htmlFor="body"
-            errorMessage={
-              transition.state === 'idle' && actionData?.errors
-                ? actionData.errors.body
-                : ''
-            }
-          >
-            <InputField required aria-label="body" name="body" id="body" />
-          </FieldWrapper>
-          <button
-            className="py-2 bg-blue-600 text-white rounded px-2"
-            type="submit"
-          >
-            Add task
-          </button>
-        </Form>
-        <div>
+    <main className="flex w-full">
+      <Sidebar user={user} />
+      <div className="px-4 py-4 max-w-xl w-full border-r border-slate-300">
+        <CreateTask
+          errorMessage={
+            transition.state === 'idle' && actionData?.errors
+              ? actionData.errors.body
+              : ''
+          }
+        />
+        <div className="flex flex-col gap-2 max-w-xl mt-6">
           {tasks.map((task) => (
-            <article
-              key={task.id}
-              className="py-2 px-2 bg-slate-200 mb-2 rounded flex items-center justify-between shadow-sm shadow-black"
-            >
-              <span className="font-semibold">{task.body}</span>
-              <button
-                type="button"
-                className="bg-pink-600 text-white px-4 rounded"
-              >
-                delete
-              </button>
-            </article>
+            <TaskComponent task={task} key={task.id} />
           ))}
         </div>
       </div>
+      <Outlet />
     </main>
   );
 }
