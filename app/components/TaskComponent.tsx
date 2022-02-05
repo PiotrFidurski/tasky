@@ -50,7 +50,12 @@ function TaskComponent({ task }: { task: Task }) {
           {task.body}
         </Link>
       </div>
-      <button type="button" className="uppercase font-bold text-slate-600">
+      <button
+        type="button"
+        aria-label="delete task"
+        className="uppercase font-bold text-slate-600"
+      >
+        {/* trash icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
