@@ -10,7 +10,17 @@ describe('task', () => {
     formData.append('username', username);
     formData.append('password', password);
     console.log(formData, username, password);
-    cy.request('POST', 'http://localhost:3000/login', formData);
+    cy.request({
+      url: '/login',
+      method: 'POST',
+      form: true,
+      body: { username, password },
+    }).then(() => {
+      cy.setCookie(
+        '_auth',
+        'eyJ1c2VySWQiOiI2MWZkMjdjOGE4ZjJhY2I4YjUyZjVhYjIifQ%3D%3D.qGZLza0DfGV9EfQln5zOiX2UiXjfBsBG1zcSVtQ53Vg'
+      );
+    });
 
     cy.visit('/home');
 
