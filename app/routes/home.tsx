@@ -76,6 +76,31 @@ export const action: ActionFunction = async ({ request }) => {
 
     const form = await request.formData();
 
+    const actionType = form.get('_action');
+
+    const id = form.get('id') as string;
+
+    if (actionType) {
+      switch (actionType) {
+        case 'complete': {
+          await db.task.update({
+            where: { id },
+            data: { isComplete: true },
+          });
+
+          return null;
+        }
+
+        case 'uncomplete': {
+          await db.task.update({ where: { id }, data: { isComplete: false } });
+
+          return null;
+        }
+        default:
+          break;
+      }
+    }
+
     const { body } = schema.parse(form);
 
     if (userId) {
