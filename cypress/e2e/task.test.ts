@@ -14,4 +14,16 @@ describe('task', () => {
 
     cy.findByText(/this is a test task./i);
   });
+
+  it('should show field errors if there are any.', () => {
+    cy.login();
+
+    cy.visit('/home');
+
+    cy.findAllByRole('textbox', { name: /body/i })
+      .as('bodyInput')
+      .type(`.{enter}`);
+
+    cy.findByText(/Body should be at least 3 characters long./i);
+  });
 });
