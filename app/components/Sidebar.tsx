@@ -9,6 +9,7 @@ function Sidebar({ user }: { user: User }) {
           <div className="flex items-center justify-between border-b border-slate-300 w-full px-2 py-4 text-slate-600">
             <Link to="/">Some logo here</Link>
             <button type="button">
+              {/* toggle theme icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -29,6 +30,7 @@ function Sidebar({ user }: { user: User }) {
             <ul className="px-2 flex flex-col gap-4">
               <Link to="/home">
                 <li className="flex justify-start gap-2 items-center px-2 py-2 border border-slate-300 rounded-md bg-blue-600 text-white uppercase font-bold shadow-sm">
+                  {/* home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -80,6 +82,7 @@ function Sidebar({ user }: { user: User }) {
             <span className="font-bold text-slate-600">{user.username}</span>
           </div>
           <button type="button">
+            {/* ellipsis icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"

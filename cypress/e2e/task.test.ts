@@ -26,4 +26,20 @@ describe('task', () => {
 
     cy.findByText(/Body should be at least 3 characters long./i);
   });
+
+  it('should allow users to complete tasks.', () => {
+    cy.login();
+
+    cy.visit('/home');
+
+    cy.findByRole('article', { name: /this is a test task./i }).within(() => {
+      cy.findByRole('button', { name: /complete task/i }).as('completeTaskBtn');
+
+      cy.get('@completeTaskBtn').click();
+
+      cy.findByRole('button', { name: /uncomplete task/i }).click();
+
+      cy.get('@completeTaskBtn');
+    });
+  });
 });
