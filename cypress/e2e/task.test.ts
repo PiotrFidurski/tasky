@@ -1,25 +1,20 @@
 describe('task', () => {
   const username = Cypress.env('TEST_USERNAME');
   const password = Cypress.env('TEST_PASSWORD');
+  const cookieValue = Cypress.env('TEST_COOKIE_VALUE');
+
   before(() => {
     cy.task('removeTask');
   });
-  it('should allow users to create new tasks', () => {
-    const formData = new FormData();
 
-    formData.append('username', username);
-    formData.append('password', password);
-    console.log(formData, username, password);
+  it('should allow users to create new tasks', () => {
     cy.request({
       url: '/login',
       method: 'POST',
       form: true,
       body: { username, password },
     }).then(() => {
-      cy.setCookie(
-        '_auth',
-        'eyJ1c2VySWQiOiI2MWZkMjdjOGE4ZjJhY2I4YjUyZjVhYjIifQ%3D%3D.qGZLza0DfGV9EfQln5zOiX2UiXjfBsBG1zcSVtQ53Vg'
-      );
+      cy.setCookie('_auth', cookieValue);
     });
 
     cy.visit('/home');
