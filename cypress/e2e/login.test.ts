@@ -1,7 +1,7 @@
-const username = Cypress.env('TEST_USERNAME');
-const password = Cypress.env('TEST_PASSWORD');
-
 describe('login', () => {
+  const username = Cypress.env('TEST_USERNAME');
+  const password = Cypress.env('TEST_PASSWORD');
+
   it('should perform typical user login flow', () => {
     cy.visit('/login');
 

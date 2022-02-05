@@ -1,6 +1,7 @@
 {
   "exclude": [],
   "include": [
+    "./types/index.d.ts",
     "./index.ts",
     "e2e/**/*",
     "plugins/**/*",
@@ -11,11 +12,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true,
-    "types": [
-      "node",
-      "cypress",
-      "@testing-library/cypress"
-    ],
+    "types": ["node", "cypress", "@testing-library/cypress"],
     "esModuleInterop": true,
     "jsx": "react",
     "moduleResolution": "node",

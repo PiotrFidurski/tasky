@@ -21,7 +21,10 @@ import { PrismaClient } from '@prisma/client';
  */
 // eslint-disable-next-line no-unused-vars
 
-module.exports = (on: any) => {
+module.exports = (
+  on: Cypress.PluginEvents
+  // config: Cypress.PluginConfigOptions
+) => {
   const db = new PrismaClient();
   db.$connect();
 
