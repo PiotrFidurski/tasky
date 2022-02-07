@@ -115,9 +115,9 @@ export default function HomeRoute() {
   return (
     <main className="flex w-full">
       <Sidebar user={user} />
-      <div className="px-4 py-4 max-w-xl w-full border-r border-slate-300">
+      <div className="px-4 py-4 max-h-screen max-w-xl w-full border-r border-slate-300">
         <CreateTask errorMessage={fieldErrors?.body || ''} />
-        <div className="flex flex-col gap-2 max-w-xl mt-6">
+        <div className="flex flex-col gap-2 max-w-xl mt-6 overflow-auto h-[calc(100%-12rem)]">
           {tasks.map((task) => (
             <TaskComponent task={task} key={task.id} />
           ))}
