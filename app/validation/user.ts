@@ -70,6 +70,3 @@ export const ZodRegisterErrors = z.object({
     passwordConfirmation: z.array(z.string()),
   }),
 });
-
-export type LoginActionData = z.infer<typeof ZodLoginErrors>;
-export type RegisterActionData = z.infer<typeof ZodRegisterErrors>;

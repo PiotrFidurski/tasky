@@ -1,22 +1,22 @@
-import {
-  ActionFunction,
-  Form,
-  Link,
-  useActionData,
-  useTransition,
-} from 'remix';
-import { ZodError } from 'zod';
-import { FieldWrapper } from '~/components/Form/FieldWrapper';
-import { InputField } from '~/components/Form/InputField';
-import { db } from '~/db/db.server';
+import { ZodError, z } from 'zod';
+
+import { ActionFunction, Form, Link, useActionData } from 'remix';
+
+import { getUserByUsername } from '~/models/user';
+
+import { ZodRegisterErrors, registerSchema } from '~/validation/user';
+
 import { register } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
-import {
-  RegisterActionData,
-  registerSchema,
-} from '~/session/validation.server';
+
+import { FieldWrapper } from '~/components/Form/FieldWrapper';
+import { InputField } from '~/components/Form/InputField';
+
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { useErrors } from '~/utils/hooks/useErrors';
+
+type ActionData = z.infer<typeof ZodRegisterErrors>;
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -24,9 +24,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     const { username, password } = registerSchema.parse(form);
 
-    const existingUser = await db.user.findFirst({
-      where: { username },
-    });
+    const existingUser = await getUserByUsername(username);
 
     if (existingUser) {
       return badRequest({
@@ -55,9 +53,9 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function LoginRoute() {
-  const actionData = useActionData<RegisterActionData | undefined>();
+  const actionData = useActionData<ActionData | undefined>();
 
-  const transition = useTransition();
+  const { fieldErrors } = useErrors(actionData);
 
   return (
     <main className="flex flex-col justify-center items-center h-screen">
@@ -65,11 +63,7 @@ export default function LoginRoute() {
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
           htmlFor="username"
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.username
-              : ''
-          }
+          errorMessage={fieldErrors?.username || ''}
         >
           <InputField
             required
@@ -81,11 +75,7 @@ export default function LoginRoute() {
         </FieldWrapper>
         <FieldWrapper
           htmlFor="password"
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.password
-              : ''
-          }
+          errorMessage={fieldErrors?.password || ''}
         >
           <InputField
             required
@@ -99,11 +89,7 @@ export default function LoginRoute() {
         </FieldWrapper>
         <FieldWrapper
           htmlFor="password confirmation"
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.passwordConfirmation
-              : ''
-          }
+          errorMessage={fieldErrors?.passwordConfirmation || ''}
         >
           <InputField
             required

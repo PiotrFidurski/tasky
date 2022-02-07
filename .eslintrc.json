@@ -25,7 +25,17 @@
     "arrow-body-style": "off",
     "import/prefer-default-export": "off",
     "react/react-in-jsx-scope": "off",
-    "prefer-template": "off"
+    "prefer-template": "off",
+    "react/jsx-props-no-spreading": [
+      2,
+      {
+        "html": "enforce",
+        "custom": "enforce",
+        "explicitSpread": "enforce",
+        "exceptions": ["label", "button", "input", "li"]
+      }
+    ],
+    "@typescript-eslint/no-throw-literal": ["off"]
   },
   "settings": {
     "import/parsers": {

@@ -6,11 +6,10 @@ function FieldWrapper({
   children,
   errorMessage,
   htmlFor,
-  ...props
+  ...htmlLabelProps
 }: FieldWrapperProps) {
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <label htmlFor={htmlFor} {...props}>
+    <label htmlFor={htmlFor} {...htmlLabelProps}>
       <span className="text-slate-900 inline-block font-semibold first-letter:capitalize">
         {htmlFor}
       </span>

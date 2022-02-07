@@ -1,64 +1,54 @@
 import { Task, User } from '@prisma/client';
+import { ZodError, z } from 'zod';
+
 import {
   ActionFunction,
-  json,
   LoaderFunction,
   Outlet,
+  json,
   redirect,
   useActionData,
+  useCatch,
   useLoaderData,
-  useTransition,
 } from 'remix';
-import * as z from 'zod';
-import { ZodError } from 'zod';
-import { zfd } from 'zod-form-data';
+
+import {
+  createTask,
+  getManyTasks,
+  markTaskComplete,
+  markTaskUncomplete,
+} from '~/models/task';
+import { getUserById } from '~/models/user';
+
+import { ZodTaskErrros, schema } from '~/validation/task';
+
+import { requireUserId } from '~/session/auth.server';
+
 import { CreateTask } from '~/components/CreateTask';
 import { Sidebar } from '~/components/Sidebar';
 import { TaskComponent } from '~/components/TaskComponent';
-import { db } from '~/db/db.server';
-import { getUserSession } from '~/session/session.server';
+
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { useErrors } from '~/utils/hooks/useErrors';
 
 type LoaderData = {
   user: User;
   tasks: Task[];
 };
 
-const ZodErrros = z.object({
-  errors: z.object({
-    body: z.array(z.string()),
-  }),
-});
-
-export type ActionData = z.infer<typeof ZodErrros>;
-
-const schema = zfd.formData({
-  body: zfd.text(
-    z
-      .string({ required_error: 'Task body is required.' })
-      .min(3, 'Body should be at least 3 characters long.')
-  ),
-});
+type ActionData = z.infer<typeof ZodTaskErrros>;
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getUserSession({
-    request,
-  });
+  const userId = await requireUserId(request);
 
-  if (!session.has('userId')) {
-    return redirect('/login');
-  }
-
-  const user = await db.user.findFirst({
-    where: { id: session.data.userId },
-  });
-
-  const tasks = await db.task.findMany({ orderBy: { createdAt: 'desc' } });
+  const user = await getUserById(userId);
 
   if (!user) {
-    return badRequest('Something went wrong getting user information.');
+    throw badRequest('Something went wrong getting the user session.');
   }
+
+  const tasks = await getManyTasks();
 
   const data: LoaderData = {
     user,
@@ -70,47 +60,36 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    const session = await getUserSession({ request });
-
-    const userId = session.get('userId');
+    const userId = await requireUserId(request);
 
     const form = await request.formData();
 
     const actionType = form.get('_action');
 
-    const id = form.get('id') as string;
+    const id = form.get('id');
 
     if (actionType) {
+      const taskId = z
+        .string({ invalid_type_error: 'expected an id.' })
+        .parse(id);
+
       switch (actionType) {
         case 'complete': {
-          await db.task.update({
-            where: { id },
-            data: { isComplete: true },
-          });
-
-          return null;
+          return await markTaskComplete(taskId);
         }
 
         case 'uncomplete': {
-          await db.task.update({ where: { id }, data: { isComplete: false } });
-
-          return null;
+          return await markTaskUncomplete(taskId);
         }
-        default:
-          break;
+        default: {
+          throw badRequest(`Unknown action ${actionType}`);
+        }
       }
     }
 
     const { body } = schema.parse(form);
 
-    if (userId) {
-      await db.task.create({
-        data: {
-          body,
-          userId,
-        },
-      });
-    }
+    await createTask(body, userId);
 
     return redirect('/home');
   } catch (error) {
@@ -131,20 +110,14 @@ export default function HomeRoute() {
 
   const actionData = useActionData<ActionData>();
 
-  const transition = useTransition();
+  const { fieldErrors } = useErrors(actionData);
 
   return (
     <main className="flex w-full">
       <Sidebar user={user} />
-      <div className="px-4 py-4 max-w-xl w-full border-r border-slate-300">
-        <CreateTask
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.body
-              : ''
-          }
-        />
-        <div className="flex flex-col gap-2 max-w-xl mt-6">
+      <div className="px-4 py-4 max-h-screen max-w-xl w-full border-r border-slate-300">
+        <CreateTask errorMessage={fieldErrors?.body || ''} />
+        <div className="flex flex-col gap-2 max-w-xl mt-6 overflow-auto h-[calc(100%-12rem)]">
           {tasks.map((task) => (
             <TaskComponent task={task} key={task.id} />
           ))}
@@ -152,5 +125,19 @@ export default function HomeRoute() {
       </div>
       <Outlet />
     </main>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <div>
+      <h1>Caught</h1>
+      <p>Status: {caught.status}</p>
+      <pre>
+        <code>{JSON.stringify(caught.data, null, 2)}</code>
+      </pre>
+    </div>
   );
 }

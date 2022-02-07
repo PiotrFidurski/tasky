@@ -1,5 +1,9 @@
 import { User } from '@prisma/client';
+
 import { Form, Link } from 'remix';
+
+import { Button } from '~/components/Elements/Button';
+import { NavListItem } from '~/components/Elements/NavListItem';
 
 function Sidebar({ user }: { user: User }) {
   return (
@@ -8,7 +12,7 @@ function Sidebar({ user }: { user: User }) {
         <div className="w-full flex flex-col">
           <div className="flex items-center justify-between border-b border-slate-300 w-full px-2 py-4 text-slate-600">
             <Link to="/">Some logo here</Link>
-            <button type="button">
+            <button type="button" aria-label="toggle dark mode">
               {/* toggle theme icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -28,45 +32,63 @@ function Sidebar({ user }: { user: User }) {
           </div>
           <nav className="mt-2">
             <ul className="px-2 flex flex-col gap-4">
-              <Link to="/home">
-                <li className="flex justify-start gap-2 items-center px-2 py-2 border border-slate-300 rounded-md bg-blue-600 text-white uppercase font-bold shadow-sm">
-                  {/* home icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
-                  <span>Home</span>
-                </li>
-              </Link>
-              <li className="flex justify-start gap-2 items-center px-2 py-2 rounded-md uppercase font-bold">
-                <Link to="/home">Home</Link>
-              </li>
-              <li className="flex justify-start gap-2 items-center px-2 py-2 rounded-md uppercase font-bold">
-                <Link to="/home">Home</Link>
-              </li>
-              <li className="flex justify-start gap-2 items-center px-2 py-2 rounded-md uppercase font-bold">
-                <Link to="/home">Home</Link>
-              </li>
-              <li>
-                <Form action="/logout" method="post">
-                  <button
-                    type="submit"
-                    className="bg-blue-600 text-white px-2 rounded py-2 uppercase font-bold"
-                  >
-                    logout
-                  </button>
-                </Form>
-              </li>
+              <NavListItem to="/home">
+                {/* home icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <span>Home</span>
+              </NavListItem>
+              <NavListItem to="/anywhere">
+                {/* home icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <span>Anywhere</span>
+              </NavListItem>
+              <NavListItem to="/somwhere">
+                {/* home icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <span>Somwhere</span>
+              </NavListItem>
+              <Form action="/logout" method="post" className="w-full">
+                <Button isGhost>logout</Button>
+              </Form>
             </ul>
           </nav>
         </div>
@@ -81,7 +103,7 @@ function Sidebar({ user }: { user: User }) {
             />
             <span className="font-bold text-slate-600">{user.username}</span>
           </div>
-          <button type="button">
+          <button type="button" aria-label="open menu">
             {/* ellipsis icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
