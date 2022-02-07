@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'remix';
+
 import styles from './styles/app.css';
 
 export function links() {

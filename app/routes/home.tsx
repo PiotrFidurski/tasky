@@ -1,22 +1,32 @@
 import { Task, User } from '@prisma/client';
+import { ZodError, z } from 'zod';
+import { zfd } from 'zod-form-data';
+
 import {
   ActionFunction,
-  json,
   LoaderFunction,
   Outlet,
+  json,
   redirect,
   useActionData,
   useLoaderData,
   useTransition,
 } from 'remix';
-import * as z from 'zod';
-import { ZodError } from 'zod';
-import { zfd } from 'zod-form-data';
+
+import {
+  createTask,
+  getManyTasks,
+  markTaskComplete,
+  markTaskUncomplete,
+} from '~/models/task';
+import { getUserById } from '~/models/user';
+
+import { requireUserId } from '~/session/auth.server';
+
 import { CreateTask } from '~/components/CreateTask';
 import { Sidebar } from '~/components/Sidebar';
 import { TaskComponent } from '~/components/TaskComponent';
-import { db } from '~/db/db.server';
-import { getUserSession } from '~/session/session.server';
+
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 

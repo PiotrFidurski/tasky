@@ -1,8 +1,10 @@
 import { Task } from '@prisma/client';
+
 import { Link, useFetcher } from 'remix';
 
 function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
+
   return (
     <article
       aria-label={task.body}

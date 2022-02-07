@@ -1,3 +1,5 @@
+import { ZodError } from 'zod';
+
 import {
   ActionFunction,
   Form,
@@ -5,16 +7,19 @@ import {
   useActionData,
   useTransition,
 } from 'remix';
-import { ZodError } from 'zod';
-import { FieldWrapper } from '~/components/Form/FieldWrapper';
-import { InputField } from '~/components/Form/InputField';
-import { db } from '~/db/db.server';
+
+import { getUserByUsername } from '~/models/user';
+
 import { register } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import {
   RegisterActionData,
   registerSchema,
 } from '~/session/validation.server';
+
+import { FieldWrapper } from '~/components/Form/FieldWrapper';
+import { InputField } from '~/components/Form/InputField';
+
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
