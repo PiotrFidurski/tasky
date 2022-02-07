@@ -13,10 +13,12 @@ import {
 } from 'remix';
 
 import {
+  assignTaskToDate,
   createTask,
   getManyTasks,
   markTaskComplete,
   markTaskUncomplete,
+  unassignTaskFromDate,
 } from '~/models/task';
 import { getUserById } from '~/models/user';
 
@@ -81,6 +83,15 @@ export const action: ActionFunction = async ({ request }) => {
         case 'uncomplete': {
           return await markTaskUncomplete(taskId);
         }
+
+        case 'assignToDate': {
+          return await assignTaskToDate(taskId);
+        }
+
+        case 'unassignFromDate': {
+          return await unassignTaskFromDate(taskId);
+        }
+
         default: {
           throw badRequest(`Unknown action ${actionType}`);
         }
@@ -118,10 +129,19 @@ export default function HomeRoute() {
       <div className="px-4 py-4 max-h-screen max-w-xl w-full border-r border-slate-300">
         <CreateTask errorMessage={fieldErrors?.body || ''} />
         <div className="flex flex-col gap-2 max-w-xl mt-6 overflow-auto h-[calc(100%-12rem)]">
-          {tasks.map((task) => (
+          {tasks
+            .filter((task) => task.assignedToDate)
+            .map((task) => (
+              <TaskComponent task={task} key={task.id} />
+            ))}
+        </div>
+      </div>
+      <div>
+        {tasks
+          .filter((task) => !task.assignedToDate)
+          .map((task) => (
             <TaskComponent task={task} key={task.id} />
           ))}
-        </div>
       </div>
       <Outlet />
     </main>

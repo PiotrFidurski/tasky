@@ -30,3 +30,17 @@ export function markTaskUncomplete(id: string) {
     data: { isComplete: false },
   });
 }
+
+export function assignTaskToDate(id: string) {
+  return db.task.update({
+    where: { id },
+    data: { assignedToDate: true },
+  });
+}
+
+export function unassignTaskFromDate(id: string) {
+  return db.task.update({
+    where: { id },
+    data: { assignedToDate: false },
+  });
+}

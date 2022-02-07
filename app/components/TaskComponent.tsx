@@ -44,6 +44,34 @@ function TaskComponent({ task }: { task: Task }) {
             )}
           </button>
         </fetcher.Form>
+        {!task.assignedToDate ? (
+          <fetcher.Form method="post">
+            <input name="_action" value="assignToDate" type="hidden" />
+            <input name="id" value={task.id} type="hidden" />
+            <button
+              type="submit"
+              aria-label="move to day!"
+              className="text-blue-600 align-bottom"
+            >
+              {/* arrow icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+                />
+              </svg>
+            </button>
+          </fetcher.Form>
+        ) : null}
+
         <Link className="font-semibold text-slate-600" to={`/home/${task.id}`}>
           {task.body}
         </Link>
@@ -69,6 +97,33 @@ function TaskComponent({ task }: { task: Task }) {
           />
         </svg>
       </button>
+      {task.assignedToDate ? (
+        <fetcher.Form method="post">
+          <input name="_action" value="unassignFromDate" type="hidden" />
+          <input name="id" value={task.id} type="hidden" />
+          <button
+            type="submit"
+            aria-label="move to backlog"
+            className="text-blue-600 align-bottom transform rotate-180"
+          >
+            {/* arrow icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+              />
+            </svg>
+          </button>
+        </fetcher.Form>
+      ) : null}
     </article>
   );
 }
