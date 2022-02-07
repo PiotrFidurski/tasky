@@ -13,7 +13,7 @@ function TaskComponent({ task }: { task: Task }) {
       } py-4 px-2 shadow-md mb-2 rounded flex items-center justify-between`}
     >
       <div className="flex items-center gap-2">
-        <fetcher.Form method="post" action=".">
+        <fetcher.Form method="post">
           <input
             name="_action"
             value={task.isComplete ? 'uncomplete' : 'complete'}
@@ -23,7 +23,7 @@ function TaskComponent({ task }: { task: Task }) {
           <button
             type="submit"
             aria-label={task.isComplete ? 'uncomplete task' : 'complete task'}
-            className="rounded-full border-2 border-slate-600 text-blue-600"
+            className="rounded-full border-2 border-slate-600 text-blue-600 align-bottom"
           >
             {/* checkmark icon */}
             {task.isComplete ? (
