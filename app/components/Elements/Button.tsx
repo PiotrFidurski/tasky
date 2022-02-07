@@ -22,7 +22,6 @@ function Button({
         className
       )}
       type={buttonType ? 'button' : 'submit'}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       {children}

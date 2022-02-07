@@ -44,11 +44,7 @@ function TaskComponent({ task }: { task: Task }) {
             )}
           </button>
         </fetcher.Form>
-        <Link
-          id="task-body"
-          className="font-semibold text-slate-600"
-          to={`/home/${task.id}`}
-        >
+        <Link className="font-semibold text-slate-600" to={`/home/${task.id}`}>
           {task.body}
         </Link>
       </div>

@@ -6,11 +6,7 @@ type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & { to: string };
 
 function NavListItem({ children, to, ...props }: ListItemProps) {
   return (
-    <li
-      className="font-bold w-full"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+    <li className="font-bold w-full" {...props}>
       <NavLink to={to}>
         {({ isActive }) => (
           <div
