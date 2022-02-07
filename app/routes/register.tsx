@@ -1,12 +1,6 @@
 import { ZodError, z } from 'zod';
 
-import {
-  ActionFunction,
-  Form,
-  Link,
-  useActionData,
-  useTransition,
-} from 'remix';
+import { ActionFunction, Form, Link, useActionData } from 'remix';
 
 import { getUserByUsername } from '~/models/user';
 
@@ -20,6 +14,7 @@ import { InputField } from '~/components/Form/InputField';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { useErrors } from '~/utils/hooks/useErrors';
 
 type ActionData = z.infer<typeof ZodRegisterErrors>;
 
@@ -60,7 +55,7 @@ export const action: ActionFunction = async ({ request }) => {
 export default function LoginRoute() {
   const actionData = useActionData<ActionData | undefined>();
 
-  const transition = useTransition();
+  const { fieldErrors } = useErrors(actionData);
 
   return (
     <main className="flex flex-col justify-center items-center h-screen">
@@ -68,11 +63,7 @@ export default function LoginRoute() {
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
           htmlFor="username"
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.username
-              : ''
-          }
+          errorMessage={fieldErrors?.username || ''}
         >
           <InputField
             required
@@ -84,11 +75,7 @@ export default function LoginRoute() {
         </FieldWrapper>
         <FieldWrapper
           htmlFor="password"
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.password
-              : ''
-          }
+          errorMessage={fieldErrors?.password || ''}
         >
           <InputField
             required
@@ -102,11 +89,7 @@ export default function LoginRoute() {
         </FieldWrapper>
         <FieldWrapper
           htmlFor="password confirmation"
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.passwordConfirmation
-              : ''
-          }
+          errorMessage={fieldErrors?.passwordConfirmation || ''}
         >
           <InputField
             required

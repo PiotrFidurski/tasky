@@ -1,13 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { ZodError, z } from 'zod';
 
-import {
-  ActionFunction,
-  Form,
-  Link,
-  useActionData,
-  useTransition,
-} from 'remix';
+import { ActionFunction, Form, Link, useActionData } from 'remix';
 
 import { ZodLoginErrors, loginSchema } from '~/validation/user';
 
@@ -20,6 +14,7 @@ import { InputField } from '~/components/Form/InputField';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { useErrors } from '~/utils/hooks/useErrors';
 
 type ActionData = z.infer<typeof ZodLoginErrors>;
 
@@ -66,18 +61,14 @@ export const action: ActionFunction = async ({ request }) => {
 export default function LoginRoute() {
   const actionData = useActionData<ActionData | undefined>();
 
-  const transition = useTransition();
+  const { fieldErrors } = useErrors(actionData);
 
   return (
     <main className="flex flex-col justify-center items-center h-screen">
       <h1 className="text-slate-600 font-bold text-4xl py-4">Login</h1>
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.username
-              : ''
-          }
+          errorMessage={fieldErrors?.username || ''}
           htmlFor="username"
         >
           <InputField
@@ -90,11 +81,7 @@ export default function LoginRoute() {
         </FieldWrapper>
         <FieldWrapper
           htmlFor="password"
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.password
-              : ''
-          }
+          errorMessage={fieldErrors?.password || ''}
         >
           <InputField
             minLength={8}

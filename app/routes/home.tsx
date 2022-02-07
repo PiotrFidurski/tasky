@@ -10,7 +10,6 @@ import {
   useActionData,
   useCatch,
   useLoaderData,
-  useTransition,
 } from 'remix';
 
 import {
@@ -31,6 +30,7 @@ import { TaskComponent } from '~/components/TaskComponent';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { useErrors } from '~/utils/hooks/useErrors';
 
 type LoaderData = {
   user: User;
@@ -110,20 +110,13 @@ export default function HomeRoute() {
 
   const actionData = useActionData<ActionData>();
 
-  const transition = useTransition();
+  const { fieldErrors } = useErrors(actionData);
 
   return (
     <main className="flex w-full">
       <Sidebar user={user} />
       <div className="px-4 py-4 max-w-xl w-full border-r border-slate-300">
-        <CreateTask
-          errorMessage={
-            transition.state === 'idle' && actionData?.errors
-              ? actionData.errors.body
-              : ''
-          }
-        />
-
+        <CreateTask errorMessage={fieldErrors?.body || ''} />
         <div className="flex flex-col gap-2 max-w-xl mt-6">
           {tasks.map((task) => (
             <TaskComponent task={task} key={task.id} />
