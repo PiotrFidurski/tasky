@@ -8,7 +8,7 @@ import { useTransition } from 'remix';
  * It takes care of resetting errors when submitting form with the same values,
  * so that the error messages can be used inside of `aria-live` element.
  *
- * @param actionData - data object returned from `useActionData` hook.
+ * @param actionData - data returned from `useActionData` hook.
  * @returns `fieldErrors` - object with error fields depending on `actionData` provided.
  * @example
  * ```ts
