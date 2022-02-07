@@ -29,9 +29,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     const { username, password } = registerSchema.parse(form);
 
-    const existingUser = await db.user.findFirst({
-      where: { username },
-    });
+    const existingUser = await getUserByUsername(username);
 
     if (existingUser) {
       return badRequest({
