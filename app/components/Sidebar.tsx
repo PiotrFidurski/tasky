@@ -12,7 +12,7 @@ function Sidebar({ user }: { user: User }) {
         <div className="w-full flex flex-col">
           <div className="flex items-center justify-between border-b border-slate-300 w-full px-2 py-4 text-slate-600">
             <Link to="/">Some logo here</Link>
-            <button type="button">
+            <button type="button" aria-label="toggle dark mode">
               {/* toggle theme icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ function Sidebar({ user }: { user: User }) {
             />
             <span className="font-bold text-slate-600">{user.username}</span>
           </div>
-          <button type="button">
+          <button type="button" aria-label="open menu">
             {/* ellipsis icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"

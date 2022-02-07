@@ -1,6 +1,5 @@
 import { Task, User } from '@prisma/client';
 import { ZodError, z } from 'zod';
-import { zfd } from 'zod-form-data';
 
 import {
   ActionFunction,
@@ -9,6 +8,7 @@ import {
   json,
   redirect,
   useActionData,
+  useCatch,
   useLoaderData,
   useTransition,
 } from 'remix';
@@ -20,6 +20,8 @@ import {
   markTaskUncomplete,
 } from '~/models/task';
 import { getUserById } from '~/models/user';
+
+import { ZodTaskErrros, schema } from '~/validation/task';
 
 import { requireUserId } from '~/session/auth.server';
 
@@ -35,32 +37,18 @@ type LoaderData = {
   tasks: Task[];
 };
 
-const ZodErrros = z.object({
-  errors: z.object({
-    body: z.array(z.string()),
-  }),
-});
-
-export type ActionData = z.infer<typeof ZodErrros>;
-
-const schema = zfd.formData({
-  body: zfd.text(
-    z
-      .string({ required_error: 'Task body is required.' })
-      .min(3, 'Body should be at least 3 characters long.')
-  ),
-});
+type ActionData = z.infer<typeof ZodTaskErrros>;
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await requireUserId(request);
 
   const user = await getUserById(userId);
 
-  const tasks = await getManyTasks();
-
   if (!user) {
-    return badRequest('Something went wrong getting user information.');
+    throw badRequest('Something went wrong getting the user session.');
   }
+
+  const tasks = await getManyTasks();
 
   const data: LoaderData = {
     user,
@@ -78,23 +66,24 @@ export const action: ActionFunction = async ({ request }) => {
 
     const actionType = form.get('_action');
 
-    const id = form.get('id') as string;
+    const id = form.get('id');
 
     if (actionType) {
+      const taskId = z
+        .string({ invalid_type_error: 'expected an id.' })
+        .parse(id);
+
       switch (actionType) {
         case 'complete': {
-          await markTaskComplete(id);
-
-          return null;
+          return await markTaskComplete(taskId);
         }
 
         case 'uncomplete': {
-          await markTaskUncomplete(id);
-
-          return null;
+          return await markTaskUncomplete(taskId);
         }
-        default:
-          break;
+        default: {
+          throw badRequest(`Unknown action ${actionType}`);
+        }
       }
     }
 
@@ -134,6 +123,7 @@ export default function HomeRoute() {
               : ''
           }
         />
+
         <div className="flex flex-col gap-2 max-w-xl mt-6">
           {tasks.map((task) => (
             <TaskComponent task={task} key={task.id} />
@@ -142,5 +132,19 @@ export default function HomeRoute() {
       </div>
       <Outlet />
     </main>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <div>
+      <h1>Caught</h1>
+      <p>Status: {caught.status}</p>
+      <pre>
+        <code>{JSON.stringify(caught.data, null, 2)}</code>
+      </pre>
+    </div>
   );
 }

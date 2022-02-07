@@ -1,7 +1,7 @@
-export default function Index() {
+export default function IndexRoute() {
   return (
-    <div>
+    <main>
       <h1>Welcome to tasky</h1>
-    </div>
+    </main>
   );
 }

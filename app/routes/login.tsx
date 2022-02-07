@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { ZodError } from 'zod';
+import { ZodError, z } from 'zod';
 
 import {
   ActionFunction,
@@ -9,9 +9,10 @@ import {
   useTransition,
 } from 'remix';
 
+import { ZodLoginErrors, loginSchema } from '~/validation/user';
+
 import { login } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
-import { LoginActionData, loginSchema } from '~/session/validation.server';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -19,6 +20,8 @@ import { InputField } from '~/components/Form/InputField';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+
+type ActionData = z.infer<typeof ZodLoginErrors>;
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -61,7 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function LoginRoute() {
-  const actionData = useActionData<LoginActionData | undefined>();
+  const actionData = useActionData<ActionData | undefined>();
 
   const transition = useTransition();
 
