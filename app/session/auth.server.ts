@@ -35,8 +35,9 @@ export async function login(username: string) {
  */
 export async function register({ username, password }: UserInput) {
   const passwordHash = await bcrypt.hash(password, 10);
+  const lowerCaseUsername = username.toLowerCase().trim();
 
-  return createUser(username, passwordHash);
+  return createUser(lowerCaseUsername, passwordHash);
 }
 
 /**
