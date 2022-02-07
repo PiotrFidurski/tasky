@@ -3,9 +3,11 @@ describe('task', () => {
     cy.task('removeTask');
   });
 
-  it('should allow users to create new tasks', () => {
+  beforeEach(() => {
     cy.login();
+  });
 
+  it('should allow users to create new tasks', () => {
     cy.visit('/home');
 
     cy.findAllByRole('textbox', { name: /body/i }).type(
@@ -16,8 +18,6 @@ describe('task', () => {
   });
 
   it('should show field errors if there are any.', () => {
-    cy.login();
-
     cy.visit('/home');
 
     cy.findAllByRole('textbox', { name: /body/i })
@@ -28,8 +28,6 @@ describe('task', () => {
   });
 
   it('should allow users to complete tasks.', () => {
-    cy.login();
-
     cy.visit('/home');
 
     cy.findByRole('article', { name: /this is a test task./i }).within(() => {
