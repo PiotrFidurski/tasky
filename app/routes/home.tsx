@@ -52,19 +52,11 @@ const schema = zfd.formData({
 });
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getUserSession({
-    request,
-  });
+  const userId = await requireUserId(request);
 
-  if (!session.has('userId')) {
-    return redirect('/login');
-  }
+  const user = await getUserById(userId);
 
-  const user = await db.user.findFirst({
-    where: { id: session.data.userId },
-  });
-
-  const tasks = await db.task.findMany({ orderBy: { createdAt: 'desc' } });
+  const tasks = await getManyTasks();
 
   if (!user) {
     return badRequest('Something went wrong getting user information.');
@@ -80,9 +72,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    const session = await getUserSession({ request });
-
-    const userId = session.get('userId');
+    const userId = await requireUserId(request);
 
     const form = await request.formData();
 
@@ -93,16 +83,13 @@ export const action: ActionFunction = async ({ request }) => {
     if (actionType) {
       switch (actionType) {
         case 'complete': {
-          await db.task.update({
-            where: { id },
-            data: { isComplete: true },
-          });
+          await markTaskComplete(id);
 
           return null;
         }
 
         case 'uncomplete': {
-          await db.task.update({ where: { id }, data: { isComplete: false } });
+          await markTaskUncomplete(id);
 
           return null;
         }
@@ -113,14 +100,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     const { body } = schema.parse(form);
 
-    if (userId) {
-      await db.task.create({
-        data: {
-          body,
-          userId,
-        },
-      });
-    }
+    await createTask(body, userId);
 
     return redirect('/home');
   } catch (error) {
