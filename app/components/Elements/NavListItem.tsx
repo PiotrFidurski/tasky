@@ -4,9 +4,9 @@ import { NavLink } from 'remix';
 
 type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & { to: string };
 
-function NavListItem({ children, to, ...props }: ListItemProps) {
+function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
   return (
-    <li className="font-bold w-full" {...props}>
+    <li className="font-bold w-full" {...htmlLiProps}>
       <NavLink to={to}>
         {({ isActive }) => (
           <div

@@ -10,7 +10,7 @@ function Button({
   isGhost,
   buttonType,
   className,
-  ...props
+  ...htmlButtonProps
 }: ButtonProps) {
   return (
     <button
@@ -22,7 +22,7 @@ function Button({
         className
       )}
       type={buttonType ? 'button' : 'submit'}
-      {...props}
+      {...htmlButtonProps}
     >
       {children}
     </button>
