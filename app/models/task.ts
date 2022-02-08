@@ -30,3 +30,17 @@ export function markTaskUncomplete(id: string) {
     data: { isComplete: false },
   });
 }
+
+export function scheduleTask(id: string, date: string) {
+  return db.task.update({
+    where: { id },
+    data: { scheduledFor: date },
+  });
+}
+
+export function unscheduleTask(id: string) {
+  return db.task.update({
+    where: { id },
+    data: { scheduledFor: '' },
+  });
+}

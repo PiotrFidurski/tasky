@@ -17,6 +17,8 @@ import {
   getManyTasks,
   markTaskComplete,
   markTaskUncomplete,
+  scheduleTask,
+  unscheduleTask,
 } from '~/models/task';
 import { getUserById } from '~/models/user';
 
@@ -67,6 +69,7 @@ export const action: ActionFunction = async ({ request }) => {
     const actionType = form.get('_action');
 
     const id = form.get('id');
+    const dateField = form.get('date');
 
     if (actionType) {
       const taskId = z
@@ -81,6 +84,21 @@ export const action: ActionFunction = async ({ request }) => {
         case 'uncomplete': {
           return await markTaskUncomplete(taskId);
         }
+
+        case 'assignToDate': {
+          const date = z
+            .string({ invalid_type_error: 'expected a string.' })
+            .optional()
+            .default('')
+            .parse(dateField);
+
+          return await scheduleTask(taskId, date);
+        }
+
+        case 'unassignFromDate': {
+          return await unscheduleTask(taskId);
+        }
+
         default: {
           throw badRequest(`Unknown action ${actionType}`);
         }
@@ -118,10 +136,19 @@ export default function HomeRoute() {
       <div className="px-4 py-4 max-h-screen max-w-xl w-full border-r border-slate-300">
         <CreateTask errorMessage={fieldErrors?.body || ''} />
         <div className="flex flex-col gap-2 max-w-xl mt-6 overflow-auto h-[calc(100%-12rem)]">
-          {tasks.map((task) => (
+          {tasks
+            .filter((task) => task.scheduledFor)
+            .map((task) => (
+              <TaskComponent task={task} key={task.id} />
+            ))}
+        </div>
+      </div>
+      <div>
+        {tasks
+          .filter((task) => !task.scheduledFor)
+          .map((task) => (
             <TaskComponent task={task} key={task.id} />
           ))}
-        </div>
       </div>
       <Outlet />
     </main>
