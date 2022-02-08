@@ -13,12 +13,12 @@ import {
 } from 'remix';
 
 import {
-  assignTaskToDate,
   createTask,
   getManyTasks,
   markTaskComplete,
   markTaskUncomplete,
-  unassignTaskFromDate,
+  scheduleTask,
+  unscheduleTask,
 } from '~/models/task';
 import { getUserById } from '~/models/user';
 
@@ -69,6 +69,7 @@ export const action: ActionFunction = async ({ request }) => {
     const actionType = form.get('_action');
 
     const id = form.get('id');
+    const dateField = form.get('date');
 
     if (actionType) {
       const taskId = z
@@ -85,11 +86,17 @@ export const action: ActionFunction = async ({ request }) => {
         }
 
         case 'assignToDate': {
-          return await assignTaskToDate(taskId);
+          const date = z
+            .string({ invalid_type_error: 'expected a string.' })
+            .optional()
+            .default('')
+            .parse(dateField);
+
+          return await scheduleTask(taskId, date);
         }
 
         case 'unassignFromDate': {
-          return await unassignTaskFromDate(taskId);
+          return await unscheduleTask(taskId);
         }
 
         default: {
@@ -130,7 +137,7 @@ export default function HomeRoute() {
         <CreateTask errorMessage={fieldErrors?.body || ''} />
         <div className="flex flex-col gap-2 max-w-xl mt-6 overflow-auto h-[calc(100%-12rem)]">
           {tasks
-            .filter((task) => task.assignedToDate)
+            .filter((task) => task.scheduledFor)
             .map((task) => (
               <TaskComponent task={task} key={task.id} />
             ))}
@@ -138,7 +145,7 @@ export default function HomeRoute() {
       </div>
       <div>
         {tasks
-          .filter((task) => !task.assignedToDate)
+          .filter((task) => !task.scheduledFor)
           .map((task) => (
             <TaskComponent task={task} key={task.id} />
           ))}
