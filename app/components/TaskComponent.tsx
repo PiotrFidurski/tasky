@@ -1,4 +1,5 @@
 import { Task } from '@prisma/client';
+import { format } from 'date-fns';
 
 import { Link, useFetcher } from 'remix';
 
@@ -44,9 +45,15 @@ function TaskComponent({ task }: { task: Task }) {
             )}
           </button>
         </fetcher.Form>
-        {!task.assignedToDate ? (
+        {!task.scheduledFor ? (
           <fetcher.Form method="post">
             <input name="_action" value="assignToDate" type="hidden" />
+            {/* sending formatted date as input value */}
+            <input
+              name="date"
+              value={format(new Date(), 'yyyy-MM-dd')}
+              type="hidden"
+            />
             <input name="id" value={task.id} type="hidden" />
             <button
               type="submit"
@@ -97,7 +104,7 @@ function TaskComponent({ task }: { task: Task }) {
           />
         </svg>
       </button>
-      {task.assignedToDate ? (
+      {task.scheduledFor ? (
         <fetcher.Form method="post">
           <input name="_action" value="unassignFromDate" type="hidden" />
           <input name="id" value={task.id} type="hidden" />
