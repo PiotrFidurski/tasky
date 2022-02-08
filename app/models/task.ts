@@ -31,16 +31,16 @@ export function markTaskUncomplete(id: string) {
   });
 }
 
-export function assignTaskToDate(id: string) {
+export function scheduleTask(id: string, date: string) {
   return db.task.update({
     where: { id },
-    data: { assignedToDate: true },
+    data: { scheduledFor: date },
   });
 }
 
-export function unassignTaskFromDate(id: string) {
+export function unscheduleTask(id: string) {
   return db.task.update({
     where: { id },
-    data: { assignedToDate: false },
+    data: { scheduledFor: '' },
   });
 }
