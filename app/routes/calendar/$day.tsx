@@ -1,29 +1,13 @@
 import { Task } from '@prisma/client';
-import { ZodError, z } from 'zod';
+import { action } from '~/actions/task.server';
 
-import {
-  ActionFunction,
-  LoaderFunction,
-  json,
-  useLoaderData,
-  useParams,
-} from 'remix';
+import { LoaderFunction, json, useLoaderData, useParams } from 'remix';
 
-import {
-  getTasksForDay,
-  getUnscheduledTasks,
-  markTaskComplete,
-  markTaskUncomplete,
-  scheduleTask,
-  unscheduleTask,
-} from '~/models/task';
-
-import { requireUserId } from '~/session/auth.server';
+import { getTasksForDay, getUnscheduledTasks } from '~/models/task';
 
 import { TaskComponent } from '~/components/TaskComponent';
 
 import { badRequest } from '~/utils/badRequest';
-import { getErrorMessage } from '~/utils/getErrorMessage';
 
 type LoaderData = {
   tasksForTheDay: Task[];
@@ -38,7 +22,9 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 
   const tasksForTheDay = await getTasksForDay(day);
+
   const tasks = await getUnscheduledTasks();
+
   const data: LoaderData = {
     tasksForTheDay,
     tasks,
@@ -47,63 +33,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json(data, { status: 200 });
 };
 
-export const action: ActionFunction = async ({ request }) => {
-  try {
-    await requireUserId(request);
-
-    const form = await request.formData();
-
-    const actionType = form.get('_action');
-
-    const id = form.get('id');
-    const dateField = form.get('date');
-
-    if (actionType) {
-      const taskId = z
-        .string({ invalid_type_error: 'expected an id.' })
-        .parse(id);
-
-      switch (actionType) {
-        case 'complete': {
-          return await markTaskComplete(taskId);
-        }
-
-        case 'uncomplete': {
-          return await markTaskUncomplete(taskId);
-        }
-
-        case 'scheduleTask': {
-          const date = z
-            .string({ invalid_type_error: 'expected a string.' })
-            .optional()
-            .default('')
-            .parse(dateField);
-
-          return await scheduleTask(taskId, date);
-        }
-
-        case 'unscheduleTask': {
-          return await unscheduleTask(taskId);
-        }
-
-        default: {
-          throw badRequest(`Unknown action ${actionType}`);
-        }
-      }
-    }
-    return null;
-  } catch (error) {
-    if (error instanceof ZodError) {
-      const errors = error.flatten();
-
-      return badRequest({
-        errors: { ...errors.fieldErrors },
-      });
-    }
-
-    return getErrorMessage(error);
-  }
-};
+export { action };
 
 export default function DayRoute() {
   const { tasksForTheDay, tasks } = useLoaderData<LoaderData>();

@@ -1,4 +1,5 @@
 import { Task } from '@prisma/client';
+import { actionTypes } from '~/actions/actionTypes';
 
 import { Link, useFetcher, useParams } from 'remix';
 
@@ -21,7 +22,11 @@ function TaskComponent({ task }: { task: Task }) {
           <fetcher.Form method="post">
             <input
               name="_action"
-              value={task.isComplete ? 'uncomplete' : 'complete'}
+              value={
+                task.isComplete
+                  ? actionTypes.MARK_TASK_UNCOMPLETE
+                  : actionTypes.MARK_TASK_COMPLETE
+              }
               type="hidden"
             />
             <input name="id" value={task.id} type="hidden" />
@@ -52,8 +57,11 @@ function TaskComponent({ task }: { task: Task }) {
         ) : null}
         {!task.scheduledFor && day ? (
           <fetcher.Form method="post">
-            <input name="_action" value="scheduleTask" type="hidden" />
-
+            <input
+              name="_action"
+              value={actionTypes.SCHEDULE_TASK}
+              type="hidden"
+            />
             <input
               name="date"
               value={!day ? formatDate() : day}
@@ -89,7 +97,11 @@ function TaskComponent({ task }: { task: Task }) {
       </div>
       {task.scheduledFor ? (
         <fetcher.Form method="post">
-          <input name="_action" value="unscheduleTask" type="hidden" />
+          <input
+            name="_action"
+            value={actionTypes.UNSCHEDULE_TASK}
+            type="hidden"
+          />
           <input name="id" value={task.id} type="hidden" />
           <button
             type="submit"

@@ -8,10 +8,10 @@
     "^remix(.*)$",
     "^~/models/(.*)$",
     "^~/validation/(.*)$",
-    "^[./]",
     "^~/session/(.*)$",
     "^~/components/(.*)$",
-    "^~/utils/(.*)$"
+    "^~/utils/(.*)$",
+    "^[./]"
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
