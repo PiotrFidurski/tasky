@@ -12,14 +12,7 @@ import {
   useLoaderData,
 } from 'remix';
 
-import {
-  createTask,
-  getManyTasks,
-  markTaskComplete,
-  markTaskUncomplete,
-  scheduleTask,
-  unscheduleTask,
-} from '~/models/task';
+import { createTask, getManyTasks } from '~/models/task';
 import { getUserById } from '~/models/user';
 
 import { ZodTaskErrros, schema } from '~/validation/task';
@@ -66,45 +59,6 @@ export const action: ActionFunction = async ({ request }) => {
 
     const form = await request.formData();
 
-    const actionType = form.get('_action');
-
-    const id = form.get('id');
-    const dateField = form.get('date');
-
-    if (actionType) {
-      const taskId = z
-        .string({ invalid_type_error: 'expected an id.' })
-        .parse(id);
-
-      switch (actionType) {
-        case 'complete': {
-          return await markTaskComplete(taskId);
-        }
-
-        case 'uncomplete': {
-          return await markTaskUncomplete(taskId);
-        }
-
-        case 'assignToDate': {
-          const date = z
-            .string({ invalid_type_error: 'expected a string.' })
-            .optional()
-            .default('')
-            .parse(dateField);
-
-          return await scheduleTask(taskId, date);
-        }
-
-        case 'unassignFromDate': {
-          return await unscheduleTask(taskId);
-        }
-
-        default: {
-          throw badRequest(`Unknown action ${actionType}`);
-        }
-      }
-    }
-
     const { body } = schema.parse(form);
 
     await createTask(body, userId);
@@ -131,24 +85,18 @@ export default function HomeRoute() {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <main className="flex w-full">
+    <main className="flex w-full relative">
       <Sidebar user={user} />
-      <div className="px-4 py-4 max-h-screen max-w-xl w-full border-r border-slate-300">
+      <div className="px-4 py-4 max-w-xl w-full border-r border-slate-300 ml-[16rem]">
         <CreateTask errorMessage={fieldErrors?.body || ''} />
-        <div className="flex flex-col gap-2 max-w-xl mt-6 overflow-auto h-[calc(100%-12rem)]">
-          {tasks
-            .filter((task) => task.scheduledFor)
-            .map((task) => (
-              <TaskComponent task={task} key={task.id} />
-            ))}
-        </div>
       </div>
-      <div>
-        {tasks
-          .filter((task) => !task.scheduledFor)
-          .map((task) => (
-            <TaskComponent task={task} key={task.id} />
-          ))}
+      <div className="max-w-lg w-full px-2">
+        <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
+          <h2 className="font-bold text-slate-600 text-xl">Your tasks.</h2>
+        </div>
+        {tasks.map((task) => (
+          <TaskComponent task={task} key={task.id} />
+        ))}
       </div>
       <Outlet />
     </main>
