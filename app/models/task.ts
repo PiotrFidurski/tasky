@@ -8,6 +8,14 @@ export function getTask(id: string) {
   return db.task.findUnique({ where: { id } });
 }
 
+export function getTasksForDay(day: string) {
+  return db.task.findMany({ where: { scheduledFor: day } });
+}
+
+export function getUnscheduledTasks() {
+  return db.task.findMany({ where: { scheduledFor: '' } });
+}
+
 export function createTask(body: string, userId: string) {
   return db.task.create({
     data: {
