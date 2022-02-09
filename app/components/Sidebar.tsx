@@ -7,7 +7,7 @@ import { NavListItem } from '~/components/Elements/NavListItem';
 
 function Sidebar({ user }: { user: User }) {
   return (
-    <div className="max-w-[16rem] w-full border-r border-slate-300 min-h-screen">
+    <div className="max-w-[16rem] w-full border-r border-slate-300 fixed min-h-screen h-full">
       <div className="flex h-full flex-col justify-between">
         <div className="w-full flex flex-col">
           <div className="flex items-center justify-between border-b border-slate-300 w-full px-2 py-4 text-slate-600">
@@ -50,8 +50,8 @@ function Sidebar({ user }: { user: User }) {
                 </svg>
                 <span>Home</span>
               </NavListItem>
-              <NavListItem to="/anywhere">
-                {/* home icon */}
+              <NavListItem to="/calendar">
+                {/* calendar icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -63,10 +63,10 @@ function Sidebar({ user }: { user: User }) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                <span>Anywhere</span>
+                <span>Calendar</span>
               </NavListItem>
               <NavListItem to="/somwhere">
                 {/* home icon */}
