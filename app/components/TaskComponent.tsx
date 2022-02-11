@@ -1,7 +1,7 @@
 import { Task } from '@prisma/client';
 import { actionTypes } from '~/actions/actionTypes';
 
-import { Link, useFetcher, useParams } from 'remix';
+import { useFetcher, useParams } from 'remix';
 
 import { formatDate } from '~/utils/date';
 
@@ -91,9 +91,7 @@ function TaskComponent({ task }: { task: Task }) {
             </button>
           </fetcher.Form>
         ) : null}
-        <Link className="font-semibold text-slate-600" to={`/home/${task.id}`}>
-          {task.body}
-        </Link>
+        <p className="font-semibold text-slate-600">{task.body}</p>
       </div>
       {task.scheduledFor ? (
         <fetcher.Form method="post">

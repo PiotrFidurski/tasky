@@ -10,7 +10,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-[16rem] w-full rounded-md border border-slate-300 sticky top-4">
+    <div className="max-w-[16rem] w-full rounded-md border border-slate-300 sticky top-4 hidden lg:block">
       {children}
     </div>
   );
@@ -18,7 +18,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
 
 export function CalendarLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-[22.2rem] w-full max-h-[calc(100vh-3rem)] h-full min-h-[calc(100vh-3rem)] overflow-auto">
+    <div className="max-w-[22.2rem] m-auto w-full max-h-[calc(100vh-3rem)] h-full min-h-[calc(100vh-3rem)] overflow-auto">
       {children}
     </div>
   );
@@ -30,7 +30,7 @@ export function ContentLayout({ children, className }: ContentLayoutProps) {
   return (
     <div
       className={clsx(
-        'px-2 py-2 border border-slate-300 rounded-md w-full flex gap-2',
+        'px-2 py-2 border border-slate-300 rounded-md w-full flex flex-col-reverse md:flex-row gap-2',
         className
       )}
     >
