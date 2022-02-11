@@ -27,6 +27,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (!day) {
     throw badRequest("Sorry we can't find anything for that day");
   }
+
   const [tasksForTheDay, tasks] = await Promise.all([
     getTasksForDay(day),
     getUnscheduledTasks(),
@@ -50,7 +51,7 @@ export default function DayRoute() {
   const calendarMatrix = createCalendar();
 
   return (
-    <ContentLayout className="grid-cols-[340px_repeat(2,minmax(0,1fr))]">
+    <ContentLayout>
       <CalendarLayout>
         <Calendar data={calendarMatrix} />
       </CalendarLayout>
