@@ -54,9 +54,11 @@ export default function DayRoute() {
       <CalendarLayout>
         <Calendar data={calendarMatrix} />
       </CalendarLayout>
-      <ColumnLayout>
+      <ColumnLayout aria-label={day}>
         <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-          <h1 className="font-bold text-slate-600 text-xl">{day}</h1>
+          <h1 className="font-bold text-slate-600 text-xl" id="date-header">
+            {day}
+          </h1>
         </div>
         {tasksForTheDay.map((task) => (
           <TaskComponent key={task.id} task={task} />

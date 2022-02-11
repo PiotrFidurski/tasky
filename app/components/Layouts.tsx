@@ -39,6 +39,13 @@ export function ContentLayout({ children, className }: ContentLayoutProps) {
   );
 }
 
-export function ColumnLayout({ children }: { children: React.ReactNode }) {
-  return <div className="w-full">{children}</div>;
+type ColumnLayoutProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function ColumnLayout({ children, ...sectionProps }: ColumnLayoutProps) {
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <section className="w-full" {...sectionProps}>
+      {children}
+    </section>
+  );
 }
