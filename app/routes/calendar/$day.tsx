@@ -1,9 +1,8 @@
 import { Task } from '@prisma/client';
 import { action } from '~/actions/task.server';
+import { getTasksForDay, getUnscheduledTasks } from '~/models/task';
 
 import { LoaderFunction, json, useLoaderData, useParams } from 'remix';
-
-import { getTasksForDay, getUnscheduledTasks } from '~/models/task';
 
 import Calendar from '~/components/Calendar/Calendar';
 import { TaskComponent } from '~/components/TaskComponent';

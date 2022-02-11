@@ -1,5 +1,9 @@
 import { Task, User } from '@prisma/client';
 import { ZodError, z } from 'zod';
+import { createTask, getManyTasks } from '~/models/task';
+import { getUserById } from '~/models/user';
+import { requireUserId } from '~/session/auth.server';
+import { ZodTaskErrros, schema } from '~/validation/task';
 
 import {
   ActionFunction,
@@ -11,13 +15,6 @@ import {
   useCatch,
   useLoaderData,
 } from 'remix';
-
-import { createTask, getManyTasks } from '~/models/task';
-import { getUserById } from '~/models/user';
-
-import { ZodTaskErrros, schema } from '~/validation/task';
-
-import { requireUserId } from '~/session/auth.server';
 
 import { CreateTask } from '~/components/CreateTask';
 import { Sidebar } from '~/components/Sidebar';

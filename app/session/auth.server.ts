@@ -1,9 +1,8 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { createUser, getUserByUsername } from '~/models/user';
 
 import { redirect } from 'remix';
-
-import { createUser, getUserByUsername } from '~/models/user';
 
 import { getUserSession } from './session.server';
 

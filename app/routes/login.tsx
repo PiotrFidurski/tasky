@@ -1,12 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { ZodError, z } from 'zod';
-
-import { ActionFunction, Form, Link, useActionData } from 'remix';
-
-import { ZodLoginErrors, loginSchema } from '~/validation/user';
-
 import { login } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
+import { ZodLoginErrors, loginSchema } from '~/validation/user';
+
+import { ActionFunction, Form, Link, useActionData } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';

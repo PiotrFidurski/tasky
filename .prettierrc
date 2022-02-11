@@ -6,9 +6,6 @@
   "semi": true,
   "importOrder": [
     "^remix(.*)$",
-    "^~/models/(.*)$",
-    "^~/validation/(.*)$",
-    "^~/session/(.*)$",
     "^~/components/(.*)$",
     "^~/utils/(.*)$",
     "^[./]"
