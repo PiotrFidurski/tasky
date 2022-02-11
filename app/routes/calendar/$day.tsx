@@ -5,9 +5,16 @@ import { LoaderFunction, json, useLoaderData, useParams } from 'remix';
 
 import { getTasksForDay, getUnscheduledTasks } from '~/models/task';
 
+import Calendar from '~/components/Calendar/Calendar';
 import { TaskComponent } from '~/components/TaskComponent';
+import {
+  CalendarLayout,
+  ColumnLayout,
+  ContentLayout,
+} from '~/components/layouts';
 
 import { badRequest } from '~/utils/badRequest';
+import { createCalendar } from '~/utils/date';
 
 type LoaderData = {
   tasksForTheDay: Task[];
@@ -40,24 +47,29 @@ export default function DayRoute() {
 
   const { day } = useParams<'day'>();
 
+  const calendarMatrix = createCalendar();
+
   return (
-    <section className="max-w-full w-full flex items-start" aria-label={day}>
-      <div className="max-w-md w-full">
+    <ContentLayout className="grid-cols-[340px_repeat(2,minmax(0,1fr))]">
+      <CalendarLayout>
+        <Calendar data={calendarMatrix} />
+      </CalendarLayout>
+      <ColumnLayout>
         <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
           <h1 className="font-bold text-slate-600 text-xl">{day}</h1>
         </div>
         {tasksForTheDay.map((task) => (
           <TaskComponent key={task.id} task={task} />
         ))}
-      </div>
-      <div className="max-w-md w-full">
+      </ColumnLayout>
+      <ColumnLayout>
         <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
           <h1 className="font-bold text-slate-600 text-xl">Backlog</h1>
         </div>
         {tasks.map((task) => (
           <TaskComponent key={task.id} task={task} />
         ))}
-      </div>
-    </section>
+      </ColumnLayout>
+    </ContentLayout>
   );
 }
