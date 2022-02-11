@@ -8,19 +8,19 @@ import { formatDate, months } from '~/utils/date';
 function Day({ day }: { day: Date }) {
   const params = useParams<'day'>();
 
-  const dayDate = formatDate(day);
+  const dateOfDay = formatDate(day);
   const monthName = months[day.getMonth()];
   const dayOfMonth = day.getDate();
 
   return (
     <div className="w-[3rem] h-[3rem] flex items-center justify-center">
       <Link
-        aria-label={dayDate}
-        to={`/calendar/${dayDate}`}
+        aria-label={dateOfDay}
+        to={`/calendar/${dateOfDay}`}
         className={clsx(
           'flex flex-col w-full h-full justify-center items-center shadow-sm',
-          formatDate() === dayDate ? 'border-2 border-blue-200' : '',
-          dayDate === params.day ? 'bg-blue-300' : ''
+          formatDate() === dateOfDay ? 'border-2 border-blue-200' : '',
+          dateOfDay === params.day ? 'bg-blue-300' : ''
         )}
       >
         {isFirstDayOfMonth(day) ? (
