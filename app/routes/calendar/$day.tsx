@@ -27,10 +27,10 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (!day) {
     throw badRequest("Sorry we can't find anything for that day");
   }
-
-  const tasksForTheDay = await getTasksForDay(day);
-
-  const tasks = await getUnscheduledTasks();
+  const [tasksForTheDay, tasks] = await Promise.all([
+    getTasksForDay(day),
+    getUnscheduledTasks(),
+  ]);
 
   const data: LoaderData = {
     tasksForTheDay,
@@ -56,9 +56,7 @@ export default function DayRoute() {
       </CalendarLayout>
       <ColumnLayout aria-label={day}>
         <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-          <h1 className="font-bold text-slate-600 text-xl" id="date-header">
-            {day}
-          </h1>
+          <h2 className="font-bold text-slate-600 text-xl">{day}</h2>
         </div>
         {tasksForTheDay.map((task) => (
           <TaskComponent key={task.id} task={task} />
@@ -66,7 +64,7 @@ export default function DayRoute() {
       </ColumnLayout>
       <ColumnLayout>
         <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-          <h1 className="font-bold text-slate-600 text-xl">Backlog</h1>
+          <h2 className="font-bold text-slate-600 text-xl">Backlog</h2>
         </div>
         {tasks.map((task) => (
           <TaskComponent key={task.id} task={task} />

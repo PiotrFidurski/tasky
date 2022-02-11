@@ -32,7 +32,7 @@
         "html": "enforce",
         "custom": "enforce",
         "explicitSpread": "enforce",
-        "exceptions": ["label", "button", "input", "li"]
+        "exceptions": ["label", "button", "input", "li", "section"]
       }
     ],
     "@typescript-eslint/no-throw-literal": ["off"]
