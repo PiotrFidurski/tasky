@@ -1,15 +1,15 @@
 import clsx from 'clsx';
-import { isFirstDayOfMonth } from 'date-fns';
+import { format, isFirstDayOfMonth, isToday } from 'date-fns';
 
 import { Link, useParams } from 'remix';
 
-import { formatDate, months } from '~/utils/date';
+import { formatDate } from '~/utils/date';
 
 function Day({ day }: { day: Date }) {
   const params = useParams<'day'>();
 
   const dateOfDay = formatDate(day);
-  const monthName = months[day.getMonth()];
+  const monthName = format(day, 'MMM');
   const dayOfMonth = day.getDate();
 
   return (
@@ -19,7 +19,7 @@ function Day({ day }: { day: Date }) {
         to={`/calendar/${dateOfDay}`}
         className={clsx(
           'flex flex-col w-full h-full justify-center items-center shadow-sm',
-          formatDate() === dateOfDay ? 'border-2 border-blue-200' : '',
+          isToday(day) ? 'border-2 border-blue-200' : '',
           dateOfDay === params.day ? 'bg-blue-300' : ''
         )}
       >
