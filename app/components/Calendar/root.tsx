@@ -1,10 +1,10 @@
-import { WeekDayNames } from './DayNames';
+import { Days } from './Days';
 import { Weeks } from './Weeks';
 
 export default function Calendar({ data }: { data: Array<Array<Date>> }) {
   return (
     <>
-      <WeekDayNames />
+      <Days />
       <Weeks data={data} />
     </>
   );
