@@ -1,9 +1,8 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { createUser, getUserByUsername } from '~/models/user';
 
 import { redirect } from 'remix';
-
-import { createUser, getUserByUsername } from '~/models/user';
 
 import { getUserSession } from './session.server';
 
@@ -29,8 +28,6 @@ export async function login(username: string) {
 /**
  * Securely creates new user in the database.
  *
- * @param username - Username of the user.
- * @param password - Password of the user.
  * @returns `Promise<User>`
  */
 export async function register({ username, password }: UserInput) {

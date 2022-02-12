@@ -1,11 +1,19 @@
 import { db } from '~/db/db.server';
 
 export function getManyTasks() {
-  return db.task.findMany();
+  return db.task.findMany({ orderBy: { createdAt: 'desc' } });
 }
 
 export function getTask(id: string) {
   return db.task.findUnique({ where: { id } });
+}
+
+export function getTasksForDay(day: string) {
+  return db.task.findMany({ where: { scheduledFor: day } });
+}
+
+export function getUnscheduledTasks() {
+  return db.task.findMany({ where: { scheduledFor: '' } });
 }
 
 export function createTask(body: string, userId: string) {

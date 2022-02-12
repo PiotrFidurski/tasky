@@ -9,3 +9,4 @@ api/_build
 .env
 cypress.env.json
 /app/styles/app.css
+todo.md
