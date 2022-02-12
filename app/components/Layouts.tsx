@@ -43,7 +43,7 @@ type ColumnLayoutProps = React.HTMLAttributes<HTMLElement>;
 
 export function ColumnLayout({ children, ...sectionProps }: ColumnLayoutProps) {
   return (
-    <section className="w-full" {...sectionProps}>
+    <section className="w-full flex flex-col" {...sectionProps}>
       {children}
     </section>
   );
