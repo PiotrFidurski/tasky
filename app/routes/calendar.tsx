@@ -1,7 +1,7 @@
 import { LoaderFunction, Outlet, redirect } from 'remix';
 
 import { Sidebar } from '~/components/Sidebar';
-import { MainLayout, SidebarLayout } from '~/components/layouts';
+import { MainLayout, SidebarLayout } from '~/components/layout';
 
 import { formatDate } from '~/utils/date';
 

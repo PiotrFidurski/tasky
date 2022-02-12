@@ -24,7 +24,7 @@ import {
   ContentLayout,
   MainLayout,
   SidebarLayout,
-} from '~/components/layouts';
+} from '~/components/layout';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';

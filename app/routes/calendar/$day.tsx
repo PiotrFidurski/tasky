@@ -11,7 +11,7 @@ import {
   CalendarLayout,
   ColumnLayout,
   ContentLayout,
-} from '~/components/layouts';
+} from '~/components/layout';
 
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData } from '~/utils/date';
