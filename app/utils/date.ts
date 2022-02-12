@@ -1,7 +1,9 @@
 import {
   addDays,
+  endOfYear,
   format,
   getISOWeeksInYear,
+  isWithinInterval,
   startOfWeek,
   startOfYear,
 } from 'date-fns';
@@ -56,4 +58,11 @@ export function getCalendarData({
   });
 
   return calendarMatrix;
+}
+
+export function isDayInCurrentYear(day: Date) {
+  const start = startOfYear(new Date());
+  const end = endOfYear(new Date());
+
+  return isWithinInterval(day, { start, end });
 }

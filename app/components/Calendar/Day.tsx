@@ -3,7 +3,7 @@ import { format, isFirstDayOfMonth, isToday } from 'date-fns';
 
 import { Link, useParams } from 'remix';
 
-import { formatDate } from '~/utils/date';
+import { formatDate, isDayInCurrentYear } from '~/utils/date';
 
 function Day({ day }: { day: Date }) {
   const params = useParams<'day'>();
@@ -28,7 +28,11 @@ function Day({ day }: { day: Date }) {
             {monthName}
           </span>
         ) : null}
-        <span>{dayOfMonth}</span>
+        {isDayInCurrentYear(day) ? (
+          <span>{dayOfMonth}</span>
+        ) : (
+          <span className="text-gray-300">{dayOfMonth}</span>
+        )}
       </Link>
     </div>
   );
