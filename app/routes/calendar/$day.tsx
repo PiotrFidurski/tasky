@@ -14,7 +14,7 @@ import {
 } from '~/components/layouts';
 
 import { badRequest } from '~/utils/badRequest';
-import { createCalendar } from '~/utils/date';
+import { getCalendarData } from '~/utils/date';
 
 type LoaderData = {
   tasksForTheDay: Task[];
@@ -50,12 +50,12 @@ export default function DayRoute() {
 
   const { day } = useParams<'day'>();
 
-  const calendarMatrix = createCalendar();
+  const calendarData = getCalendarData();
 
   return (
     <ContentLayout>
       <CalendarLayout>
-        <Calendar data={calendarMatrix} />
+        <Calendar data={calendarData} />
       </CalendarLayout>
       <ColumnLayout aria-label={day}>
         <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
