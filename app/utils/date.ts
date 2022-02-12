@@ -21,6 +21,14 @@ type Props = {
   date?: Date;
 };
 
+/**
+ * Creates two-dimensional array, where first array consists of arrays for weeks,
+ * each week containing Date objects for each day of the week.
+ *
+ * @param weekStartsOn - Which week to start calendar on. @defaultValue 0
+ * @param date - starting date. @defaultValue  `Date` representing beginning of current year.
+ * @returns Two-dimensional Array
+ */
 export function getCalendarData({
   weekStartsOn = 0,
   date = startOfYear(new Date()),
