@@ -16,23 +16,27 @@ const NUMBER_OF_WEEKS_FOR_YEAR = getISOWeeksInYear(new Date());
 
 const weekRows = new Array(NUMBER_OF_WEEKS_FOR_YEAR + 1).fill(null);
 
-type Props = {
-  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+type CalendarDataProps = {
+  /**
+   * Optional date to start from, defaults to start of the year.
+   */
   date?: Date;
+  /**
+   * Optional number to start the week on, defaults to 0.
+   */
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
 };
 
 /**
  * Creates two-dimensional array, where first array consists of arrays for weeks,
  * each week containing Date objects for each day of the week.
  *
- * @param weekStartsOn - Which week to start calendar on. @defaultValue 0
- * @param date - starting date. @defaultValue  `Date` representing beginning of current year.
  * @returns Two-dimensional Array
  */
 export function getCalendarData({
-  weekStartsOn = 0,
   date = startOfYear(new Date()),
-}: Props = {}) {
+  weekStartsOn = 0,
+}: CalendarDataProps = {}) {
   let startFromDay = startOfWeek(date, {
     weekStartsOn,
   });
