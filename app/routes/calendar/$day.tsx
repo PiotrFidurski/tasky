@@ -1,10 +1,11 @@
 import { Task } from '@prisma/client';
+import { z } from 'zod';
 import { action } from '~/actions/task.server';
 import { getTasksForDay, getUnscheduledTasks } from '~/models/task';
 
 import { LoaderFunction, json, useLoaderData, useParams } from 'remix';
 
-import Calendar from '~/components/Calendar/Calendar';
+import Calendar from '~/components/Calendar/root';
 import { TaskComponent } from '~/components/TaskComponent';
 import {
   CalendarLayout,
@@ -22,6 +23,8 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { day } = params;
+
+  z.string({ invalid_type_error: 'expected a string.' }).parse(day);
 
   if (!day) {
     throw badRequest("Sorry we can't find anything for that day");
