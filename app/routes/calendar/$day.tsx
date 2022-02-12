@@ -1,9 +1,15 @@
 import { Task } from '@prisma/client';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 import { action } from '~/actions/task.server';
 import { getTasksForDay, getUnscheduledTasks } from '~/models/task';
 
-import { LoaderFunction, json, useLoaderData, useParams } from 'remix';
+import {
+  LoaderFunction,
+  json,
+  useCatch,
+  useLoaderData,
+  useParams,
+} from 'remix';
 
 import Calendar from '~/components/Calendar/root';
 import { TaskComponent } from '~/components/TaskComponent';
@@ -15,6 +21,7 @@ import {
 
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData } from '~/utils/date';
+import { getErrorMessage } from '~/utils/getErrorMessage';
 
 type LoaderData = {
   tasksForTheDay: Task[];
@@ -22,25 +29,29 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { day } = params;
+  try {
+    const day = z
+      .string({ invalid_type_error: 'expected a string.' })
+      .parse(params.day);
 
-  z.string({ invalid_type_error: 'expected a string.' }).parse(day);
+    const [tasksForTheDay, tasks] = await Promise.all([
+      getTasksForDay(day),
+      getUnscheduledTasks(),
+    ]);
 
-  if (!day) {
-    throw badRequest("Sorry we can't find anything for that day");
+    const data: LoaderData = {
+      tasksForTheDay,
+      tasks,
+    };
+
+    return json(data, { status: 200 });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      throw badRequest(error.message);
+    }
+
+    return getErrorMessage(error);
   }
-
-  const [tasksForTheDay, tasks] = await Promise.all([
-    getTasksForDay(day),
-    getUnscheduledTasks(),
-  ]);
-
-  const data: LoaderData = {
-    tasksForTheDay,
-    tasks,
-  };
-
-  return json(data, { status: 200 });
 };
 
 export { action };
@@ -74,5 +85,19 @@ export default function DayRoute() {
         ))}
       </ColumnLayout>
     </ContentLayout>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <div>
+      <h1>Caught</h1>
+      <p>Status: {caught.status}</p>
+      <pre>
+        <code>{JSON.stringify(caught.data, null, 2)}</code>
+      </pre>
+    </div>
   );
 }

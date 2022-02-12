@@ -100,7 +100,9 @@ export default function HomeRoute() {
         <ColumnLayout>
           <div className="px-2">
             <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-              <h2 className="font-bold text-slate-600 text-xl">Your tasks.</h2>
+              <h2 className="font-bold text-slate-600 text-xl">
+                Latests tasks.
+              </h2>
             </div>
             {tasks.map((task) => (
               <TaskComponent task={task} key={task.id} />

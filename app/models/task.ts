@@ -1,7 +1,7 @@
 import { db } from '~/db/db.server';
 
 export function getManyTasks() {
-  return db.task.findMany();
+  return db.task.findMany({ orderBy: { createdAt: 'desc' } });
 }
 
 export function getTask(id: string) {
