@@ -18,7 +18,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
 
 export function CalendarLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-[22.2rem] m-auto w-full max-h-[calc(100vh-3rem)] h-full min-h-[calc(100vh-3rem)] overflow-auto">
+    <div className="max-w-[22.2rem] w-full max-h-[calc(100vh-3rem)] h-full min-h-[calc(100vh-3rem)] overflow-auto">
       {children}
     </div>
   );
