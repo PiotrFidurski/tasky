@@ -10,17 +10,6 @@ import { useTransition } from 'remix';
  *
  * @param actionData - data returned from `useActionData` hook.
  * @returns `fieldErrors` - object with error fields depending on `actionData` provided.
- * @example
- * ```ts
- * const actionData = { errors: {
- *    username: ['some error message'],
- *    password: ['some password error']
- * }
- *
- * const { fieldErrors } = useErrors(actionData);
- *
- * { username: ['some error message'], password: ['some password error'] }
- *```
  */
 export function useErrors<T>(actionData: { errors: T } | undefined) {
   const [errors, setErrors] = useState<{ fieldErrors: T } | {}>({});

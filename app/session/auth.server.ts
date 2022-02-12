@@ -28,8 +28,6 @@ export async function login(username: string) {
 /**
  * Securely creates new user in the database.
  *
- * @param username - Username of the user.
- * @param password - Password of the user.
  * @returns `Promise<User>`
  */
 export async function register({ username, password }: UserInput) {
