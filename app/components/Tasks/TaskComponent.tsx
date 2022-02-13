@@ -20,8 +20,21 @@ function TaskComponent({ task }: { task: Task }) {
     return task.isComplete;
   };
 
+  const isScheduling = () => {
+    const action = fetcher?.submission?.formData.get('_action');
+
+    if (action) {
+      return (
+        action === actionTypes.SCHEDULE_TASK || actionTypes.UNSCHEDULE_TASK
+      );
+    }
+
+    return false;
+  };
+
   return (
     <article
+      style={{ display: isScheduling() ? 'none' : 'flex' }}
       aria-label={task.body}
       className={`${
         isComplete() ? 'bg-blue-100' : ''
