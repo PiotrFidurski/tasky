@@ -4,7 +4,8 @@ import { actionTypes } from '~/actions/actionTypes';
 
 import { useParams } from 'remix';
 
-import { useUpdateTasks } from './Backlog';
+import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
+
 import { TaskComponent } from './TaskComponent';
 
 export default function DayTasks({
