@@ -12,7 +12,8 @@ import {
 } from 'remix';
 
 import Calendar from '~/components/Calendar/root';
-import { TaskComponent } from '~/components/TaskComponent';
+import Backlog from '~/components/Tasks/Backlog';
+import DayTasks from '~/components/Tasks/DayTasks';
 import {
   CalendarLayout,
   ColumnLayout,
@@ -71,20 +72,10 @@ export default function DayRoute() {
         <Calendar data={calendarData} />
       </CalendarLayout>
       <ColumnLayout aria-label={day}>
-        <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-          <h2 className="font-bold text-slate-600 text-xl">{day}</h2>
-        </div>
-        {tasksForTheDay.map((task) => (
-          <TaskComponent key={task.id} task={task} />
-        ))}
+        <DayTasks dayTasks={tasksForTheDay} backlog={tasks} />
       </ColumnLayout>
       <ColumnLayout>
-        <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-          <h2 className="font-bold text-slate-600 text-xl">Backlog</h2>
-        </div>
-        {tasks.map((task) => (
-          <TaskComponent key={task.id} task={task} />
-        ))}
+        <Backlog backlog={tasks} dayTasks={tasksForTheDay} />
       </ColumnLayout>
     </ContentLayout>
   );
