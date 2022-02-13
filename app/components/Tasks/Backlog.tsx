@@ -12,29 +12,20 @@ export function useUpdateTasks(
 ) {
   const fetchers = useFetchers();
   const updates: Array<Task> = [];
-  const tasksMap = new Map<string, Task>();
 
-  if (fetchers.length) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const task of tasks) {
-      tasksMap.set(task.id, task);
-    }
-  }
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const fetcher of fetchers) {
+  fetchers.forEach((fetcher) => {
     if (fetcher.submission?.formData.get('_action') === action) {
       const taskId = fetcher.submission.formData.get('id');
 
       if (typeof taskId === 'string') {
-        const task = tasksMap.get(taskId);
+        const task = tasks.find((t) => t.id === taskId);
 
         if (task) {
           updates.push({ ...task, scheduledFor: updateValue });
         }
       }
     }
-  }
+  });
 
   return updates;
 }
