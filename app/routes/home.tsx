@@ -16,9 +16,9 @@ import {
   useLoaderData,
 } from 'remix';
 
-import { CreateTask } from '~/components/CreateTask';
 import { Sidebar } from '~/components/Sidebar';
-import { TaskComponent } from '~/components/TaskComponent';
+import { CreateTask } from '~/components/Tasks/CreateTask';
+import { TaskComponent } from '~/components/Tasks/TaskComponent';
 import {
   ColumnLayout,
   ContentLayout,

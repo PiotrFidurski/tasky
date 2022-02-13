@@ -10,11 +10,34 @@ function TaskComponent({ task }: { task: Task }) {
 
   const { day } = useParams<'day'>();
 
+  const isComplete = () => {
+    const currentAction = fetcher.submission?.formData.get('_action');
+
+    if (currentAction) {
+      return currentAction === actionTypes.MARK_TASK_COMPLETE;
+    }
+
+    return task.isComplete;
+  };
+
+  const isScheduling = () => {
+    const action = fetcher?.submission?.formData.get('_action');
+
+    if (action) {
+      return (
+        action === actionTypes.SCHEDULE_TASK || actionTypes.UNSCHEDULE_TASK
+      );
+    }
+
+    return false;
+  };
+
   return (
     <article
+      style={{ display: isScheduling() ? 'none' : 'flex' }}
       aria-label={task.body}
       className={`${
-        task.isComplete ? 'bg-blue-100' : ''
+        isComplete() ? 'bg-blue-100' : ''
       } py-4 px-2 shadow-md mb-2 rounded flex items-center justify-between`}
     >
       <div className="flex items-center gap-2">
@@ -23,7 +46,7 @@ function TaskComponent({ task }: { task: Task }) {
             <input
               name="_action"
               value={
-                task.isComplete
+                isComplete()
                   ? actionTypes.MARK_TASK_UNCOMPLETE
                   : actionTypes.MARK_TASK_COMPLETE
               }
@@ -32,11 +55,11 @@ function TaskComponent({ task }: { task: Task }) {
             <input name="id" value={task.id} type="hidden" />
             <button
               type="submit"
-              aria-label={task.isComplete ? 'uncomplete task' : 'complete task'}
+              aria-label={isComplete() ? 'uncomplete task' : 'complete task'}
               className="rounded-full border-2 border-slate-600 text-blue-600 align-bottom"
             >
               {/* checkmark icon */}
-              {task.isComplete ? (
+              {isComplete() ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"

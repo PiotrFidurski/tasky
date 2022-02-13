@@ -12,7 +12,8 @@ import {
 } from 'remix';
 
 import Calendar from '~/components/Calendar/root';
-import { TaskComponent } from '~/components/TaskComponent';
+import Backlog from '~/components/Tasks/Backlog';
+import DayTasks from '~/components/Tasks/DayTasks';
 import {
   CalendarLayout,
   ColumnLayout,
@@ -26,6 +27,7 @@ import { getErrorMessage } from '~/utils/getErrorMessage';
 type LoaderData = {
   tasksForTheDay: Task[];
   tasks: Task[];
+  calendarData: Array<Array<string>>;
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -33,6 +35,8 @@ export const loader: LoaderFunction = async ({ params }) => {
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
+
+    const calendarData = getCalendarData({ date: new Date() });
 
     const [tasksForTheDay, tasks] = await Promise.all([
       getTasksForDay(day),
@@ -42,6 +46,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     const data: LoaderData = {
       tasksForTheDay,
       tasks,
+      calendarData,
     };
 
     return json(data, { status: 200 });
@@ -57,11 +62,9 @@ export const loader: LoaderFunction = async ({ params }) => {
 export { action };
 
 export default function DayRoute() {
-  const { tasksForTheDay, tasks } = useLoaderData<LoaderData>();
+  const { tasksForTheDay, tasks, calendarData } = useLoaderData<LoaderData>();
 
   const { day } = useParams<'day'>();
-
-  const calendarData = getCalendarData();
 
   return (
     <ContentLayout>
@@ -69,20 +72,10 @@ export default function DayRoute() {
         <Calendar data={calendarData} />
       </CalendarLayout>
       <ColumnLayout aria-label={day}>
-        <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-          <h2 className="font-bold text-slate-600 text-xl">{day}</h2>
-        </div>
-        {tasksForTheDay.map((task) => (
-          <TaskComponent key={task.id} task={task} />
-        ))}
+        <DayTasks dayTasks={tasksForTheDay} backlog={tasks} />
       </ColumnLayout>
       <ColumnLayout>
-        <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-          <h2 className="font-bold text-slate-600 text-xl">Backlog</h2>
-        </div>
-        {tasks.map((task) => (
-          <TaskComponent key={task.id} task={task} />
-        ))}
+        <Backlog backlog={tasks} dayTasks={tasksForTheDay} />
       </ColumnLayout>
     </ContentLayout>
   );

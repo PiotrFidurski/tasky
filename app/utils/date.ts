@@ -2,7 +2,6 @@ import {
   addDays,
   endOfYear,
   format,
-  getISOWeeksInYear,
   isWithinInterval,
   startOfWeek,
   startOfYear,
@@ -14,15 +13,15 @@ export function formatDate(date: Date = new Date()) {
   return format(date, 'yyyy-MM-dd');
 }
 
-const NUMBER_OF_WEEKS_FOR_YEAR = getISOWeeksInYear(new Date());
+const WEEKS_COUNT = 18;
 
-const weekRows = new Array(NUMBER_OF_WEEKS_FOR_YEAR + 1).fill(null);
+const weekRows = new Array(WEEKS_COUNT).fill(null);
 
 type CalendarDataProps = {
   /**
-   * Optional date to start from, defaults to start of the year.
+   * Date to start calendar from.
    */
-  date?: Date;
+  date: Date;
   /**
    * Optional number to start the week on, defaults to 0.
    */
@@ -35,21 +34,18 @@ type CalendarDataProps = {
  *
  * @returns Two-dimensional Array
  */
-export function getCalendarData({
-  date = startOfYear(new Date()),
-  weekStartsOn = 0,
-}: CalendarDataProps = {}) {
+export function getCalendarData({ weekStartsOn = 0, date }: CalendarDataProps) {
   let startFromDay = startOfWeek(date, {
     weekStartsOn,
   });
 
-  const calendarMatrix: Array<Array<Date>> = [];
+  const calendarMatrix: Array<Array<string>> = [];
 
   weekRows.forEach(() => {
-    const week: Array<Date> = [];
+    const week: Array<string> = [];
 
     weekDayNames.forEach(() => {
-      week.push(startFromDay);
+      week.push(formatDate(startFromDay));
 
       startFromDay = addDays(startFromDay, 1);
     });
