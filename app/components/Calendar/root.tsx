@@ -1,7 +1,7 @@
 import { Days } from './Days';
 import { Weeks } from './Weeks';
 
-export default function Calendar({ data }: { data: Array<Array<Date>> }) {
+export default function Calendar({ data }: { data: Array<Array<string>> }) {
   return (
     <>
       <Days />

@@ -26,6 +26,7 @@ import { getErrorMessage } from '~/utils/getErrorMessage';
 type LoaderData = {
   tasksForTheDay: Task[];
   tasks: Task[];
+  calendarData: Array<Array<string>>;
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -33,6 +34,8 @@ export const loader: LoaderFunction = async ({ params }) => {
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
+
+    const calendarData = getCalendarData({ date: new Date() });
 
     const [tasksForTheDay, tasks] = await Promise.all([
       getTasksForDay(day),
@@ -42,6 +45,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     const data: LoaderData = {
       tasksForTheDay,
       tasks,
+      calendarData,
     };
 
     return json(data, { status: 200 });
@@ -57,11 +61,9 @@ export const loader: LoaderFunction = async ({ params }) => {
 export { action };
 
 export default function DayRoute() {
-  const { tasksForTheDay, tasks } = useLoaderData<LoaderData>();
+  const { tasksForTheDay, tasks, calendarData } = useLoaderData<LoaderData>();
 
   const { day } = useParams<'day'>();
-
-  const calendarData = getCalendarData();
 
   return (
     <ContentLayout>
