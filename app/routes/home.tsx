@@ -1,6 +1,6 @@
-import { Task, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { ZodError, z } from 'zod';
-import { createTask, getManyTasks } from '~/models/task';
+import { createTask } from '~/models/task';
 import { getUserById } from '~/models/user';
 import { requireUserId } from '~/session/auth.server';
 import { ZodTaskErrros, schema } from '~/validation/task';
@@ -18,7 +18,6 @@ import {
 
 import { Sidebar } from '~/components/Sidebar';
 import { CreateTask } from '~/components/Tasks/CreateTask';
-import { TaskComponent } from '~/components/Tasks/TaskComponent';
 import {
   ColumnLayout,
   ContentLayout,
@@ -32,7 +31,6 @@ import { useErrors } from '~/utils/hooks/useErrors';
 
 type LoaderData = {
   user: User;
-  tasks: Task[];
 };
 
 type ActionData = z.infer<typeof ZodTaskErrros>;
@@ -46,11 +44,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     throw badRequest('Something went wrong getting the user session.');
   }
 
-  const tasks = await getManyTasks();
-
   const data: LoaderData = {
     user,
-    tasks,
   };
 
   return json(data, { status: 200 });
@@ -81,7 +76,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function HomeRoute() {
-  const { user, tasks } = useLoaderData<LoaderData>();
+  const { user } = useLoaderData<LoaderData>();
 
   const actionData = useActionData<ActionData>();
 
@@ -97,18 +92,7 @@ export default function HomeRoute() {
         <ColumnLayout>
           <CreateTask errorMessage={fieldErrors?.body || ''} />
         </ColumnLayout>
-        <ColumnLayout>
-          <div className="px-2">
-            <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-              <h2 className="font-bold text-slate-600 text-xl">
-                Latests tasks.
-              </h2>
-            </div>
-            {tasks.map((task) => (
-              <TaskComponent task={task} key={task.id} />
-            ))}
-          </div>
-        </ColumnLayout>
+
         <Outlet />
       </ContentLayout>
     </MainLayout>
