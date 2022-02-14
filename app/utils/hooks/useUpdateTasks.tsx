@@ -18,7 +18,11 @@ export function useUpdateTasks(
         const task = tasks.find((t) => t.id === taskId);
 
         if (task) {
-          updates.push({ ...task, scheduledFor: updateValue });
+          updates.push({
+            ...task,
+            scheduledFor: updateValue,
+            sortDate: new Date(),
+          });
         }
       }
     }
