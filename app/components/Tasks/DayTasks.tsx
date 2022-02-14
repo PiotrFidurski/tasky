@@ -5,6 +5,7 @@ import { actionTypes } from '~/actions/actionTypes';
 import { useParams } from 'remix';
 
 import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
+import { sortByDate } from '~/utils/sortByDate';
 
 import { TaskComponent } from './TaskComponent';
 
@@ -24,9 +25,12 @@ export default function DayTasks({
       <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
         <h2 className="font-bold text-slate-600 text-xl">{day}</h2>
       </div>
-      {dayTasks.concat(updates).map((task) => (
-        <TaskComponent key={task.id} task={task} />
-      ))}
+      {dayTasks
+        .concat(updates)
+        .sort(sortByDate)
+        .map((task) => (
+          <TaskComponent key={task.id} task={task} />
+        ))}
     </div>
   );
 }

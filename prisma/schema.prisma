@@ -27,8 +27,7 @@ model Task {
   userId       String   @db.ObjectId
   isComplete   Boolean  @default(false)
   scheduledFor String   @default("")
+  sortDate     DateTime @default(now())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-
 }

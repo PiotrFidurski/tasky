@@ -13,8 +13,7 @@ describe('task', () => {
     cy.findAllByRole('textbox', { name: /body/i }).type(
       `this is a test task.{enter}`
     );
-
-    cy.findByText(/this is a test task./i);
+    // TODO: update later when we introduce easier task creating on calendar page
   });
 
   it('should show field errors if there are any.', () => {

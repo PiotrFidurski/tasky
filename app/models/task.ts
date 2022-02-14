@@ -9,11 +9,17 @@ export function getTask(id: string) {
 }
 
 export function getTasksForDay(day: string) {
-  return db.task.findMany({ where: { scheduledFor: day } });
+  return db.task.findMany({
+    where: { scheduledFor: day },
+    orderBy: { sortDate: 'asc' },
+  });
 }
 
 export function getUnscheduledTasks() {
-  return db.task.findMany({ where: { scheduledFor: '' } });
+  return db.task.findMany({
+    where: { scheduledFor: '' },
+    orderBy: { sortDate: 'asc' },
+  });
 }
 
 export function createTask(body: string, userId: string) {
@@ -42,13 +48,13 @@ export function markTaskUncomplete(id: string) {
 export function scheduleTask(id: string, date: string) {
   return db.task.update({
     where: { id },
-    data: { scheduledFor: date },
+    data: { scheduledFor: date, sortDate: new Date() },
   });
 }
 
 export function unscheduleTask(id: string) {
   return db.task.update({
     where: { id },
-    data: { scheduledFor: '' },
+    data: { scheduledFor: '', sortDate: new Date() },
   });
 }
