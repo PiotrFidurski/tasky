@@ -10,7 +10,7 @@ describe('task', () => {
   it('should allow users to create new tasks', () => {
     cy.visit('/home');
 
-    cy.findAllByRole('textbox', { name: /body/i }).type(
+    cy.findByRole('textbox', { name: /body/i }).type(
       `this is a test task.{enter}`
     );
     // TODO: update later when we introduce easier task creating on calendar page
@@ -19,7 +19,7 @@ describe('task', () => {
   it('should show field errors if there are any.', () => {
     cy.visit('/home');
 
-    cy.findAllByRole('textbox', { name: /body/i })
+    cy.findByRole('textbox', { name: /body/i })
       .as('bodyInput')
       .type(`.{enter}`);
 
@@ -57,7 +57,7 @@ describe('task', () => {
       cy.findByText(/this is a test task./);
 
       cy.findByRole('article', { name: /this is a test task./i }).within(() => {
-        cy.findByRole('button', { name: /move to backlog/i }).click();
+        cy.findByRole('button', { name: /move to unscheduled/i }).click();
       });
     });
   });

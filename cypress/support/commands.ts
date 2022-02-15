@@ -27,7 +27,7 @@
 Cypress.Commands.add('login', () => {
   const username = Cypress.env('TEST_USERNAME');
   const password = Cypress.env('TEST_PASSWORD');
-  const cookieValue = Cypress.env('TEST_COOKIE_VALUE');
+  const cookieValue = Cypress.env('TEST_COOKIE');
 
   cy.request({
     url: '/login',

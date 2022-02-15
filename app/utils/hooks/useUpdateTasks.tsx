@@ -2,11 +2,17 @@ import { Task } from '@prisma/client';
 
 import { useFetchers } from 'remix';
 
-export function useUpdateTasks(
-  action: string,
-  tasks: Array<Task>,
-  updateValue = ''
-) {
+type UpdateTaskProps = {
+  action: string;
+  tasks: Array<Task>;
+  updateValue?: string;
+};
+
+export function useUpdateTasks({
+  action,
+  tasks,
+  updateValue = '',
+}: UpdateTaskProps) {
   const fetchers = useFetchers();
   const updates: Array<Task> = [];
 

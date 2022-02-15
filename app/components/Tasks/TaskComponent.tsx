@@ -69,7 +69,6 @@ function TaskComponent({ task }: { task: Task }) {
             )}
           </button>
         </fetcher.Form>
-
         {!task.scheduledFor ? (
           <fetcher.Form method="post">
             <input
@@ -118,7 +117,7 @@ function TaskComponent({ task }: { task: Task }) {
           <input name="id" value={task.id} type="hidden" />
           <button
             type="submit"
-            aria-label="move to backlog"
+            aria-label="move to unscheduled"
             className="text-blue-600 align-bottom transform rotate-180"
           >
             {/* arrow icon */}

@@ -12,8 +12,8 @@ import {
 } from 'remix';
 
 import Calendar from '~/components/Calendar/root';
-import Backlog from '~/components/Tasks/Backlog';
-import DayTasks from '~/components/Tasks/DayTasks';
+import DayTasksList from '~/components/Tasks/DayTasksList';
+import UnscheduledTasksList from '~/components/Tasks/UnscheduledTasksList';
 import {
   CalendarLayout,
   ColumnLayout,
@@ -26,7 +26,7 @@ import { getErrorMessage } from '~/utils/getErrorMessage';
 
 type LoaderData = {
   tasksForTheDay: Task[];
-  tasks: Task[];
+  unscheduledTasks: Task[];
   calendarData: Array<Array<string>>;
 };
 
@@ -38,14 +38,14 @@ export const loader: LoaderFunction = async ({ params }) => {
 
     const calendarData = getCalendarData({ date: new Date() });
 
-    const [tasksForTheDay, tasks] = await Promise.all([
+    const [tasksForTheDay, unscheduledTasks] = await Promise.all([
       getTasksForDay(day),
       getUnscheduledTasks(),
     ]);
 
     const data: LoaderData = {
       tasksForTheDay,
-      tasks,
+      unscheduledTasks,
       calendarData,
     };
 
@@ -62,7 +62,8 @@ export const loader: LoaderFunction = async ({ params }) => {
 export { action };
 
 export default function DayRoute() {
-  const { tasksForTheDay, tasks, calendarData } = useLoaderData<LoaderData>();
+  const { tasksForTheDay, unscheduledTasks, calendarData } =
+    useLoaderData<LoaderData>();
 
   const { day } = useParams<'day'>();
 
@@ -72,10 +73,16 @@ export default function DayRoute() {
         <Calendar data={calendarData} />
       </CalendarLayout>
       <ColumnLayout aria-label={day}>
-        <DayTasks dayTasks={tasksForTheDay} backlog={tasks} />
+        <DayTasksList
+          dayTasks={tasksForTheDay}
+          unscheduledTasks={unscheduledTasks}
+        />
       </ColumnLayout>
       <ColumnLayout>
-        <Backlog backlog={tasks} dayTasks={tasksForTheDay} />
+        <UnscheduledTasksList
+          unscheduledTasks={unscheduledTasks}
+          dayTasks={tasksForTheDay}
+        />
       </ColumnLayout>
     </ContentLayout>
   );
