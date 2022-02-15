@@ -6,9 +6,10 @@ import { Button } from '~/components/Elements/Button';
 import { NavListItem } from '~/components/Elements/NavListItem';
 
 import { useTheme } from './Theme/ThemeProvider';
+import { Theme } from './Theme/themeContext';
 
 function Sidebar({ user }: { user: User }) {
-  const { switchTheme } = useTheme();
+  const { theme, switchTheme } = useTheme();
 
   return (
     <div className="flex h-full flex-col justify-between min-h-[calc(100vh-2rem)]">
@@ -17,7 +18,11 @@ function Sidebar({ user }: { user: User }) {
           <Link to="/">Some logo here</Link>
           <button
             type="button"
-            aria-label="toggle dark mode"
+            aria-label={
+              theme === Theme.light
+                ? 'switch to dark mode'
+                : 'switch to light mode'
+            }
             onClick={switchTheme}
           >
             {/* toggle theme icon */}
