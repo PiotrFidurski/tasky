@@ -16,7 +16,7 @@ import {
 import { ThemeProvider, useTheme } from './components/Theme/ThemeProvider';
 import { LoadUserThemePreferences } from './components/Theme/systemTheme';
 import { Theme } from './components/Theme/themeContext';
-import { getUserPreferencesSession } from './session/theme.server';
+import { getThemeSession } from './session/theme.server';
 import styles from './styles/app.css';
 
 export function links() {
@@ -32,7 +32,7 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const themeSession = await getUserPreferencesSession(request);
+  const themeSession = await getThemeSession(request);
 
   const data: LoaderData = {
     theme: themeSession.get('theme'),

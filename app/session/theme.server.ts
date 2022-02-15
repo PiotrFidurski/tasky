@@ -1,7 +1,9 @@
 import { createCookieSessionStorage, json } from 'remix';
 
-if (!process.env.SESSION_SECRET) {
-  throw new Error('SESSION_SECRET must be set in your environment variables.');
+import { Theme } from '~/components/Theme/themeContext';
+
+if (!process.env.THEME_SECRET) {
+  throw new Error('THEME_SECRET must be set in your environment variables.');
 }
 
 const themeStorage = createCookieSessionStorage({
@@ -10,17 +12,17 @@ const themeStorage = createCookieSessionStorage({
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
-    secrets: [process.env.SESSION_SECRET],
+    secrets: [process.env.THEME_SECRET],
     secure: process.env.NODE_ENV === 'production',
   },
 });
 
-export function getUserPreferencesSession(request: Request) {
+export function getThemeSession(request: Request) {
   return themeStorage.getSession(request.headers.get('Cookie'));
 }
 
-export async function updateThemeSession(request: Request, theme: string) {
-  const session = await getUserPreferencesSession(request);
+export async function updateThemeSession(request: Request, theme: Theme) {
+  const session = await getThemeSession(request);
 
   session.set('theme', theme);
 
