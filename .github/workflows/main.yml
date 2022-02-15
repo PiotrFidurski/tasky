@@ -23,9 +23,9 @@ jobs:
           start: npm run start
           wait-on: http://localhost:3000
         env:
+          CYPRESS_TEST_COOKIE: ${{ secrets.CYPRESS_TEST_COOKIE }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           THEME_SECRET: ${{ secrets.THEME_SECRET }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           CYPRESS_TEST_USERNAME: ${{ secrets.CYPRESS_TEST_USERNAME }}
           CYPRESS_TEST_PASSWORD: ${{ secrets.CYPRESS_TEST_PASSWORD }}
-          CYPRESS_TEST_COOKIE_VALUE: ${{ secrets.CYPRESS_TEST_COOKIE_VALUE }}
