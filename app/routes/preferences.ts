@@ -4,6 +4,8 @@ import { ActionFunction, LoaderFunction, redirect } from 'remix';
 
 import { isValidTheme } from '~/components/Theme/ThemeProvider';
 
+import { badRequest } from '~/utils/badRequest';
+
 export const action: ActionFunction = async ({ request }) => {
   try {
     const requestBody = await request.text();
@@ -11,7 +13,7 @@ export const action: ActionFunction = async ({ request }) => {
     const themeParam = searchParams.get('theme');
 
     if (!isValidTheme(themeParam)) {
-      return null;
+      return badRequest('theme has to be a valid string.');
     }
 
     return await updateThemeSession(request, themeParam);

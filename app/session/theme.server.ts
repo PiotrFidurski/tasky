@@ -1,12 +1,16 @@
 import { createCookieSessionStorage, json } from 'remix';
 
+if (!process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET must be set in your environment variables.');
+}
+
 const themeStorage = createCookieSessionStorage({
   cookie: {
     name: 'user_preferences',
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
-    secrets: ['verySecretKey'],
+    secrets: [process.env.SESSION_SECRET],
     secure: process.env.NODE_ENV === 'production',
   },
 });
