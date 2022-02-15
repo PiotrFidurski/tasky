@@ -5,13 +5,21 @@ import { Form, Link } from 'remix';
 import { Button } from '~/components/Elements/Button';
 import { NavListItem } from '~/components/Elements/NavListItem';
 
+import { useTheme } from './Theme/ThemeProvider';
+
 function Sidebar({ user }: { user: User }) {
+  const { switchTheme } = useTheme();
+
   return (
     <div className="flex h-full flex-col justify-between min-h-[calc(100vh-2rem)]">
       <div className="w-full flex flex-col">
         <div className="flex items-center justify-between border-b border-slate-300 w-full px-2 py-4 text-slate-600">
           <Link to="/">Some logo here</Link>
-          <button type="button" aria-label="toggle dark mode">
+          <button
+            type="button"
+            aria-label="toggle dark mode"
+            onClick={switchTheme}
+          >
             {/* toggle theme icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
