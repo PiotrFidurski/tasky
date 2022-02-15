@@ -92,7 +92,6 @@ export default function HomeRoute() {
         <ColumnLayout>
           <CreateTask errorMessage={fieldErrors?.body || ''} />
         </ColumnLayout>
-
         <Outlet />
       </ContentLayout>
     </MainLayout>

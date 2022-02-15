@@ -8,15 +8,15 @@ import { badRequest } from '~/utils/badRequest';
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    const requestBody = await request.text();
-    const searchParams = new URLSearchParams(requestBody);
-    const themeParam = searchParams.get('theme');
+    const bodyText = await request.text();
+    const searchParams = new URLSearchParams(bodyText);
+    const theme = searchParams.get('theme');
 
-    if (!isValidTheme(themeParam)) {
+    if (!isValidTheme(theme)) {
       return badRequest('theme has to be a valid string.');
     }
 
-    return await updateThemeSession(request, themeParam);
+    return await updateThemeSession(request, theme);
   } catch (error) {
     return error;
   }
