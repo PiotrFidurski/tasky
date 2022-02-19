@@ -55,7 +55,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="dark bg-white dark:bg-black dark:text-slate-200">
+      <body className="bg-white dark:bg-custom__bluedark">
         {children}
         <ScrollRestoration />
         <Scripts />
