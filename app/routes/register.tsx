@@ -6,6 +6,7 @@ import { ZodRegisterErrors, registerSchema } from '~/validation/user';
 
 import { ActionFunction, Form, Link, useActionData } from 'remix';
 
+import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
@@ -56,7 +57,9 @@ export default function LoginRoute() {
 
   return (
     <main className="flex flex-col justify-center items-center h-screen">
-      <h1 className="text-slate-600 font-bold text-4xl py-4">Register</h1>
+      <h1 className="text-custom__gray dark:text-custom__ghostly font-bold text-4xl py-4">
+        Register
+      </h1>
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
           htmlFor="username"
@@ -99,15 +102,12 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex justify-between items-center gap-4">
-          <button
-            type="submit"
-            className="border-2 border-blue-600 w-full bg-blue-600 rounded py-2 text-white font-bold uppercase hover:bg-blue-700 hover:border-blue-700 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
-          >
+          <Button type="submit" className="p-2 rounded-md">
             Register
-          </button>
+          </Button>
           <Link
             to="/login"
-            className="w-full text-center py-2 border-2 rounded border-slate-600 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
+            className="w-full dark:text-custom__ghostly font-semibold text-center py-2 border-2 rounded border-custom__gray dark:border-custom__ghostly focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
           >
             already have an account?
           </Link>

@@ -43,7 +43,10 @@ function Sidebar({ user }: { user: User }) {
                 className="fill-custom__ghostly dark:fill-custom__gray"
                 offset={20}
               />
-              <DropdownItem aria-label="user profile">
+              <DropdownItem
+                aria-label="user profile"
+                className="rounded-tl-md rounded-tr-md"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -86,7 +89,6 @@ function Sidebar({ user }: { user: User }) {
               <Form action="/logout" method="post">
                 <button type="submit" className="w-full">
                   <DropdownItem
-                    className="focus:bg-red-400 dark:focus:bg-red-400"
                     aria-label="logout"
                     onSelect={(e) => e.preventDefault()}
                   >
@@ -121,7 +123,7 @@ function Sidebar({ user }: { user: User }) {
                 onClick={switchTheme}
               >
                 <DropdownItem
-                  className="w-full"
+                  className="w-full rounded-bl-md rounded-br-md"
                   aria-label={
                     theme === Theme.light
                       ? 'switch to dark mode'

@@ -23,17 +23,17 @@ function Day({ day }: { day: string }) {
           ? 'bg-custom__hoverlight dark:bg-custom__hoverdark'
           : null,
         isToday(parseISO(day))
-          ? 'before:content-["TODAY"] before:absolute before:top-1 before:text-gray-300 before:dark:text-gray-600 font-semibold before:text-center'
+          ? 'before:content-["TODAY"] before:absolute before:top-1 before:text-gray-400 before:dark:text-gray-600 before:font-semibold'
           : null
       )}
     >
       {isFirstDayOfMonth(date) ? (
-        <span className="text-xs h-full font-bold text-blue-600">
+        <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
           {monthName}
         </span>
       ) : null}
       {isDayInCurrentYear(date) ? (
-        <span className="font-semibold dark:text-custom__ghostly">
+        <span className="font-semibold text-custom__gray dark:text-custom__ghostly">
           {dayOfMonth}
         </span>
       ) : (

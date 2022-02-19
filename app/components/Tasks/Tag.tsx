@@ -6,7 +6,7 @@ export default function Tag({ className, children, ...props }: TagProps) {
   return (
     <span
       className={clsx(
-        `rounded-full px-2 py-1 bg-indigo-400 text-custom__ghostly min-w-0
+        `rounded-full px-2 py-1 bg-indigo-400 text-custom__gray min-w-0
          overflow-hidden text-ellipsis max-w-[4rem] w-full
         text-center font-semibold text-xs uppercase`,
         className

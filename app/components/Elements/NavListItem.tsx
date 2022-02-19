@@ -17,8 +17,8 @@ function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
             isActive ? 'font-bold' : 'font-normal',
             `flex w-full items-center justify-center lg:justify-start
              p-3 rounded-full hover:bg-custom__hoverlight dark:hover:bg-custom__hoverdark
-            focus-visible:bg-custom__hoverlight focus-visible:dark:bg-custom__hoverdark 
-            focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors`
+            focus:bg-custom__hoverlight focus:dark:bg-custom__hoverdark 
+            focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-600 transition-colors`
           )
         }
       >
