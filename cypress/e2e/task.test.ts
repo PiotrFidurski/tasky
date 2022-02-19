@@ -21,7 +21,7 @@ describe('task', () => {
 
     cy.findByRole('textbox', { name: /body/i })
       .as('bodyInput')
-      .type(`.{enter}`);
+      .type(`k.{enter}`);
 
     cy.findByText(/Body should be at least 3 characters long./i);
   });
