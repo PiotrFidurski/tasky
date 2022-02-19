@@ -21,7 +21,7 @@ function Day({ day }: { day: string }) {
         'relative flex flex-col justify-center items-center min-h-[4rem] p-2 border-r dark:border-custom__gray',
         day === params.day
           ? 'bg-custom__hoverlight dark:bg-custom__hoverdark'
-          : '',
+          : null,
         isToday(parseISO(day))
           ? 'before:content-["today"] before:absolute before:top-1 before:text-gray-300 before:dark:text-gray-600 font-semibold uppercase before:text-center'
           : null

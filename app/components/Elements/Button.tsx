@@ -15,10 +15,10 @@ function Button({
   return (
     <button
       className={clsx(
-        'border-2 border-blue-600 w-full py-2 rounded uppercase font-bold focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors',
+        'border-2 border-blue-600 w-full uppercase font-bold focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors',
         isGhost
           ? 'bg-transparent text-blue-600 hover:text-white hover:bg-blue-600 hover:border-blue-600'
-          : 'bg-blue-600  text-white hover:bg-blue-700 hover:border-blue-700',
+          : 'bg-blue-600 text-white hover:bg-blue-700 hover:border-blue-700',
         className
       )}
       type={buttonType ? 'button' : 'submit'}

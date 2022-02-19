@@ -25,15 +25,15 @@ export default function DayTasksList({
   });
 
   return (
-    <div>
-      <div className="shadow-md border-b min-h-[4rem] items-center flex px-4 mb-2">
-        <h2 className="font-bold text-slate-600 text-xl">
+    <>
+      <div className="min-h-[4rem] items-center flex mb-2">
+        <h2 className="font-bold text-custom__gray text-xl dark:text-custom__ghostly">
           {format(new Date(day as string), 'iiii MMM, yyyy')}
         </h2>
       </div>
       {dayTasks.concat(updates).map((task) => (
         <TaskComponent key={task.id} task={task} />
       ))}
-    </div>
+    </>
   );
 }

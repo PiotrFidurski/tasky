@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex w-full relative px-4 py-4 gap-2 items-start">
+    <main className="flex w-full relative p-4 gap-2 items-start">
       {children}
     </main>
   );
@@ -10,15 +10,13 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-[16rem] w-full rounded-md border border-slate-300 sticky top-4 hidden lg:block">
-      {children}
-    </div>
+    <div className="max-w-[4rem] lg:max-w-[16rem] w-full fixed">{children}</div>
   );
 }
 
 export function CalendarLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-[22.2rem] w-full max-h-[calc(100vh-3rem)] h-full min-h-[calc(100vh-3rem)] overflow-auto">
+    <div className="w-full border dark:border-custom__gray max-h-[calc(100vh-3rem)] h-full overflow-auto">
       {children}
     </div>
   );
@@ -30,7 +28,7 @@ export function ContentLayout({ children, className }: ContentLayoutProps) {
   return (
     <div
       className={clsx(
-        'px-2 py-2 border border-slate-300 rounded-md w-full flex flex-col-reverse md:flex-row gap-2',
+        'p-2 w-full flex flex-col md:flex-row gap-2 ml-[4rem] lg:ml-[16rem]',
         className
       )}
     >
