@@ -14,28 +14,32 @@ function Day({ day }: { day: string }) {
   const dayOfMonth = date.getDate();
 
   return (
-    <div className="w-[3rem] h-[3rem] flex items-center justify-center">
-      <Link
-        aria-label={day}
-        to={`/calendar/${day}`}
-        className={clsx(
-          'flex flex-col w-full h-full justify-center items-center shadow-sm',
-          isToday(parseISO(day)) ? 'border-2 border-blue-200' : '',
-          day === params.day ? 'bg-blue-300' : ''
-        )}
-      >
-        {isFirstDayOfMonth(date) ? (
-          <span className="text-xs h-full font-bold text-blue-600">
-            {monthName}
-          </span>
-        ) : null}
-        {isDayInCurrentYear(date) ? (
-          <span>{dayOfMonth}</span>
-        ) : (
-          <span className="text-gray-300">{dayOfMonth}</span>
-        )}
-      </Link>
-    </div>
+    <Link
+      aria-label={day}
+      to={`/calendar/${day}`}
+      className={clsx(
+        'relative flex flex-col justify-center items-center min-h-[4rem] p-2 border-r dark:border-custom__gray',
+        day === params.day
+          ? 'bg-custom__hoverlight dark:bg-custom__hoverdark'
+          : '',
+        isToday(parseISO(day))
+          ? 'before:content-["today"] before:absolute before:top-1 before:text-gray-300 before:dark:text-gray-600 font-semibold uppercase before:text-center'
+          : null
+      )}
+    >
+      {isFirstDayOfMonth(date) ? (
+        <span className="text-xs h-full font-bold text-blue-600">
+          {monthName}
+        </span>
+      ) : null}
+      {isDayInCurrentYear(date) ? (
+        <span className="font-semibold dark:text-custom__ghostly">
+          {dayOfMonth}
+        </span>
+      ) : (
+        <span className="text-gray-300">{dayOfMonth}</span>
+      )}
+    </Link>
   );
 }
 export { Day };
