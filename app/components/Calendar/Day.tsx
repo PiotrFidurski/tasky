@@ -23,7 +23,7 @@ function Day({ day }: { day: string }) {
           ? 'bg-custom__hoverlight dark:bg-custom__hoverdark'
           : null,
         isToday(parseISO(day))
-          ? 'before:content-["today"] before:absolute before:top-1 before:text-gray-300 before:dark:text-gray-600 font-semibold uppercase before:text-center'
+          ? 'before:content-["TODAY"] before:absolute before:top-1 before:text-gray-300 before:dark:text-gray-600 font-semibold before:text-center'
           : null
       )}
     >

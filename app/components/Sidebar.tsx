@@ -17,7 +17,7 @@ function Sidebar({ user }: { user: User }) {
   return (
     <div className="w-full flex flex-col items-start justify-between min-h-[calc(100vh-2rem)]">
       <div className="w-full">
-        <div className="flex justify-center lg:justify-end w-full px-2 py-2 mb-10 text-custom__gray dark:text-custom__ghostly">
+        <div className="flex lg:justify-end w-full p-2 mb-10 text-custom__gray dark:text-custom__ghostly">
           {/* dropdown menu */}
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
@@ -40,7 +40,7 @@ function Sidebar({ user }: { user: User }) {
               className="rounded-lg min-w-[15rem] border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray"
             >
               <DropdownMenu.Arrow
-                className="fill-white dark:fill-custom__gray"
+                className="fill-custom__ghostly dark:fill-custom__gray"
                 offset={20}
               />
               <DropdownItem aria-label="user profile">
@@ -83,7 +83,7 @@ function Sidebar({ user }: { user: User }) {
                 </svg>
                 <span>Settings</span>
               </DropdownItem>
-              <Form action="/logout" method="post" className="w-full">
+              <Form action="/logout" method="post">
                 <button type="submit" className="w-full">
                   <DropdownItem
                     className="focus:bg-red-400 dark:focus:bg-red-400"
