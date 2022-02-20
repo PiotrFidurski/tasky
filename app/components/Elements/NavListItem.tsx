@@ -2,20 +2,29 @@ import clsx from 'clsx';
 
 import { NavLink } from 'remix';
 
-type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & { to: string };
+type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
+  to: string;
+  children: ({ isActive }: { isActive: boolean }) => JSX.Element;
+};
 
 function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
   return (
-    <li className="font-bold w-full" {...htmlLiProps}>
-      <NavLink to={to}>
+    <li {...htmlLiProps}>
+      <NavLink
+        to={to}
+        className={({ isActive }) =>
+          clsx(
+            isActive ? 'font-bold' : 'font-normal',
+            `flex w-full items-center justify-center lg:justify-start
+             p-3 rounded-full hover:bg-custom__hoverlight dark:hover:bg-custom__hoverdark
+            focus:bg-custom__hoverlight focus:dark:bg-custom__hoverdark 
+            focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-600 transition-colors`
+          )
+        }
+      >
         {({ isActive }) => (
-          <div
-            className={clsx(
-              'flex items-center gap-2 px-2 py-2 border rounded-md shadow-sm',
-              isActive ? 'bg-blue-600 text-white' : 'text-slate-600'
-            )}
-          >
-            {children}
+          <div className="text-custom__gray dark:text-custom__ghostly text-2xl flex items-center gap-6">
+            {children({ isActive })}
           </div>
         )}
       </NavLink>

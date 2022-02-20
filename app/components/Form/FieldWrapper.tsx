@@ -10,7 +10,7 @@ function FieldWrapper({
 }: FieldWrapperProps) {
   return (
     <label htmlFor={htmlFor} {...htmlLabelProps}>
-      <span className="text-slate-900 inline-block font-semibold first-letter:capitalize">
+      <span className="text-custom__gray dark:text-custom__ghostly font-semibold first-letter:capitalize">
         {htmlFor}
       </span>
       {children}

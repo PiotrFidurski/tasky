@@ -22,6 +22,8 @@ describe('login', () => {
 
     cy.getCookie('_auth').should('exist');
 
+    cy.findByRole('button', { name: /open menu/i }).click();
+
     cy.findByRole('button', { name: /logout/i }).click();
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/login`);

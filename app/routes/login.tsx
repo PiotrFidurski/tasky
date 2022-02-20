@@ -63,7 +63,9 @@ export default function LoginRoute() {
 
   return (
     <main className="flex flex-col justify-center items-center h-screen">
-      <h1 className="text-slate-600 font-bold text-4xl py-4">Login</h1>
+      <h1 className="text-custom__gray dark:text-custom__ghostly font-bold text-4xl py-4">
+        Login
+      </h1>
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
           errorMessage={fieldErrors?.username || ''}
@@ -92,7 +94,7 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button>Login</Button>
+          <Button className="p-2 rounded-md">Login</Button>
           <Link
             to="/register"
             className="flex justify-center items-center border-2 border-blue-600 w-full rounded py-2 font-bold uppercase text-blue-600 hover:text-white hover:bg-blue-600 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"

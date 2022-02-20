@@ -21,7 +21,7 @@ describe('task', () => {
 
     cy.findByRole('textbox', { name: /body/i })
       .as('bodyInput')
-      .type(`.{enter}`);
+      .type(`k.{enter}`);
 
     cy.findByText(/Body should be at least 3 characters long./i);
   });
@@ -50,14 +50,14 @@ describe('task', () => {
     cy.findByRole('link', { name: date }).click();
 
     cy.findByRole('article', { name: /this is a test task./i }).within(() => {
-      cy.findByRole('button', { name: /move to day!/i }).click();
+      cy.findByRole('button', { name: /schedule task/i }).click();
     });
 
     cy.findByRole('region', { name: date }).within(() => {
       cy.findByText(/this is a test task./);
 
       cy.findByRole('article', { name: /this is a test task./i }).within(() => {
-        cy.findByRole('button', { name: /move to unscheduled/i }).click();
+        cy.findByRole('button', { name: /unschedule task/i }).click();
       });
     });
   });
