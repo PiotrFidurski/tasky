@@ -22,6 +22,16 @@ export function getUnscheduledTasks() {
   });
 }
 
+export function groupTasksByScheduledFor() {
+  return db.task.groupBy({
+    by: ['scheduledFor'],
+    _count: { isComplete: true, scheduledFor: true },
+    having: {
+      scheduledFor: { not: '' },
+    },
+  });
+}
+
 export function createTask(body: string, userId: string) {
   return db.task.create({
     data: {
