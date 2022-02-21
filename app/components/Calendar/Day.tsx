@@ -4,14 +4,26 @@ import { format, isFirstDayOfMonth, isToday, parseISO } from 'date-fns';
 import { Link, useParams } from 'remix';
 
 import { isDayInCurrentYear } from '~/utils/date';
+import { GroupedTask, getDayStats } from '~/utils/getDayStats';
 
-function Day({ day }: { day: string }) {
+function Day({
+  day,
+  groupedTasks,
+}: {
+  day: string;
+  groupedTasks: Array<GroupedTask>;
+}) {
+  const [total, complete] = getDayStats(groupedTasks, day);
+
   const params = useParams<'day'>();
+
   // convert string eg: '2022-02-13' back to date
   const date = new Date(day);
 
   const monthName = format(date, 'MMM');
   const dayOfMonth = date.getDate();
+
+  const completion = (complete / total) * 100;
 
   return (
     <Link
@@ -27,6 +39,16 @@ function Day({ day }: { day: string }) {
           : null
       )}
     >
+      <div
+        className="absolute bottom-1 left-2 bg-blue-600 w-2 transition-all"
+        style={{
+          maxHeight: `calc(100% - 8px)`,
+          height: `${completion}%`,
+        }}
+      />
+      {complete === 0 ? (
+        <div className="absolute top-2 right-2 bg-red-400 rounded-full h-2 w-2" />
+      ) : null}
       {isFirstDayOfMonth(date) ? (
         <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
           {monthName}
