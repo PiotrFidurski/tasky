@@ -1,5 +1,6 @@
 import { Task } from '@prisma/client';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { actionTypes } from '~/actions/actionTypes';
 
 import { useFetcher, useParams } from 'remix';
@@ -29,9 +30,13 @@ function TaskComponent({ task }: { task: Task }) {
     fetcher.submission?.formData.get('_action') === actionTypes.UNSCHEDULE_TASK;
 
   return (
-    <article
-      style={{ display: isScheduling || isUnscheduling ? 'none' : 'flex' }}
+    <motion.article
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       aria-label={task.body}
+      style={{ display: isScheduling || isUnscheduling ? 'none' : 'block' }}
       className={clsx(
         'border dark:border-custom__hoverdark mb-2 flex flex-col'
       )}
@@ -159,7 +164,7 @@ function TaskComponent({ task }: { task: Task }) {
           {task.body}
         </p>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
