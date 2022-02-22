@@ -6,6 +6,7 @@ import {
   getUnscheduledTasks,
   groupTasksByScheduledFor,
 } from '~/models/task';
+import { requireUserId } from '~/session/auth.server';
 
 import {
   LoaderFunction,
@@ -36,8 +37,10 @@ export type LoaderData = {
   stats: Record<string, number[]>;
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   try {
+    const userId = await requireUserId(request);
+
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
@@ -45,9 +48,9 @@ export const loader: LoaderFunction = async ({ params }) => {
     const calendarData = getCalendarData({ date: new Date() });
 
     const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
-      getTasksForDay(day),
-      getUnscheduledTasks(),
-      groupTasksByScheduledFor(),
+      getTasksForDay(day, userId),
+      getUnscheduledTasks(userId),
+      groupTasksByScheduledFor(userId),
     ]);
 
     const stats = getDayStats(groupedTasks);
