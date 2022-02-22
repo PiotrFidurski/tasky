@@ -1,7 +1,11 @@
 import { Task } from '@prisma/client';
 import { ZodError, z } from 'zod';
 import { action } from '~/actions/task.server';
-import { getTasksForDay, getUnscheduledTasks } from '~/models/task';
+import {
+  getTasksForDay,
+  getUnscheduledTasks,
+  groupTasksByScheduledFor,
+} from '~/models/task';
 
 import {
   LoaderFunction,
@@ -22,12 +26,14 @@ import {
 
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData } from '~/utils/date';
+import { getDayStats } from '~/utils/getDayStats';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
-type LoaderData = {
+export type LoaderData = {
   tasksForTheDay: Task[];
   unscheduledTasks: Task[];
   calendarData: Array<Array<string>>;
+  stats: Record<string, number[]>;
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -38,15 +44,19 @@ export const loader: LoaderFunction = async ({ params }) => {
 
     const calendarData = getCalendarData({ date: new Date() });
 
-    const [tasksForTheDay, unscheduledTasks] = await Promise.all([
+    const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
       getTasksForDay(day),
       getUnscheduledTasks(),
+      groupTasksByScheduledFor(),
     ]);
+
+    const stats = getDayStats(groupedTasks);
 
     const data: LoaderData = {
       tasksForTheDay,
       unscheduledTasks,
       calendarData,
+      stats,
     };
 
     return json(data, { status: 200 });
@@ -62,7 +72,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 export { action };
 
 export default function DayRoute() {
-  const { tasksForTheDay, unscheduledTasks, calendarData } =
+  const { tasksForTheDay, unscheduledTasks, calendarData, stats } =
     useLoaderData<LoaderData>();
 
   const { day } = useParams<'day'>();
@@ -70,7 +80,7 @@ export default function DayRoute() {
   return (
     <ContentLayout>
       <CalendarLayout>
-        <Calendar data={calendarData} />
+        <Calendar data={calendarData} stats={stats} />
       </CalendarLayout>
       <ColumnLayout aria-label={day}>
         <DayTasksList

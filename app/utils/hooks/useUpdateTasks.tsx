@@ -24,11 +24,12 @@ export function useUpdateTasks({
         const task = tasks.find((t) => t.id === taskId);
 
         if (task) {
-          updates.push({
+          const updatedTask = {
             ...task,
             scheduledFor: updateValue,
             sortDate: new Date(),
-          });
+          };
+          updates.push(updatedTask);
         }
       }
     }

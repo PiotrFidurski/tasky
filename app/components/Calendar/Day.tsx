@@ -5,13 +5,18 @@ import { Link, useParams } from 'remix';
 
 import { isDayInCurrentYear } from '~/utils/date';
 
-function Day({ day }: { day: string }) {
+function Day({ day, stats }: { day: string; stats: Record<string, number[]> }) {
+  const [total, complete] = stats[day] ?? [];
+
   const params = useParams<'day'>();
+
   // convert string eg: '2022-02-13' back to date
   const date = new Date(day);
 
   const monthName = format(date, 'MMM');
   const dayOfMonth = date.getDate();
+
+  const completion = (complete / total) * 100;
 
   return (
     <Link
@@ -27,6 +32,19 @@ function Day({ day }: { day: string }) {
           : null
       )}
     >
+      {complete || total ? (
+        <div className="absolute bottom-1 flex items-center justify-start max-w-[4rem] bg-transparent w-full border border-gray-400 dark:border-gray-500 transition-all h-2">
+          <div
+            className={clsx(
+              'h-full transition-all bg-gradient-to-r',
+              complete === total
+                ? 'from-green-400 via-green-400 to-green-400'
+                : 'from-blue-500 via-blue-600 to-blue-700'
+            )}
+            style={{ width: `${completion}%` }}
+          />
+        </div>
+      ) : null}
       {isFirstDayOfMonth(date) ? (
         <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
           {monthName}

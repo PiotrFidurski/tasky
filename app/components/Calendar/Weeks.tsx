@@ -2,7 +2,13 @@ import clsx from 'clsx';
 
 import { Day } from '~/components/Calendar/Day';
 
-function Weeks({ data }: { data: Array<Array<string>> }) {
+function Weeks({
+  data,
+  stats,
+}: {
+  data: Array<Array<string>>;
+  stats: Record<string, number[]>;
+}) {
   const isFirstRow = (index: number) => index === 0;
   const isLastRow = (index: number) => data.length - 1 !== index;
 
@@ -19,7 +25,7 @@ function Weeks({ data }: { data: Array<Array<string>> }) {
           )}
         >
           {week.map((day) => (
-            <Day day={day} key={day} />
+            <Day day={day} key={day} stats={stats} />
           ))}
         </div>
       ))}
