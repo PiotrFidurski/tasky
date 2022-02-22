@@ -35,7 +35,7 @@ type CalendarDataProps = {
  * @returns Two-dimensional Array
  */
 export function getCalendarData({ weekStartsOn = 0, date }: CalendarDataProps) {
-  let startFromDay = startOfWeek(date, {
+  let startingDay = startOfWeek(date, {
     weekStartsOn,
   });
 
@@ -45,9 +45,9 @@ export function getCalendarData({ weekStartsOn = 0, date }: CalendarDataProps) {
     const week: Array<string> = [];
 
     weekDayNames.forEach(() => {
-      week.push(formatDate(startFromDay));
+      week.push(formatDate(startingDay));
 
-      startFromDay = addDays(startFromDay, 1);
+      startingDay = addDays(startingDay, 1);
     });
 
     calendarMatrix.push(week);

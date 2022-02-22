@@ -1,4 +1,5 @@
 import { Task } from '@prisma/client';
+import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
 import { action } from '~/actions/task.server';
 import {
@@ -6,6 +7,7 @@ import {
   getUnscheduledTasks,
   groupTasksByScheduledFor,
 } from '~/models/task';
+import { requireUserId } from '~/session/auth.server';
 
 import {
   LoaderFunction,
@@ -36,7 +38,9 @@ export type LoaderData = {
   stats: Record<string, number[]>;
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const userId = await requireUserId(request);
+
   try {
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
@@ -45,10 +49,17 @@ export const loader: LoaderFunction = async ({ params }) => {
     const calendarData = getCalendarData({ date: new Date() });
 
     const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
-      getTasksForDay(day),
-      getUnscheduledTasks(),
-      groupTasksByScheduledFor(),
+      getTasksForDay(day, userId),
+      getUnscheduledTasks(userId),
+      groupTasksByScheduledFor(userId),
     ]);
+
+    // check if date is valid date.
+    if (!isValid(new Date(day))) {
+      throw new Error(
+        `No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".`
+      );
+    }
 
     const stats = getDayStats(groupedTasks);
 
@@ -65,7 +76,9 @@ export const loader: LoaderFunction = async ({ params }) => {
       throw badRequest(error.message);
     }
 
-    return getErrorMessage(error);
+    const message = getErrorMessage(error);
+
+    throw badRequest(message);
   }
 };
 
@@ -102,12 +115,12 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   return (
-    <div>
+    <ContentLayout className="dark:text-custom__ghostly text-custom__gray">
       <h1>Caught</h1>
       <p>Status: {caught.status}</p>
       <pre>
         <code>{JSON.stringify(caught.data, null, 2)}</code>
       </pre>
-    </div>
+    </ContentLayout>
   );
 }
