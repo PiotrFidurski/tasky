@@ -39,15 +39,18 @@ function Day({
           : null
       )}
     >
-      <div
-        className="absolute bottom-1 left-2 bg-blue-600 w-2 transition-all"
-        style={{
-          maxHeight: `calc(100% - 8px)`,
-          height: `${completion}%`,
-        }}
-      />
-      {complete === 0 ? (
-        <div className="absolute top-2 right-2 bg-red-400 rounded-full h-2 w-2" />
+      {complete || total ? (
+        <div className="absolute bottom-1 flex items-center justify-start max-w-[4rem] bg-transparent w-full border border-gray-400 dark:border-gray-500 transition-all h-2">
+          <div
+            className={clsx(
+              'h-full transition-all bg-gradient-to-r',
+              complete === total
+                ? 'from-green-400 via-green-400 to-green-400'
+                : 'from-blue-500 via-blue-600 to-blue-700'
+            )}
+            style={{ width: `${completion}%` }}
+          />
+        </div>
       ) : null}
       {isFirstDayOfMonth(date) ? (
         <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
