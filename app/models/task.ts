@@ -8,26 +8,29 @@ export function getTask(id: string) {
   return db.task.findUnique({ where: { id } });
 }
 
-export function getTasksForDay(day: string) {
+export function getTasksForDay(day: string, userId: string) {
   return db.task.findMany({
-    where: { scheduledFor: day },
+    where: { scheduledFor: day, userId },
     orderBy: { sortDate: 'asc' },
   });
 }
 
-export function getUnscheduledTasks() {
+export function getUnscheduledTasks(userId: string) {
   return db.task.findMany({
-    where: { scheduledFor: '' },
+    where: { scheduledFor: '', userId },
     orderBy: { sortDate: 'asc' },
   });
 }
 
-export function groupTasksByScheduledFor() {
+export function groupTasksByScheduledFor(userId: string) {
   return db.task.groupBy({
     by: ['scheduledFor'],
     _count: { isComplete: true, scheduledFor: true },
     having: {
       scheduledFor: { not: '' },
+    },
+    where: {
+      userId,
     },
   });
 }
