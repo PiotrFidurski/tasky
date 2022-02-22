@@ -1,4 +1,5 @@
 import { Task } from '@prisma/client';
+import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
 import { action } from '~/actions/task.server';
 import {
@@ -38,9 +39,9 @@ export type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  try {
-    const userId = await requireUserId(request);
+  const userId = await requireUserId(request);
 
+  try {
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
@@ -52,6 +53,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       getUnscheduledTasks(userId),
       groupTasksByScheduledFor(userId),
     ]);
+
+    // check if date is valid date.
+    if (!isValid(new Date(day))) {
+      throw badRequest(
+        'No tasks found for this date, please check if the date is correct.'
+      );
+    }
 
     const stats = getDayStats(groupedTasks);
 
@@ -68,7 +76,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       throw badRequest(error.message);
     }
 
-    return getErrorMessage(error);
+    const message = getErrorMessage(error);
+
+    throw badRequest(message);
   }
 };
 
@@ -105,12 +115,12 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   return (
-    <div>
+    <ContentLayout className="dark:text-custom__ghostly text-custom__gray">
       <h1>Caught</h1>
       <p>Status: {caught.status}</p>
       <pre>
         <code>{JSON.stringify(caught.data, null, 2)}</code>
       </pre>
-    </div>
+    </ContentLayout>
   );
 }
