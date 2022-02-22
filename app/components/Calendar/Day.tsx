@@ -4,16 +4,9 @@ import { format, isFirstDayOfMonth, isToday, parseISO } from 'date-fns';
 import { Link, useParams } from 'remix';
 
 import { isDayInCurrentYear } from '~/utils/date';
-import { GroupedTask, getDayStats } from '~/utils/getDayStats';
 
-function Day({
-  day,
-  groupedTasks,
-}: {
-  day: string;
-  groupedTasks: Array<GroupedTask>;
-}) {
-  const [total, complete] = getDayStats(groupedTasks, day);
+function Day({ day, stats }: { day: string; stats: Record<string, number[]> }) {
+  const [total, complete] = stats[day] ?? [];
 
   const params = useParams<'day'>();
 

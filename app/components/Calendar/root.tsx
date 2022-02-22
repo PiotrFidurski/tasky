@@ -1,19 +1,17 @@
-import { GroupedTask } from '~/utils/getDayStats';
-
 import { Days } from './Days';
 import { Weeks } from './Weeks';
 
 export default function Calendar({
   data,
-  groupedTasks,
+  stats,
 }: {
   data: Array<Array<string>>;
-  groupedTasks: Array<GroupedTask>;
+  stats: Record<string, number[]>;
 }) {
   return (
     <>
       <Days />
-      <Weeks data={data} groupedTasks={groupedTasks} />
+      <Weeks data={data} stats={stats} />
     </>
   );
 }

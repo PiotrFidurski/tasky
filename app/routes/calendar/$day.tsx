@@ -26,14 +26,14 @@ import {
 
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData } from '~/utils/date';
-import { GroupedTask } from '~/utils/getDayStats';
+import { getDayStats } from '~/utils/getDayStats';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
 export type LoaderData = {
   tasksForTheDay: Task[];
   unscheduledTasks: Task[];
   calendarData: Array<Array<string>>;
-  groupedTasks: Array<GroupedTask>;
+  stats: Record<string, number[]>;
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -50,11 +50,13 @@ export const loader: LoaderFunction = async ({ params }) => {
       groupTasksByScheduledFor(),
     ]);
 
+    const stats = getDayStats(groupedTasks);
+
     const data: LoaderData = {
       tasksForTheDay,
       unscheduledTasks,
       calendarData,
-      groupedTasks,
+      stats,
     };
 
     return json(data, { status: 200 });
@@ -70,7 +72,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 export { action };
 
 export default function DayRoute() {
-  const { tasksForTheDay, unscheduledTasks, calendarData, groupedTasks } =
+  const { tasksForTheDay, unscheduledTasks, calendarData, stats } =
     useLoaderData<LoaderData>();
 
   const { day } = useParams<'day'>();
@@ -78,7 +80,7 @@ export default function DayRoute() {
   return (
     <ContentLayout>
       <CalendarLayout>
-        <Calendar data={calendarData} groupedTasks={groupedTasks} />
+        <Calendar data={calendarData} stats={stats} />
       </CalendarLayout>
       <ColumnLayout aria-label={day}>
         <DayTasksList
