@@ -57,7 +57,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     // check if date is valid date.
     if (!isValid(new Date(day))) {
       throw new Error(
-        'No tasks found for this date, please check if the date is correct.'
+        `No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".`
       );
     }
 
