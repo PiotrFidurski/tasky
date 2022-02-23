@@ -17,7 +17,7 @@ import { actionTypes } from './actionTypes';
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    await requireUserId(request);
+    const userId = await requireUserId(request);
 
     const form = await request.formData();
 
@@ -26,6 +26,7 @@ export const action: ActionFunction = async ({ request }) => {
     const id = form.get('id');
     const dateField = form.get('date');
 
+    const ownerId = form.get('ownerId');
     const taskId = z
       .string({ invalid_type_error: 'expected an id.' })
       .parse(id);
@@ -54,6 +55,10 @@ export const action: ActionFunction = async ({ request }) => {
       }
 
       case actionTypes.DELETE_TASK: {
+        if (userId !== ownerId) {
+          throw badRequest(`You are not allowed to delete this task.`);
+        }
+
         return await deleteTask(taskId);
       }
 

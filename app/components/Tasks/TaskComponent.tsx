@@ -181,6 +181,7 @@ function TaskComponent({ task }: { task: Task }) {
               type="hidden"
             />
             <input name="id" value={task.id} type="hidden" />
+            <input name="ownerId" value={task.userId} type="hidden" />
             <button
               type="submit"
               className="text-rose-600"
