@@ -1,5 +1,6 @@
 import { ZodError, z } from 'zod';
 import {
+  deleteTask,
   markTaskComplete,
   markTaskUncomplete,
   scheduleTask,
@@ -50,6 +51,10 @@ export const action: ActionFunction = async ({ request }) => {
 
       case actionTypes.UNSCHEDULE_TASK: {
         return await unscheduleTask(taskId);
+      }
+
+      case actionTypes.DELETE_TASK: {
+        return await deleteTask(taskId);
       }
 
       default: {
