@@ -25,7 +25,6 @@ export const action: ActionFunction = async ({ request }) => {
 
     const id = form.get('id');
     const dateField = form.get('date');
-
     const ownerId = form.get('ownerId');
     const taskId = z
       .string({ invalid_type_error: 'expected an id.' })
