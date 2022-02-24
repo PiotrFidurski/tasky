@@ -4,14 +4,14 @@ export type GroupedTask = {
 };
 
 export function getDayStats(data: Array<GroupedTask>) {
-  let statusRecord: Record<string, Array<number>> = {};
+  let stats: Record<string, Array<number>> = {};
 
   data.forEach((day) => {
-    statusRecord = {
-      ...statusRecord,
+    stats = {
+      ...stats,
       [day.scheduledFor]: [day._count.scheduledFor, day._count.isComplete],
     };
   });
 
-  return statusRecord;
+  return stats;
 }
