@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { actionTypes } from '~/actions/actionTypes';
 
-import { useFetcher, useParams } from 'remix';
+import { useFetcher, useLocation, useMatches, useParams } from 'remix';
 
 import { formatDate } from '~/utils/date';
 
@@ -11,6 +11,15 @@ import Tag from './Tag';
 
 function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
+  const location = useLocation();
+
+  const allRouteData = useMatches();
+
+  const routeData = allRouteData.find(
+    (route) => route.pathname === location.pathname
+  );
+
+  const currentUserId = routeData?.data?.userId;
 
   const { day } = useParams<'day'>();
 
@@ -159,11 +168,43 @@ function TaskComponent({ task }: { task: Task }) {
             )}
           </button>
         </fetcher.Form>
-
         <p className="font-semibold text-custom__gray dark:text-custom__ghostly">
           {task.body}
         </p>
       </div>
+      {currentUserId === task.userId ? (
+        <div className="p-1 flex items-center">
+          <fetcher.Form method="post">
+            <input
+              name="_action"
+              value={actionTypes.DELETE_TASK}
+              type="hidden"
+            />
+            <input name="id" value={task.id} type="hidden" />
+            <input name="ownerId" value={task.userId} type="hidden" />
+            <button
+              type="submit"
+              className="text-rose-600"
+              aria-label="delete task"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
+            </button>
+          </fetcher.Form>
+        </div>
+      ) : null}
     </motion.article>
   );
 }

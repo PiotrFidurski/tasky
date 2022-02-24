@@ -44,6 +44,10 @@ export function createTask(body: string, userId: string) {
   });
 }
 
+export function deleteTask(id: string) {
+  return db.task.delete({ where: { id } });
+}
+
 export function markTaskComplete(id: string) {
   return db.task.update({
     where: { id },

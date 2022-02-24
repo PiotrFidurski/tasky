@@ -7,6 +7,7 @@ import {
   getUnscheduledTasks,
   groupTasksByScheduledFor,
 } from '~/models/task';
+import { getUserById } from '~/models/user';
 import { requireUserId } from '~/session/auth.server';
 
 import {
@@ -36,12 +37,19 @@ export type LoaderData = {
   unscheduledTasks: Task[];
   calendarData: Array<Array<string>>;
   stats: Record<string, number[]>;
+  userId: string;
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await requireUserId(request);
 
   try {
+    const user = await getUserById(userId);
+
+    if (!user) {
+      throw new Error("Couldn't find user with that id.");
+    }
+
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
@@ -68,6 +76,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       unscheduledTasks,
       calendarData,
       stats,
+      // might not be needed later when authcontext exists
+      userId: user.id,
     };
 
     return json(data, { status: 200 });

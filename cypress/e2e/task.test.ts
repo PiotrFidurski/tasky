@@ -61,4 +61,18 @@ describe('task', () => {
       });
     });
   });
+
+  it('should allow users to delete a task.', () => {
+    cy.visit('/home');
+
+    cy.findByRole('textbox', { name: /body/i }).type(`delete me later{enter}`);
+
+    cy.findByRole('link', { name: /calendar/i }).click();
+
+    cy.findByRole('article', { name: /delete me later/i }).within(() => {
+      cy.findByRole('button', { name: /delete task/i }).click();
+    });
+
+    cy.findByRole('article', { name: /delete me later/i }).should('not.exist');
+  });
 });
