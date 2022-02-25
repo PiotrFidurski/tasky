@@ -52,9 +52,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  try {
-    const userId = await requireUserId(request);
+  const userId = await requireUserId(request);
 
+  try {
     const form = await request.formData();
 
     const { body } = schema.parse(form);
@@ -87,7 +87,6 @@ export default function HomeRoute() {
       <SidebarLayout>
         <Sidebar user={user} />
       </SidebarLayout>
-
       <ContentLayout>
         <ColumnLayout>
           <CreateTask errorMessage={fieldErrors?.body || ''} />

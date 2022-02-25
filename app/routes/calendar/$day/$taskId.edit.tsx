@@ -2,7 +2,6 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 import { getTask } from '~/models/task';
-import { requireUserId } from '~/session/auth.server';
 
 import {
   ActionFunction,
@@ -23,8 +22,7 @@ type LoaderData = {
   body: string;
 };
 
-export const loader: LoaderFunction = async ({ request, params }) => {
-  await requireUserId(request);
+export const loader: LoaderFunction = async ({ params }) => {
   try {
     const taskId = z
       .string({ required_error: 'expected a string' })
