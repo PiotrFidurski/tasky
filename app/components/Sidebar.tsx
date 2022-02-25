@@ -15,7 +15,7 @@ import { Theme } from './Theme/themeContext';
 function Sidebar() {
   const { theme, switchTheme } = useTheme();
 
-  const user = useUser();
+  const { user } = useUser();
 
   const { day } = useParams<'day'>();
 
@@ -68,7 +68,7 @@ function Sidebar() {
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                <span>Profile, {user.username}</span>
+                <span>Profile, {user?.username}</span>
               </DropdownItem>
               <DropdownItem aria-label="settings">
                 <svg

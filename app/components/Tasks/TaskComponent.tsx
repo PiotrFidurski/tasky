@@ -14,9 +14,9 @@ import Tag from './Tag';
 function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
 
-  const user = useUser();
+  const { user } = useUser();
 
-  const currentUserId = user.id;
+  const currentUserId = user?.id;
 
   const { day } = useParams<'day'>();
 

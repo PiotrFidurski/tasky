@@ -9,5 +9,8 @@ type ProviderProps = {
 
 export function AuthProvider({ children, user }: ProviderProps) {
   // for now we return entire user object but maybe we can get away with just user.id
-  return <authContext.Provider value={user}>{children}</authContext.Provider>;
+  return (
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <authContext.Provider value={{ user }}>{children}</authContext.Provider>
+  );
 }
