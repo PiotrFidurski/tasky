@@ -7,6 +7,7 @@ import { ZodTaskErrros, schema } from '~/validation/task';
 
 import {
   ActionFunction,
+  Form,
   LoaderFunction,
   redirect,
   useActionData,
@@ -15,7 +16,8 @@ import {
 } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
-import { CreateTask } from '~/components/Tasks/CreateTask';
+import { FieldWrapper } from '~/components/Form/FieldWrapper';
+import { InputField } from '~/components/Form/InputField';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
@@ -57,6 +59,7 @@ export default function CreateTaskRoute() {
   const { fieldErrors } = useErrors(actionData);
 
   const navigate = useNavigate();
+
   const { day } = useParams<'day'>();
 
   const [open, setOpen] = useState(true);
@@ -82,6 +85,7 @@ export default function CreateTaskRoute() {
             </Dialog.Description>
             <Dialog.Close asChild>
               <Button
+                buttonType
                 isGhost
                 className="p-1 flex items-center justify-center w-auto rounded-full"
               >
@@ -103,7 +107,22 @@ export default function CreateTaskRoute() {
             </Dialog.Close>
           </div>
           <div className="p-4 text-custom__gray">
-            <CreateTask errorMessage={fieldErrors?.body || ''} />
+            <Form method="post" className="p-4 shadow-md" action=".">
+              <div className="w-full mb-2">
+                <FieldWrapper
+                  htmlFor="task"
+                  errorMessage={fieldErrors?.body || ''}
+                >
+                  <InputField
+                    required
+                    aria-label="body"
+                    name="body"
+                    id="task"
+                  />
+                </FieldWrapper>
+              </div>
+              <Button>Add task</Button>
+            </Form>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

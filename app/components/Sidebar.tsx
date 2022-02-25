@@ -257,6 +257,7 @@ function Sidebar() {
       <div className="w-auto lg:w-full">
         {/* this is the same as register links so maybe make it a component */}
         <Link
+          aria-label="create task"
           to={`/calendar/${dayParam}/create`}
           className="flex items-center lg:justify-between p-4 rounded-full border-2 border-blue-400 text-blue-400 uppercase font-bold"
         >

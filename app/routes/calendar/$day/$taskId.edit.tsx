@@ -84,6 +84,7 @@ export default function EditTaskRoute() {
             </Dialog.Description>
             <Dialog.Close asChild>
               <Button
+                buttonType
                 isGhost
                 className="p-1 flex items-center justify-center w-auto rounded-full"
               >
