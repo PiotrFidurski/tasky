@@ -12,6 +12,7 @@ import { requireUserId } from '~/session/auth.server';
 
 import {
   LoaderFunction,
+  Outlet,
   json,
   useCatch,
   useLoaderData,
@@ -101,23 +102,26 @@ export default function DayRoute() {
   const { day } = useParams<'day'>();
 
   return (
-    <ContentLayout>
-      <CalendarLayout>
-        <Calendar data={calendarData} stats={stats} />
-      </CalendarLayout>
-      <ColumnLayout aria-label={day}>
-        <DayTasksList
-          dayTasks={tasksForTheDay}
-          unscheduledTasks={unscheduledTasks}
-        />
-      </ColumnLayout>
-      <ColumnLayout>
-        <UnscheduledTasksList
-          unscheduledTasks={unscheduledTasks}
-          dayTasks={tasksForTheDay}
-        />
-      </ColumnLayout>
-    </ContentLayout>
+    <>
+      <ContentLayout>
+        <CalendarLayout>
+          <Calendar data={calendarData} stats={stats} />
+        </CalendarLayout>
+        <ColumnLayout aria-label={day}>
+          <DayTasksList
+            dayTasks={tasksForTheDay}
+            unscheduledTasks={unscheduledTasks}
+          />
+        </ColumnLayout>
+        <ColumnLayout>
+          <UnscheduledTasksList
+            unscheduledTasks={unscheduledTasks}
+            dayTasks={tasksForTheDay}
+          />
+        </ColumnLayout>
+      </ContentLayout>
+      <Outlet />
+    </>
   );
 }
 
