@@ -8,10 +8,11 @@ import {
   groupTasksByScheduledFor,
 } from '~/models/task';
 import { getUserById } from '~/models/user';
-import { requireUserId } from '~/session/auth.server';
+import { getAuthUserId } from '~/session/session.server';
 
 import {
   LoaderFunction,
+  Outlet,
   json,
   useCatch,
   useLoaderData,
@@ -41,10 +42,10 @@ export type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const userId = await requireUserId(request);
+  const userId = await getAuthUserId(request);
 
   try {
-    const user = await getUserById(userId);
+    const user = await getUserById(userId!);
 
     if (!user) {
       throw new Error("Couldn't find user with that id.");
@@ -57,9 +58,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     const calendarData = getCalendarData({ date: new Date() });
 
     const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
-      getTasksForDay(day, userId),
-      getUnscheduledTasks(userId),
-      groupTasksByScheduledFor(userId),
+      getTasksForDay(day, user.id),
+      getUnscheduledTasks(user.id),
+      groupTasksByScheduledFor(user.id),
     ]);
 
     // check if date is valid date.
@@ -101,23 +102,26 @@ export default function DayRoute() {
   const { day } = useParams<'day'>();
 
   return (
-    <ContentLayout>
-      <CalendarLayout>
-        <Calendar data={calendarData} stats={stats} />
-      </CalendarLayout>
-      <ColumnLayout aria-label={day}>
-        <DayTasksList
-          dayTasks={tasksForTheDay}
-          unscheduledTasks={unscheduledTasks}
-        />
-      </ColumnLayout>
-      <ColumnLayout>
-        <UnscheduledTasksList
-          unscheduledTasks={unscheduledTasks}
-          dayTasks={tasksForTheDay}
-        />
-      </ColumnLayout>
-    </ContentLayout>
+    <>
+      <ContentLayout>
+        <CalendarLayout>
+          <Calendar data={calendarData} stats={stats} />
+        </CalendarLayout>
+        <ColumnLayout aria-label={day}>
+          <DayTasksList
+            dayTasks={tasksForTheDay}
+            unscheduledTasks={unscheduledTasks}
+          />
+        </ColumnLayout>
+        <ColumnLayout>
+          <UnscheduledTasksList
+            unscheduledTasks={unscheduledTasks}
+            dayTasks={tasksForTheDay}
+          />
+        </ColumnLayout>
+      </ContentLayout>
+      <Outlet />
+    </>
   );
 }
 

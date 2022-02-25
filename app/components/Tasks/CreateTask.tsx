@@ -9,7 +9,7 @@ function CreateTask({ errorMessage }: { errorMessage: string | string[] }) {
     <Form method="post" className="p-4 shadow-md">
       <div className="w-full mb-2">
         <FieldWrapper htmlFor="task" errorMessage={errorMessage}>
-          <InputField required aria-label="body" name="body" id="task" />
+          <InputField aria-label="body" name="body" id="task" />
         </FieldWrapper>
       </div>
       <Button type="submit">Add task</Button>

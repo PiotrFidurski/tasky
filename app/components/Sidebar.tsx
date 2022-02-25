@@ -1,18 +1,25 @@
-import { User } from '@prisma/client';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
 
-import { Form } from 'remix';
+import { Form, Link, useParams } from 'remix';
 
-import { Button } from '~/components/Elements/Button';
 import { NavListItem } from '~/components/Elements/NavListItem';
 
+import { formatDate } from '~/utils/date';
+
+import { useUser } from './Auth/useUser';
 import { DropdownItem } from './Elements/DropdownItem';
 import { useTheme } from './Theme/ThemeProvider';
 import { Theme } from './Theme/themeContext';
 
-function Sidebar({ user }: { user: User }) {
+function Sidebar() {
   const { theme, switchTheme } = useTheme();
+
+  const { user } = useUser();
+
+  const { day } = useParams<'day'>();
+
+  const dayParam = !day ? formatDate() : day;
 
   return (
     <div className="w-full flex flex-col items-start justify-between min-h-[calc(100vh-2rem)]">
@@ -61,7 +68,7 @@ function Sidebar({ user }: { user: User }) {
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                <span>Profile, {user.username}</span>
+                <span>Profile, {user?.username}</span>
               </DropdownItem>
               <DropdownItem aria-label="settings">
                 <svg
@@ -248,10 +255,11 @@ function Sidebar({ user }: { user: User }) {
       </div>
       {/* create task button */}
       <div className="w-auto lg:w-full">
-        <Button
-          type="button"
-          isGhost
-          className="flex items-center lg:justify-between p-4 rounded-full"
+        {/* this is the same as register links so maybe make it a component */}
+        <Link
+          aria-label="create task"
+          to={`/calendar/${dayParam}/create`}
+          className="flex items-center lg:justify-between p-4 rounded-full border-2 border-blue-400 text-blue-400 uppercase font-bold"
         >
           <span className="sr-only lg:not-sr-only">Create task</span>
           {/* plus icon */}
@@ -269,7 +277,7 @@ function Sidebar({ user }: { user: User }) {
               d="M12 4v16m8-8H4"
             />
           </svg>
-        </Button>
+        </Link>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import { createCookieSessionStorage, redirect } from 'remix';
 
 if (!process.env.SESSION_SECRET) {
@@ -35,6 +37,16 @@ export async function createUserSession(userId: string) {
  */
 export function getUserSession(request: Request) {
   return sessionStorage.getSession(request.headers.get('Cookie'));
+}
+
+export async function getAuthUserId(request: Request) {
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+
+  const userId = z.string().parse(session.get('userId'));
+
+  return userId;
 }
 
 export async function destroyUserSession(request: Request) {

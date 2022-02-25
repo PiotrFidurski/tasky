@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-
 // eslint-disable-next-line import/no-import-module-exports
 import { PrismaClient } from '@prisma/client';
 
@@ -32,7 +31,7 @@ module.exports = (
     // remove task before test runs.
     async removeTask() {
       const taskToDelete = await db.task.findFirst({
-        where: { body: 'this is a test task.' },
+        where: { body: 'this is a test task' },
       });
 
       if (taskToDelete) {

@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import clsx from 'clsx';
 import React from 'react';
 
@@ -13,9 +14,12 @@ import {
   useLoaderData,
 } from 'remix';
 
+import { AuthProvider } from './components/Auth/AuthProvider';
 import { ThemeProvider, useTheme } from './components/Theme/ThemeProvider';
 import { LoadUserThemePreferences } from './components/Theme/systemTheme';
 import { Theme } from './components/Theme/themeContext';
+import { getUserById } from './models/user';
+import { getUserSession } from './session/session.server';
 import { getThemeSession } from './session/theme.server';
 import styles from './styles/app.css';
 
@@ -29,16 +33,28 @@ export const meta: MetaFunction = () => {
 
 type LoaderData = {
   theme: Theme;
+  user: User | null;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const themeSession = await getThemeSession(request);
+  const session = await getUserSession(request);
 
-  const data: LoaderData = {
-    theme: themeSession.get('theme'),
-  };
+  const userId = session.get('userId');
 
-  return data;
+  try {
+    const user = await getUserById(userId);
+
+    const themeSession = await getThemeSession(request);
+
+    const data: LoaderData = {
+      theme: themeSession.get('theme'),
+      user,
+    };
+
+    return data;
+  } catch (error) {
+    return error;
+  }
 };
 
 function Document({ children }: { children: React.ReactNode }) {
@@ -55,7 +71,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-white dark:bg-custom__bluedark">
+      <body className="bg-white dark:bg-custom__bluedark h-screen">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -69,10 +85,12 @@ export default function App() {
   const data = useLoaderData<LoaderData>();
 
   return (
-    <ThemeProvider storedTheme={data.theme}>
-      <Document>
-        <Outlet />
-      </Document>
-    </ThemeProvider>
+    <AuthProvider user={data.user}>
+      <ThemeProvider storedTheme={data.theme}>
+        <Document>
+          <Outlet />
+        </Document>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
