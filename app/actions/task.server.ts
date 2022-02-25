@@ -61,6 +61,15 @@ export const action: ActionFunction = async ({ request }) => {
         return await deleteTask(taskId);
       }
 
+      case actionTypes.UPDATE_TASK: {
+        if (userId !== ownerId) {
+          throw badRequest(`You are not allowed to update this task.`);
+        }
+
+        // update task here
+        return null;
+      }
+
       default: {
         throw badRequest(`Unknown action ${actionType}`);
       }
