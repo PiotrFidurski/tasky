@@ -22,16 +22,7 @@ export default function CalendarRoute() {
   return (
     <MainLayout>
       <SidebarLayout>
-        <Sidebar
-          // hardcode for now, implement authcontext later
-          user={{
-            id: '1',
-            username: 'chimson',
-            updatedAt: new Date(),
-            createdAt: new Date(),
-            password: 'ss',
-          }}
-        />
+        <Sidebar />
       </SidebarLayout>
       <Outlet />
     </MainLayout>
