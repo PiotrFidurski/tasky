@@ -6,7 +6,7 @@ export function useUser() {
   const context = useContext(authContext);
 
   if (!context) {
-    throw new Error('You are using authContext outside of AuthProvider.');
+    console.warn('You are using authContext outside of AuthProvider.');
   }
 
   return context;
