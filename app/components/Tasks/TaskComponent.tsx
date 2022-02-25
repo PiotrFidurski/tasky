@@ -3,24 +3,20 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { actionTypes } from '~/actions/actionTypes';
 
-import { Link, useFetcher, useLocation, useMatches, useParams } from 'remix';
+import { Link, useFetcher, useParams } from 'remix';
 
 import { formatDate } from '~/utils/date';
 
+import { useUser } from '../Auth/useUser';
 import { Button } from '../Elements/Button';
 import Tag from './Tag';
 
 function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
-  const location = useLocation();
 
-  const allRouteData = useMatches();
+  const user = useUser();
 
-  const routeData = allRouteData.find(
-    (route) => route.pathname === location.pathname
-  );
-
-  const currentUserId = routeData?.data?.userId;
+  const currentUserId = user.id;
 
   const { day } = useParams<'day'>();
 
