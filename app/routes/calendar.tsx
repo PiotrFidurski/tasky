@@ -6,7 +6,7 @@ import { MainLayout, SidebarLayout } from '~/components/layout';
 import { formatDate } from '~/utils/date';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  if (!params.day) {
+  if (!params.day && !params.taskId) {
     const today = formatDate();
     return redirect(`/calendar/${today}`);
   }
