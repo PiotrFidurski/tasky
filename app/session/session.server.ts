@@ -44,7 +44,7 @@ export async function getAuthUserId(request: Request) {
     request.headers.get('Cookie')
   );
 
-  const userId = z.string().nullable().parse(session.get('userId'));
+  const userId = z.string().parse(session.get('userId'));
 
   return userId;
 }
