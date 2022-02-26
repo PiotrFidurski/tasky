@@ -8,7 +8,6 @@ import { ZodTaskErrros, schema } from '~/validation/task';
 import {
   ActionFunction,
   Form,
-  LoaderFunction,
   redirect,
   useActionData,
   useNavigate,
@@ -24,10 +23,6 @@ import { getErrorMessage } from '~/utils/getErrorMessage';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 type ActionData = z.infer<typeof ZodTaskErrros>;
-
-export const loader: LoaderFunction = async () => {
-  return null;
-};
 
 export const action: ActionFunction = async ({ params, request }) => {
   try {
