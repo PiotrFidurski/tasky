@@ -9,12 +9,16 @@ import {
 } from '~/models/task';
 import { requireUserId } from '~/session/auth.server';
 
-import { ActionFunction } from 'remix';
+import { ActionFunction, json } from 'remix';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
 import { actionTypes } from './actionTypes';
+
+function unauthorizedResponse(message: string) {
+  return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
+}
 
 export const action: ActionFunction = async ({ request }) => {
   try {
