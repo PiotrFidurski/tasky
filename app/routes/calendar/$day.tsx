@@ -7,7 +7,6 @@ import {
   getUnscheduledTasks,
   groupTasksByScheduledFor,
 } from '~/models/task';
-import { getUserById } from '~/models/user';
 import { getAuthUserId } from '~/session/session.server';
 
 import {
@@ -38,19 +37,12 @@ export type LoaderData = {
   unscheduledTasks: Task[];
   calendarData: Array<Array<string>>;
   stats: Record<string, number[]>;
-  userId: string;
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await getAuthUserId(request);
 
   try {
-    const user = await getUserById(userId!);
-
-    if (!user) {
-      throw json("Can't find user with that id.", { status: 404 });
-    }
-
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
@@ -66,9 +58,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     const calendarData = getCalendarData({ date: new Date() });
 
     const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
-      getTasksForDay(day, user.id),
-      getUnscheduledTasks(user.id),
-      groupTasksByScheduledFor(user.id),
+      getTasksForDay(day, userId),
+      getUnscheduledTasks(userId),
+      groupTasksByScheduledFor(userId),
     ]);
 
     const stats = getDayStats(groupedTasks);
@@ -78,8 +70,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       unscheduledTasks,
       calendarData,
       stats,
-      // might not be needed later when authcontext exists
-      userId: user.id,
     };
 
     return json(data, { status: 200 });
