@@ -48,7 +48,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     const user = await getUserById(userId!);
 
     if (!user) {
-      throw new Error("Couldn't find user with that id.");
+      throw json("Can't find user with that id.", { status: 404 });
     }
 
     const day = z
@@ -65,8 +65,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
     // check if date is valid date.
     if (!isValid(new Date(day))) {
-      throw new Error(
-        `No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".`
+      throw json(
+        `No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".`,
+        { status: 404 }
       );
     }
 
@@ -84,12 +85,16 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     return json(data, { status: 200 });
   } catch (error) {
     if (error instanceof ZodError) {
-      throw badRequest(error.message);
+      const errors = error.flatten();
+
+      throw badRequest({ errors });
     }
 
-    const message = getErrorMessage(error);
+    if (error instanceof Response) {
+      throw error;
+    }
 
-    throw badRequest(message);
+    throw badRequest({ message: getErrorMessage(error) });
   }
 };
 
@@ -132,6 +137,7 @@ export function CatchBoundary() {
     <ContentLayout className="dark:text-custom__ghostly text-custom__gray">
       <h1>Caught</h1>
       <p>Status: {caught.status}</p>
+      <p>Status: {caught.statusText}</p>
       <pre>
         <code>{JSON.stringify(caught.data, null, 2)}</code>
       </pre>
