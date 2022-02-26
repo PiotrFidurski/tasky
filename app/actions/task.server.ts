@@ -1,3 +1,4 @@
+import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
 import {
   deleteTask,
@@ -8,12 +9,16 @@ import {
 } from '~/models/task';
 import { requireUserId } from '~/session/auth.server';
 
-import { ActionFunction } from 'remix';
+import { ActionFunction, json } from 'remix';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
 import { actionTypes } from './actionTypes';
+
+function unauthorizedResponse(message: string) {
+  return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
+}
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -42,9 +47,11 @@ export const action: ActionFunction = async ({ request }) => {
       case actionTypes.SCHEDULE_TASK: {
         const date = z
           .string({ invalid_type_error: 'expected a string.' })
-          .optional()
-          .default('')
           .parse(dateField);
+
+        if (!isValid(new Date(date))) {
+          throw badRequest(`${date} is not a valid date format.`);
+        }
 
         return await scheduleTask(taskId, date);
       }
@@ -55,7 +62,9 @@ export const action: ActionFunction = async ({ request }) => {
 
       case actionTypes.DELETE_TASK: {
         if (userId !== ownerId) {
-          throw badRequest(`You are not allowed to delete this task.`);
+          throw unauthorizedResponse(
+            'You are not allowed to delete this task.'
+          );
         }
 
         return await deleteTask(taskId);
@@ -63,7 +72,9 @@ export const action: ActionFunction = async ({ request }) => {
 
       case actionTypes.UPDATE_TASK: {
         if (userId !== ownerId) {
-          throw badRequest(`You are not allowed to update this task.`);
+          throw unauthorizedResponse(
+            'You are not allowed to update this task.'
+          );
         }
 
         // update task here
@@ -78,11 +89,15 @@ export const action: ActionFunction = async ({ request }) => {
     if (error instanceof ZodError) {
       const errors = error.flatten();
 
-      return badRequest({
-        errors: { ...errors.fieldErrors },
-      });
+      throw badRequest({ errors });
     }
 
-    return getErrorMessage(error);
+    if (error instanceof Response) {
+      throw error;
+    }
+
+    const message = getErrorMessage(error);
+
+    throw badRequest(message);
   }
 };

@@ -1,7 +1,7 @@
 import { Days } from './Days';
 import { Weeks } from './Weeks';
 
-export default function Calendar({
+export function Calendar({
   data,
   stats,
 }: {

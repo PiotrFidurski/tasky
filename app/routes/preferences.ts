@@ -13,7 +13,7 @@ export const action: ActionFunction = async ({ request }) => {
     const theme = searchParams.get('theme');
 
     if (!isValidTheme(theme)) {
-      return badRequest('theme has to be a valid string.');
+      throw badRequest('theme has to be a valid string.');
     }
 
     return await updateThemeSession(request, theme);

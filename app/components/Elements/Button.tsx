@@ -6,14 +6,14 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   buttonType?: boolean;
 };
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   // eslint-disable-next-line react/prop-types
   ({ children, isGhost, buttonType, className, ...htmlButtonProps }, ref) => {
     return (
       <button
         ref={ref}
         className={clsx(
-          'border-2 border-blue-600 w-full uppercase font-bold focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors',
+          'border-2 border-blue-600 w-full uppercase font-bold focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-custom__gray dark:outline-custom__ghostly transition-colors',
           isGhost
             ? 'bg-transparent text-blue-600 hover:text-white hover:bg-blue-600 hover:border-blue-600'
             : 'bg-blue-600 text-white hover:bg-blue-700 hover:border-blue-700',
@@ -32,5 +32,3 @@ Button.defaultProps = {
   isGhost: false,
   buttonType: false,
 };
-
-export { Button };

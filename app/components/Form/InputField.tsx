@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> &
   React.RefAttributes<HTMLInputElement>;
 
-const InputField = forwardRef<HTMLInputElement, InputProps>(
+export const InputField = forwardRef<HTMLInputElement, InputProps>(
   ({ ...htmlInputProps }, ref) => {
     return (
       <input
@@ -14,5 +14,3 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-
-export { InputField };

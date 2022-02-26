@@ -5,7 +5,7 @@ import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
 
 import { TaskComponent } from './TaskComponent';
 
-export default function UnscheduledTasksList({
+export function UnscheduledTasksList({
   unscheduledTasks,
   dayTasks,
 }: {

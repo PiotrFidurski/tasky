@@ -7,7 +7,6 @@ import {
   getUnscheduledTasks,
   groupTasksByScheduledFor,
 } from '~/models/task';
-import { getUserById } from '~/models/user';
 import { getAuthUserId } from '~/session/session.server';
 
 import {
@@ -19,9 +18,9 @@ import {
   useParams,
 } from 'remix';
 
-import Calendar from '~/components/Calendar/root';
-import DayTasksList from '~/components/Tasks/DayTasksList';
-import UnscheduledTasksList from '~/components/Tasks/UnscheduledTasksList';
+import { Calendar } from '~/components/Calendar/root';
+import { DayTasksList } from '~/components/Tasks/DayTasksList';
+import { UnscheduledTasksList } from '~/components/Tasks/UnscheduledTasksList';
 import {
   CalendarLayout,
   ColumnLayout,
@@ -38,37 +37,31 @@ export type LoaderData = {
   unscheduledTasks: Task[];
   calendarData: Array<Array<string>>;
   stats: Record<string, number[]>;
-  userId: string;
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await getAuthUserId(request);
 
   try {
-    const user = await getUserById(userId!);
-
-    if (!user) {
-      throw new Error("Couldn't find user with that id.");
-    }
-
     const day = z
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
 
+    // check if date is valid date.
+    if (!isValid(new Date(day))) {
+      throw json(
+        `No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".`,
+        { status: 404 }
+      );
+    }
+
     const calendarData = getCalendarData({ date: new Date() });
 
     const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
-      getTasksForDay(day, user.id),
-      getUnscheduledTasks(user.id),
-      groupTasksByScheduledFor(user.id),
+      getTasksForDay(day, userId),
+      getUnscheduledTasks(userId),
+      groupTasksByScheduledFor(userId),
     ]);
-
-    // check if date is valid date.
-    if (!isValid(new Date(day))) {
-      throw new Error(
-        `No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".`
-      );
-    }
 
     const stats = getDayStats(groupedTasks);
 
@@ -77,19 +70,21 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       unscheduledTasks,
       calendarData,
       stats,
-      // might not be needed later when authcontext exists
-      userId: user.id,
     };
 
     return json(data, { status: 200 });
   } catch (error) {
     if (error instanceof ZodError) {
-      throw badRequest(error.message);
+      const errors = error.flatten();
+
+      throw badRequest({ errors });
     }
 
-    const message = getErrorMessage(error);
+    if (error instanceof Response) {
+      throw error;
+    }
 
-    throw badRequest(message);
+    throw badRequest({ message: getErrorMessage(error) });
   }
 };
 
@@ -132,6 +127,7 @@ export function CatchBoundary() {
     <ContentLayout className="dark:text-custom__ghostly text-custom__gray">
       <h1>Caught</h1>
       <p>Status: {caught.status}</p>
+      <p>Status: {caught.statusText}</p>
       <pre>
         <code>{JSON.stringify(caught.data, null, 2)}</code>
       </pre>

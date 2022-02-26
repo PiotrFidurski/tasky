@@ -9,9 +9,9 @@ import { formatDate } from '~/utils/date';
 
 import { useUser } from '../Auth/useUser';
 import { Button } from '../Elements/Button';
-import Tag from './Tag';
+import { Tag } from './Tag';
 
-function TaskComponent({ task }: { task: Task }) {
+export function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
 
   const { user } = useUser();
@@ -229,5 +229,3 @@ function TaskComponent({ task }: { task: Task }) {
     </motion.article>
   );
 }
-
-export { TaskComponent };

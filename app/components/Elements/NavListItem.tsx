@@ -7,7 +7,7 @@ type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
   children: ({ isActive }: { isActive: boolean }) => JSX.Element;
 };
 
-function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
+export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
   return (
     <li {...htmlLiProps}>
       <NavLink
@@ -31,4 +31,3 @@ function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
     </li>
   );
 }
-export { NavListItem };
