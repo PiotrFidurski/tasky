@@ -12,7 +12,7 @@ type ThemeProviderProps = {
 
 export function isValidTheme(value: unknown): value is Theme {
   return (
-    (typeof value === 'string' && value === Theme.light) || value === Theme.dark
+    typeof value === 'string' && (value === Theme.dark || value === Theme.light)
   );
 }
 
