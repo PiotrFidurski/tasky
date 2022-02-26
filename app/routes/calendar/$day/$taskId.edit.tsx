@@ -1,12 +1,13 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect, useRef, useState } from 'react';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 import { getTask } from '~/models/task';
 
 import {
   ActionFunction,
   Form,
   LoaderFunction,
+  json,
   useLoaderData,
   useNavigate,
   useParams,
@@ -17,6 +18,7 @@ import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
 import { badRequest } from '~/utils/badRequest';
+import { getErrorMessage } from '~/utils/getErrorMessage';
 
 type LoaderData = {
   body: string;
@@ -25,13 +27,15 @@ type LoaderData = {
 export const loader: LoaderFunction = async ({ params }) => {
   try {
     const taskId = z
-      .string({ required_error: 'expected a string' })
+      .string({
+        invalid_type_error: 'expected a string',
+      })
       .parse(params.taskId);
 
     const task = await getTask(taskId);
 
     if (!task) {
-      throw badRequest("Couldn't find task with provided taskId");
+      throw json("Couldn't find task with provided taskId.", { status: 404 });
     }
 
     const data: LoaderData = {
@@ -40,7 +44,17 @@ export const loader: LoaderFunction = async ({ params }) => {
 
     return data;
   } catch (error) {
-    return error;
+    if (error instanceof ZodError) {
+      const errors = error.flatten();
+
+      throw badRequest({ errors });
+    }
+
+    if (error instanceof Response) {
+      throw error;
+    }
+
+    throw badRequest({ message: getErrorMessage(error) });
   }
 };
 

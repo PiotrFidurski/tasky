@@ -49,7 +49,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       });
     }
 
-    return getErrorMessage(error);
+    throw badRequest({ message: getErrorMessage(error) });
   }
 };
 
