@@ -1,3 +1,4 @@
+import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
 import {
   deleteTask,
@@ -42,9 +43,11 @@ export const action: ActionFunction = async ({ request }) => {
       case actionTypes.SCHEDULE_TASK: {
         const date = z
           .string({ invalid_type_error: 'expected a string.' })
-          .optional()
-          .default('')
           .parse(dateField);
+
+        if (!isValid(new Date(date))) {
+          throw badRequest(`${date} is not a valid date format.`);
+        }
 
         return await scheduleTask(taskId, date);
       }
