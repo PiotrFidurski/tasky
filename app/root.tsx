@@ -11,6 +11,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
   useLoaderData,
 } from 'remix';
 
@@ -92,5 +93,20 @@ export default function App() {
         </Document>
       </ThemeProvider>
     </AuthProvider>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <div className="dark:text-custom__ghostly text-custom__gray">
+      <h1>Caught</h1>
+      <p>Status: {caught.status}</p>
+      <p>Status: {caught.statusText}</p>
+      <pre>
+        <code>{JSON.stringify(caught.data, null, 2)}</code>
+      </pre>
+    </div>
   );
 }
