@@ -1,13 +1,14 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
 
-import { Form, Link, useParams } from 'remix';
+import { Form, useParams } from 'remix';
 
 import { NavListItem } from '~/components/Elements/NavListItem';
 
 import { formatDate } from '~/utils/date';
 
 import { useUser } from './Auth/useUser';
+import { CustomLink } from './Elements/CustomLink';
 import { DropdownItem } from './Elements/DropdownItem';
 import { useTheme } from './Theme/ThemeProvider';
 import { Theme } from './Theme/themeContext';
@@ -256,10 +257,10 @@ export function Sidebar() {
       {/* create task button */}
       <div className="w-auto lg:w-full">
         {/* this is the same as register links so maybe make it a component */}
-        <Link
+        <CustomLink
           aria-label="create task"
           to={`/calendar/${dayParam}/create`}
-          className="flex items-center lg:justify-between p-4 rounded-full border-2 border-blue-400 text-blue-400 uppercase font-bold"
+          className="flex items-center lg:justify-between p-4 rounded-full"
         >
           <span className="sr-only lg:not-sr-only">Create task</span>
           {/* plus icon */}
@@ -277,7 +278,7 @@ export function Sidebar() {
               d="M12 4v16m8-8H4"
             />
           </svg>
-        </Link>
+        </CustomLink>
       </div>
     </div>
   );

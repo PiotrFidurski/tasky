@@ -4,9 +4,10 @@ import { register } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import { ZodRegisterErrors, registerSchema } from '~/validation/user';
 
-import { ActionFunction, Form, Link, useActionData } from 'remix';
+import { ActionFunction, Form, useActionData } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
+import { CustomLink } from '~/components/Elements/CustomLink';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
@@ -105,12 +106,9 @@ export default function LoginRoute() {
           <Button type="submit" className="p-2 rounded-md">
             Register
           </Button>
-          <Link
-            to="/login"
-            className="w-full dark:text-custom__ghostly font-semibold text-center py-2 border-2 rounded border-custom__gray dark:border-custom__ghostly focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
-          >
-            already have an account?
-          </Link>
+          <CustomLink to="/login" className="rounded-md p-2 w-full text-center">
+            login
+          </CustomLink>
         </div>
       </Form>
     </main>
