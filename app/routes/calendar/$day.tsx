@@ -55,14 +55,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
 
-    const calendarData = getCalendarData({ date: new Date() });
-
-    const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
-      getTasksForDay(day, user.id),
-      getUnscheduledTasks(user.id),
-      groupTasksByScheduledFor(user.id),
-    ]);
-
     // check if date is valid date.
     if (!isValid(new Date(day))) {
       throw json(
@@ -70,6 +62,14 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         { status: 404 }
       );
     }
+
+    const calendarData = getCalendarData({ date: new Date() });
+
+    const [tasksForTheDay, unscheduledTasks, groupedTasks] = await Promise.all([
+      getTasksForDay(day, user.id),
+      getUnscheduledTasks(user.id),
+      groupTasksByScheduledFor(user.id),
+    ]);
 
     const stats = getDayStats(groupedTasks);
 
