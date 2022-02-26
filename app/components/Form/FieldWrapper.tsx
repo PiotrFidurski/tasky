@@ -2,7 +2,7 @@ type FieldWrapperProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
   errorMessage: string | string[];
 };
 
-function FieldWrapper({
+export function FieldWrapper({
   children,
   errorMessage,
   htmlFor,
@@ -26,5 +26,3 @@ function FieldWrapper({
     </label>
   );
 }
-
-export { FieldWrapper };

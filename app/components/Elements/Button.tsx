@@ -6,7 +6,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   buttonType?: boolean;
 };
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   // eslint-disable-next-line react/prop-types
   ({ children, isGhost, buttonType, className, ...htmlButtonProps }, ref) => {
     return (
@@ -32,5 +32,3 @@ Button.defaultProps = {
   isGhost: false,
   buttonType: false,
 };
-
-export { Button };

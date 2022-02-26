@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 type TagProps = React.HtmlHTMLAttributes<HTMLSpanElement>;
 
-export default function Tag({ className, children }: TagProps) {
+export function Tag({ className, children }: TagProps) {
   return (
     <span
       title={children?.toString()}

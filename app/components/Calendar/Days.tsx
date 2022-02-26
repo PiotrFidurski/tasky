@@ -1,6 +1,6 @@
 import { weekDayNames } from '~/utils/date';
 
-function Days() {
+export function Days() {
   return (
     <div className="grid grid-cols-[repeat(7,minmax(auto,1fr))] sticky top-0 bg-blue-600 mb-2 z-10">
       {weekDayNames.map((dayName) => (
@@ -14,5 +14,3 @@ function Days() {
     </div>
   );
 }
-
-export { Days };

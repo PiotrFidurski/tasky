@@ -18,9 +18,9 @@ import {
   useParams,
 } from 'remix';
 
-import Calendar from '~/components/Calendar/root';
-import DayTasksList from '~/components/Tasks/DayTasksList';
-import UnscheduledTasksList from '~/components/Tasks/UnscheduledTasksList';
+import { Calendar } from '~/components/Calendar/root';
+import { DayTasksList } from '~/components/Tasks/DayTasksList';
+import { UnscheduledTasksList } from '~/components/Tasks/UnscheduledTasksList';
 import {
   CalendarLayout,
   ColumnLayout,

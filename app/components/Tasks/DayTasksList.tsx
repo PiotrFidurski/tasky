@@ -9,7 +9,7 @@ import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
 
 import { TaskComponent } from './TaskComponent';
 
-export default function DayTasksList({
+export function DayTasksList({
   dayTasks,
   unscheduledTasks,
 }: {

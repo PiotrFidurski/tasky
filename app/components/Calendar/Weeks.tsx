@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import { Day } from '~/components/Calendar/Day';
 
-function Weeks({
+export function Weeks({
   data,
   stats,
 }: {
@@ -32,5 +32,3 @@ function Weeks({
     </div>
   );
 }
-
-export { Weeks };

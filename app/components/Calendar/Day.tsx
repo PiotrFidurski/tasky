@@ -5,7 +5,13 @@ import { Link, useParams } from 'remix';
 
 import { isDayInCurrentYear } from '~/utils/date';
 
-function Day({ day, stats }: { day: string; stats: Record<string, number[]> }) {
+export function Day({
+  day,
+  stats,
+}: {
+  day: string;
+  stats: Record<string, number[]>;
+}) {
   const [total, complete] = stats[day] ?? [];
 
   const params = useParams<'day'>();
@@ -60,4 +66,3 @@ function Day({ day, stats }: { day: string; stats: Record<string, number[]> }) {
     </Link>
   );
 }
-export { Day };

@@ -12,7 +12,7 @@ import { DropdownItem } from './Elements/DropdownItem';
 import { useTheme } from './Theme/ThemeProvider';
 import { Theme } from './Theme/themeContext';
 
-function Sidebar() {
+export function Sidebar() {
   const { theme, switchTheme } = useTheme();
 
   const { user } = useUser();
@@ -282,5 +282,3 @@ function Sidebar() {
     </div>
   );
 }
-
-export { Sidebar };
