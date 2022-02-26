@@ -62,7 +62,9 @@ export const action: ActionFunction = async ({ request }) => {
 
       case actionTypes.DELETE_TASK: {
         if (userId !== ownerId) {
-          throw badRequest(`You are not allowed to delete this task.`);
+          throw unauthorizedResponse(
+            'You are not allowed to delete this task.'
+          );
         }
 
         return await deleteTask(taskId);
@@ -70,7 +72,9 @@ export const action: ActionFunction = async ({ request }) => {
 
       case actionTypes.UPDATE_TASK: {
         if (userId !== ownerId) {
-          throw badRequest(`You are not allowed to update this task.`);
+          throw unauthorizedResponse(
+            'You are not allowed to update this task.'
+          );
         }
 
         // update task here
@@ -85,11 +89,15 @@ export const action: ActionFunction = async ({ request }) => {
     if (error instanceof ZodError) {
       const errors = error.flatten();
 
-      return badRequest({
-        errors: { ...errors.fieldErrors },
-      });
+      throw badRequest({ errors });
     }
 
-    return getErrorMessage(error);
+    if (error instanceof Response) {
+      throw error;
+    }
+
+    const message = getErrorMessage(error);
+
+    throw badRequest(message);
   }
 };
