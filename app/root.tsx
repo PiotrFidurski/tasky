@@ -39,13 +39,12 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getUserSession(request);
+  const themeSession = await getThemeSession(request);
 
-  const userId = session.get('userId');
+  if (session.has('userId')) {
+    const userId = session.get('userId');
 
-  try {
     const user = await getUserById(userId);
-
-    const themeSession = await getThemeSession(request);
 
     const data: LoaderData = {
       theme: themeSession.get('theme'),
@@ -53,9 +52,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     };
 
     return data;
-  } catch (error) {
-    return error;
   }
+
+  const data: LoaderData = {
+    theme: themeSession.get('theme'),
+    user: null,
+  };
+
+  return data;
 };
 
 function Document({ children }: { children: React.ReactNode }) {
