@@ -10,7 +10,7 @@ export function FieldWrapper({
 }: FieldWrapperProps) {
   return (
     <label htmlFor={htmlFor} {...htmlLabelProps}>
-      <span className="text-custom__gray dark:text-custom__ghostly font-semibold first-letter:capitalize">
+      <span className="text-custom__gray dark:text-custom__ghostly font-semibold uppercase">
         {htmlFor}
       </span>
       {children}

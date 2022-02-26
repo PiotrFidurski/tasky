@@ -102,13 +102,14 @@ export default function CreateTaskRoute() {
             </Dialog.Close>
           </div>
           <div className="p-4 text-custom__gray">
-            <Form method="post" className="p-4 shadow-md" action=".">
+            <Form method="post" className="p-4" action=".">
               <div className="w-full mb-2">
                 <FieldWrapper
                   htmlFor="task"
                   errorMessage={fieldErrors?.body || ''}
                 >
                   <InputField
+                    placeholder="What do you want to do today?"
                     required
                     aria-label="body"
                     name="body"
@@ -116,7 +117,11 @@ export default function CreateTaskRoute() {
                   />
                 </FieldWrapper>
               </div>
-              <Button>Add task</Button>
+              <div className="flex justify-end">
+                <Button className="rounded-full px-4 py-2 w-auto">
+                  Add task
+                </Button>
+              </div>
             </Form>
           </div>
         </Dialog.Content>
