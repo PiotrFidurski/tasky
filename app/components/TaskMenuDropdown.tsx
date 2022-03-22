@@ -79,8 +79,11 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
           </fetcher.Form>
         ) : null}
         {user?.id === task.userId ? (
-          <DropdownItem>
-            <Link to={`${task.id}/edit`} className="flex items-center gap-4">
+          <Link
+            to={`${task.id}/edit`}
+            className="flex items-center gap-4 w-full"
+          >
+            <DropdownItem className="w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -96,8 +99,8 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
                 />
               </svg>
               <span>Edit Task</span>
-            </Link>
-          </DropdownItem>
+            </DropdownItem>
+          </Link>
         ) : null}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
