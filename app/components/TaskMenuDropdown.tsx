@@ -22,7 +22,7 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
         <button
           aria-label="open task menu"
           type="button"
-          className="p-1 rounded-full hover:bg-custom__hoverlight dark:hover:bg-custom__hoverdark active:outline-custom__hoverlight focus:outline-2 focus:outline-offset-4 focus:outline-custom__gray focus:dark:outline-custom__ghostly"
+          className="p-1 text-custom__ghostly rounded-full hover:bg-custom__hoverlight dark:hover:bg-custom__hoverdark active:outline-custom__hoverlight focus:outline-2 focus:outline-offset-4 focus:outline-custom__gray focus:dark:outline-custom__ghostly"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
