@@ -14,7 +14,7 @@ export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
         className={clsx(
           `min-h-[2rem] text-custom__gray font-semibold flex items-center gap-4
            px-2 py-4 outline-none focus:bg-custom__hoverlight fill-custom__gray
-         dark:text-custom__ghostly focus:dark:bg-custom__hoverdark dark:fill-custom__ghostly`,
+           dark:text-custom__ghostly focus:dark:bg-custom__hoverdark dark:fill-custom__ghostly`,
           className
         )}
         // eslint-disable-next-line react/jsx-props-no-spreading

@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import { Task } from '@prisma/client';
 import { format } from 'date-fns';
 import { actionTypes } from '~/actions/actionTypes';
