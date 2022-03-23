@@ -1,5 +1,4 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import clsx from 'clsx';
 
 import { Form } from 'remix';
 
@@ -40,7 +39,7 @@ export function UserMenuDropdown() {
         />
         <DropdownItem
           aria-label="user profile"
-          className="rounded-tl-md rounded-tr-md"
+          className="rounded-tl-md rounded-tr-md px-2 py-4"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +57,7 @@ export function UserMenuDropdown() {
           </svg>
           <span>Profile, {user?.username}</span>
         </DropdownItem>
-        <DropdownItem aria-label="settings">
+        <DropdownItem aria-label="settings" className="px-2 py-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -81,11 +80,11 @@ export function UserMenuDropdown() {
           </svg>
           <span>Settings</span>
         </DropdownItem>
-        <Form action="/logout" method="post">
-          <button type="submit" className="w-full">
-            <DropdownItem
-              aria-label="logout"
-              onSelect={(e) => e.preventDefault()}
+        <DropdownItem aria-label="logout" onSelect={(e) => e.preventDefault()}>
+          <Form action="/logout" method="post" className="w-full">
+            <button
+              type="submit"
+              className="w-full flex items-center gap-4 px-2 py-4"
             >
               {/* logout icon */}
               <svg
@@ -103,28 +102,26 @@ export function UserMenuDropdown() {
                 />
               </svg>
               <span>Logout</span>
-            </DropdownItem>
-          </button>
-        </Form>
+            </button>
+          </Form>
+        </DropdownItem>
         <DropdownMenu.Label className="text-gray-600 font-semibold text-xs py-4 px-2 dark:text-gray-400">
           <span>Options</span>
         </DropdownMenu.Label>
         <DropdownMenu.Separator className="bg-gray-200 w-full h-px my-2 dark:bg-custom__gray" />
-        <button
-          type="button"
-          className={clsx(
-            'flex w-full text-custom__gray dark:text-custom__ghostly'
-          )}
+        <DropdownItem
+          className="w-full rounded-bl-md rounded-br-md"
           onClick={switchTheme}
+          aria-label={
+            theme === Theme.light
+              ? 'switch to dark mode'
+              : 'switch to light mode'
+          }
+          onSelect={(e) => e.preventDefault()}
         >
-          <DropdownItem
-            className="w-full rounded-bl-md rounded-br-md"
-            aria-label={
-              theme === Theme.light
-                ? 'switch to dark mode'
-                : 'switch to light mode'
-            }
-            onSelect={(e) => e.preventDefault()}
+          <button
+            type="button"
+            className="flex w-full px-2 py-4 gap-4 text-custom__gray dark:text-custom__ghostly"
           >
             {/* toggle theme icon */}
             {theme === Theme.light ? (
@@ -160,8 +157,8 @@ export function UserMenuDropdown() {
             )}
 
             <span>{theme === Theme.light ? 'Dark' : 'Light'}</span>
-          </DropdownItem>
-        </button>
+          </button>
+        </DropdownItem>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );

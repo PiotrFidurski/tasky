@@ -1,10 +1,10 @@
 import { Task } from '@prisma/client';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { actionTypes } from '~/actions/actionTypes';
 
-import { Link, useFetcher } from 'remix';
+import { Link } from 'remix';
 
 import { useUser } from './Auth/useUser';
+import { DeleteTaskForm } from './DeleteTaskForm';
 import { DropdownItem } from './Elements/DropdownItem';
 
 type TaskMenuDropdownProps = {
@@ -13,8 +13,6 @@ type TaskMenuDropdownProps = {
 
 export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
   const { user } = useUser();
-
-  const fetcher = useFetcher();
 
   return (
     <DropdownMenu.Root>
@@ -49,41 +47,18 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
           offset={20}
         />
         {user?.id === task.userId ? (
-          <fetcher.Form method="post">
-            <button type="submit" aria-label="delete task" className="w-full">
-              <DropdownItem onSelect={(e) => e.preventDefault()}>
-                <input
-                  name="_action"
-                  value={actionTypes.DELETE_TASK}
-                  type="hidden"
-                />
-                <input name="id" value={task.id} type="hidden" />
-                <input name="ownerId" value={task.userId} type="hidden" />
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
-                <span>Delete Task</span>
-              </DropdownItem>
-            </button>
-          </fetcher.Form>
+          <DropdownItem onSelect={(e) => e.preventDefault()} asChild>
+            <div className="w-full">
+              <DeleteTaskForm userId={user.id} taskId={task.id} />
+            </div>
+          </DropdownItem>
         ) : null}
         {user?.id === task.userId ? (
-          <Link
-            to={`${task.id}/edit`}
-            className="flex items-center gap-4 w-full"
-          >
-            <DropdownItem className="w-full">
+          <DropdownItem className="w-full" asChild>
+            <Link
+              to={`${task.id}/edit`}
+              className="flex items-center gap-4 w-full px-2 py-4"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -99,8 +74,8 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
                 />
               </svg>
               <span>Edit Task</span>
-            </DropdownItem>
-          </Link>
+            </Link>
+          </DropdownItem>
         ) : null}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
