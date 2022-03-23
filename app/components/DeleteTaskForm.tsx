@@ -11,11 +11,11 @@ export function DeleteTaskForm({ taskId, userId }: DeleteTaskFormProps) {
   const fetcher = useFetcher();
 
   return (
-    <fetcher.Form method="post" className="w-full px-2 py-4">
+    <fetcher.Form method="post" className="w-full">
       <button
         type="submit"
         aria-label="delete task"
-        className="flex w-full items-center gap-4"
+        className="flex w-full items-center gap-4 min-h-[2rem] px-2 py-4"
       >
         <input name="_action" value={actionTypes.DELETE_TASK} type="hidden" />
         <input name="id" value={taskId} type="hidden" />
