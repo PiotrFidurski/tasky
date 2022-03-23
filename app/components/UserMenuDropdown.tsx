@@ -84,7 +84,7 @@ export function UserMenuDropdown() {
           <Form action="/logout" method="post" className="w-full">
             <button
               type="submit"
-              className="w-full flex items-center gap-4 px-2 py-4"
+              className="w-full flex items-center gap-4 px-2 py-4 font-semibold"
             >
               {/* logout icon */}
               <svg
@@ -121,7 +121,7 @@ export function UserMenuDropdown() {
         >
           <button
             type="button"
-            className="flex w-full px-2 py-4 gap-4 text-custom__gray dark:text-custom__ghostly"
+            className="flex w-full px-2 py-4 gap-4 font-semibold"
           >
             {/* toggle theme icon */}
             {theme === Theme.light ? (
