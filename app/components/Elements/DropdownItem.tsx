@@ -13,7 +13,7 @@ export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
         ref={ref}
         className={clsx(
           `min-h-[2rem] text-custom__gray font-semibold flex items-center gap-4
-           px-2 py-4 outline-none focus:bg-custom__hoverlight fill-custom__gray
+           outline-none focus:bg-custom__hoverlight fill-custom__gray
            dark:text-custom__ghostly focus:dark:bg-custom__hoverdark dark:fill-custom__ghostly`,
           className
         )}
