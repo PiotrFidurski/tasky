@@ -13,7 +13,6 @@ type TaskMenuDropdownProps = {
 
 export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
   const { user } = useUser();
-
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -47,11 +46,7 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
           offset={20}
         />
         {user?.id === task.userId ? (
-          <DropdownItem onSelect={(e) => e.preventDefault()} asChild>
-            <div className="w-full">
-              <DeleteTaskForm userId={user.id} taskId={task.id} />
-            </div>
-          </DropdownItem>
+          <DeleteTaskForm userId={user.id} taskId={task.id} />
         ) : null}
         {user?.id === task.userId ? (
           <DropdownItem className="w-full" asChild>
