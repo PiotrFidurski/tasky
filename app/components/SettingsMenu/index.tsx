@@ -45,9 +45,7 @@ export function UserMenuDropdown() {
           <SettingsIcon />
           <span>Settings</span>
         </DropdownItem>
-        <DropdownItem aria-label="logout" onSelect={(e) => e.preventDefault()}>
-          <LogoutForm />
-        </DropdownItem>
+        <LogoutForm />
         <DropdownMenu.Label className="text-gray-600 font-semibold text-xs py-4 px-2 dark:text-gray-400">
           <span>Options</span>
         </DropdownMenu.Label>
