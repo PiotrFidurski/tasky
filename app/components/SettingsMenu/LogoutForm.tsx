@@ -1,6 +1,6 @@
 import { Form } from 'remix';
 
-import { LogoutIcon } from './Icons/LogoutIcon';
+import { LogoutIcon } from '../Icons/LogoutIcon';
 
 export function LogoutForm() {
   return (

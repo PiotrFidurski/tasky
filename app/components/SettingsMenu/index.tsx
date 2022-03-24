@@ -1,12 +1,12 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { useUser } from './Auth/useUser';
-import { DropdownItem } from './Elements/DropdownItem';
-import { ProfileIcon } from './Icons/ProfileIcon';
-import { SettingsIcon } from './Icons/SettingsIcon';
+import { useUser } from '../Auth/useUser';
+import { DropdownItem } from '../Elements/DropdownItem';
+import { ProfileIcon } from '../Icons/ProfileIcon';
+import { SettingsIcon } from '../Icons/SettingsIcon';
+import { useTheme } from '../Theme/ThemeProvider';
+import { Theme } from '../Theme/themeContext';
 import { LogoutForm } from './LogoutForm';
-import { useTheme } from './Theme/ThemeProvider';
-import { Theme } from './Theme/themeContext';
 import { ToggleThemeButton } from './ToggleThemeButton';
 import { UserAvatar } from './UserAvatar';
 
