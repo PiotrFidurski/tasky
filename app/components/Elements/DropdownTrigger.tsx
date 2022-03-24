@@ -11,7 +11,6 @@ type DropdownTriggerProps = DropdownMenuTriggerProps &
 export const DropdownTrigger = forwardRef<
   HTMLButtonElement,
   DropdownTriggerProps
-  // eslint-disable-next-line react/prop-types
 >(({ className, children, ...props }, ref) => {
   return (
     <Trigger
@@ -24,7 +23,6 @@ export const DropdownTrigger = forwardRef<
        focus:dark:outline-custom__ghostly`,
         className
       )}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       {children}

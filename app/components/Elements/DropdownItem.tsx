@@ -6,7 +6,6 @@ type DropdownItemProps = DropdownMenuItemProps &
   React.RefAttributes<HTMLDivElement>;
 
 export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
-  // eslint-disable-next-line react/prop-types
   ({ className, children, ...props }, ref) => {
     return (
       <Item
@@ -17,7 +16,6 @@ export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
          dark:text-custom__ghostly focus:dark:bg-custom__hoverdark dark:fill-custom__ghostly`,
           className
         )}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       >
         {children}
