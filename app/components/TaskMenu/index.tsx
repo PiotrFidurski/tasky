@@ -5,6 +5,7 @@ import { Link } from 'remix';
 
 import { useUser } from '../Auth/useUser';
 import { DropdownItem } from '../Elements/DropdownItem';
+import { DropdownTrigger } from '../Elements/DropdownTrigger';
 import { CaretIcon } from '../Icons/CaretIcon';
 import { EditIcon } from '../Icons/EditIcon';
 import { DeleteTaskForm } from './DeleteTaskForm';
@@ -18,15 +19,11 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button
-          aria-label="open task menu"
-          type="button"
-          className="p-1 text-custom__ghostly rounded-full hover:bg-custom__hoverlight dark:hover:bg-custom__hoverdark active:outline-custom__hoverlight focus:outline-2 focus:outline-offset-4 focus:outline-custom__gray focus:dark:outline-custom__ghostly"
-        >
+      <DropdownTrigger>
+        <button aria-label="open task menu" type="button">
           <CaretIcon />
         </button>
-      </DropdownMenu.Trigger>
+      </DropdownTrigger>
       <DropdownMenu.Content
         loop
         className="rounded-lg min-w-[15rem] border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray"
