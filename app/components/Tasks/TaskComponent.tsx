@@ -7,7 +7,7 @@ import { useFetcher, useParams } from 'remix';
 
 import { formatDate } from '~/utils/date';
 
-import { TaskMenuDropdown } from '../TaskMenuDropdown';
+import { TaskMenuDropdown } from '../TaskMenu';
 import { Tag } from './Tag';
 
 export function TaskComponent({ task }: { task: Task }) {

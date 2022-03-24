@@ -5,7 +5,7 @@ import { NavListItem } from '~/components/Elements/NavListItem';
 import { formatDate } from '~/utils/date';
 
 import { CustomLink } from './Elements/CustomLink';
-import { UserMenuDropdown } from './UserMenuDropdown';
+import { UserMenuDropdown } from './SettingsMenu';
 
 export function Sidebar() {
   const { day } = useParams<'day'>();
