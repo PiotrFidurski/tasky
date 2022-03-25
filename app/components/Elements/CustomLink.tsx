@@ -24,7 +24,6 @@ export function CustomLink({
        focus:outline-dashed outline-offset-2 outline-2 outline-custom__gray dark:outline-custom__ghostly`,
         className
       )}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...remixLinkProps}
     >
       {children}

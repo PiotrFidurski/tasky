@@ -76,8 +76,10 @@ describe('task', () => {
     cy.findByRole('textbox', { name: /body/i }).type(`delete me later{enter}`);
 
     cy.findByRole('article', { name: /delete me later/i }).within(() => {
-      cy.findByRole('button', { name: /delete task/i }).click();
+      cy.findByRole('button', { name: /open task menu/i }).click();
     });
+
+    cy.findByRole('button', { name: /delete task/i }).click();
 
     cy.findByRole('article', { name: /delete me later/i }).should('not.exist');
   });

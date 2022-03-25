@@ -28,13 +28,24 @@
     "import/prefer-default-export": "off",
     "react/react-in-jsx-scope": "off",
     "prefer-template": "off",
+    "react/prop-types": [0],
+
     "react/jsx-props-no-spreading": [
       2,
       {
         "html": "enforce",
         "custom": "enforce",
         "explicitSpread": "enforce",
-        "exceptions": ["label", "button", "input", "li", "section"]
+        "exceptions": [
+          "label",
+          "button",
+          "input",
+          "li",
+          "section",
+          "Trigger",
+          "Item",
+          "Link"
+        ]
       }
     ],
     "@typescript-eslint/no-throw-literal": ["off"]

@@ -29,6 +29,7 @@ export function useUpdateTasks({
             scheduledFor: updateValue,
             sortDate: new Date(),
           };
+
           updates.push(updatedTask);
         }
       }
