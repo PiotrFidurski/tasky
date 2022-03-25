@@ -4,7 +4,7 @@ export type GroupedTask = {
 };
 
 export function getDayStats(data: Array<GroupedTask>) {
-  let stats: Record<string, Array<number>> = {};
+  let stats: { [key: string]: Array<number> } = {};
 
   data.forEach((day) => {
     stats = {
