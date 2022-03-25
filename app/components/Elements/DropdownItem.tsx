@@ -6,7 +6,7 @@ type DropdownItemProps = DropdownMenuItemProps &
   React.RefAttributes<HTMLDivElement>;
 
 export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...itemProps }, ref) => {
     return (
       <Item
         ref={ref}
@@ -16,7 +16,7 @@ export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
          dark:text-custom__ghostly focus:dark:bg-custom__hoverdark dark:fill-custom__ghostly`,
           className
         )}
-        {...props}
+        {...itemProps}
       >
         {children}
       </Item>

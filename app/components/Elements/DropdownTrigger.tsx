@@ -11,7 +11,7 @@ type DropdownTriggerProps = DropdownMenuTriggerProps &
 export const DropdownTrigger = forwardRef<
   HTMLButtonElement,
   DropdownTriggerProps
->(({ className, children, ...props }, ref) => {
+>(({ className, children, ...triggerProps }, ref) => {
   return (
     <Trigger
       asChild
@@ -23,7 +23,7 @@ export const DropdownTrigger = forwardRef<
        focus:dark:outline-custom__ghostly`,
         className
       )}
-      {...props}
+      {...triggerProps}
     >
       {children}
     </Trigger>
