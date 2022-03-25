@@ -2,8 +2,8 @@ import { actionTypes } from '~/actions/actionTypes';
 
 import { Form } from 'remix';
 
+import { useProgramaticSubmit } from '../../utils/hooks/useProgramaticSubmit';
 import { DropdownItem } from '../Elements/DropdownItem';
-import { useProgramaticSubmit } from '../hooks/useProgramaticSubmit';
 
 type DeleteTaskFormProps = {
   taskId: string;

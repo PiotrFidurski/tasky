@@ -15,7 +15,7 @@ export function TaskComponent({ task }: { task: Task }) {
 
   const { day } = useParams<'day'>();
 
-  const isComplete = () => {
+  const isComplete = (): boolean => {
     const currentAction = fetcher.submission?.formData.get('_action');
 
     if (currentAction) {
