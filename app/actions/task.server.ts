@@ -3,7 +3,7 @@ import { ZodError, z } from 'zod';
 import {
   deleteTask,
   markTaskComplete,
-  markTaskUncomplete,
+  markTaskIncomplete,
   scheduleTask,
   unscheduleTask,
 } from '~/models/task';
@@ -40,8 +40,8 @@ export const action: ActionFunction = async ({ request }) => {
         return await markTaskComplete(taskId);
       }
 
-      case actionTypes.MARK_TASK_UNCOMPLETE: {
-        return await markTaskUncomplete(taskId);
+      case actionTypes.MARK_TASK_INCOMPLETE: {
+        return await markTaskIncomplete(taskId);
       }
 
       case actionTypes.SCHEDULE_TASK: {

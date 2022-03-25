@@ -55,7 +55,7 @@ export function markTaskComplete(id: string) {
   });
 }
 
-export function markTaskUncomplete(id: string) {
+export function markTaskIncomplete(id: string) {
   return db.task.update({
     where: { id },
     data: { isComplete: false },

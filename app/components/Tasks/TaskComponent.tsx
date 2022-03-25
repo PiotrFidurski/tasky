@@ -131,7 +131,7 @@ export function TaskComponent({ task }: { task: Task }) {
             name="_action"
             value={
               isComplete()
-                ? actionTypes.MARK_TASK_UNCOMPLETE
+                ? actionTypes.MARK_TASK_INCOMPLETE
                 : actionTypes.MARK_TASK_COMPLETE
             }
             type="hidden"
