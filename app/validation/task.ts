@@ -1,6 +1,12 @@
 import * as z from 'zod';
 import { zfd } from 'zod-form-data';
 
+export const ZodTaskErrors = z.object({
+  errors: z.object({
+    body: z.array(z.string()),
+  }),
+});
+
 export const schema = zfd.formData({
   body: zfd.text(
     z
