@@ -1,7 +1,6 @@
 import { Task } from '@prisma/client';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { actionTypes } from '~/actions/actionTypes';
 
 import { useFetcher } from 'remix';
 
@@ -9,14 +8,12 @@ import { TaskMenuDropdown } from '../TaskMenu';
 import { CompleteTaskForm } from './CompleteTaskForm';
 import { ScheduleTaskForm } from './ScheduleTaskForm';
 import { UnscheduleTaskForm } from './UnscheduleTaskForm';
+import { getActionType } from './utils';
 
 export function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
 
-  const isScheduling =
-    fetcher.submission?.formData.get('_action') === actionTypes.SCHEDULE_TASK;
-  const isUnscheduling =
-    fetcher.submission?.formData.get('_action') === actionTypes.UNSCHEDULE_TASK;
+  const { isScheduling, isUnscheduling } = getActionType(fetcher.submission);
 
   return (
     <AnimatePresence>
@@ -40,7 +37,6 @@ export function TaskComponent({ task }: { task: Task }) {
             <UnscheduleTaskForm task={task} fetcher={fetcher} />
           ) : null}
         </div>
-
         <CompleteTaskForm task={task} fetcher={fetcher} />
       </motion.article>
     </AnimatePresence>

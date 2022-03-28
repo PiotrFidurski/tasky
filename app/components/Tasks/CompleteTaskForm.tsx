@@ -17,6 +17,7 @@ export function CompleteTaskForm({
 
     return task.isComplete;
   };
+
   return (
     <div
       className={clsx(
