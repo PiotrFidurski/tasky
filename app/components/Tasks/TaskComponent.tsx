@@ -7,6 +7,9 @@ import { useFetcher, useParams } from 'remix';
 
 import { formatDate } from '~/utils/date';
 
+import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
+import { ArrowrightIcon } from '../Icons/ArrowrightIcon';
+import { CheckmarkIcon } from '../Icons/CheckmarkIcon';
 import { TaskMenuDropdown } from '../TaskMenu';
 import { Tag } from './Tag';
 
@@ -62,21 +65,7 @@ export function TaskComponent({ task }: { task: Task }) {
               aria-label="schedule task"
               className="p-1 text-custom__gray dark:text-custom__ghostly"
             >
-              {/* arrow icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-                />
-              </svg>
+              <ArrowleftIcon />
             </button>
           </fetcher.Form>
         ) : null}
@@ -101,21 +90,7 @@ export function TaskComponent({ task }: { task: Task }) {
               aria-label="unschedule task"
               className="text-custom__gray dark:text-custom__ghostly p-1 transform rotate-180"
             >
-              {/* arrow icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-                />
-              </svg>
+              <ArrowrightIcon />
             </button>
           </fetcher.Form>
         ) : null}
@@ -142,23 +117,7 @@ export function TaskComponent({ task }: { task: Task }) {
             aria-label={isComplete() ? 'uncomplete task' : 'complete task'}
             className="rounded-full text-custom__gray dark:text-custom__ghostly border-2 border-custom__gray dark:border-custom__ghostly"
           >
-            {/* checkmark icon */}
-            {isComplete() ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <div className="w-8 h-8" />
-            )}
+            {isComplete() ? <CheckmarkIcon /> : <div className="w-8 h-8" />}
           </button>
         </fetcher.Form>
         <p className="font-semibold text-custom__gray dark:text-custom__ghostly">
