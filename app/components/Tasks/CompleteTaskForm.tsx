@@ -4,7 +4,10 @@ import { actionTypes } from '~/actions/actionTypes';
 import { CheckmarkIcon } from '../Icons/CheckmarkIcon';
 import { ComponentWithFetcherProps } from './types';
 
-export function CompleteTaskForm({ task, fetcher }: ComponentWithFetcherProps) {
+export function CompleteTaskForm({
+  task,
+  fetcher,
+}: ComponentWithFetcherProps<unknown>) {
   const isComplete = (): boolean => {
     const currentAction = fetcher.submission?.formData.get('_action');
 

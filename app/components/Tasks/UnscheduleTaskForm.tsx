@@ -6,7 +6,7 @@ import { ComponentWithFetcherProps } from './types';
 export function UnscheduleTaskForm({
   task,
   fetcher,
-}: ComponentWithFetcherProps) {
+}: ComponentWithFetcherProps<unknown>) {
   return (
     <fetcher.Form method="post">
       <input name="_action" value={actionTypes.UNSCHEDULE_TASK} type="hidden" />

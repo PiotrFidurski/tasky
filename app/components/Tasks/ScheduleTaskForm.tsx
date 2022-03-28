@@ -7,7 +7,10 @@ import { formatDate } from '~/utils/date';
 import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
 import { ComponentWithFetcherProps } from './types';
 
-export function ScheduleTaskForm({ task, fetcher }: ComponentWithFetcherProps) {
+export function ScheduleTaskForm({
+  task,
+  fetcher,
+}: ComponentWithFetcherProps<unknown>) {
   const { day } = useParams<'day'>();
 
   return (
