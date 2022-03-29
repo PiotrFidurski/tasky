@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { actionTypes } from '~/actions/actionTypes';
 
 import { CheckmarkIcon } from '../Icons/CheckmarkIcon';
@@ -19,12 +18,7 @@ export function CompleteTaskForm({
   };
 
   return (
-    <div
-      className={clsx(
-        isComplete() ? 'bg-blue-100 dark:bg-blue-900' : 'bg-transparent',
-        'flex items-start gap-2 p-2'
-      )}
-    >
+    <div className="flex items-start gap-2 p-2 bg-transparent">
       <fetcher.Form method="post">
         <input
           name="_action"
@@ -41,7 +35,7 @@ export function CompleteTaskForm({
           aria-label={isComplete() ? 'uncomplete task' : 'complete task'}
           className="rounded-full text-custom__gray dark:text-custom__ghostly border-2 border-custom__gray dark:border-custom__ghostly"
         >
-          {isComplete() ? <CheckmarkIcon /> : <div className="w-8 h-8" />}
+          {isComplete() ? <CheckmarkIcon /> : <div className="h-6 w-6" />}
         </button>
       </fetcher.Form>
       <p className="font-semibold text-custom__gray dark:text-custom__ghostly">
