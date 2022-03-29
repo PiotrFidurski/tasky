@@ -28,7 +28,7 @@ export function TaskComponent({ task }: { task: Task }) {
           'border dark:border-custom__hoverdark mb-2 flex flex-col'
         )}
       >
-        <div className="flex gap-2 flex-wrap items-center p-2 border-b dark:border-custom__hoverdark">
+        <div className="flex gap-2 flex-wrap items-center p-2 dark:border-custom__hoverdark justify-between">
           {!task.scheduledFor ? (
             <ScheduleTaskForm task={task} fetcher={fetcher} />
           ) : null}
