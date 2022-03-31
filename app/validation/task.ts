@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import { zfd } from 'zod-form-data';
 
-export const ZodTaskErrros = z.object({
+export const ZodTaskErrors = z.object({
   errors: z.object({
     body: z.array(z.string()),
   }),

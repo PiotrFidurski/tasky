@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ZodError, z } from 'zod';
 import { createTask } from '~/models/task';
 import { getAuthUserId } from '~/session/session.server';
-import { ZodTaskErrros, schema } from '~/validation/task';
+import { ZodTaskErrors, schema } from '~/validation/task';
 
 import {
   ActionFunction,
@@ -22,7 +22,7 @@ import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-type ActionData = z.infer<typeof ZodTaskErrros>;
+type ActionData = z.infer<typeof ZodTaskErrors>;
 
 export const action: ActionFunction = async ({ params, request }) => {
   try {
