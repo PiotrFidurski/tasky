@@ -6,17 +6,8 @@ import { ComponentWithFetcherProps } from './types';
 export function CompleteTaskForm({
   task,
   fetcher,
-}: ComponentWithFetcherProps<unknown>) {
-  const isComplete = (): boolean => {
-    const currentAction = fetcher.submission?.formData.get('_action');
-
-    if (currentAction) {
-      return currentAction === actionTypes.MARK_TASK_COMPLETE;
-    }
-
-    return task.isComplete;
-  };
-
+  isComplete,
+}: ComponentWithFetcherProps<unknown> & { isComplete: () => boolean }) {
   return (
     <div className="flex items-start gap-2 p-2 bg-transparent">
       <fetcher.Form method="post">

@@ -1,6 +1,7 @@
 import { Task } from '@prisma/client';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { actionTypes } from '~/actions/actionTypes';
 
 import { useFetcher } from 'remix';
 
@@ -14,7 +15,15 @@ export function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
 
   const { isScheduling, isUnscheduling } = getActionType(fetcher.submission);
+  const isComplete = (): boolean => {
+    const currentAction = fetcher.submission?.formData.get('_action');
 
+    if (currentAction) {
+      return currentAction === actionTypes.MARK_TASK_COMPLETE;
+    }
+
+    return task.isComplete;
+  };
   return (
     <AnimatePresence>
       <motion.article
@@ -25,7 +34,10 @@ export function TaskComponent({ task }: { task: Task }) {
         aria-label={task.body}
         style={{ display: isScheduling || isUnscheduling ? 'none' : 'block' }}
         className={clsx(
-          'border dark:border-custom__hoverdark mb-2 flex flex-col'
+          'border  mb-2 flex flex-col',
+          isComplete()
+            ? 'border-custom__gray dark:border-custom__ghostly'
+            : 'border-custom__hoverlight dark:border-custom__hoverdark'
         )}
       >
         <div className="flex gap-2 flex-wrap items-center p-2 dark:border-custom__hoverdark justify-between">
@@ -37,7 +49,11 @@ export function TaskComponent({ task }: { task: Task }) {
             <UnscheduleTaskForm task={task} fetcher={fetcher} />
           ) : null}
         </div>
-        <CompleteTaskForm task={task} fetcher={fetcher} />
+        <CompleteTaskForm
+          task={task}
+          fetcher={fetcher}
+          isComplete={isComplete}
+        />
       </motion.article>
     </AnimatePresence>
   );
