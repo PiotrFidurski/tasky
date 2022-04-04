@@ -94,7 +94,12 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button className="p-2 rounded-md">Login</Button>
+          <Button
+            primary
+            className="p-2 rounded-md justify-center uppercase font-bold"
+          >
+            <span>Login</span>
+          </Button>
           <Link
             to="/register"
             className="flex justify-center items-center border-2 border-blue-600 w-full rounded py-2 font-bold uppercase text-blue-600 hover:text-white hover:bg-blue-600 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
