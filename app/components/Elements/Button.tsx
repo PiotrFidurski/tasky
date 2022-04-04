@@ -2,20 +2,32 @@ import clsx from 'clsx';
 import { forwardRef } from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  isGhost?: boolean;
+  isMenuItem?: boolean;
   buttonType?: boolean;
+  primary?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, isGhost, buttonType, className, ...htmlButtonProps }, ref) => {
+  (
+    {
+      children,
+      buttonType,
+      className,
+      primary,
+      isMenuItem,
+      ...htmlButtonProps
+    },
+    ref
+  ) => {
     return (
       <button
         ref={ref}
         className={clsx(
-          'border-2 border-blue-600 w-full uppercase font-bold focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-custom__gray dark:outline-custom__ghostly transition-colors',
-          isGhost
-            ? 'bg-transparent text-blue-600 hover:text-white hover:bg-blue-600 hover:border-blue-600'
-            : 'bg-blue-600 text-white hover:bg-blue-700 hover:border-blue-700',
+          'flex gap-4 items-center text-custom__ghostly w-full transition-all',
+          primary &&
+            'border-2 bg-blue-600 border-blue-600 hover:bg-blue-700 hover:border-blue-700',
+          isMenuItem &&
+            'font-bold px-2 py-4 border-none bg-transparent hover:bg-transparent',
           className
         )}
         type={buttonType ? 'button' : 'submit'}
@@ -28,6 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.defaultProps = {
-  isGhost: false,
+  isMenuItem: false,
+  primary: false,
   buttonType: false,
 };
