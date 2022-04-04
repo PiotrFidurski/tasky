@@ -2,19 +2,19 @@ import clsx from 'clsx';
 import { forwardRef } from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  primary?: boolean;
   isMenuItem?: boolean;
   buttonType?: boolean;
-  primary?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
-      buttonType,
-      className,
       primary,
       isMenuItem,
+      buttonType,
+      className,
       ...htmlButtonProps
     },
     ref
