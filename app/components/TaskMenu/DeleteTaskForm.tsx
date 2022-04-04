@@ -2,7 +2,8 @@ import { actionTypes } from '~/actions/actionTypes';
 
 import { Form } from 'remix';
 
-import { useProgramaticSubmit } from '../../utils/hooks/useProgramaticSubmit';
+import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
+
 import { DropdownItem } from '../Elements/DropdownItem';
 
 type DeleteTaskFormProps = {
@@ -11,7 +12,7 @@ type DeleteTaskFormProps = {
 };
 
 export function DeleteTaskForm({ taskId, userId }: DeleteTaskFormProps) {
-  const { formRef, handleSubmit } = useProgramaticSubmit();
+  const { formRef, handleSubmit } = useProgrammaticSubmit();
 
   return (
     <DropdownItem onClick={handleSubmit} asChild>

@@ -1,11 +1,12 @@
 import { Form } from 'remix';
 
-import { useProgramaticSubmit } from '../../utils/hooks/useProgramaticSubmit';
+import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
+
 import { DropdownItem } from '../Elements/DropdownItem';
 import { LogoutIcon } from '../Icons/LogoutIcon';
 
 export function LogoutForm() {
-  const { formRef, handleSubmit } = useProgramaticSubmit();
+  const { formRef, handleSubmit } = useProgrammaticSubmit();
 
   return (
     <DropdownItem onClick={handleSubmit} asChild>
