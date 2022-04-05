@@ -25,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={clsx(
           'flex gap-4 items-center rounded-full dark:text-custom__ghostly w-full transition-all',
           primary &&
-            'border bg-indigo-600 border-indigo-500 hover:bg-indigo-700 text-custom__ghostly',
+            'border bg-indigo-600 border-indigo-500 hover:bg-indigo-700 hover:border-indigo-600 text-custom__ghostly',
           isMenuItem &&
             'font-bold px-2 py-4 border-none bg-transparent hover:bg-transparent',
           className
