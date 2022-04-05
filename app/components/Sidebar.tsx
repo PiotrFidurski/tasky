@@ -42,9 +42,7 @@ export function Sidebar() {
           </ul>
         </nav>
       </div>
-      {/* create task button */}
       <div className="w-auto lg:w-full">
-        {/* this is the same as register links so maybe make it a component */}
         <CustomLink
           aria-label="create task"
           to={`/calendar/${dayParam}/create`}
