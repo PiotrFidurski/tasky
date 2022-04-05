@@ -1,14 +1,13 @@
 import { useParams } from 'remix';
 
+import { CustomLink } from '~/components/Elements/CustomLink';
 import { NavListItem } from '~/components/Elements/NavListItem';
+import { CalendarIcon } from '~/components/Icons/CalendarIcon';
+import { HomeIcon } from '~/components/Icons/HomeIcon';
+import { PlusIcon } from '~/components/Icons/PlusIcon';
+import { UserMenuDropdown } from '~/components/SettingsMenu';
 
 import { formatDate } from '~/utils/date';
-
-import { CustomLink } from './Elements/CustomLink';
-import { CalendarIcon } from './Icons/CalendarIcon';
-import { HomeIcon } from './Icons/HomeIcon';
-import { PlusIcon } from './Icons/PlusIcon';
-import { UserMenuDropdown } from './SettingsMenu';
 
 export function Sidebar() {
   const { day } = useParams<'day'>();
