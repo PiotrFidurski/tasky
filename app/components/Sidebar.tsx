@@ -101,7 +101,7 @@ export function Sidebar() {
         <CustomLink
           aria-label="create task"
           to={`/calendar/${dayParam}/create`}
-          className="flex items-center lg:justify-between p-4 rounded-full"
+          className="flex items-center lg:justify-between p-4 rounded-full font-semibold uppercase"
         >
           <span className="sr-only lg:not-sr-only">Create task</span>
           {/* plus icon */}
