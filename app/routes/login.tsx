@@ -4,9 +4,10 @@ import { login } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
 import { ZodLoginErrors, loginSchema } from '~/validation/user';
 
-import { ActionFunction, Form, Link, useActionData } from 'remix';
+import { ActionFunction, Form, useActionData } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
+import { CustomLink } from '~/components/Elements/CustomLink';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
@@ -94,18 +95,15 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button
-            primary
-            className="p-2 rounded-md justify-center uppercase font-bold"
-          >
+          <Button primary className="p-2 justify-center uppercase font-bold">
             <span>Login</span>
           </Button>
-          <Link
+          <CustomLink
             to="/register"
-            className="flex justify-center items-center border-2 border-blue-600 w-full rounded py-2 font-bold uppercase text-blue-600 hover:text-white hover:bg-blue-600 focus:outline-dashed outline-offset-2 focus:outline-2 focus:outline-blue-900 transition-colors"
+            className="font-bold w-full py-2 uppercase"
           >
             Register
-          </Link>
+          </CustomLink>
         </div>
       </Form>
     </main>
