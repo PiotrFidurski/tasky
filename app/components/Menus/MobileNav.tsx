@@ -14,12 +14,12 @@ export function MobileNav() {
 
   const dayParam = !day ? formatDate() : day;
   return (
-    <nav className="bg-indigo-800 rounded-tl-[4rem] rounded-tr-[4rem]">
+    <nav className="bg-indigo-800 rounded-full">
       {/* clip path this */}
-      <div className="z-[100] absolute right-[calc(50%-2rem)] top-[-2rem] h-[4rem] w-[4rem] bg-black rounded-full shadow-md shadow-indigo-100">
+      <div className="z-[100] absolute right-[calc(50%-2rem)] top-[-2rem] h-[4rem] w-[4rem] bg-black rounded-full">
         <CustomLink
           to={`/calendar/${dayParam}/create`}
-          className="absolute inset-0 lg:justify-between p-4 rounded-full"
+          className="flex items-center justify-center absolute inset-0 p-4 rounded-full border-0 bg-indigo-300"
         >
           <PlusIcon />
         </CustomLink>
