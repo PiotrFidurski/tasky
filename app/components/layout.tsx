@@ -39,7 +39,7 @@ export function ContentLayout({ children, className }: LayoutProps) {
   return (
     <div
       className={clsx(
-        'p-2 w-full flex flex-col md:flex-row gap-2 md:ml-[4rem] lg:ml-[16rem]',
+        'p-2 w-full flex flex-col md:flex-row gap-2 pb-[5rem] md:ml-[4rem] lg:ml-[16rem]',
         className
       )}
     >

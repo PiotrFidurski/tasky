@@ -15,7 +15,7 @@ export function MobileNav() {
   const dayParam = !day ? formatDate() : day;
 
   return (
-    <nav className="bg-slate-900">
+    <nav className="bg-slate-100 dark:bg-slate-900">
       {/* clip path this */}
       <div className="z-[100] absolute right-[calc(50%-2rem)] top-[-1rem] h-[4rem] w-[4rem] rounded-full">
         <CustomLink
