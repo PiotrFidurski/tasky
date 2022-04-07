@@ -3,7 +3,12 @@ import { requireUserId } from '~/session/auth.server';
 import { LoaderFunction, Outlet, redirect } from 'remix';
 
 import { MobileNav } from '~/components/Menus/MobileNav';
-import { MainLayout, MobileNavLayout } from '~/components/layout';
+import { Sidebar } from '~/components/Menus/Sidebar';
+import {
+  MainLayout,
+  MobileNavLayout,
+  SidebarLayout,
+} from '~/components/layout';
 
 import { formatDate } from '~/utils/date';
 
@@ -21,9 +26,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function CalendarRoute() {
   return (
     <MainLayout>
-      {/* <SidebarLayout>
+      <SidebarLayout>
         <Sidebar />
-      </SidebarLayout> */}
+      </SidebarLayout>
       <MobileNavLayout>
         <MobileNav />
       </MobileNavLayout>

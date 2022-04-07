@@ -13,7 +13,9 @@ export function MainLayout({ children }: LayoutProps) {
 
 export function SidebarLayout({ children }: LayoutProps) {
   return (
-    <div className="max-w-[4rem] lg:max-w-[16rem] w-full fixed">{children}</div>
+    <div className="max-w-[4rem] lg:max-w-[16rem] w-full fixed hidden md:block">
+      {children}
+    </div>
   );
 }
 
@@ -37,7 +39,7 @@ export function ContentLayout({ children, className }: LayoutProps) {
   return (
     <div
       className={clsx(
-        'p-2 w-full flex flex-col md:flex-row gap-2 ml-[4rem] lg:ml-[16rem]',
+        'p-2 w-full flex flex-col md:flex-row gap-2 md:ml-[4rem] lg:ml-[16rem]',
         className
       )}
     >
