@@ -18,7 +18,11 @@ export function SidebarLayout({ children }: LayoutProps) {
 }
 
 export function MobileNavLayout({ children }: LayoutProps) {
-  return <div className="fixed left-0 right-0 bottom-0 z-50">{children}</div>;
+  return (
+    <div className="fixed left-0 right-0 bottom-0 z-50 md:hidden">
+      {children}
+    </div>
+  );
 }
 
 export function CalendarLayout({ children }: LayoutProps) {
