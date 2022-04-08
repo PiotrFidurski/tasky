@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import clsx from 'clsx';
 
 import { useUser } from '../Auth/useUser';
 import { DropdownItem } from '../Elements/DropdownItem';
@@ -11,7 +12,12 @@ import { LogoutForm } from './LogoutForm';
 import { ToggleThemeButton } from './ToggleThemeButton';
 import { UserAvatar } from './UserAvatar';
 
-export function UserMenuDropdown() {
+type UserMenuProps = {
+  // eslint-disable-next-line react/require-default-props
+  isMobile?: boolean;
+};
+
+export function UserMenu({ isMobile }: UserMenuProps) {
   const { theme, switchTheme } = useTheme();
 
   const { user } = useUser();
@@ -24,13 +30,20 @@ export function UserMenuDropdown() {
         </button>
       </DropdownTrigger>
       <DropdownMenu.Content
+        sideOffset={isMobile ? 20 : 0}
+        alignOffset={isMobile ? -16 : 0}
         loop
-        className="rounded-lg min-w-[15rem] border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray"
+        className={clsx(
+          'rounded-lg min-w-[100vw] border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray',
+          isMobile ? '' : 'min-w-[14rem]'
+        )}
       >
-        <DropdownMenu.Arrow
-          className="fill-custom__ghostly dark:fill-custom__gray"
-          offset={20}
-        />
+        {!isMobile ? (
+          <DropdownMenu.Arrow
+            className="fill-custom__ghostly dark:fill-custom__gray"
+            offset={20}
+          />
+        ) : null}
         <DropdownItem
           aria-label="user profile"
           className="rounded-tl-md rounded-tr-md px-2 py-4"
