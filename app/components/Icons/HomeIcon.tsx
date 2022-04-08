@@ -1,12 +1,14 @@
-type HomeIconProps = {
+import clsx from 'clsx';
+
+type HomeIconProps = React.SVGProps<SVGElement> & {
   isFilled: boolean;
 };
 
-export function HomeIcon({ isFilled }: HomeIconProps) {
+export function HomeIcon({ isFilled, className }: HomeIconProps) {
   return isFilled ? (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10"
+      className={clsx('w-10 h-10', className)}
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -15,7 +17,7 @@ export function HomeIcon({ isFilled }: HomeIconProps) {
   ) : (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10"
+      className={clsx('w-10 h-10', className)}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
