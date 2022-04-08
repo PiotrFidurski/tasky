@@ -8,7 +8,7 @@ import { formatDate } from '~/utils/date';
 
 import { CustomLink } from '../Elements/CustomLink';
 import { PlusIcon } from '../Icons/PlusIcon';
-import { UserMenuDropdown } from '../SettingsMenu';
+import { UserMenu } from '../SettingsMenu';
 
 export function MobileNav() {
   const { day } = useParams<'day'>();
@@ -17,7 +17,6 @@ export function MobileNav() {
 
   return (
     <nav className="bg-slate-100 dark:bg-slate-900">
-      {/* clip path this */}
       <div className="z-[100] absolute right-[calc(50%-2rem)] top-[-1rem] h-[4rem] w-[4rem] rounded-full">
         <CustomLink
           to={`/calendar/${dayParam}/create`}
@@ -45,7 +44,7 @@ export function MobileNav() {
               <HomeIcon isFilled={isActive} className="w-8 h-8" />
             )}
           </NavListItem>
-          <UserMenuDropdown />
+          <UserMenu isMobile />
         </ul>
       </div>
     </nav>
