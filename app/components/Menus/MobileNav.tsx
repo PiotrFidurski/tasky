@@ -8,6 +8,7 @@ import { formatDate } from '~/utils/date';
 
 import { CustomLink } from '../Elements/CustomLink';
 import { PlusIcon } from '../Icons/PlusIcon';
+import { UserMenuDropdown } from '../SettingsMenu';
 
 export function MobileNav() {
   const { day } = useParams<'day'>();
@@ -26,7 +27,7 @@ export function MobileNav() {
         </CustomLink>
       </div>
       <div className="flex w-full justify-between">
-        <ul className="flex justify-between items-center px-4 py-1 max-w-[12rem] w-full">
+        <ul className="flex justify-between items-center px-4 py-1 max-w-[10rem] w-full">
           <NavListItem to="/home" className="flex justify-center">
             {({ isActive }) => <HomeIcon isFilled={isActive} />}
           </NavListItem>
@@ -34,13 +35,11 @@ export function MobileNav() {
             {({ isActive }) => <CalendarIcon isFilled={isActive} />}
           </NavListItem>
         </ul>
-        <ul className="flex items-center justify-between px-4 py-1 max-w-[12rem] w-full">
+        <ul className="flex items-center justify-between px-4 py-1 max-w-[10rem] w-full">
           <NavListItem to="/home" className="flex justify-center">
             {({ isActive }) => <HomeIcon isFilled={isActive} />}
           </NavListItem>
-          <NavListItem to="/calendar" className="flex justify-center">
-            {({ isActive }) => <CalendarIcon isFilled={isActive} />}
-          </NavListItem>
+          <UserMenuDropdown />
         </ul>
       </div>
     </nav>
