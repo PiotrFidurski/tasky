@@ -29,15 +29,21 @@ export function MobileNav() {
       <div className="flex w-full justify-between">
         <ul className="flex justify-between items-center px-4 py-1 max-w-[10rem] w-full">
           <NavListItem to="/home" className="flex justify-center">
-            {({ isActive }) => <HomeIcon isFilled={isActive} />}
+            {({ isActive }) => (
+              <HomeIcon isFilled={isActive} className="w-8 h-8" />
+            )}
           </NavListItem>
           <NavListItem to="/calendar" className="flex justify-center">
-            {({ isActive }) => <CalendarIcon isFilled={isActive} />}
+            {({ isActive }) => (
+              <CalendarIcon isFilled={isActive} className="w-8 h-8" />
+            )}
           </NavListItem>
         </ul>
         <ul className="flex items-center justify-between px-4 py-1 max-w-[10rem] w-full">
           <NavListItem to="/home" className="flex justify-center">
-            {({ isActive }) => <HomeIcon isFilled={isActive} />}
+            {({ isActive }) => (
+              <HomeIcon isFilled={isActive} className="w-8 h-8" />
+            )}
           </NavListItem>
           <UserMenuDropdown />
         </ul>
