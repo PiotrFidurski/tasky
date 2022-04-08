@@ -1,19 +1,19 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
 
-import { useUser } from '../Auth/useUser';
-import { DropdownItem } from '../Elements/DropdownItem';
-import { DropdownTrigger } from '../Elements/DropdownTrigger';
-import { ProfileIcon } from '../Icons/ProfileIcon';
-import { SettingsIcon } from '../Icons/SettingsIcon';
-import { useTheme } from '../Theme/ThemeProvider';
-import { Theme } from '../Theme/themeContext';
+import { useUser } from '~/components/Auth/useUser';
+import { DropdownItem } from '~/components/Elements/DropdownItem';
+import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
+import { ProfileIcon } from '~/components/Icons/ProfileIcon';
+import { SettingsIcon } from '~/components/Icons/SettingsIcon';
+import { useTheme } from '~/components/Theme/ThemeProvider';
+import { Theme } from '~/components/Theme/themeContext';
+
 import { LogoutForm } from './LogoutForm';
 import { ToggleThemeButton } from './ToggleThemeButton';
 import { UserAvatar } from './UserAvatar';
 
 type UserMenuProps = {
-  // eslint-disable-next-line react/require-default-props
   isMobile?: boolean;
 };
 
