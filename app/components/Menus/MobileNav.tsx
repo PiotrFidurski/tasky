@@ -1,14 +1,13 @@
 import { useParams } from 'remix';
 
+import { CustomLink } from '~/components/Elements/CustomLink';
 import { NavListItem } from '~/components/Elements/NavListItem';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { HomeIcon } from '~/components/Icons/HomeIcon';
+import { PlusIcon } from '~/components/Icons/PlusIcon';
+import { UserMenu } from '~/components/SettingsMenu';
 
 import { formatDate } from '~/utils/date';
-
-import { CustomLink } from '../Elements/CustomLink';
-import { PlusIcon } from '../Icons/PlusIcon';
-import { UserMenu } from '../SettingsMenu';
 
 export function MobileNav() {
   const { day } = useParams<'day'>();
