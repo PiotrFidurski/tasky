@@ -3,20 +3,22 @@ import * as React from 'react';
 
 type LayoutProps = React.HTMLAttributes<HTMLDivElement | HTMLElement>;
 
+export function RootLayout({ children }: LayoutProps) {
+  return (
+    <div className="flex w-full h-full items-start dark:text-custom__ghostly">
+      {children}
+    </div>
+  );
+}
+
 export function MainLayout({ children }: LayoutProps) {
   return (
-    <main className="flex w-full relative p-4 gap-2 items-start">
-      {children}
-    </main>
+    <main className="flex w-full relative gap-2 items-start">{children}</main>
   );
 }
 
 export function SidebarLayout({ children }: LayoutProps) {
-  return (
-    <div className="max-w-[4rem] lg:max-w-[16rem] w-full fixed hidden md:block">
-      {children}
-    </div>
-  );
+  return <div className="h-full lg:max-w-[16rem] w-full">{children}</div>;
 }
 
 export function MobileNavLayout({ children }: LayoutProps) {
