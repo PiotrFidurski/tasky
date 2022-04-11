@@ -23,7 +23,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
   const { user } = useUser();
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root modal={!isMobile}>
       <DropdownTrigger>
         <button aria-label="open menu" type="button">
           <UserAvatar width={40} height={40} />
@@ -31,11 +31,11 @@ export function UserMenu({ isMobile }: UserMenuProps) {
       </DropdownTrigger>
       <DropdownMenu.Content
         sideOffset={isMobile ? 20 : 0}
-        alignOffset={isMobile ? -16 : 0}
+        alignOffset={isMobile ? -14 : 0}
         loop
         className={clsx(
-          'rounded-lg min-w-[100vw] border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray',
-          isMobile ? '' : 'min-w-[14rem]'
+          'rounded-lg border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray',
+          isMobile ? 'min-w-[calc(100vw-17px)]' : 'min-w-[14rem]'
         )}
       >
         {!isMobile ? (

@@ -26,7 +26,6 @@ export function ScheduleTaskForm({
           focus:outline-2 focus:outline-offset-4 focus:outline-custom__gray
         focus:dark:outline-custom__ghostly"
       >
-        {/* arrow icon */}
         <ArrowleftIcon />
       </button>
     </fetcher.Form>
