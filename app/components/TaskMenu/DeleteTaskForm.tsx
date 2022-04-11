@@ -2,7 +2,9 @@ import { actionTypes } from '~/actions/actionTypes';
 
 import { Form } from 'remix';
 
-import { useProgramaticSubmit } from '../../utils/hooks/useProgramaticSubmit';
+import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
+
+import { Button } from '../Elements/Button';
 import { DropdownItem } from '../Elements/DropdownItem';
 
 type DeleteTaskFormProps = {
@@ -11,15 +13,15 @@ type DeleteTaskFormProps = {
 };
 
 export function DeleteTaskForm({ taskId, userId }: DeleteTaskFormProps) {
-  const { formRef, handleSubmit } = useProgramaticSubmit();
+  const { formRef, handleSubmit } = useProgrammaticSubmit();
 
   return (
     <DropdownItem onClick={handleSubmit} asChild>
       <Form method="post" className="w-full" ref={formRef}>
-        <button
+        <Button
           type="submit"
           aria-label="delete task"
-          className="flex w-full items-center gap-4 min-h-[2rem] px-2 py-4 font-semibold"
+          className="px-2 py-4 font-semibold"
         >
           <input name="_action" value={actionTypes.DELETE_TASK} type="hidden" />
           <input name="id" value={taskId} type="hidden" />
@@ -39,7 +41,7 @@ export function DeleteTaskForm({ taskId, userId }: DeleteTaskFormProps) {
             />
           </svg>
           <span>Delete Task</span>
-        </button>
+        </Button>
       </Form>
     </DropdownItem>
   );

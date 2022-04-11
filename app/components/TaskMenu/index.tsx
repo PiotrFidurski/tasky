@@ -4,6 +4,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Link } from 'remix';
 
 import { useUser } from '../Auth/useUser';
+import { Button } from '../Elements/Button';
 import { DropdownItem } from '../Elements/DropdownItem';
 import { DropdownTrigger } from '../Elements/DropdownTrigger';
 import { CaretIcon } from '../Icons/CaretIcon';
@@ -20,9 +21,9 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownTrigger>
-        <button aria-label="open task menu" type="button">
+        <Button className="w-auto" aria-label="open task menu" type="button">
           <CaretIcon />
-        </button>
+        </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
         loop

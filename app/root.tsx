@@ -66,7 +66,6 @@ function Document({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
   const data = useLoaderData<LoaderData>();
-
   return (
     <html lang="en" className={clsx(theme)}>
       <head>

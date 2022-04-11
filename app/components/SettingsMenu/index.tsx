@@ -2,6 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
 
 import { useUser } from '~/components/Auth/useUser';
+import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
 import { ProfileIcon } from '~/components/Icons/ProfileIcon';
@@ -25,9 +26,9 @@ export function UserMenu({ isMobile }: UserMenuProps) {
   return (
     <DropdownMenu.Root modal={!isMobile}>
       <DropdownTrigger>
-        <button aria-label="open menu" type="button">
+        <Button className="w-auto" aria-label="open menu" type="button">
           <UserAvatar width={40} height={40} />
-        </button>
+        </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
         sideOffset={isMobile ? 20 : 0}
