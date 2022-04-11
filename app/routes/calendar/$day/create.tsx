@@ -81,7 +81,7 @@ export default function CreateTaskRoute() {
             <Dialog.Close asChild>
               <Button
                 buttonType
-                isGhost
+                primary
                 className="p-1 flex items-center justify-center w-auto rounded-full"
               >
                 <svg
@@ -118,8 +118,11 @@ export default function CreateTaskRoute() {
                 </FieldWrapper>
               </div>
               <div className="flex justify-end">
-                <Button className="rounded-full px-4 py-2 w-auto">
-                  Add task
+                <Button
+                  className="rounded-full font-bold px-4 py-2 w-auto"
+                  primary
+                >
+                  <span>Add Task</span>
                 </Button>
               </div>
             </Form>

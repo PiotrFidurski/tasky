@@ -1,6 +1,7 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { useUser } from '../Auth/useUser';
+import { Button } from '../Elements/Button';
 import { DropdownItem } from '../Elements/DropdownItem';
 import { DropdownTrigger } from '../Elements/DropdownTrigger';
 import { ProfileIcon } from '../Icons/ProfileIcon';
@@ -19,9 +20,9 @@ export function UserMenuDropdown() {
   return (
     <DropdownMenu.Root>
       <DropdownTrigger>
-        <button aria-label="open menu" type="button">
+        <Button className="w-auto" aria-label="open menu" type="button">
           <UserAvatar width={40} height={40} />
-        </button>
+        </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
         loop

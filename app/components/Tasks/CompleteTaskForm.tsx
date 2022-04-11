@@ -1,5 +1,6 @@
 import { actionTypes } from '~/actions/actionTypes';
 
+import { Button } from '../Elements/Button';
 import { CheckmarkIcon } from '../Icons/CheckmarkIcon';
 import { ComponentWithFetcherProps } from './types';
 
@@ -21,13 +22,13 @@ export function CompleteTaskForm({
           type="hidden"
         />
         <input name="id" value={task.id} type="hidden" />
-        <button
+        <Button
           type="submit"
           aria-label={isComplete() ? 'uncomplete task' : 'complete task'}
-          className="rounded-full text-custom__gray dark:text-custom__ghostly border-2 border-custom__gray dark:border-custom__ghostly"
+          className="rounded-full border-2 border-custom__gray dark:border-custom__ghostly"
         >
           {isComplete() ? <CheckmarkIcon /> : <div className="h-6 w-6" />}
-        </button>
+        </Button>
       </fetcher.Form>
       <p className="font-semibold text-custom__gray dark:text-custom__ghostly">
         {task.body}
