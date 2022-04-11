@@ -15,6 +15,7 @@ export function TaskComponent({ task }: { task: Task }) {
   const fetcher = useFetcher();
 
   const { isScheduling, isUnscheduling } = getActionType(fetcher.submission);
+
   const isComplete = (): boolean => {
     const currentAction = fetcher.submission?.formData.get('_action');
 
@@ -24,6 +25,7 @@ export function TaskComponent({ task }: { task: Task }) {
 
     return task.isComplete;
   };
+
   return (
     <AnimatePresence>
       <motion.article

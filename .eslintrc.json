@@ -23,6 +23,7 @@
   "plugins": ["react", "@typescript-eslint", "import"],
   "rules": {
     "arrow-body-style": "off",
+    "react/require-default-props": "off",
     // allow underscore-dangle for prisma _count property
     "no-underscore-dangle": ["error", { "allow": ["_count"] }],
     "import/prefer-default-export": "off",

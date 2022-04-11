@@ -2,8 +2,13 @@ import { requireUserId } from '~/session/auth.server';
 
 import { LoaderFunction, Outlet, redirect } from 'remix';
 
-import { Sidebar } from '~/components/Sidebar';
-import { MainLayout, SidebarLayout } from '~/components/layout';
+import { MobileNav } from '~/components/Menus/MobileNav';
+import { Sidebar } from '~/components/Menus/Sidebar';
+import {
+  MainLayout,
+  MobileNavLayout,
+  SidebarLayout,
+} from '~/components/layout';
 
 import { formatDate } from '~/utils/date';
 
@@ -24,6 +29,9 @@ export default function CalendarRoute() {
       <SidebarLayout>
         <Sidebar />
       </SidebarLayout>
+      <MobileNavLayout>
+        <MobileNav />
+      </MobileNavLayout>
       <Outlet />
     </MainLayout>
   );

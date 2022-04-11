@@ -1,37 +1,50 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import clsx from 'clsx';
 
-import { useUser } from '../Auth/useUser';
-import { Button } from '../Elements/Button';
-import { DropdownItem } from '../Elements/DropdownItem';
-import { DropdownTrigger } from '../Elements/DropdownTrigger';
-import { ProfileIcon } from '../Icons/ProfileIcon';
-import { SettingsIcon } from '../Icons/SettingsIcon';
-import { useTheme } from '../Theme/ThemeProvider';
-import { Theme } from '../Theme/themeContext';
+import { useUser } from '~/components/Auth/useUser';
+import { Button } from '~/components/Elements/Button';
+import { DropdownItem } from '~/components/Elements/DropdownItem';
+import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
+import { ProfileIcon } from '~/components/Icons/ProfileIcon';
+import { SettingsIcon } from '~/components/Icons/SettingsIcon';
+import { useTheme } from '~/components/Theme/ThemeProvider';
+import { Theme } from '~/components/Theme/themeContext';
+
 import { LogoutForm } from './LogoutForm';
 import { ToggleThemeButton } from './ToggleThemeButton';
 import { UserAvatar } from './UserAvatar';
 
-export function UserMenuDropdown() {
+type UserMenuProps = {
+  isMobile?: boolean;
+};
+
+export function UserMenu({ isMobile }: UserMenuProps) {
   const { theme, switchTheme } = useTheme();
 
   const { user } = useUser();
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root modal={!isMobile}>
       <DropdownTrigger>
         <Button className="w-auto" aria-label="open menu" type="button">
           <UserAvatar width={40} height={40} />
         </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
+        sideOffset={isMobile ? 20 : 0}
+        alignOffset={isMobile ? -14 : 0}
         loop
-        className="rounded-lg min-w-[15rem] border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray"
+        className={clsx(
+          'rounded-lg border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray',
+          isMobile ? 'min-w-[calc(100vw-17px)]' : 'min-w-[14rem]'
+        )}
       >
-        <DropdownMenu.Arrow
-          className="fill-custom__ghostly dark:fill-custom__gray"
-          offset={20}
-        />
+        {!isMobile ? (
+          <DropdownMenu.Arrow
+            className="fill-custom__ghostly dark:fill-custom__gray"
+            offset={20}
+          />
+        ) : null}
         <DropdownItem
           aria-label="user profile"
           className="rounded-tl-md rounded-tr-md px-2 py-4"

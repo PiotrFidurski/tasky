@@ -1,12 +1,14 @@
-type CalendarIconProps = {
+import clsx from 'clsx';
+
+type CalendarIconProps = React.SVGProps<SVGElement> & {
   isFilled: boolean;
 };
 
-export function CalendarIcon({ isFilled }: CalendarIconProps) {
+export function CalendarIcon({ isFilled, className }: CalendarIconProps) {
   return isFilled ? (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10"
+      className={clsx('w-10 h-10', className)}
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -19,7 +21,7 @@ export function CalendarIcon({ isFilled }: CalendarIconProps) {
   ) : (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10"
+      className={clsx('w-10 h-10', className)}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
