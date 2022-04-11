@@ -1,17 +1,27 @@
 import { Outlet } from 'remix';
 
-import { Sidebar } from '~/components/Menus/Sidebar';
-import { ContentLayout, MainLayout, SidebarLayout } from '~/components/layout';
+import { WIPv2Sidebar } from '~/components/Menus/WIPv2_Sidebar';
+import {
+  ContentLayout,
+  MainLayout,
+  RootLayout,
+  SidebarLayout,
+} from '~/components/layout';
 
 export default function HomeRoute() {
   return (
-    <MainLayout>
+    <RootLayout>
       <SidebarLayout>
-        <Sidebar />
+        <MainLayout>
+          <ContentLayout>
+            <WIPv2Sidebar />
+            <div className="mt-20">
+              <Outlet />
+              asdasdasdsa
+            </div>
+          </ContentLayout>
+        </MainLayout>
       </SidebarLayout>
-      <ContentLayout>
-        <Outlet />
-      </ContentLayout>
-    </MainLayout>
+    </RootLayout>
   );
 }

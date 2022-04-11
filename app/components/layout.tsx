@@ -5,7 +5,7 @@ type LayoutProps = React.HTMLAttributes<HTMLDivElement | HTMLElement>;
 
 export function RootLayout({ children }: LayoutProps) {
   return (
-    <div className="flex w-full h-full items-start dark:text-custom__ghostly">
+    <div className="w-full h-full items-start dark:text-custom__ghostly">
       {children}
     </div>
   );
@@ -41,7 +41,7 @@ export function ContentLayout({ children, className }: LayoutProps) {
   return (
     <div
       className={clsx(
-        'p-2 w-full flex flex-col md:flex-row gap-2 pb-[5rem] md:ml-[4rem] lg:ml-[16rem]',
+        'w-full flex flex-col md:flex-row gap-2 md:ml-[4rem] lg:ml-[16rem]',
         className
       )}
     >
