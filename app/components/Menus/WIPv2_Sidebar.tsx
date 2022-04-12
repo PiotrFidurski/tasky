@@ -21,8 +21,8 @@ export function WIPv2Sidebar() {
       </Button>
       <nav
         className={clsx(
-          'bg-gray-900 w-full h-full border-r border-r-gray-700 p-2 transition-transform',
-          show ? 'translate-x-0' : 'translate-x-[-100%]'
+          'bg-gray-900 w-full h-full border-r border-r-gray-700 p-2 transition-all',
+          show ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
         <div className="pt-10">
