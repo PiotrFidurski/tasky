@@ -12,9 +12,9 @@ export default function HomeRoute() {
   return (
     <RootLayout>
       <SidebarLayout>
+        <WIPv2Sidebar />
         <MainLayout>
           <ContentLayout>
-            <WIPv2Sidebar />
             <div className="mt-20">
               <Outlet />
               asdasdasdsa
