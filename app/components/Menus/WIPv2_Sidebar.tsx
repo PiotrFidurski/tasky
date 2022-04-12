@@ -20,13 +20,15 @@ export function WIPv2Sidebar() {
         className="fixed w-auto p-2 z-50"
         onClick={toggleMenu}
         buttonType
-        aria-controls="menubar"
+        aria-controls="sidebar"
         aria-label={show ? 'close menu' : 'open menu'}
         aria-expanded={show}
       >
         <HamburgerIcon />
       </Button>
       <nav
+        aria-label="sidebar"
+        id="sidebar"
         className={clsx(
           'bg-gray-900 w-full h-full border-r border-r-gray-700 p-2 transition-all',
           show ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
