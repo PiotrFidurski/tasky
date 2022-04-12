@@ -15,7 +15,7 @@ export function WIPv2Sidebar() {
   };
 
   return (
-    <div className="absolute left-0 max-w-[70%] w-full h-[100vw]">
+    <div className="absolute left-0 max-w-[60%] w-full h-[100vw]">
       <Button className="fixed w-auto p-2 z-50" onClick={toggleMenu} buttonType>
         <HamburgerIcon />
       </Button>
@@ -26,13 +26,13 @@ export function WIPv2Sidebar() {
           show ? 'translate-x-0' : 'translate-x-[-100%]'
         )}
       >
-        <div className="pt-6">
-          <ul className="flex flex-col gap-4">
+        <div className="pt-10">
+          <ul className="flex flex-col gap-2">
             <NavListItem to="/home">
               {({ isActive }) => (
                 <>
                   <HomeIcon isFilled={isActive} />
-                  <span className="sr-only lg:not-sr-only">Home</span>
+                  <span>Home</span>
                 </>
               )}
             </NavListItem>
@@ -40,7 +40,7 @@ export function WIPv2Sidebar() {
               {({ isActive }) => (
                 <>
                   <CalendarIcon isFilled={isActive} />
-                  <span className="sr-only lg:not-sr-only">Calendar</span>
+                  <span>Calendar</span>
                 </>
               )}
             </NavListItem>
