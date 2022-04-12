@@ -16,7 +16,14 @@ export function WIPv2Sidebar() {
 
   return (
     <div className="absolute top-0 left-0 bottom-0 max-w-[60%] w-full h-auto z-50">
-      <Button className="fixed w-auto p-2 z-50" onClick={toggleMenu} buttonType>
+      <Button
+        className="fixed w-auto p-2 z-50"
+        onClick={toggleMenu}
+        buttonType
+        aria-controls="menubar"
+        aria-label={show ? 'close menu' : 'open menu'}
+        aria-expanded={show}
+      >
         <HamburgerIcon />
       </Button>
       <nav
