@@ -2,7 +2,10 @@ import clsx from 'clsx';
 import { useState } from 'react';
 
 import { Button } from '../Elements/Button';
+import { NavListItem } from '../Elements/NavListItem';
+import { CalendarIcon } from '../Icons/CalendarIcon';
 import { HamburgerIcon } from '../Icons/HamburgerIcon';
+import { HomeIcon } from '../Icons/HomeIcon';
 
 export function WIPv2Sidebar() {
   const [show, setShow] = useState(false);
@@ -12,39 +15,36 @@ export function WIPv2Sidebar() {
   };
 
   return (
-    <div className="absolute left-0 right-0">
-      <div className="w-full p-2 border-b border-gray-200 min-h-[3rem] bg-gray-900 flex items-center">
-        <Button
-          className="fixed w-auto p-2 z-50"
-          onClick={toggleMenu}
-          buttonType
-        >
-          <HamburgerIcon />
-        </Button>
-      </div>
+    <div className="absolute left-0 max-w-[70%] w-full h-[100vw]">
+      <Button className="fixed w-auto p-2 z-50" onClick={toggleMenu} buttonType>
+        <HamburgerIcon />
+      </Button>
 
       <nav
         className={clsx(
-          'bg-gray-900 w-full h-full border-r border-gray-800 p-2 transition-transform',
+          'bg-gray-900 w-full h-full p-2 transition-transform',
           show ? 'translate-x-0' : 'translate-x-[-100%]'
         )}
       >
         <div className="pt-6">
-          <div>
-            <span>hello</span>
-          </div>
-          <div>
-            <span>hello</span>
-          </div>
-          <div>
-            <span>hello</span>
-          </div>
-          <div>
-            <span>hello</span>
-          </div>
-          <div>
-            <span>hello</span>
-          </div>
+          <ul className="flex flex-col gap-4">
+            <NavListItem to="/home">
+              {({ isActive }) => (
+                <>
+                  <HomeIcon isFilled={isActive} />
+                  <span className="sr-only lg:not-sr-only">Home</span>
+                </>
+              )}
+            </NavListItem>
+            <NavListItem to="/calendar">
+              {({ isActive }) => (
+                <>
+                  <CalendarIcon isFilled={isActive} />
+                  <span className="sr-only lg:not-sr-only">Calendar</span>
+                </>
+              )}
+            </NavListItem>
+          </ul>
         </div>
       </nav>
     </div>
