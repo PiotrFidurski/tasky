@@ -19,10 +19,9 @@ export function WIPv2Sidebar() {
       <Button className="fixed w-auto p-2 z-50" onClick={toggleMenu} buttonType>
         <HamburgerIcon />
       </Button>
-
       <nav
         className={clsx(
-          'bg-gray-900 w-full h-full p-2 transition-transform',
+          'bg-gray-900 w-full h-full border-r border-r-gray-700 p-2 transition-transform',
           show ? 'translate-x-0' : 'translate-x-[-100%]'
         )}
       >
