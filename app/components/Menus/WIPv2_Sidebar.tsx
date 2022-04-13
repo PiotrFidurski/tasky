@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import { Button } from '../Elements/Button';
 import { NavListItem } from '../Elements/NavListItem';
-import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
 import { CalendarIcon } from '../Icons/CalendarIcon';
+import { CloseIcon } from '../Icons/CloseIcon';
 import { EditIcon } from '../Icons/EditIcon';
 import { HamburgerIcon } from '../Icons/HamburgerIcon';
 import { HomeIcon } from '../Icons/HomeIcon';
@@ -47,7 +47,7 @@ export function WIPv2Sidebar() {
               aria-label="close menu"
               aria-expanded={show}
             >
-              <ArrowleftIcon />
+              <CloseIcon />
             </Button>
           </div>
         </div>
