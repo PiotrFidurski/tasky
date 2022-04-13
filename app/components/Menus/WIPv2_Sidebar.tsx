@@ -3,12 +3,13 @@ import { useState } from 'react';
 
 import { Button } from '../Elements/Button';
 import { NavListItem } from '../Elements/NavListItem';
+import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
 import { CalendarIcon } from '../Icons/CalendarIcon';
 import { HamburgerIcon } from '../Icons/HamburgerIcon';
 import { HomeIcon } from '../Icons/HomeIcon';
 
 export function WIPv2Sidebar() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const toggleMenu = () => {
     setShow(!show);
@@ -17,7 +18,7 @@ export function WIPv2Sidebar() {
   return (
     <div className="absolute top-0 left-0 bottom-0 max-w-[60%] w-full h-auto z-50">
       <Button
-        className="fixed w-auto p-2 z-50"
+        className="fixed w-auto p-2"
         onClick={toggleMenu}
         buttonType
         aria-controls="sidebar"
@@ -34,6 +35,14 @@ export function WIPv2Sidebar() {
           show ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
+        <div className="flex items-center p-2">
+          <h2 className="w-full">Menu</h2>
+          <div className="flex justify-end">
+            <Button onClick={toggleMenu} buttonType>
+              <ArrowleftIcon />
+            </Button>
+          </div>
+        </div>
         <div className="pt-10">
           <ul className="flex flex-col gap-2">
             <NavListItem to="/home">
