@@ -22,7 +22,7 @@ export function WIPv2Sidebar() {
         onClick={toggleMenu}
         buttonType
         aria-controls="sidebar"
-        aria-label={show ? 'close menu' : 'open menu'}
+        aria-label="open menu"
         aria-expanded={show}
       >
         <HamburgerIcon />
@@ -38,7 +38,13 @@ export function WIPv2Sidebar() {
         <div className="flex items-center p-2">
           <h2 className="w-full">Menu</h2>
           <div className="flex justify-end">
-            <Button onClick={toggleMenu} buttonType>
+            <Button
+              onClick={toggleMenu}
+              buttonType
+              aria-controls="sidebar"
+              aria-label="close menu"
+              aria-expanded={show}
+            >
               <ArrowleftIcon />
             </Button>
           </div>
