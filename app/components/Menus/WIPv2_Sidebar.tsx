@@ -7,6 +7,7 @@ import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
 import { CalendarIcon } from '../Icons/CalendarIcon';
 import { HamburgerIcon } from '../Icons/HamburgerIcon';
 import { HomeIcon } from '../Icons/HomeIcon';
+import { UserAvatar } from '../SettingsMenu/UserAvatar';
 
 export function WIPv2Sidebar() {
   const [show, setShow] = useState(true);
@@ -31,11 +32,11 @@ export function WIPv2Sidebar() {
         aria-label="sidebar"
         id="sidebar"
         className={clsx(
-          'bg-gray-900 w-full h-full border-r border-r-gray-700 p-2 transition-all',
+          'bg-gray-900 w-full h-full border-r border-r-gray-700 transition-all',
           show ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <div className="flex items-center p-2">
+        <div className="flex items-center p-4">
           <h2 className="w-full">Menu</h2>
           <div className="flex justify-end">
             <Button
@@ -49,7 +50,10 @@ export function WIPv2Sidebar() {
             </Button>
           </div>
         </div>
-        <div className="pt-10">
+        <div className="p-4 flex mb-4">
+          <UserAvatar width={40} height={40} />
+        </div>
+        <div className="">
           <ul className="flex flex-col gap-2">
             <NavListItem to="/home">
               {({ isActive }) => (
