@@ -5,6 +5,7 @@ import { Button } from '../Elements/Button';
 import { NavListItem } from '../Elements/NavListItem';
 import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
 import { CalendarIcon } from '../Icons/CalendarIcon';
+import { EditIcon } from '../Icons/EditIcon';
 import { HamburgerIcon } from '../Icons/HamburgerIcon';
 import { HomeIcon } from '../Icons/HomeIcon';
 import { UserAvatar } from '../SettingsMenu/UserAvatar';
@@ -68,6 +69,14 @@ export function WIPv2Sidebar() {
                 <>
                   <CalendarIcon isFilled={isActive} />
                   <span>Calendar</span>
+                </>
+              )}
+            </NavListItem>
+            <NavListItem to="/calendar">
+              {({ isActive }) => (
+                <>
+                  <EditIcon isFilled={isActive} />
+                  <span>Tasks</span>
                 </>
               )}
             </NavListItem>
