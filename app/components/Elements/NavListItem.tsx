@@ -15,7 +15,7 @@ export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
         className={({ isActive }) =>
           clsx(
             isActive ? 'bg-[#1b2539]' : '',
-            'flex w-full items-center text-custom__gray dark:text-custom__ghostly hover:bg-[#1b2539] dark:hover:text-white p-1 rounded-md'
+            'p-3 flex w-full items-center text-custom__gray dark:text-custom__ghostly hover:bg-[#1b2539]  dark:hover:text-white'
           )
         }
       >

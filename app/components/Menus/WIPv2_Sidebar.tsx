@@ -54,7 +54,7 @@ export function WIPv2Sidebar() {
           <UserAvatar width={40} height={40} />
         </div>
         <div className="">
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col">
             <NavListItem to="/home">
               {({ isActive }) => (
                 <>
