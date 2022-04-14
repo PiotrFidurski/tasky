@@ -12,14 +12,14 @@ import { PlusIcon } from '../Icons/PlusIcon';
 import { UserAvatar } from '../SettingsMenu/UserAvatar';
 
 export function WIPv2Sidebar() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const toggleMenu = () => {
     setShow(!show);
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full md:hidden">
       <div className="flex items-center gap-2 p-2 border-b border-gray-700">
         <Button
           isIconWrapper
