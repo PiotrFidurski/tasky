@@ -22,7 +22,7 @@ export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
         }
       >
         {({ isActive }) => (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             {children({ isActive })}
           </div>
         )}
