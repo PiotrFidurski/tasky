@@ -88,12 +88,10 @@ export function WIPv2Sidebar() {
             </ul>
           </div>
         </nav>
-        <div className="p-4">
-          <Button primary className="flex justify-between p-2">
-            <span>Create Task</span>
-            <PlusIcon />
-          </Button>
-        </div>
+        <Button isMenuItem className="flex justify-between p-3">
+          <span>Create Task</span>
+          <PlusIcon />
+        </Button>
       </div>
     </div>
   );
