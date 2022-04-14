@@ -21,7 +21,7 @@ export function WIPv2Sidebar() {
     <div className="relative w-full h-full">
       <div className="flex items-center gap-2 p-2 border-b border-gray-700">
         <Button
-          isMenuItem
+          isIconWrapper
           className="w-auto"
           onClick={toggleMenu}
           buttonType
@@ -45,7 +45,7 @@ export function WIPv2Sidebar() {
           <h2 className="w-full">Menu</h2>
           <div className="flex justify-end">
             <Button
-              isMenuItem
+              isIconWrapper
               onClick={toggleMenu}
               buttonType
               aria-controls="sidebar"
