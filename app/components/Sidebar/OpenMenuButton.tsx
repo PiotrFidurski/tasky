@@ -8,7 +8,7 @@ type OpenMenuProps = {
 
 export function OpenMenuButton({ onHandleOpen, show }: OpenMenuProps) {
   return (
-    <div className="flex items-center gap-2 p-2 border-b border-gray-700">
+    <div className="p-2">
       <Button
         isIconWrapper
         className="w-auto"
@@ -20,7 +20,6 @@ export function OpenMenuButton({ onHandleOpen, show }: OpenMenuProps) {
       >
         <HamburgerIcon />
       </Button>
-      <span>Home</span>
     </div>
   );
 }
