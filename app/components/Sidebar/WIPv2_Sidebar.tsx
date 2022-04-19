@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-import { Button } from '../Elements/Button';
-import { HamburgerIcon } from '../Icons/HamburgerIcon';
 import { Menu } from './Menu';
+import { OpenMenuButton } from './OpenMenuButton';
 
 export function WIPv2Sidebar() {
   const [show, setShow] = useState(false);
@@ -17,20 +16,7 @@ export function WIPv2Sidebar() {
 
   return (
     <div className="relative w-full h-full md:hidden">
-      <div className="flex items-center gap-2 p-2 border-b border-gray-700">
-        <Button
-          isIconWrapper
-          className="w-auto"
-          onClick={handleOpenMenu}
-          buttonType
-          aria-controls="sidebar"
-          aria-label="open menu"
-          aria-expanded={show}
-        >
-          <HamburgerIcon />
-        </Button>
-        <span>Home</span>
-      </div>
+      <OpenMenuButton show={show} onHandleOpen={handleOpenMenu} />
       <Menu show={show} onHandleClose={handleCloseMenu} />
     </div>
   );
