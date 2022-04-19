@@ -9,9 +9,7 @@ export function RootLayout({ children }: LayoutProps) {
 }
 
 export function MainLayout({ children }: LayoutProps) {
-  return (
-    <main className="flex w-full relative gap-2 items-start">{children}</main>
-  );
+  return <main className="absolute top-0 md:relative">{children}</main>;
 }
 
 export function SidebarLayout({ children }: LayoutProps) {
