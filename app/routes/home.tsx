@@ -17,10 +17,8 @@ export default function HomeRoute() {
         <MobileSidebar />
         <MainLayout>
           <ContentLayout>
-            <div className="mt-20">
-              <Outlet />
-              home page
-            </div>
+            <Outlet />
+            home page
           </ContentLayout>
         </MainLayout>
       </SidebarLayout>
