@@ -8,7 +8,7 @@ type OpenMenuProps = {
 
 export function OpenMenuButton({ onHandleOpen, show }: OpenMenuProps) {
   return (
-    <div className="p-2">
+    <div className="p-2 z-50">
       <Button
         isIconWrapper
         className="w-auto"
