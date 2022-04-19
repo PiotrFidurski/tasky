@@ -1,6 +1,6 @@
 import { Outlet } from 'remix';
 
-import { WIPv2Sidebar } from '~/components/Menus/WIPv2_Sidebar';
+import { WIPv2Sidebar } from '~/components/Sidebar/WIPv2_Sidebar';
 import {
   ContentLayout,
   MainLayout,
@@ -17,7 +17,7 @@ export default function HomeRoute() {
           <ContentLayout>
             <div className="mt-20">
               <Outlet />
-              asdasdasdsa
+              home page
             </div>
           </ContentLayout>
         </MainLayout>
