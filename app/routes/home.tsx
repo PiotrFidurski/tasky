@@ -1,6 +1,7 @@
 import { Outlet } from 'remix';
 
-import { WIPv2Sidebar } from '~/components/Sidebar/WIPv2_Sidebar';
+import { DesktopSidebar } from '~/components/Sidebar/index.desktop';
+import { MobileSidebar } from '~/components/Sidebar/index.mobile';
 import {
   ContentLayout,
   MainLayout,
@@ -12,7 +13,8 @@ export default function HomeRoute() {
   return (
     <RootLayout>
       <SidebarLayout>
-        <WIPv2Sidebar />
+        <DesktopSidebar />
+        <MobileSidebar />
         <MainLayout>
           <ContentLayout>
             <div className="mt-20">
