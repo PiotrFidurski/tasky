@@ -20,7 +20,7 @@ export function MobileSidebar() {
       <OpenMenuButton show={show} onHandleOpen={handleOpenMenu} />
       {show ? (
         <div
-          className="absolute inset-0 bg-gray-100 opacity-5"
+          className="absolute inset-0 bg-gray-100 opacity-10"
           onClick={handleCloseMenu}
           role="none"
         />
