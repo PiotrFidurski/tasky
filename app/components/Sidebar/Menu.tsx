@@ -1,3 +1,5 @@
+import { useParams } from 'remix';
+
 import { Button } from '~/components/Elements/Button';
 import { NavListItem } from '~/components/Elements/NavListItem';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
@@ -7,6 +9,10 @@ import { HomeIcon } from '~/components/Icons/HomeIcon';
 import { PlusIcon } from '~/components/Icons/PlusIcon';
 import { UserMenu } from '~/components/SettingsMenu';
 
+import { formatDate } from '~/utils/date';
+
+import { CustomLink } from '../Elements/CustomLink';
+
 type MenuProps = {
   show: boolean;
   onHandleClose: () => void;
@@ -14,6 +20,10 @@ type MenuProps = {
 };
 
 export function Menu({ show, onHandleClose, isMobile = true }: MenuProps) {
+  const { day } = useParams<'day'>();
+
+  const dayParam = !day ? formatDate() : day;
+
   return (
     <>
       <nav aria-label="sidebar" id="sidebar">
@@ -64,10 +74,14 @@ export function Menu({ show, onHandleClose, isMobile = true }: MenuProps) {
           </NavListItem>
         </ul>
       </nav>
-      <Button isMenuItem className="flex justify-between p-3">
+      <CustomLink
+        to={`/calendar/${dayParam}/create`}
+        aria-label="create task"
+        className="flex justify-between p-3"
+      >
         <span>Create Task</span>
         <PlusIcon />
-      </Button>
+      </CustomLink>
     </>
   );
 }
