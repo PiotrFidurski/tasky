@@ -5,7 +5,7 @@ import { CloseIcon } from '~/components/Icons/CloseIcon';
 import { EditIcon } from '~/components/Icons/EditIcon';
 import { HomeIcon } from '~/components/Icons/HomeIcon';
 import { PlusIcon } from '~/components/Icons/PlusIcon';
-import { UserAvatar } from '~/components/SettingsMenu/UserAvatar';
+import { UserMenu } from '~/components/SettingsMenu';
 
 type MenuProps = {
   show: boolean;
@@ -34,37 +34,35 @@ export function Menu({ show, onHandleClose, isMobile = true }: MenuProps) {
             </div>
           ) : null}
         </div>
-        <div className="p-4 flex mb-4">
-          <UserAvatar width={40} height={40} />
+        <div className="p-4 mb-4">
+          <UserMenu />
         </div>
-        <div className="">
-          <ul className="flex flex-col">
-            <NavListItem to="/home">
-              {({ isActive }) => (
-                <>
-                  <HomeIcon isFilled={isActive} />
-                  <span>Home</span>
-                </>
-              )}
-            </NavListItem>
-            <NavListItem to="/calendar">
-              {({ isActive }) => (
-                <>
-                  <CalendarIcon isFilled={isActive} />
-                  <span>Calendar</span>
-                </>
-              )}
-            </NavListItem>
-            <NavListItem to="/calendar">
-              {({ isActive }) => (
-                <>
-                  <EditIcon isFilled={isActive} />
-                  <span>Tasks</span>
-                </>
-              )}
-            </NavListItem>
-          </ul>
-        </div>
+        <ul className="flex flex-col">
+          <NavListItem to="/home">
+            {({ isActive }) => (
+              <>
+                <HomeIcon isFilled={isActive} />
+                <span>Home</span>
+              </>
+            )}
+          </NavListItem>
+          <NavListItem to="/calendar">
+            {({ isActive }) => (
+              <>
+                <CalendarIcon isFilled={isActive} />
+                <span>Calendar</span>
+              </>
+            )}
+          </NavListItem>
+          <NavListItem to="/calendar">
+            {({ isActive }) => (
+              <>
+                <EditIcon isFilled={isActive} />
+                <span>Tasks</span>
+              </>
+            )}
+          </NavListItem>
+        </ul>
       </nav>
       <Button isMenuItem className="flex justify-between p-3">
         <span>Create Task</span>
