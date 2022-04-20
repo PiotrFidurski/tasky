@@ -26,7 +26,7 @@ export function Menu({ show, onHandleClose, isMobile = true }: MenuProps) {
                 onClick={onHandleClose}
                 buttonType
                 aria-controls="sidebar"
-                aria-label="close menu"
+                aria-label="close sidebar"
                 aria-expanded={show}
               >
                 <CloseIcon />

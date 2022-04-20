@@ -15,7 +15,7 @@ export function OpenMenuButton({ onHandleOpen, show }: OpenMenuProps) {
         onClick={onHandleOpen}
         buttonType
         aria-controls="sidebar"
-        aria-label="open menu"
+        aria-label="open sidebar"
         aria-expanded={show}
       >
         <HamburgerIcon />
