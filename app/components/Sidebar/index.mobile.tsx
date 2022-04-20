@@ -18,6 +18,13 @@ export function MobileSidebar() {
   return (
     <div className="relative w-full h-screen md:hidden">
       <OpenMenuButton show={show} onHandleOpen={handleOpenMenu} />
+      {show ? (
+        <div
+          className="absolute inset-0 bg-gray-100 opacity-5"
+          onClick={handleCloseMenu}
+          role="none"
+        />
+      ) : null}
       <div
         className={clsx(
           `flex flex-col justify-between absolute top-0 left-0 bottom-0 max-w-[60%]
