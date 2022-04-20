@@ -1,6 +1,7 @@
 import { useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
+import { CustomLink } from '~/components/Elements/CustomLink';
 import { NavListItem } from '~/components/Elements/NavListItem';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { CloseIcon } from '~/components/Icons/CloseIcon';
@@ -10,8 +11,6 @@ import { PlusIcon } from '~/components/Icons/PlusIcon';
 import { UserMenu } from '~/components/SettingsMenu';
 
 import { formatDate } from '~/utils/date';
-
-import { CustomLink } from '../Elements/CustomLink';
 
 type MenuProps = {
   show: boolean;
