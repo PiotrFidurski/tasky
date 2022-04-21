@@ -28,7 +28,7 @@ export function MobileSidebar() {
       <div
         className={clsx(
           `flex flex-col justify-between absolute top-0 left-0 bottom-0 max-w-[60%]
-           z-50 bg-gray-900 w-full h-full py-4 border-r border-r-gray-700 transition-all`,
+           z-50 bg-gray-900 w-full h-full py-4 border-r border-r-gray-800 transition-all`,
           show ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
