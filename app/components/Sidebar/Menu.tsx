@@ -29,7 +29,11 @@ export function Menu({
 
   return (
     <>
-      <nav aria-label="sidebar" id="sidebar">
+      <nav
+        aria-label="sidebar"
+        id="sidebar"
+        className="text-custom__gray dark:text-custom__ghostly"
+      >
         <div className="flex items-center p-4">
           <h2 className="w-full">Menu</h2>
           {isMobile ? (
