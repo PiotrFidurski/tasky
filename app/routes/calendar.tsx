@@ -31,13 +31,13 @@ export default function CalendarRoute() {
       <SidebarLayout>
         <DesktopSidebar />
         <MobileSidebar />
-        <MainLayout>
-          <MobileNavLayout>
-            <MobileNav />
-          </MobileNavLayout>
-          <Outlet />
-        </MainLayout>
       </SidebarLayout>
+      <MainLayout>
+        <MobileNavLayout>
+          <MobileNav />
+        </MobileNavLayout>
+        <Outlet />
+      </MainLayout>
     </RootLayout>
   );
 }
