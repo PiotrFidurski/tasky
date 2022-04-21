@@ -15,13 +15,13 @@ export default function HomeRoute() {
       <SidebarLayout>
         <DesktopSidebar />
         <MobileSidebar />
-        <MainLayout>
-          <ContentLayout>
-            <Outlet />
-            home page
-          </ContentLayout>
-        </MainLayout>
       </SidebarLayout>
+      <MainLayout>
+        <ContentLayout>
+          <Outlet />
+          home page
+        </ContentLayout>
+      </MainLayout>
     </RootLayout>
   );
 }
