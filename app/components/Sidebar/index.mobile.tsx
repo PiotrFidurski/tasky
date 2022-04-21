@@ -17,7 +17,9 @@ export function MobileSidebar() {
 
   return (
     <div className="relative w-full h-screen md:hidden">
-      <OpenMenuButton show={show} onHandleOpen={handleOpenMenu} />
+      <div className="p-2">
+        <OpenMenuButton show={show} onHandleOpen={handleOpenMenu} />
+      </div>
       {show ? (
         <div
           className="absolute inset-0 bg-gray-100 opacity-10"
