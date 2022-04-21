@@ -13,12 +13,16 @@ import { UserMenu } from '~/components/SettingsMenu';
 import { formatDate } from '~/utils/date';
 
 type MenuProps = {
-  show: boolean;
-  onHandleClose: () => void;
+  visible: boolean;
+  onHandleClose?: () => void;
   isMobile?: boolean;
 };
 
-export function Menu({ show, onHandleClose, isMobile = true }: MenuProps) {
+export function Menu({
+  visible,
+  onHandleClose = () => {},
+  isMobile = true,
+}: MenuProps) {
   const { day } = useParams<'day'>();
 
   const dayParam = !day ? formatDate() : day;
@@ -36,7 +40,7 @@ export function Menu({ show, onHandleClose, isMobile = true }: MenuProps) {
                 buttonType
                 aria-controls="sidebar"
                 aria-label="close sidebar"
-                aria-expanded={show}
+                aria-expanded={visible}
               >
                 <CloseIcon />
               </Button>

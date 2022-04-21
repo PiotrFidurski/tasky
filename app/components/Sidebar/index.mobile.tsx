@@ -32,7 +32,7 @@ export function MobileSidebar() {
           show ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <Menu show={show} onHandleClose={handleCloseMenu} />
+        <Menu visible={show} onHandleClose={handleCloseMenu} />
       </div>
     </div>
   );
