@@ -4,19 +4,21 @@ type LayoutProps = React.HTMLAttributes<HTMLDivElement | HTMLElement>;
 
 export function RootLayout({ children }: LayoutProps) {
   return (
-    <div className="w-full h-full dark:text-custom__ghostly">{children}</div>
+    <div className="w-full h-full dark:text-custom__ghostly relative flex">
+      {children}
+    </div>
   );
 }
 
 export function MainLayout({ children }: LayoutProps) {
-  return (
-    <main className="absolute top-16 md:relative md:top-0">{children}</main>
-  );
+  return <main className="w-full">{children}</main>;
 }
 
 export function SidebarLayout({ children }: LayoutProps) {
   return (
-    <div className="w-full md:flex md:items-start md:h-full">{children}</div>
+    <div className="max-w-full md:max-w-[16rem] w-full md:flex md:items-start md:h-full md:relative absolute z-50">
+      {children}
+    </div>
   );
 }
 
