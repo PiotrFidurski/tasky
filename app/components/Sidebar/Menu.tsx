@@ -32,7 +32,7 @@ export function Menu({
       <nav
         aria-label="sidebar"
         id="sidebar"
-        className="text-custom__gray dark:text-custom__ghostly"
+        className="text-darkGray dark:text-lightGray"
       >
         <div className="flex items-center p-4">
           <h2 className="w-full">Menu</h2>

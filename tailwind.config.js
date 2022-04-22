@@ -8,10 +8,12 @@ module.exports = {
         highlight: '#00E5B0',
         dark: '#050507',
         active_dark: '#212121',
+        lightGray: '#F2FAFF',
         // new light mode
         light: '#F3F3F4',
-
+        darkGray: '#0E1F2B',
         active: '#e7e7e7',
+
         // old
         custom__bluedark: '#020304',
         custom__gray: '#0E1F2B',
