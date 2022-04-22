@@ -29,9 +29,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           primary &&
             'border bg-indigo-600 border-indigo-500 hover:bg-indigo-700 hover:border-indigo-600 text-custom__ghostly',
           isMenuItem &&
-            'hover:bg-[#1b2539] focus:bg-[#1b2539] focus:ring-pink-200 focus:ring-2 focus:ring-inset focus:outline-none',
+            'hover:bg-active focus:bg-light_active dark:focus:bg-dark_active focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
           isIconWrapper &&
-            'p-2 border-none bg-transparent rounded-full hover:bg-[#1b2539] focus:ring-pink-200 focus:ring-2 focus:ring-inset focus:outline-none focus:bg-[#1b2539]',
+            'p-2 border-none bg-transparent rounded-full hover:bg-active dark:hover:bg-active_dark focus:bg-active dark:focus:bg-active_dark focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
           className
         )}
         type={buttonType ? 'button' : 'submit'}
