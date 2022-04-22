@@ -5,22 +5,22 @@ import { Menu } from './Menu';
 import { OpenMenuButton } from './OpenMenuButton';
 
 export function MobileSidebar() {
-  const [show, setShow] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const handleOpenMenu = () => {
-    setShow(true);
+    setExpanded(true);
   };
 
   const handleCloseMenu = () => {
-    setShow(false);
+    setExpanded(false);
   };
 
   return (
     <div className="relative w-full h-screen md:hidden">
       <div className="p-2">
-        <OpenMenuButton show={show} onHandleOpen={handleOpenMenu} />
+        <OpenMenuButton show={expanded} onHandleOpen={handleOpenMenu} />
       </div>
-      {show ? (
+      {expanded ? (
         <div
           className="absolute inset-0 bg-gray-100 opacity-10"
           onClick={handleCloseMenu}
@@ -30,11 +30,11 @@ export function MobileSidebar() {
       <div
         className={clsx(
           `flex flex-col justify-between fixed top-0 left-0 bottom-0 max-w-[60%]
-           z-50 bg-gray-900 w-full h-full py-4 border-r border-r-gray-800 transition-all`,
-          show ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
+           z-50 bg-light dark:bg-dark w-full h-full py-4 transition-all`,
+          expanded ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <Menu visible={show} onHandleClose={handleCloseMenu} />
+        <Menu visible={expanded} onHandleClose={handleCloseMenu} />
       </div>
     </div>
   );
