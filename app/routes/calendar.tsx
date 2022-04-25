@@ -3,10 +3,12 @@ import { requireUserId } from '~/session/auth.server';
 import { LoaderFunction, Outlet, redirect } from 'remix';
 
 import { MobileNav } from '~/components/Menus/MobileNav';
-import { Sidebar } from '~/components/Menus/Sidebar';
+import { DesktopSidebar } from '~/components/Sidebar/desktop';
+import { MobileSidebar } from '~/components/Sidebar/mobile';
 import {
   MainLayout,
   MobileNavLayout,
+  RootLayout,
   SidebarLayout,
 } from '~/components/layout';
 
@@ -25,14 +27,17 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function CalendarRoute() {
   return (
-    <MainLayout>
+    <RootLayout>
       <SidebarLayout>
-        <Sidebar />
+        <DesktopSidebar />
+        <MobileSidebar />
       </SidebarLayout>
-      <MobileNavLayout>
-        <MobileNav />
-      </MobileNavLayout>
-      <Outlet />
-    </MainLayout>
+      <MainLayout>
+        <MobileNavLayout>
+          <MobileNav />
+        </MobileNavLayout>
+        <Outlet />
+      </MainLayout>
+    </RootLayout>
   );
 }

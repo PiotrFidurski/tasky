@@ -1,19 +1,22 @@
-import clsx from 'clsx';
 import * as React from 'react';
 
 type LayoutProps = React.HTMLAttributes<HTMLDivElement | HTMLElement>;
 
-export function MainLayout({ children }: LayoutProps) {
+export function RootLayout({ children }: LayoutProps) {
   return (
-    <main className="flex w-full relative p-4 gap-2 items-start">
+    <div className="w-full h-full dark:text-custom__ghostly relative flex">
       {children}
-    </main>
+    </div>
   );
+}
+
+export function MainLayout({ children }: LayoutProps) {
+  return <main className="w-full">{children}</main>;
 }
 
 export function SidebarLayout({ children }: LayoutProps) {
   return (
-    <div className="max-w-[4rem] lg:max-w-[16rem] w-full fixed hidden md:block">
+    <div className="max-w-full md:max-w-[16rem] w-full md:flex md:items-start md:h-full md:relative absolute z-50">
       {children}
     </div>
   );
@@ -35,17 +38,8 @@ export function CalendarLayout({ children }: LayoutProps) {
   );
 }
 
-export function ContentLayout({ children, className }: LayoutProps) {
-  return (
-    <div
-      className={clsx(
-        'p-2 w-full flex flex-col md:flex-row gap-2 pb-[5rem] md:ml-[4rem] lg:ml-[16rem]',
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+export function ContentLayout({ children }: LayoutProps) {
+  return <div className="w-full">{children}</div>;
 }
 
 type ColumnLayoutProps = React.HTMLAttributes<HTMLElement>;

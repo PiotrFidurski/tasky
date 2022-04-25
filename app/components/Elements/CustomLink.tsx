@@ -17,7 +17,9 @@ export function CustomLink({
     <Link
       to={to}
       className={clsx(
-        'border flex justify-center rounded-full border-indigo-500 text-custom__ghostly bg-indigo-600 hover:bg-indigo-700 hover:border-indigo-600 transition-all',
+        `flex justify-center hover:bg-active dark:hover:bg-active_dark
+         focus:bg-active dark:focus:bg-active_dark focus:ring-highlight
+         focus:ring-2 focus:ring-inset focus:outline-none transition-all`,
         className
       )}
       {...remixLinkProps}

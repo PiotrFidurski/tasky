@@ -12,7 +12,7 @@ export function LogoutForm() {
   return (
     <DropdownItem onClick={handleSubmit} asChild>
       <Form action="/logout" method="post" className="w-full" ref={formRef}>
-        <Button type="submit" isMenuItem>
+        <Button type="submit" isMenuItem className="px-2 py-4 font-bold">
           <LogoutIcon />
           <span>Logout</span>
         </Button>

@@ -14,15 +14,15 @@ export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
         to={to}
         className={({ isActive }) =>
           clsx(
-            isActive ? 'font-bold' : 'font-normal',
-            `flex w-full items-center justify-center lg:justify-start
-             p-3 rounded-full hover:bg-custom__hoverlight dark:hover:bg-custom__hoverdark
-            focus:bg-custom__hoverlight focus:dark:bg-custom__hoverdark transition-colors`
+            isActive && 'bg-active dark:bg-active_dark',
+            `p-3 flex w-full items-center hover:bg-active dark:hover:bg-active_dark
+             focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none 
+             focus:bg-active dark:focus:bg-active_dark transition-all`
           )
         }
       >
         {({ isActive }) => (
-          <div className="text-custom__gray dark:text-custom__ghostly text-2xl flex items-center gap-6">
+          <div className="flex items-center gap-4 transition-all">
             {children({ isActive })}
           </div>
         )}

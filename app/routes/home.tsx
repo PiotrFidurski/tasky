@@ -1,17 +1,27 @@
 import { Outlet } from 'remix';
 
-import { Sidebar } from '~/components/Menus/Sidebar';
-import { ContentLayout, MainLayout, SidebarLayout } from '~/components/layout';
+import { DesktopSidebar } from '~/components/Sidebar/desktop';
+import { MobileSidebar } from '~/components/Sidebar/mobile';
+import {
+  ContentLayout,
+  MainLayout,
+  RootLayout,
+  SidebarLayout,
+} from '~/components/layout';
 
 export default function HomeRoute() {
   return (
-    <MainLayout>
+    <RootLayout>
       <SidebarLayout>
-        <Sidebar />
+        <DesktopSidebar />
+        <MobileSidebar />
       </SidebarLayout>
-      <ContentLayout>
-        <Outlet />
-      </ContentLayout>
-    </MainLayout>
+      <MainLayout>
+        <ContentLayout>
+          <Outlet />
+          home page
+        </ContentLayout>
+      </MainLayout>
+    </RootLayout>
   );
 }
