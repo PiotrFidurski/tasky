@@ -1,7 +1,7 @@
 import { Outlet } from 'remix';
 
-import { DesktopSidebar } from '~/components/Sidebar/index.desktop';
-import { MobileSidebar } from '~/components/Sidebar/index.mobile';
+import { DesktopSidebar } from '~/components/Sidebar/desktop';
+import { MobileSidebar } from '~/components/Sidebar/mobile';
 import {
   ContentLayout,
   MainLayout,

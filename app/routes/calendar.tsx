@@ -3,8 +3,8 @@ import { requireUserId } from '~/session/auth.server';
 import { LoaderFunction, Outlet, redirect } from 'remix';
 
 import { MobileNav } from '~/components/Menus/MobileNav';
-import { DesktopSidebar } from '~/components/Sidebar/index.desktop';
-import { MobileSidebar } from '~/components/Sidebar/index.mobile';
+import { DesktopSidebar } from '~/components/Sidebar/desktop';
+import { MobileSidebar } from '~/components/Sidebar/mobile';
 import {
   MainLayout,
   MobileNavLayout,
