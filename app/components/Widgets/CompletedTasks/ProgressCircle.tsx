@@ -21,7 +21,12 @@ export function CircularProgress({
   const dashOffset = dashArray - (dashArray * percentage) / 100;
 
   return (
-    <svg width={squareSize} height={squareSize} viewBox={viewBox}>
+    <svg
+      width={squareSize}
+      height={squareSize}
+      viewBox={viewBox}
+      className="transition-all"
+    >
       <circle
         className="stroke-highlightDarker fill-slate-900"
         cx={squareSize / 2}
