@@ -1,4 +1,4 @@
-import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
+import { CompletedTasks } from '~/components/Widgets/CompletedTasks/';
 
 export default function HomeIndexRoute() {
   return (
