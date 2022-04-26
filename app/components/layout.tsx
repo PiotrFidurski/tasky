@@ -39,7 +39,7 @@ export function CalendarLayout({ children }: LayoutProps) {
 }
 
 export function ContentLayout({ children }: LayoutProps) {
-  return <div className="w-full">{children}</div>;
+  return <div className="w-full mt-12 p-2">{children}</div>;
 }
 
 type ColumnLayoutProps = React.HTMLAttributes<HTMLElement>;
