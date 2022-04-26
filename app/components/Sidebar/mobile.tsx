@@ -5,7 +5,7 @@ import { Menu } from './Menu';
 import { OpenMenuButton } from './OpenMenuButton';
 
 export function MobileSidebar() {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   const handleOpenMenu = () => {
     setExpanded(true);
