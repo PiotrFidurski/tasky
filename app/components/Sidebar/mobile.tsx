@@ -22,7 +22,7 @@ export function MobileSidebar() {
       </div>
       {expanded ? (
         <div
-          className="absolute inset-0 bg-gray-100 opacity-10"
+          className="absolute inset-0 bg-gray-100 opacity-10 z-50"
           onClick={handleCloseMenu}
           role="none"
         />

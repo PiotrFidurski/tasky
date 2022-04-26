@@ -16,7 +16,7 @@ export function MainLayout({ children }: LayoutProps) {
 
 export function SidebarLayout({ children }: LayoutProps) {
   return (
-    <div className="max-w-full md:max-w-[16rem] w-full md:flex md:items-start md:h-full md:relative absolute z-50">
+    <div className="max-w-full md:max-w-[16rem] w-full md:flex md:items-start md:h-full md:relative absolute">
       {children}
     </div>
   );
