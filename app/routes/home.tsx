@@ -19,7 +19,6 @@ export default function HomeRoute() {
       <MainLayout>
         <ContentLayout>
           <Outlet />
-          home page
         </ContentLayout>
       </MainLayout>
     </RootLayout>
