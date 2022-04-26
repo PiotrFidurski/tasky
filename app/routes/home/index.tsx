@@ -1,3 +1,9 @@
+import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
+
 export default function HomeIndexRoute() {
-  return <div>hello</div>;
+  return (
+    <div>
+      <CompletedTasks />
+    </div>
+  );
 }
