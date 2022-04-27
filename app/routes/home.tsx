@@ -20,7 +20,9 @@ export default function HomeRoute() {
       <MainLayout>
         <ContentLayout>
           <Outlet />
-          <Calendar month={4} />
+          <Calendar date={new Date('2022-04-01')} />
+          <Calendar date={new Date('2022-05-01')} />
+          <Calendar date={new Date('2022-06-01')} />
         </ContentLayout>
       </MainLayout>
     </RootLayout>

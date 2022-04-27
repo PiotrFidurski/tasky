@@ -1,27 +1,25 @@
 import clsx from 'clsx';
-import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
+import { format, isBefore, isToday, parseISO } from 'date-fns';
 
 import { getCalendarData } from '~/utils/date';
 
 // remove mt later
 
 type CalendarProps = {
-  month: number;
+  date: Date;
 };
 
 const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
-export function Calendar({ month }: CalendarProps) {
+export function Calendar({ date }: CalendarProps) {
   const calendarData = getCalendarData({
-    date: new Date(`2022-${month}-01`),
-    weeksCount: 6,
+    date,
+    weeksCount: 5,
   });
 
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
-      <p className="font-bold text-xl mb-4">
-        {format(new Date(), 'dd MMMM, yyyy')}
-      </p>
+      <p className="font-bold text-xl mb-4">{format(date, 'dd MMMM, yyyy')}</p>
       <div className="flex justify-between mb-4">
         {DAYS.map((day) => (
           <span
@@ -40,24 +38,19 @@ export function Calendar({ month }: CalendarProps) {
             className="flex justify-between items-center"
           >
             {week.map((day) => {
-              const date = new Date(day);
+              const currentDate = new Date(day);
 
-              const dayOfMonth = date.getDate();
+              const dayOfMonth = currentDate.getDate();
               const isTodaysDate = isToday(parseISO(day));
 
-              // fake aprils date
-              const isDayInCurrentMonth = isSameMonth(date, month);
-
-              const isDateBeforeToday = isBefore(date, new Date());
-
+              const isDateBeforeToday = isBefore(currentDate, new Date());
               return (
                 <div
                   key={day}
                   className={clsx(
                     'w-10 h-10 flex items-center justify-center rounded-md mb-2 text-s font-bold',
                     isTodaysDate && 'border border-gray-700 text-highlight',
-                    isDateBeforeToday && !isTodaysDate && 'text-gray-500',
-                    !isDayInCurrentMonth && !isTodaysDate && 'text-gray-800'
+                    isDateBeforeToday && !isTodaysDate && 'text-gray-500'
                   )}
                 >
                   {dayOfMonth}
