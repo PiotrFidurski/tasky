@@ -22,6 +22,9 @@ type CalendarDataProps = {
    * Optional number to start the week on, defaults to 0.
    */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  /**
+   * Optional number of weeks the calendar will have, defaults to 18.
+   */
   weeksCount?: number;
 };
 
