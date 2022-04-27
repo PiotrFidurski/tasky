@@ -2,7 +2,7 @@ import { CircularProgress } from './ProgressCircle';
 
 export function CompletedTasks() {
   return (
-    <div className="w-full border-2 border-highlight rounded-md p-8 bg-slate-900">
+    <div className="w-full border-2 border-highlight rounded-2xl p-8 dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray">
       <div className="flex items-center justify-between">
         <div className="w-full">
           <p className="font-extrabold text-xl mb-2">

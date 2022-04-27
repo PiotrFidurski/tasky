@@ -9,8 +9,6 @@ export function CircularProgress({
   strokeWidth,
   percentage,
 }: CircularProgressProps) {
-  // Size of the enclosing square
-
   // SVG centers the stroke width on the radius, subtract out so circle fits in square
   const radius = (squareSize - strokeWidth) / 2;
   // Enclose cicle in a circumscribing square
@@ -28,7 +26,7 @@ export function CircularProgress({
       className="transition-all"
     >
       <circle
-        className="stroke-highlightDarker fill-slate-900"
+        className="dark:stroke-highlightDarker stroke-highlightLighter fill-light dark:fill-slate-900"
         cx={squareSize / 2}
         cy={squareSize / 2}
         r={radius}
