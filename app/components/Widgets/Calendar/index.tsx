@@ -11,12 +11,12 @@ type CalendarProps = {
 
 const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
-const calendarData = getCalendarData({
-  date: new Date(),
-  weeksCount: 6,
-});
-
 export function Calendar({ month }: CalendarProps) {
+  const calendarData = getCalendarData({
+    date: new Date(`2022-${month}-01`),
+    weeksCount: 6,
+  });
+
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <p className="font-bold text-xl mb-4">
