@@ -24,7 +24,7 @@ export function Calendar({ month }: CalendarProps) {
       </p>
       <div className="flex justify-between mb-4">
         {DAYS.map((day) => (
-          <span className="w-10 h-10 flex justify-center items-center">
+          <span className="w-10 h-10 flex justify-center items-center text-gray-300">
             {day}
           </span>
         ))}
@@ -51,7 +51,7 @@ export function Calendar({ month }: CalendarProps) {
                 <div
                   key={day}
                   className={clsx(
-                    'w-10 h-10 flex items-center justify-center rounded-md mb-2 text-s',
+                    'w-10 h-10 flex items-center justify-center rounded-md mb-2 text-s font-bold',
                     isTodaysDate && 'border border-gray-700 text-highlight',
                     isDateBeforeToday && !isTodaysDate && 'text-gray-500',
                     !isDayInCurrentMonth && !isTodaysDate && 'text-gray-800'
