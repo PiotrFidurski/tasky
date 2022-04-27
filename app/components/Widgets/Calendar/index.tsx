@@ -1,3 +1,6 @@
+import clsx from 'clsx';
+import { isBefore, isToday, parseISO } from 'date-fns';
+
 import { formatDate, getCalendarData } from '~/utils/date';
 
 // remove mt later
@@ -12,7 +15,9 @@ export function Calendar() {
       <p className="font-bold text-xl mb-4">{formatDate()}</p>
       <div className="flex justify-between mb-4">
         {DAYS.map((day) => (
-          <span>{day}</span>
+          <span className="w-10 h-10 flex justify-center items-center">
+            {day}
+          </span>
         ))}
       </div>
       <div>
@@ -26,11 +31,18 @@ export function Calendar() {
               const date = new Date(day);
 
               const dayOfMonth = date.getDate();
+              const isTodaysDate = isToday(parseISO(day));
+
+              const isDateBeforeToday = isBefore(date, new Date());
 
               return (
                 <div
                   key={day}
-                  className="w-8 h-8 flex items-center justify-center"
+                  className={clsx(
+                    'w-10 h-10 flex items-center justify-center rounded-md mb-2 text-s',
+                    isTodaysDate && 'border border-gray-700 text-highlight',
+                    isDateBeforeToday && !isTodaysDate && 'text-gray-700'
+                  )}
                 >
                   {dayOfMonth}
                 </div>
