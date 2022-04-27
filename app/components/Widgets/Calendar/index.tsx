@@ -24,7 +24,10 @@ export function Calendar({ month }: CalendarProps) {
       </p>
       <div className="flex justify-between mb-4">
         {DAYS.map((day) => (
-          <span className="w-10 h-10 flex justify-center items-center text-gray-300">
+          <span
+            key={day}
+            className="w-10 h-10 flex justify-center items-center text-gray-300"
+          >
             {day}
           </span>
         ))}
