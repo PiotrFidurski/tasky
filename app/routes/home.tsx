@@ -20,7 +20,7 @@ export default function HomeRoute() {
       <MainLayout>
         <ContentLayout>
           <Outlet />
-          <Calendar />
+          <Calendar month={4} />
         </ContentLayout>
       </MainLayout>
     </RootLayout>
