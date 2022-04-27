@@ -13,10 +13,6 @@ export function formatDate(date: Date = new Date()) {
   return format(date, 'yyyy-MM-dd');
 }
 
-const WEEKS_COUNT = 18;
-
-const weekRows = new Array(WEEKS_COUNT).fill(null);
-
 type CalendarDataProps = {
   /**
    * Date to start calendar from.
@@ -26,6 +22,7 @@ type CalendarDataProps = {
    * Optional number to start the week on, defaults to 0.
    */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  weeksCount?: number;
 };
 
 /**
@@ -34,10 +31,16 @@ type CalendarDataProps = {
  *
  * @returns Two-dimensional Array
  */
-export function getCalendarData({ weekStartsOn = 0, date }: CalendarDataProps) {
+export function getCalendarData({
+  weekStartsOn = 0,
+  date,
+  weeksCount = 18,
+}: CalendarDataProps) {
   let startingDay = startOfWeek(date, {
     weekStartsOn,
   });
+
+  const weekRows = new Array(weeksCount).fill(null);
 
   const calendarMatrix: Array<Array<string>> = [];
 
