@@ -1,6 +1,15 @@
 import clsx from 'clsx';
-import { format, isBefore, isToday, parseISO, startOfMonth } from 'date-fns';
+import {
+  addMonths,
+  format,
+  isBefore,
+  isToday,
+  parseISO,
+  startOfMonth,
+  subMonths,
+} from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
@@ -16,30 +25,46 @@ type CalendarProps = {
 const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 export function Calendar({ date }: CalendarProps) {
+  const [dateState, setDateState] = useState(date);
+
   const calendarData = getCalendarData({
-    date: startOfMonth(date),
+    date: startOfMonth(dateState),
     weeksCount: 5,
   });
+
+  const handleNextMonth = () => {
+    const currentMonth = dateState;
+    const nextMonth = addMonths(currentMonth, 1);
+    setDateState(nextMonth);
+  };
+
+  const handlePrevMonth = () => {
+    const currentMonth = dateState;
+    const prevMonth = subMonths(currentMonth, 1);
+    setDateState(prevMonth);
+  };
 
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <div className="flex items-center justify-between  mb-4">
-        <p className="font-bold text-xl">{format(date, 'dd MMMM, yyyy')}</p>
+        <p className="font-bold text-xl">
+          {format(dateState, 'dd MMMM, yyyy')}
+        </p>
         <div className="flex gap-4">
-          <Button>
+          <Button onClick={handlePrevMonth}>
             <ArrowleftIcon />
           </Button>
-          <Button className="rotate-180">
+          <Button className="rotate-180" onClick={handleNextMonth}>
             <ArrowleftIcon />
           </Button>
         </div>
       </div>
       <AnimatePresence exitBeforeEnter initial={false}>
         <motion.div
-          key={date.toDateString()}
-          initial={{ opacity: 0, y: 200 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          key={dateState.toDateString()}
+          initial={{ x: '120%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '-120%' }}
         >
           <div className="flex justify-between mb-4">
             {DAYS.map((day) => (
