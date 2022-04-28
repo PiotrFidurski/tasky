@@ -19,6 +19,8 @@ const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 export function Calendar({ date }: CalendarProps) {
   const [dateState, setDateState] = useState(date);
 
+  const dateHeader = format(dateState, 'dd MMMM, yyyy');
+
   const calendarData = getCalendarData({
     date: startOfMonth(dateState),
     weeksCount: 5,
@@ -41,9 +43,7 @@ export function Calendar({ date }: CalendarProps) {
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <div className="flex items-center justify-between  mb-4">
-        <p className="font-bold text-xl">
-          {format(dateState, 'dd MMMM, yyyy')}
-        </p>
+        <p className="font-bold text-xl">{dateHeader}</p>
         <div className="flex gap-4">
           <Button onClick={handlePrevMonth}>
             <ArrowleftIcon />
