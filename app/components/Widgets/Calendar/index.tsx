@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { addMonths, format, startOfMonth, subMonths } from 'date-fns';
+import { addMonths, format, isToday, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -19,7 +19,10 @@ const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 export function Calendar({ date }: CalendarProps) {
   const [dateState, setDateState] = useState(date);
 
-  const dateHeader = format(dateState, 'dd MMMM, yyyy');
+  const dateHeader = format(
+    isToday(dateState) ? dateState : startOfMonth(dateState),
+    'dd MMMM, yyyy'
+  );
 
   const calendarData = getCalendarData({
     date: startOfMonth(dateState),
