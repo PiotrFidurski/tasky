@@ -46,7 +46,17 @@ export function Calendar({ date }: CalendarProps) {
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <div className="flex items-center justify-between  mb-4">
-        <p className="font-bold text-xl">{dateHeader}</p>
+        <AnimatePresence exitBeforeEnter initial={false}>
+          <motion.p
+            key={dateState.toDateString()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="font-bold text-xl"
+          >
+            {dateHeader}
+          </motion.p>
+        </AnimatePresence>
         <div className="flex gap-4">
           <Button onClick={handlePrevMonth}>
             <ArrowleftIcon />
