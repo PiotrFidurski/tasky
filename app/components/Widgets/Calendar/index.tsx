@@ -1,20 +1,12 @@
 import clsx from 'clsx';
-import {
-  addMonths,
-  format,
-  isBefore,
-  isToday,
-  parseISO,
-  startOfMonth,
-  subMonths,
-} from 'date-fns';
+import { addMonths, format, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
-import { getCalendarData } from '~/utils/date';
+import { getCalendarData, getCalendarDayHelpers } from '~/utils/date';
 
 // remove mt later from main container
 
@@ -35,12 +27,14 @@ export function Calendar({ date }: CalendarProps) {
   const handleNextMonth = () => {
     const currentMonth = dateState;
     const nextMonth = addMonths(currentMonth, 1);
+
     setDateState(nextMonth);
   };
 
   const handlePrevMonth = () => {
     const currentMonth = dateState;
     const prevMonth = subMonths(currentMonth, 1);
+
     setDateState(prevMonth);
   };
 
@@ -84,12 +78,9 @@ export function Calendar({ date }: CalendarProps) {
                 className="flex justify-between items-center"
               >
                 {week.map((day) => {
-                  const currentDate = new Date(day);
+                  const { isTodaysDate, dayOfMonth, isDateBeforeToday } =
+                    getCalendarDayHelpers(day);
 
-                  const dayOfMonth = format(currentDate, 'dd');
-                  const isTodaysDate = isToday(parseISO(day));
-
-                  const isDateBeforeToday = isBefore(currentDate, new Date());
                   return (
                     <div
                       key={day}
