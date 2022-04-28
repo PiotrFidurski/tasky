@@ -2,7 +2,10 @@ import {
   addDays,
   endOfYear,
   format,
+  isBefore,
+  isToday,
   isWithinInterval,
+  parseISO,
   startOfWeek,
   startOfYear,
 } from 'date-fns';
@@ -67,4 +70,16 @@ export function isDayInCurrentYear(day: Date) {
   const end = endOfYear(new Date());
 
   return isWithinInterval(day, { start, end });
+}
+
+export function getCalendarDayHelpers(day: string) {
+  const currentDate = new Date(day);
+
+  const dayOfMonth = format(currentDate, 'dd');
+
+  const isTodaysDate = isToday(parseISO(day));
+
+  const isDateBeforeToday = isBefore(currentDate, new Date());
+
+  return { dayOfMonth, isTodaysDate, isDateBeforeToday };
 }
