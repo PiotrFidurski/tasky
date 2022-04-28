@@ -16,7 +16,7 @@ import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { getCalendarData } from '~/utils/date';
 
-// remove mt later
+// remove mt later from main container
 
 type CalendarProps = {
   date: Date;
@@ -62,9 +62,9 @@ export function Calendar({ date }: CalendarProps) {
       <AnimatePresence exitBeforeEnter initial={false}>
         <motion.div
           key={dateState.toDateString()}
-          initial={{ x: '120%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '-120%' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
           <div className="flex justify-between mb-4">
             {DAYS.map((day) => (
@@ -86,7 +86,7 @@ export function Calendar({ date }: CalendarProps) {
                 {week.map((day) => {
                   const currentDate = new Date(day);
 
-                  const dayOfMonth = currentDate.getDate();
+                  const dayOfMonth = format(currentDate, 'dd');
                   const isTodaysDate = isToday(parseISO(day));
 
                   const isDateBeforeToday = isBefore(currentDate, new Date());
