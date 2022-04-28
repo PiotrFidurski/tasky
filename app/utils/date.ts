@@ -3,6 +3,7 @@ import {
   endOfYear,
   format,
   isBefore,
+  isSameMonth,
   isToday,
   isWithinInterval,
   parseISO,
@@ -72,7 +73,7 @@ export function isDayInCurrentYear(day: Date) {
   return isWithinInterval(day, { start, end });
 }
 
-export function getCalendarDayHelpers(day: string) {
+export function getCalendarDayHelpers(day: string, date: Date) {
   const currentDate = new Date(day);
 
   const dayOfMonth = format(currentDate, 'dd');
@@ -81,5 +82,7 @@ export function getCalendarDayHelpers(day: string) {
 
   const isDateBeforeToday = isBefore(currentDate, new Date());
 
-  return { dayOfMonth, isTodaysDate, isDateBeforeToday };
+  const isInThisMonth = isSameMonth(currentDate, date);
+
+  return { dayOfMonth, isTodaysDate, isDateBeforeToday, isInThisMonth };
 }
