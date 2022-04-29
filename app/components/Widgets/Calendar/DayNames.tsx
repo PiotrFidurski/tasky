@@ -1,6 +1,6 @@
 const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
-export function Days() {
+export function DayNames() {
   return (
     <div className="flex justify-between mb-4">
       {DAYS.map((day) => (

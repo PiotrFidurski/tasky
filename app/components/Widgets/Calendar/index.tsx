@@ -8,7 +8,7 @@ import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { getCalendarData, getCalendarDayHelpers } from '~/utils/date';
 
-import { Days } from './Days';
+import { DayNames } from './DayNames';
 import { Header } from './Header';
 
 // remove mt later from main container
@@ -59,7 +59,7 @@ export function Calendar({ date }: CalendarProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Days />
+          <DayNames />
           <div>
             {calendarData.map((week, index) => (
               <div
