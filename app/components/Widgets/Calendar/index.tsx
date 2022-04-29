@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { addMonths, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
@@ -6,8 +5,9 @@ import { useState } from 'react';
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
-import { getCalendarData, getCalendarDayHelpers } from '~/utils/date';
+import { getCalendarData } from '~/utils/date';
 
+import { Day } from './Day';
 import { DayNames } from './DayNames';
 import { Header } from './Header';
 
@@ -67,28 +67,9 @@ export function Calendar({ date }: CalendarProps) {
                 key={index}
                 className="flex justify-between items-center"
               >
-                {week.map((day) => {
-                  const {
-                    isTodaysDate,
-                    dayOfMonth,
-                    isDateBeforeToday,
-                    isInThisMonth,
-                  } = getCalendarDayHelpers(day, dateState);
-
-                  return (
-                    <div
-                      key={day}
-                      className={clsx(
-                        'w-10 h-10 flex items-center justify-center rounded-md mb-2 text-s font-bold',
-                        isTodaysDate && 'border border-gray-700 text-highlight',
-                        isDateBeforeToday && !isTodaysDate && 'text-gray-500',
-                        !isInThisMonth && 'text-gray-800'
-                      )}
-                    >
-                      {dayOfMonth}
-                    </div>
-                  );
-                })}
+                {week.map((day) => (
+                  <Day day={day} date={dateState} />
+                ))}
               </div>
             ))}
           </div>
