@@ -1,13 +1,15 @@
 import clsx from 'clsx';
-import { addMonths, format, isToday, startOfMonth, subMonths } from 'date-fns';
+import { addMonths, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
-import { Days } from '~/components/Calendar/Days';
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { getCalendarData, getCalendarDayHelpers } from '~/utils/date';
+
+import { Days } from './Days';
+import { Header } from './Header';
 
 // remove mt later from main container
 
@@ -17,11 +19,6 @@ type CalendarProps = {
 
 export function Calendar({ date }: CalendarProps) {
   const [dateState, setDateState] = useState(date);
-
-  const dateHeader = format(
-    isToday(dateState) ? dateState : startOfMonth(dateState),
-    'dd MMMM, yyyy'
-  );
 
   const calendarData = getCalendarData({
     date: startOfMonth(dateState),
@@ -45,17 +42,7 @@ export function Calendar({ date }: CalendarProps) {
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <div className="flex items-center justify-between  mb-4">
-        <AnimatePresence exitBeforeEnter initial={false}>
-          <motion.p
-            key={dateState.toDateString()}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="font-bold text-xl"
-          >
-            {dateHeader}
-          </motion.p>
-        </AnimatePresence>
+        <Header date={dateState} />
         <div className="flex gap-4">
           <Button onClick={handlePrevMonth}>
             <ArrowleftIcon />
