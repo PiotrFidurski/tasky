@@ -7,6 +7,7 @@ import {
   isToday,
   isWithinInterval,
   parseISO,
+  startOfMonth,
   startOfWeek,
   startOfYear,
 } from 'date-fns';
@@ -85,4 +86,8 @@ export function getCalendarDayHelpers(day: string, date: Date) {
   const isInThisMonth = isSameMonth(currentDate, date);
 
   return { dayOfMonth, isTodaysDate, isDateBeforeToday, isInThisMonth };
+}
+
+export function getCalendarHeader(date: Date) {
+  return format(isToday(date) ? date : startOfMonth(date), 'dd MMMM, yyyy');
 }
