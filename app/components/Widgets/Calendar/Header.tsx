@@ -1,15 +1,13 @@
-import { format, isToday, startOfMonth } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import { getCalendarHeader } from '~/utils/date';
 
 type HeaderProps = {
   date: Date;
 };
 
 export function Header({ date }: HeaderProps) {
-  const headerContent = format(
-    isToday(date) ? date : startOfMonth(date),
-    'dd MMMM, yyyy'
-  );
+  const headerContent = getCalendarHeader(date);
 
   return (
     <AnimatePresence exitBeforeEnter initial={false}>
