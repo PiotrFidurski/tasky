@@ -9,7 +9,23 @@ import {
   startOfWeek,
 } from 'date-fns';
 
-export const weekDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export function getCalendarDayHelpers(day: string, date: Date) {
+  const currentDate = new Date(day);
+
+  const dayOfMonth = format(currentDate, 'dd');
+
+  const isTodaysDate = isToday(parseISO(day));
+
+  const isDateBeforeToday = isBefore(currentDate, new Date());
+
+  const isInThisMonth = isSameMonth(currentDate, date);
+
+  return { dayOfMonth, isTodaysDate, isDateBeforeToday, isInThisMonth };
+}
+
+export function getCalendarHeader(date: Date) {
+  return format(isToday(date) ? date : startOfMonth(date), 'dd MMMM, yyyy');
+}
 
 export function formatDate(date: Date = new Date()) {
   return format(date, 'yyyy-MM-dd');
@@ -23,7 +39,7 @@ type CalendarDataProps = {
   /**
    * Optional number to start the week on, defaults to 0.
    */
-  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   /**
    * Optional number of weeks the calendar will have, defaults to 18.
    */
@@ -52,7 +68,7 @@ export function getCalendarData({
   weekRows.forEach(() => {
     const week: Array<string> = [];
 
-    weekDayNames.forEach(() => {
+    [1, 2, 3, 4, 5, 6, 7].forEach(() => {
       week.push(formatDate(startingDay));
 
       startingDay = addDays(startingDay, 1);
@@ -62,22 +78,4 @@ export function getCalendarData({
   });
 
   return calendarMatrix;
-}
-
-export function getCalendarDayHelpers(day: string, date: Date) {
-  const currentDate = new Date(day);
-
-  const dayOfMonth = format(currentDate, 'dd');
-
-  const isTodaysDate = isToday(parseISO(day));
-
-  const isDateBeforeToday = isBefore(currentDate, new Date());
-
-  const isInThisMonth = isSameMonth(currentDate, date);
-
-  return { dayOfMonth, isTodaysDate, isDateBeforeToday, isInThisMonth };
-}
-
-export function getCalendarHeader(date: Date) {
-  return format(isToday(date) ? date : startOfMonth(date), 'dd MMMM, yyyy');
 }
