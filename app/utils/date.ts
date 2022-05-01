@@ -1,15 +1,12 @@
 import {
   addDays,
-  endOfYear,
   format,
   isBefore,
   isSameMonth,
   isToday,
-  isWithinInterval,
   parseISO,
   startOfMonth,
   startOfWeek,
-  startOfYear,
 } from 'date-fns';
 
 export const weekDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -65,13 +62,6 @@ export function getCalendarData({
   });
 
   return calendarMatrix;
-}
-
-export function isDayInCurrentYear(day: Date) {
-  const start = startOfYear(new Date());
-  const end = endOfYear(new Date());
-
-  return isWithinInterval(day, { start, end });
 }
 
 export function getCalendarDayHelpers(day: string, date: Date) {
