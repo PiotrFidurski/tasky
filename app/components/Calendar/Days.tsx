@@ -1,4 +1,4 @@
-import { weekDayNames } from '~/utils/date';
+const weekDayNames = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 export function Days() {
   return (
