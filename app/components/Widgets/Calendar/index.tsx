@@ -68,7 +68,7 @@ export function Calendar({ date }: CalendarProps) {
                 className="flex justify-between items-center"
               >
                 {week.map((day) => (
-                  <Day day={day} date={dateState} />
+                  <Day day={day} date={dateState} key={day} />
                 ))}
               </div>
             ))}
