@@ -15,3 +15,15 @@ export function getDayStats(data: Array<GroupedTask>) {
 
   return stats;
 }
+
+export function getTotalTasksCount(data: Array<GroupedTask>) {
+  return data.reduce(
+    (acc, value) => {
+      acc.total += value._count.scheduledFor;
+      acc.completed += value._count.isComplete;
+
+      return acc;
+    },
+    { total: 0, completed: 0 }
+  );
+}
