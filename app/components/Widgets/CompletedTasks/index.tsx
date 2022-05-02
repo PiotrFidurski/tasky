@@ -3,10 +3,14 @@ import { CircularProgress } from './ProgressCircle';
 type CompletedTasksProps = {
   total: number;
   completed: number;
+  percentage: number;
 };
 
-export function CompletedTasks({ completed, total }: CompletedTasksProps) {
-  const percentage = (completed / total) * 100;
+export function CompletedTasks({
+  completed,
+  total,
+  percentage,
+}: CompletedTasksProps) {
   return (
     <div className="w-full border-2 border-highlight rounded-2xl p-8 dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray">
       <div className="flex items-center justify-between">
@@ -22,7 +26,7 @@ export function CompletedTasks({ completed, total }: CompletedTasksProps) {
           <CircularProgress
             strokeWidth={10}
             squareSize={125}
-            percentage={Number(percentage.toFixed(0))}
+            percentage={percentage}
           />
         </div>
       </div>

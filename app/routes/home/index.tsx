@@ -12,22 +12,29 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const groupedTasks = await groupTasksByScheduledFor(userId);
 
-  const stats = getTotalTasksCount(groupedTasks);
+  const { completed, total } = getTotalTasksCount(groupedTasks);
 
-  return stats;
+  const percentage = Number(((completed / total) * 100).toFixed());
+
+  return { completed, total, percentage };
 };
 
 type LoaderData = {
   total: number;
   completed: number;
+  percentage: number;
 };
 
 export default function HomeIndexRoute() {
-  const { total, completed } = useLoaderData<LoaderData>();
+  const { total, completed, percentage } = useLoaderData<LoaderData>();
 
   return (
     <div>
-      <CompletedTasks total={total} completed={completed} />
+      <CompletedTasks
+        total={total}
+        completed={completed}
+        percentage={percentage}
+      />
     </div>
   );
 }
