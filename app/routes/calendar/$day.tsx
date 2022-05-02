@@ -29,8 +29,8 @@ import {
 
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData } from '~/utils/date';
-import { getDayStats } from '~/utils/getDayStats';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { getDayStats } from '~/utils/getStats';
 
 export type LoaderData = {
   tasksForTheDay: Task[];

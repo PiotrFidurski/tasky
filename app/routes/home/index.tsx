@@ -5,7 +5,7 @@ import { LoaderFunction, useLoaderData } from 'remix';
 
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks/';
 
-import { getDayStats } from '~/utils/getDayStats';
+import { getDayStats } from '~/utils/getStats';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getAuthUserId(request);
