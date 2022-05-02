@@ -17,12 +17,17 @@ export const loader: LoaderFunction = async ({ request }) => {
   return stats;
 };
 
+type LoaderData = {
+  total: number;
+  completed: number;
+};
+
 export default function HomeIndexRoute() {
-  const { total, completed } = useLoaderData<{ [key: string]: number[] }>();
+  const { total, completed } = useLoaderData<LoaderData>();
 
   return (
     <div>
-      <CompletedTasks />
+      <CompletedTasks total={total} completed={completed} />
     </div>
   );
 }
