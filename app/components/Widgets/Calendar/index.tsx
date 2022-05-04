@@ -45,10 +45,14 @@ export function Calendar({ date, stats }: CalendarProps) {
       <div className="flex items-center justify-between  mb-4">
         <Header date={dateState} />
         <div className="flex gap-4">
-          <Button onClick={handlePrevMonth}>
+          <Button onClick={handlePrevMonth} isIconWrapper>
             <ArrowleftIcon />
           </Button>
-          <Button className="rotate-180" onClick={handleNextMonth}>
+          <Button
+            className="rotate-180"
+            isIconWrapper
+            onClick={handleNextMonth}
+          >
             <ArrowleftIcon />
           </Button>
         </div>
