@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
+import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
 
 import { getCalendarData } from '~/utils/date';
 
@@ -43,17 +44,13 @@ export function Calendar({ date, stats }: CalendarProps) {
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <div className="flex items-center justify-between  mb-4">
-        <Header date={dateState} />
-        <div className="flex gap-4">
-          <Button onClick={handlePrevMonth} isIconWrapper>
+        <div className="flex items-center justify-between w-full">
+          <Button onClick={handlePrevMonth} isIconWrapper className="w-auto">
             <ArrowleftIcon />
           </Button>
-          <Button
-            className="rotate-180"
-            isIconWrapper
-            onClick={handleNextMonth}
-          >
-            <ArrowleftIcon />
+          <Header date={dateState} />
+          <Button className="w-auto" isIconWrapper onClick={handleNextMonth}>
+            <ArrowrightIcon />
           </Button>
         </div>
       </div>
