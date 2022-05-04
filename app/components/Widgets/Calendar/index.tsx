@@ -15,9 +15,10 @@ import { Header } from './Header';
 
 type CalendarProps = {
   date: Date;
+  stats: { [key: string]: number[] };
 };
 
-export function Calendar({ date }: CalendarProps) {
+export function Calendar({ date, stats }: CalendarProps) {
   const [dateState, setDateState] = useState(date);
 
   const calendarData = getCalendarData({
@@ -68,7 +69,7 @@ export function Calendar({ date }: CalendarProps) {
                 className="flex justify-between items-center"
               >
                 {week.map((day) => (
-                  <Day day={day} date={dateState} key={day} />
+                  <Day day={day} date={dateState} key={day} stats={stats} />
                 ))}
               </div>
             ))}
