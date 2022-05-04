@@ -41,7 +41,7 @@ export function Calendar({ date, stats }: CalendarProps) {
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <div className="flex items-center justify-between  mb-4">
         <Header
-          date={date}
+          date={dateState}
           onPrevMonth={handlePrevMonth}
           onNextMonth={handleNextMonth}
         />
