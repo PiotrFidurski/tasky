@@ -2,10 +2,6 @@ import { addMonths, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
-import { Button } from '~/components/Elements/Button';
-import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
-import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
-
 import { getCalendarData } from '~/utils/date';
 
 import { Day } from './Day';
@@ -44,15 +40,11 @@ export function Calendar({ date, stats }: CalendarProps) {
   return (
     <div className="bg-slate-900 p-4 rounded-xl mt-16">
       <div className="flex items-center justify-between  mb-4">
-        <div className="flex items-center justify-between w-full">
-          <Button onClick={handlePrevMonth} isIconWrapper className="w-auto">
-            <ArrowleftIcon />
-          </Button>
-          <Header date={dateState} />
-          <Button className="w-auto" isIconWrapper onClick={handleNextMonth}>
-            <ArrowrightIcon />
-          </Button>
-        </div>
+        <Header
+          date={date}
+          onPrevMonth={handlePrevMonth}
+          onNextMonth={handleNextMonth}
+        />
       </div>
       <AnimatePresence exitBeforeEnter initial={false}>
         <motion.div
