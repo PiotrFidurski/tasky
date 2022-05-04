@@ -12,7 +12,7 @@ export function Day({ day, date, stats }: DayProps) {
   const { isTodaysDate, dayOfMonth, isDateBeforeToday, isInThisMonth } =
     getCalendarDayHelpers(day, date);
 
-  const taskStats = stats[day] ?? [];
+  const [total, complete] = stats[day] ?? [];
 
   return (
     <div
@@ -25,9 +25,16 @@ export function Day({ day, date, stats }: DayProps) {
       )}
     >
       {dayOfMonth}
-      <span className="absolute top-4 text-indigo-300 text-2xl">
-        {taskStats.length ? '·' : ''}
-      </span>
+      {total !== complete ? (
+        <span className="absolute top-4 text-indigo-300 text-2xl">·</span>
+      ) : (
+        ''
+      )}
+      {total && total === complete ? (
+        <span className="absolute top-4 text-pink-600 text-2xl">·</span>
+      ) : (
+        ''
+      )}
     </div>
   );
 }
