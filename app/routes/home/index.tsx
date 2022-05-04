@@ -1,5 +1,5 @@
 import { groupTasksByScheduledFor } from '~/models/task';
-import { getAuthUserId } from '~/session/session.server';
+import { requireUserId } from '~/session/auth.server';
 
 import { LoaderFunction, useLoaderData } from 'remix';
 
@@ -8,7 +8,7 @@ import { Calendar } from '~/components/Widgets/Calendar';
 import { getDayStats } from '~/utils/getDayStats';
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const userId = await getAuthUserId(request);
+  const userId = await requireUserId(request);
 
   const groupedTasks = await groupTasksByScheduledFor(userId);
 
