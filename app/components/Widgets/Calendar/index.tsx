@@ -49,12 +49,8 @@ export function Calendar({ date, stats }: CalendarProps) {
         >
           <DayNames />
           <div>
-            {calendarData.map((week, index) => (
-              <div
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                className="flex justify-between items-center"
-              >
+            {calendarData.map((week) => (
+              <div key={week[0]} className="flex justify-between items-center">
                 {week.map((day) => (
                   <Day day={day} date={dateState} key={day} stats={stats} />
                 ))}
