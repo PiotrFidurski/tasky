@@ -1,7 +1,7 @@
 import { groupTasksByScheduledFor } from '~/models/task';
 import { requireUserId } from '~/session/auth.server';
 
-import { LoaderFunction, useLoaderData } from 'remix';
+import { LoaderFunction, Outlet, useLoaderData } from 'remix';
 
 import { Calendar } from '~/components/Widgets/Calendar';
 
@@ -23,6 +23,7 @@ export default function IndexRoute() {
   return (
     <div>
       <Calendar date={new Date()} stats={stats} />
+      <Outlet />
     </div>
   );
 }
