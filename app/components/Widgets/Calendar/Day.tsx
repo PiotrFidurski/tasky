@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 
+import { Link } from 'remix';
+
 import { getCalendarDayHelpers } from '~/utils/date';
 
 type DayProps = {
@@ -15,10 +17,10 @@ export function Day({ day, date, stats }: DayProps) {
   const [total, complete] = stats[day] ?? [];
 
   return (
-    <div
-      key={day}
+    <Link
+      to={`/home/${day}/completed`}
       className={clsx(
-        'w-10 h-10 flex items-center justify-center rounded-md mb-2 text-s font-bold relative',
+        'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
         isTodaysDate && 'border border-gray-700 text-highlight',
         isDateBeforeToday && !isTodaysDate && 'text-gray-500',
         !isInThisMonth && 'text-gray-800'
@@ -35,6 +37,6 @@ export function Day({ day, date, stats }: DayProps) {
       ) : (
         ''
       )}
-    </div>
+    </Link>
   );
 }
