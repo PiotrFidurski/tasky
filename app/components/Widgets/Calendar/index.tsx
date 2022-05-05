@@ -24,17 +24,11 @@ export function Calendar({ date, stats }: CalendarProps) {
   });
 
   const handleNextMonth = () => {
-    const currentMonth = dateState;
-    const nextMonth = addMonths(currentMonth, 1);
-
-    setDateState(nextMonth);
+    setDateState((prevDate) => addMonths(prevDate, 1));
   };
 
   const handlePrevMonth = () => {
-    const currentMonth = dateState;
-    const prevMonth = subMonths(currentMonth, 1);
-
-    setDateState(prevMonth);
+    setDateState((prevDate) => subMonths(prevDate, 1));
   };
 
   return (
