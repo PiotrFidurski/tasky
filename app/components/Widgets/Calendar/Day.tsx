@@ -16,7 +16,7 @@ export function Day({ day, date, stats }: DayProps) {
   const { isTodaysDate, dayOfMonth, isDateBeforeToday, isInThisMonth } =
     getCalendarDayHelpers(day, date);
 
-  const params = useParams();
+  const params = useParams<'day'>();
 
   const [total, complete] = stats[day] ?? [];
 
@@ -28,7 +28,7 @@ export function Day({ day, date, stats }: DayProps) {
       to={`/home/${day}/completed`}
       className={clsx(
         'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
-        isTodaysDate && 'border-2 border-highlight text-highlight',
+        isTodaysDate && !isActive && 'border-2 border-highlight text-highlight',
         isDateBeforeToday && !isTodaysDate && 'text-gray-500',
         !isInThisMonth && 'text-gray-800'
       )}
