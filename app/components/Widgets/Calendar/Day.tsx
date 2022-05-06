@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { Link } from 'remix';
+import { CustomLink } from '~/components/Elements/CustomLink';
 
 import { getCalendarDayHelpers } from '~/utils/date';
 
@@ -17,7 +17,7 @@ export function Day({ day, date, stats }: DayProps) {
   const [total, complete] = stats[day] ?? [];
 
   return (
-    <Link
+    <CustomLink
       to={`/home/${day}/completed`}
       className={clsx(
         'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
@@ -37,6 +37,6 @@ export function Day({ day, date, stats }: DayProps) {
       ) : (
         ''
       )}
-    </Link>
+    </CustomLink>
   );
 }
