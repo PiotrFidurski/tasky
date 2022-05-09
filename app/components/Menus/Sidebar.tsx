@@ -22,7 +22,7 @@ export function Sidebar() {
         </div>
         <nav>
           <ul className="flex flex-col gap-4">
-            <NavListItem to="/home">
+            <NavListItem to="/">
               {({ isActive }) => (
                 <>
                   <HomeIcon isFilled={isActive} />

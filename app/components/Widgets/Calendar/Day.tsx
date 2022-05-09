@@ -25,7 +25,7 @@ export function Day({ day, date, stats }: DayProps) {
   return (
     <CustomLink
       isActive={isActive}
-      to={`/home/${day}/completed`}
+      to={`/${day}`}
       className={clsx(
         'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
         isTodaysDate && !isActive && 'border-2 border-highlight text-highlight',
