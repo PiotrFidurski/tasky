@@ -55,7 +55,7 @@ export function Menu({
           <UserMenu />
         </div>
         <ul className="flex flex-col">
-          <NavListItem to="/">
+          <NavListItem to={`/${dayParam}`}>
             {({ isActive }) => (
               <>
                 <HomeIcon isFilled={isActive} />
