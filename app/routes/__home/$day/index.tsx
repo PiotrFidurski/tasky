@@ -1,11 +1,11 @@
 import { Task } from '@prisma/client';
 import { getTasksForDay } from '~/models/task';
-import { getAuthUserId } from '~/session/session.server';
+import { requireUserId } from '~/session/auth.server';
 
 import { LoaderFunction, useLoaderData, useParams } from 'remix';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const userId = await getAuthUserId(request);
+  const userId = await requireUserId(request);
 
   if (!params.day) return null;
 
