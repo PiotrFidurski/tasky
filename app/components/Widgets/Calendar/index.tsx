@@ -37,7 +37,7 @@ export function Calendar({ date, stats }: CalendarProps) {
   };
 
   return (
-    <div className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16">
+    <div className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16 overflow-hidden">
       <div className="flex items-center justify-between mb-4">
         <Header
           date={dateState}
