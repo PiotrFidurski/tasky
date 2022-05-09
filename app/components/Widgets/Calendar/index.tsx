@@ -7,33 +7,13 @@ import { getCalendarData } from '~/utils/date';
 import { Day } from './Day';
 import { DayNames } from './DayNames';
 import { Header } from './Header';
+import { variants } from './animationVariants';
 
 // remove mt later from main container
 
 type CalendarProps = {
   date: Date;
   stats: { [key: string]: number[] };
-};
-
-const variants = {
-  enter: (direction: string) => {
-    return {
-      x: direction === 'right' ? 300 : -300,
-      opacity: 0,
-    };
-  },
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction: string) => {
-    return {
-      zIndex: 0,
-      x: direction === 'left' ? 300 : -300,
-      opacity: 0,
-    };
-  },
 };
 
 export function Calendar({ date, stats }: CalendarProps) {
