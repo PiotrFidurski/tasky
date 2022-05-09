@@ -15,8 +15,31 @@ type CalendarProps = {
   stats: { [key: string]: number[] };
 };
 
+const variants = {
+  enter: (direction: string) => {
+    return {
+      x: direction === 'right' ? 300 : -300,
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: string) => {
+    return {
+      zIndex: 0,
+      x: direction === 'left' ? 300 : -300,
+      opacity: 0,
+    };
+  },
+};
+
 export function Calendar({ date, stats }: CalendarProps) {
   const [dateState, setDateState] = useState(date);
+
+  const [direction, setDirection] = useState('right');
 
   const calendarData = getCalendarData({
     date: startOfMonth(dateState),
@@ -25,10 +48,12 @@ export function Calendar({ date, stats }: CalendarProps) {
 
   const handleNextMonth = () => {
     setDateState((prevDate) => addMonths(prevDate, 1));
+    setDirection('right');
   };
 
   const handlePrevMonth = () => {
     setDateState((prevDate) => subMonths(prevDate, 1));
+    setDirection('left');
   };
 
   return (
@@ -40,12 +65,17 @@ export function Calendar({ date, stats }: CalendarProps) {
           onNextMonth={handleNextMonth}
         />
       </div>
-      <AnimatePresence exitBeforeEnter initial={false}>
+      <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
         <motion.div
           key={dateState.toDateString()}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          variants={variants}
+          custom={direction}
+          transition={{
+            x: { type: 'spring', stiffness: 500, damping: 30 },
+          }}
+          initial="enter"
+          animate="center"
+          exit="exit"
         >
           <DayNames />
           <div>
