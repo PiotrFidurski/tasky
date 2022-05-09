@@ -1,7 +1,7 @@
 import { groupTasksByScheduledFor } from '~/models/task';
 import { requireUserId } from '~/session/auth.server';
 
-import { LoaderFunction, useLoaderData, useParams } from 'remix';
+import { LoaderFunction, Outlet, useLoaderData } from 'remix';
 
 import { Calendar } from '~/components/Widgets/Calendar';
 
@@ -19,12 +19,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function IndexRoute() {
   const stats = useLoaderData<{ [key: string]: number[] }>();
-  const params = useParams<'day'>();
 
   return (
     <div>
       <Calendar date={new Date()} stats={stats} />
-      tasks for day: {params.day}
+      <Outlet />
     </div>
   );
 }
