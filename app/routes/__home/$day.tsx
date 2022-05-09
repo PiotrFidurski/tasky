@@ -1,7 +1,7 @@
 import { groupTasksByScheduledFor } from '~/models/task';
 import { requireUserId } from '~/session/auth.server';
 
-import { LoaderFunction, Outlet, useLoaderData, useParams } from 'remix';
+import { LoaderFunction, useLoaderData, useParams } from 'remix';
 
 import { Calendar } from '~/components/Widgets/Calendar';
 
