@@ -2,6 +2,8 @@ import { addMonths, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
+import { useParams } from 'remix';
+
 import { getCalendarData } from '~/utils/date';
 
 import { Day } from './Day';
@@ -12,42 +14,46 @@ import { variants } from './animationVariants';
 // remove mt later from main container
 
 type CalendarProps = {
-  date: Date;
+  startingDate: Date;
   stats: { [key: string]: number[] };
 };
 
-export function Calendar({ date, stats }: CalendarProps) {
-  const [dateState, setDateState] = useState(date);
+export function Calendar({ startingDate, stats }: CalendarProps) {
+  const [date, setDate] = useState(startingDate);
+
+  const params = useParams<'day'>();
 
   const [direction, setDirection] = useState('right');
 
   const calendarData = getCalendarData({
-    date: startOfMonth(dateState),
+    date: startOfMonth(date),
     weeksCount: 5,
   });
 
   const handleNextMonth = () => {
-    setDateState((prevDate) => addMonths(prevDate, 1));
+    setDate((prevDate) => addMonths(prevDate, 1));
     setDirection('right');
   };
 
   const handlePrevMonth = () => {
-    setDateState((prevDate) => subMonths(prevDate, 1));
+    setDate((prevDate) => subMonths(prevDate, 1));
     setDirection('left');
   };
 
   return (
     <div className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16 overflow-hidden">
       <div className="flex items-center justify-between mb-4">
-        <Header
-          date={dateState}
-          onPrevMonth={handlePrevMonth}
-          onNextMonth={handleNextMonth}
-        />
+        {params.day ? (
+          <Header
+            date={new Date(params.day)}
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+          />
+        ) : null}
       </div>
       <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
         <motion.div
-          key={dateState.toDateString()}
+          key={date.toDateString()}
           variants={variants}
           custom={direction}
           transition={{
@@ -62,7 +68,7 @@ export function Calendar({ date, stats }: CalendarProps) {
             {calendarData.map((week) => (
               <div key={week[0]} className="flex justify-between items-center">
                 {week.map((day) => (
-                  <Day day={day} date={dateState} key={day} stats={stats} />
+                  <Day day={day} date={date} key={day} stats={stats} />
                 ))}
               </div>
             ))}

@@ -22,7 +22,7 @@ export default function IndexRoute() {
 
   return (
     <div>
-      <Calendar date={new Date()} stats={stats} />
+      <Calendar startingDate={new Date()} stats={stats} />
       <Outlet />
     </div>
   );
