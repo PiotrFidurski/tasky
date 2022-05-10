@@ -5,7 +5,6 @@ import {
   isSameMonth,
   isToday,
   parseISO,
-  startOfMonth,
   startOfWeek,
 } from 'date-fns';
 
@@ -24,7 +23,7 @@ export function getCalendarDayHelpers(day: string, date: Date) {
 }
 
 export function getCalendarHeader(date: Date) {
-  return format(isToday(date) ? date : startOfMonth(date), 'dd MMMM, yyyy');
+  return format(date, 'dd MMMM, yyyy');
 }
 
 export function formatDate(date: Date = new Date()) {
