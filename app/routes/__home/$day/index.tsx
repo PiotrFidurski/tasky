@@ -1,21 +1,57 @@
 import { Task } from '@prisma/client';
+import { isValid } from 'date-fns';
+import { ZodError, z } from 'zod';
 import { getTasksForDay } from '~/models/task';
-import { requireUserId } from '~/session/auth.server';
+import { getAuthUserId } from '~/session/session.server';
 
-import { LoaderFunction, useLoaderData, useParams } from 'remix';
+import { LoaderFunction, json, useLoaderData, useParams } from 'remix';
+
+import { badRequest } from '~/utils/badRequest';
+import { getErrorMessage } from '~/utils/getErrorMessage';
+
+type LoaderData = {
+  tasks: Array<Task>;
+};
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const userId = await requireUserId(request);
+  const userId = await getAuthUserId(request);
 
-  if (!params.day) return null;
+  try {
+    const day = z
+      .string({ invalid_type_error: 'expected a string.' })
+      .parse(params.day);
 
-  const tasks = getTasksForDay(params.day, userId);
+    if (!isValid(new Date(day))) {
+      throw badRequest(
+        'No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".',
+        404
+      );
+    }
 
-  return tasks;
+    const tasks = await getTasksForDay(day, userId);
+
+    const data: LoaderData = {
+      tasks,
+    };
+
+    return json(data, { status: 200 });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const errors = error.flatten();
+
+      throw badRequest({ errors });
+    }
+
+    if (error instanceof Response) {
+      throw error;
+    }
+
+    throw badRequest({ message: getErrorMessage(error) });
+  }
 };
 
 export default function IndexRoute() {
-  const loaderData = useLoaderData<Task[]>();
+  const { tasks } = useLoaderData<LoaderData>();
 
   const params = useParams<'day'>();
 
@@ -23,7 +59,7 @@ export default function IndexRoute() {
     <div>
       <h1>tasks for day: {params.day}</h1>
       <div>
-        {loaderData.map((task) => (
+        {tasks.map((task) => (
           <div key={task.id}>
             <span>{task.body}</span>
           </div>
