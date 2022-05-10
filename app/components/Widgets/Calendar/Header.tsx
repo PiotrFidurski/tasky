@@ -16,7 +16,7 @@ type HeaderProps = {
 
 export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
   const headerContent = getCalendarHeader(date);
-  console.log(headerContent);
+
   return (
     <div className="flex items-center justify-between w-full">
       <Button onClick={onPrevMonth} isIconWrapper className="w-auto">
