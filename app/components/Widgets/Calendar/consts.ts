@@ -1,0 +1,4 @@
+const HEADER_SIZE = 80;
+const POSTION_TOP = 64;
+
+export { HEADER_SIZE, POSTION_TOP };
