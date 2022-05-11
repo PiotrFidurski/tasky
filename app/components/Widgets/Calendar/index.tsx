@@ -10,15 +10,21 @@ import { Day } from './Day';
 import { DayNames } from './DayNames';
 import { Header } from './Header';
 import { variants } from './animationVariants';
+import { HEADER_SIZE, POSTION_TOP } from './consts';
 
 // remove mt later from main container
 
 type CalendarProps = {
   startingDate: Date;
   stats: { [key: string]: number[] };
+  weeksCount?: number;
 };
 
-export function Calendar({ startingDate, stats }: CalendarProps) {
+export function Calendar({
+  startingDate,
+  stats,
+  weeksCount = 5,
+}: CalendarProps) {
   const [date, setDate] = useState(startingDate);
 
   const params = useParams<'day'>();
@@ -27,7 +33,7 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
 
   const calendarData = getCalendarData({
     date: startOfMonth(date),
-    weeksCount: 5,
+    weeksCount,
   });
 
   const handleNextMonth = () => {
@@ -41,7 +47,12 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
   };
 
   return (
-    <div className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16 relative min-h-[24rem] overflow-hidden">
+    <div
+      className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16 relative overflow-hidden"
+      style={{
+        minHeight: `calc(${weeksCount} * 3rem + ${HEADER_SIZE}px + ${POSTION_TOP}px)`,
+      }}
+    >
       <div className="flex items-center justify-between mb-4">
         {params.day ? (
           <Header
@@ -54,7 +65,8 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
       <AnimatePresence initial={false} custom={slideDirection}>
         <motion.div
           key={date.toDateString()}
-          className="absolute inset-0 top-16 bg-slate-900 p-4"
+          style={{ top: `${POSTION_TOP}px` }}
+          className="p-4 absolute inset-0 bottom-auto"
           variants={variants}
           custom={slideDirection}
           initial="enter"
