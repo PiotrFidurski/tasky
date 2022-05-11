@@ -23,7 +23,7 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
 
   const params = useParams<'day'>();
 
-  const [direction, setDirection] = useState('right');
+  const [slideDirection, setSlideDirection] = useState('right');
 
   const calendarData = getCalendarData({
     date: startOfMonth(date),
@@ -32,12 +32,12 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
 
   const handleNextMonth = () => {
     setDate((prevDate) => addMonths(prevDate, 1));
-    setDirection('right');
+    setSlideDirection('right');
   };
 
   const handlePrevMonth = () => {
     setDate((prevDate) => subMonths(prevDate, 1));
-    setDirection('left');
+    setSlideDirection('left');
   };
 
   return (
@@ -51,12 +51,12 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
           />
         ) : null}
       </div>
-      <AnimatePresence initial={false} custom={direction}>
+      <AnimatePresence initial={false} custom={slideDirection}>
         <motion.div
           key={date.toDateString()}
           className="absolute inset-0 top-16 bg-slate-900 p-4"
           variants={variants}
-          custom={direction}
+          custom={slideDirection}
           initial="enter"
           animate="center"
           exit="exit"
