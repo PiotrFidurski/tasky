@@ -62,7 +62,7 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
           exit="exit"
         >
           <DayNames />
-          <div>
+          <section>
             {calendarData.map((week) => (
               <div key={week[0]} className="flex justify-between items-center">
                 {week.map((day) => (
@@ -70,7 +70,7 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
                 ))}
               </div>
             ))}
-          </div>
+          </section>
         </motion.div>
       </AnimatePresence>
     </div>
