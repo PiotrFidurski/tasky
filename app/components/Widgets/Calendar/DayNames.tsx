@@ -2,7 +2,7 @@ const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 export function DayNames() {
   return (
-    <section className="flex justify-between mb-4">
+    <section className="flex justify-between mb-2">
       {DAYS.map((day) => (
         <span
           key={day}
