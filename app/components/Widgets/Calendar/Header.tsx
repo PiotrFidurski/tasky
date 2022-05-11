@@ -18,7 +18,7 @@ export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
   const headerContent = getCalendarHeader(date);
 
   return (
-    <div className="flex items-center justify-between w-full">
+    <header className="flex items-center justify-between w-full">
       <Button onClick={onPrevMonth} isIconWrapper className="w-auto">
         <ArrowleftIcon />
       </Button>
@@ -39,6 +39,6 @@ export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
       <Button className="w-auto" isIconWrapper onClick={onNextMonth}>
         <ArrowrightIcon />
       </Button>
-    </div>
+    </header>
   );
 }
