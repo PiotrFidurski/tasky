@@ -41,7 +41,7 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
   };
 
   return (
-    <div className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16 overflow-hidden">
+    <div className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16 relative min-h-[24rem] overflow-hidden">
       <div className="flex items-center justify-between mb-4">
         {params.day ? (
           <Header
@@ -51,14 +51,12 @@ export function Calendar({ startingDate, stats }: CalendarProps) {
           />
         ) : null}
       </div>
-      <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={date.toDateString()}
+          className="absolute inset-0 top-16 bg-slate-900 p-4"
           variants={variants}
           custom={direction}
-          transition={{
-            x: { type: 'spring', stiffness: 500, damping: 30 },
-          }}
           initial="enter"
           animate="center"
           exit="exit"
