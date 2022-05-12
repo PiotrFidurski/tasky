@@ -20,9 +20,10 @@ export function CustomLink({
       to={to}
       className={clsx(
         `flex justify-center hover:bg-active dark:hover:bg-active_dark
-         focus:bg-active dark:focus:bg-active_dark focus:ring-highlight
+         focus:bg-active dark:focus:bg-active_dark focus:ring-highlightDarker dark:focus:ring-highlight
          focus:ring-2 focus:ring-inset focus:outline-none transition-all`,
-        isActive && 'ring-2 ring-highlight text-highlight',
+        isActive &&
+          'ring-2 dark:ring-highlight ring-highlightDarker dark:text-highlight text-highlightDarker',
         className
       )}
       {...remixLinkProps}
