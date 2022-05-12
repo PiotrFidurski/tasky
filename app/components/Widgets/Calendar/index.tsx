@@ -10,7 +10,7 @@ import { Day } from './Day';
 import { DayNames } from './DayNames';
 import { Header } from './Header';
 import { variants } from './animationVariants';
-import { HEADER_SIZE, POSTION_TOP, ROW_SIZE } from './consts';
+import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 
 // remove mt later from main container
 
@@ -50,7 +50,7 @@ export function Calendar({
     <div
       className="bg-slate-900 max-w-sm p-4 rounded-xl mt-16 relative overflow-hidden"
       style={{
-        minHeight: `calc(${weeksCount} * ${ROW_SIZE}rem + ${HEADER_SIZE}rem + ${POSTION_TOP}rem)`,
+        minHeight: `calc(${weeksCount} * ${ROW_SIZE}rem + ${HEADER_SIZE}rem + ${ROWS_POSTION_TOP}rem)`,
       }}
     >
       <div className="flex items-center justify-between mb-4">
@@ -65,7 +65,7 @@ export function Calendar({
       <AnimatePresence initial={false} custom={slideDirection}>
         <motion.div
           key={date.toDateString()}
-          style={{ top: `${POSTION_TOP}rem` }}
+          style={{ top: `${ROWS_POSTION_TOP}rem` }}
           className="p-4 absolute inset-0 bottom-auto"
           variants={variants}
           custom={slideDirection}
