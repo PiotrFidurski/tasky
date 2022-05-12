@@ -26,7 +26,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return stats;
 };
 
-export default function IndexRoute() {
+export default function DayRoute() {
   const stats = useLoaderData<{ [key: string]: number[] }>();
 
   return (
