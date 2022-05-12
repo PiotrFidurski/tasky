@@ -1,21 +1,34 @@
 import {
   addDays,
-  endOfYear,
   format,
-  isWithinInterval,
+  isBefore,
+  isSameMonth,
+  isToday,
+  parseISO,
   startOfWeek,
-  startOfYear,
 } from 'date-fns';
 
-export const weekDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export function getCalendarDayHelpers(day: string, date: Date) {
+  const currentDate = new Date(day);
+
+  const dayOfMonth = format(currentDate, 'dd');
+
+  const isTodaysDate = isToday(parseISO(day));
+
+  const isDateBeforeToday = isBefore(currentDate, new Date());
+
+  const isInThisMonth = isSameMonth(currentDate, date);
+
+  return { dayOfMonth, isTodaysDate, isDateBeforeToday, isInThisMonth };
+}
+
+export function getCalendarHeader(date: Date) {
+  return format(date, 'dd MMMM, yyyy');
+}
 
 export function formatDate(date: Date = new Date()) {
   return format(date, 'yyyy-MM-dd');
 }
-
-const WEEKS_COUNT = 18;
-
-const weekRows = new Array(WEEKS_COUNT).fill(null);
 
 type CalendarDataProps = {
   /**
@@ -25,7 +38,11 @@ type CalendarDataProps = {
   /**
    * Optional number to start the week on, defaults to 0.
    */
-  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  /**
+   * Optional number of weeks the calendar will have, defaults to 18.
+   */
+  weeksCount?: number;
 };
 
 /**
@@ -34,17 +51,23 @@ type CalendarDataProps = {
  *
  * @returns Two-dimensional Array
  */
-export function getCalendarData({ weekStartsOn = 0, date }: CalendarDataProps) {
+export function getCalendarData({
+  weekStartsOn = 0,
+  date,
+  weeksCount = 18,
+}: CalendarDataProps) {
   let startingDay = startOfWeek(date, {
     weekStartsOn,
   });
+
+  const weekRows = new Array(weeksCount).fill(null);
 
   const calendarMatrix: Array<Array<string>> = [];
 
   weekRows.forEach(() => {
     const week: Array<string> = [];
 
-    weekDayNames.forEach(() => {
+    [1, 2, 3, 4, 5, 6, 7].forEach(() => {
       week.push(formatDate(startingDay));
 
       startingDay = addDays(startingDay, 1);
@@ -54,11 +77,4 @@ export function getCalendarData({ weekStartsOn = 0, date }: CalendarDataProps) {
   });
 
   return calendarMatrix;
-}
-
-export function isDayInCurrentYear(day: Date) {
-  const start = startOfYear(new Date());
-  const end = endOfYear(new Date());
-
-  return isWithinInterval(day, { start, end });
 }

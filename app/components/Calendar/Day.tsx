@@ -1,9 +1,13 @@
 import clsx from 'clsx';
-import { format, isFirstDayOfMonth, isToday, parseISO } from 'date-fns';
+import {
+  format,
+  isFirstDayOfMonth,
+  isThisYear,
+  isToday,
+  parseISO,
+} from 'date-fns';
 
 import { Link, useParams } from 'remix';
-
-import { isDayInCurrentYear } from '~/utils/date';
 
 export function Day({
   day,
@@ -56,7 +60,7 @@ export function Day({
           {monthName}
         </span>
       ) : null}
-      {isDayInCurrentYear(date) ? (
+      {isThisYear(date) ? (
         <span className="font-semibold text-custom__gray dark:text-custom__ghostly">
           {dayOfMonth}
         </span>

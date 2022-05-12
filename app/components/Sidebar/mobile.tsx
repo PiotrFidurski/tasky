@@ -5,7 +5,7 @@ import { Menu } from './Menu';
 import { OpenMenuButton } from './OpenMenuButton';
 
 export function MobileSidebar() {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   const handleOpenMenu = () => {
     setExpanded(true);
@@ -16,13 +16,13 @@ export function MobileSidebar() {
   };
 
   return (
-    <div className="relative w-full h-screen md:hidden">
+    <div className="relative w-full md:hidden">
       <div className="p-2">
         <OpenMenuButton show={expanded} onHandleOpen={handleOpenMenu} />
       </div>
       {expanded ? (
         <div
-          className="absolute inset-0 bg-gray-100 opacity-10"
+          className="fixed inset-0 bg-gray-100 opacity-10"
           onClick={handleCloseMenu}
           role="none"
         />

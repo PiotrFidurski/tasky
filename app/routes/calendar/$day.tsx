@@ -47,11 +47,10 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
 
-    // check if date is valid date.
     if (!isValid(new Date(day))) {
-      throw json(
-        `No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".`,
-        { status: 404 }
+      throw badRequest(
+        'No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".',
+        404
       );
     }
 
