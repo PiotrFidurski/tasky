@@ -1,3 +1,5 @@
+import { CustomLink } from '~/components/Elements/CustomLink';
+
 import { CircularProgress } from './ProgressCircle';
 
 type CompletedTasksProps = {
@@ -12,8 +14,11 @@ export function CompletedTasks({
   percentage,
 }: CompletedTasksProps) {
   return (
-    <div className="w-full border-2 border-highlight rounded-2xl p-8 dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray">
-      <div className="flex items-center justify-between">
+    <div className="w-full max-w-sm rounded-2xl dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray z-10">
+      <div
+        style={{ boxShadow: '0px 1px 0px 0px #20283c' }}
+        className="flex items-center justify-between w-full p-8"
+      >
         <div className="w-full">
           <p className="font-extrabold text-xl mb-2">
             Great, your progress is almost done!
@@ -30,6 +35,12 @@ export function CompletedTasks({
           />
         </div>
       </div>
+      <CustomLink
+        className="rounded-b-2xl bg-[#26327636] p-2 flex justify-center font-bold"
+        to="/"
+      >
+        View more
+      </CustomLink>
     </div>
   );
 }
