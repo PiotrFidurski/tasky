@@ -8,7 +8,7 @@ describe('task', () => {
   });
 
   it('should allow users to create new tasks', () => {
-    cy.visit('/home');
+    cy.visit('/');
 
     cy.findByRole('link', { name: /create task/i }).click();
 
@@ -20,7 +20,7 @@ describe('task', () => {
   });
 
   it('should show field errors if there are any.', () => {
-    cy.visit('/home');
+    cy.visit('/');
 
     cy.findByRole('link', { name: /create task/i }).click();
 
@@ -31,7 +31,7 @@ describe('task', () => {
   });
 
   it('should allow users to complete tasks.', () => {
-    cy.visit('/home');
+    cy.visit('/');
 
     cy.findByRole('link', { name: /calendar/i }).click();
 
@@ -47,7 +47,7 @@ describe('task', () => {
   });
 
   it('should allow users to schedule tasks for specific days.', () => {
-    cy.visit('/home');
+    cy.visit('/');
 
     const date = new Date().toISOString().split('T')[0];
 
@@ -69,7 +69,7 @@ describe('task', () => {
   });
 
   it('should allow users to delete a task.', () => {
-    cy.visit('/home');
+    cy.visit('/');
 
     cy.findByRole('link', { name: /create task/i }).click();
 
