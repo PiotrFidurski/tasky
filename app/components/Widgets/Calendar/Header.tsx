@@ -30,7 +30,7 @@ export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
           exit={{ opacity: 0 }}
           className={clsx(
             'font-bold text-xl',
-            isToday(date) && 'text-highlight'
+            isToday(date) && 'dark:text-highlight text-highlightDarker'
           )}
         >
           {headerContent}
