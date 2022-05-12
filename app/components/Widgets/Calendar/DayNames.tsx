@@ -6,7 +6,7 @@ export function DayNames() {
       {DAYS.map((day) => (
         <span
           key={day}
-          className="w-10 h-10 font-bold flex justify-center items-center text-gray-100"
+          className="w-10 h-10 font-bold flex justify-center items-center"
         >
           {day}
         </span>
