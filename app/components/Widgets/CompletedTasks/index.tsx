@@ -1,6 +1,7 @@
 import { CustomLink } from '~/components/Elements/CustomLink';
 
 import { CircularProgress } from './ProgressCircle';
+import { TextContent } from './TextContent';
 
 type CompletedTasksProps = {
   total: number;
@@ -19,14 +20,7 @@ export function CompletedTasks({
         style={{ boxShadow: '0px 1px 0px 0px #20283c' }}
         className="flex items-center justify-between w-full p-8"
       >
-        <div className="w-full">
-          <p className="font-extrabold text-xl mb-2">
-            Great, your progress is almost done!
-          </p>
-          <span className="font-semibold text-sm">
-            {completed} out of {total} completed
-          </span>
-        </div>
+        <TextContent total={total} completed={completed} />
         <div className="w-full flex justify-end">
           <CircularProgress
             strokeWidth={10}
