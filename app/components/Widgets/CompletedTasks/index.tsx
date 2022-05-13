@@ -36,7 +36,7 @@ export function CompletedTasks({
         </div>
       </div>
       <CustomLink
-        className="rounded-b-2xl bg-[#26327636] p-2 flex justify-center font-bold"
+        className="rounded-b-2xl dark:bg-[#26327636] bg-[#e7e7e7] p-2 flex justify-center font-bold"
         to="/"
       >
         View more
