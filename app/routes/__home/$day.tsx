@@ -4,6 +4,7 @@ import { requireUserId } from '~/session/auth.server';
 import {
   LoaderFunction,
   Outlet,
+  json,
   useCatch,
   useLoaderData,
   useNavigate,
@@ -35,7 +36,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const stats = getDayStats(groupedTasks);
 
-  return { stats, completed, total, percentage };
+  const data: LoaderData = {
+    stats,
+    completed,
+    total,
+    percentage,
+  };
+
+  return json(data, { status: 200 });
 };
 
 export default function DayRoute() {

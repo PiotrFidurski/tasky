@@ -38,7 +38,6 @@ export function CircularProgress({
         cy={squareSize / 2}
         r={radius}
         strokeWidth={`${strokeWidth}px`}
-        // Start progress marker at 12 O'Clock
         transform={`rotate(-90 ${squareSize / 2} ${squareSize / 2})`}
         style={{
           strokeDasharray: dashArray,
