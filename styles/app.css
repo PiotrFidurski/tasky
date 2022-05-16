@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .bg-conic-gradient {
+    background: conic-gradient(
+      #f3f3f4,
+      #f3f3f4,
+      #00e5b0,
+      #00e5b0,
+      #00e5b0,
+      #00e5b0,
+      #00e5b0
+    );
+  }
+
+  .circle-progress {
+    stroke: #00e5b0;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}

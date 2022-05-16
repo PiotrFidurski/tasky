@@ -12,7 +12,7 @@ export function CustomLink({
   to,
   children,
   className,
-  isActive = false,
+  isActive,
   ...remixLinkProps
 }: CustomLinkProps) {
   return (

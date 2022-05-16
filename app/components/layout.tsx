@@ -16,7 +16,7 @@ export function MainLayout({ children }: LayoutProps) {
 
 export function SidebarLayout({ children }: LayoutProps) {
   return (
-    <div className="max-w-full md:max-w-[16rem] w-full md:flex md:items-start md:h-full md:relative absolute z-50">
+    <div className="max-w-full md:max-w-[16rem] w-full md:flex md:items-start md:h-full md:relative absolute">
       {children}
     </div>
   );
@@ -39,7 +39,7 @@ export function CalendarLayout({ children }: LayoutProps) {
 }
 
 export function ContentLayout({ children }: LayoutProps) {
-  return <div className="w-full">{children}</div>;
+  return <div className="w-full mt-12 p-2">{children}</div>;
 }
 
 type ColumnLayoutProps = React.HTMLAttributes<HTMLElement>;

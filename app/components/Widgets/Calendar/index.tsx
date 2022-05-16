@@ -12,8 +12,6 @@ import { Header } from './Header';
 import { variants } from './animationVariants';
 import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 
-// remove mt later from main container
-
 type CalendarProps = {
   startingDate: Date;
   stats: { [key: string]: number[] };
@@ -48,7 +46,7 @@ export function Calendar({
 
   return (
     <div
-      className="dark:bg-slate-900 bg-light max-w-sm p-4 rounded-xl mt-16 relative overflow-hidden"
+      className="dark:bg-slate-900 bg-light max-w-sm p-4 rounded-xl mt-16 relative overflow-hidden mb-4"
       style={{
         minHeight: `calc(${weeksCount} * ${ROW_SIZE}rem + ${HEADER_SIZE}rem + ${ROWS_POSTION_TOP}rem)`,
       }}
