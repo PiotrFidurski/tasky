@@ -51,7 +51,7 @@ export function CreateTask() {
             </Dialog.Close>
           </div>
           <div className="p-4 text-custom__gray">
-            <Form method="post" className="p-4" action=".">
+            <Form method="post" className="p-4">
               <div className="w-full mb-2">
                 <FieldWrapper
                   htmlFor="task"
