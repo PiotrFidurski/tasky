@@ -36,7 +36,7 @@ export function CreateTask() {
       <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
-        <Dialog.Content className="z-50 absolute inset-0 top-12 bottom-auto dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray max-w-full lg:max-w-lg m-auto rounded-md border dark:border-gray-600">
+        <Dialog.Content className="z-50 absolute inset-0 h-full bottom-auto dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray max-w-full lg:max-w-lg m-auto">
           <div className="flex p-2 max-w-full justify-between items-center border-b dark:border-gray-600">
             <Dialog.Title className="font-bold uppercase">
               Create task
