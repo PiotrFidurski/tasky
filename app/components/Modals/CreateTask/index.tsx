@@ -68,7 +68,7 @@ export function CreateTask() {
               </div>
               <div className="flex justify-end">
                 <Button
-                  className="rounded-full font-bold px-4 py-2 w-auto"
+                  className="rounded-full font-bold px-4 py-2 justify-center"
                   primary
                 >
                   <span>Add Task</span>
