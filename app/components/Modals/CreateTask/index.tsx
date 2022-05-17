@@ -44,11 +44,7 @@ export function CreateTask() {
               Create task dialog
             </Dialog.Description>
             <Dialog.Close asChild>
-              <Button
-                buttonType
-                primary
-                className="p-1 flex items-center justify-center w-auto rounded-full"
-              >
+              <Button buttonType className="w-auto" isIconWrapper>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
