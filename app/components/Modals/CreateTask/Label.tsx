@@ -12,7 +12,7 @@ export function Label({
     <label
       htmlFor={htmlFor}
       {...htmlLabelProps}
-      className="p-2 border border-gray-500 rounded-md flex flex-col items-center justify-center"
+      className="border border-gray-500 rounded-md flex flex-col items-center justify-center"
     >
       <span className="sr-only">{htmlFor}</span>
       {children}

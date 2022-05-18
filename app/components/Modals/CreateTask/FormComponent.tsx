@@ -7,6 +7,7 @@ import { Button } from '~/components/Elements/Button';
 
 import { useErrors } from '~/utils/hooks/useErrors';
 
+import { Input } from './Input';
 import { Label } from './Label';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
@@ -21,7 +22,7 @@ export function FormComponent() {
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
           <Label htmlFor="task" errorMessage={fieldErrors?.body || ''}>
-            <input
+            <Input
               placeholder="What do you want to do today?"
               required
               aria-label="body"
