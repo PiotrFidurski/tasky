@@ -38,7 +38,7 @@ export function CreateTask() {
       <Dialog.Portal>
         <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
         <Dialog.Content className="z-50 absolute inset-0 h-full bottom-auto dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray max-w-full lg:max-w-lg m-auto">
-          <Header />
+          <Header>Create task</Header>
           <div className="p-4 text-custom__gray">
             <Form method="post" className="p-4">
               <div className="w-full mb-2">
