@@ -4,10 +4,10 @@ import { ZodTaskErrors } from '~/validation/task';
 import { Form, useActionData } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
-import { FieldWrapper } from '~/components/Form/FieldWrapper';
-import { InputField } from '~/components/Form/InputField';
 
 import { useErrors } from '~/utils/hooks/useErrors';
+
+import { Label } from './Label';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
@@ -20,15 +20,15 @@ export function FormComponent() {
     <div className="p-4 text-custom__gray">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
-          <FieldWrapper htmlFor="task" errorMessage={fieldErrors?.body || ''}>
-            <InputField
+          <Label htmlFor="task" errorMessage={fieldErrors?.body || ''}>
+            <input
               placeholder="What do you want to do today?"
               required
               aria-label="body"
               name="body"
               id="task"
             />
-          </FieldWrapper>
+          </Label>
         </div>
         <div className="flex justify-end">
           <Button
