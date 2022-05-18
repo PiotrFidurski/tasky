@@ -8,7 +8,7 @@ import { Form, useActionData, useNavigate, useParams } from 'remix';
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
-import { CloseIcon } from '~/components/Icons/CloseIcon';
+import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { useErrors } from '~/utils/hooks/useErrors';
 
@@ -37,18 +37,18 @@ export function CreateTask() {
       <Dialog.Portal>
         <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
         <Dialog.Content className="z-50 absolute inset-0 h-full bottom-auto dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray max-w-full lg:max-w-lg m-auto">
-          <div className="flex p-2 max-w-full justify-between items-center border-b dark:border-gray-600">
-            <Dialog.Title className="font-bold uppercase">
-              Create task
-            </Dialog.Title>
+          <div className="flex p-2 max-w-full items-center border-b dark:border-gray-600">
+            <Dialog.Close asChild>
+              <Button buttonType className="w-auto" isIconWrapper>
+                <ArrowleftIcon />
+              </Button>
+            </Dialog.Close>
+            <div className="w-full text-center">
+              <Dialog.Title className="font-bold">Create task</Dialog.Title>
+            </div>
             <Dialog.Description className="sr-only">
               Create task dialog
             </Dialog.Description>
-            <Dialog.Close asChild>
-              <Button buttonType className="w-auto" isIconWrapper>
-                <CloseIcon />
-              </Button>
-            </Dialog.Close>
           </div>
           <div className="p-4 text-custom__gray">
             <Form method="post" className="p-4">
