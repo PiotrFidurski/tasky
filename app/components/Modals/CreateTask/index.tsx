@@ -37,7 +37,7 @@ export function CreateTask() {
       <Dialog.Portal>
         <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
         <Dialog.Content className="z-50 absolute inset-0 h-full bottom-auto dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray max-w-full lg:max-w-lg m-auto">
-          <div className="flex p-2 max-w-full items-center border-b dark:border-gray-600">
+          <div className="flex p-2 max-w-full items-center backdrop-blur-[10px] bg-slate-900/[.06]">
             <Dialog.Close asChild>
               <Button buttonType className="w-auto" isIconWrapper>
                 <ArrowleftIcon />
