@@ -35,7 +35,7 @@ export function FormComponent() {
             htmlFor="date"
             errorMessage={fieldErrors?.body || ''}
             hasIcon
-            icon={<CalendarIcon isFilled />}
+            icon={<CalendarIcon />}
           >
             <Input required aria-label="date" name="date" id="date" />
           </Label>

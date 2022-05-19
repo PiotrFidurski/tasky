@@ -1,5 +1,5 @@
 type CalendarIconProps = React.SVGProps<SVGElement> & {
-  isFilled: boolean;
+  isFilled?: boolean;
 };
 
 export function CalendarIcon({ isFilled }: CalendarIconProps) {
