@@ -30,6 +30,9 @@ export function FormComponent() {
               id="task"
             />
           </Label>
+          <Label htmlFor="date" errorMessage={fieldErrors?.body || ''}>
+            <Input required aria-label="date" name="date" id="date" />
+          </Label>
         </div>
         <div className="flex justify-end">
           <Button

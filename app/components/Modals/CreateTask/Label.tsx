@@ -13,7 +13,7 @@ export function Label({
       <label
         htmlFor={htmlFor}
         {...htmlLabelProps}
-        className="border border-gray-500 rounded-md flex flex-col justify-end text-lightGray relative min-h-[4rem]"
+        className="mb-4 border border-gray-500 rounded-md flex flex-col justify-end text-lightGray relative min-h-[4rem]"
       >
         <span className="px-2">{htmlFor}</span>
         {children}
