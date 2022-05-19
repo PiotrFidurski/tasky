@@ -4,6 +4,7 @@ import { ZodTaskErrors } from '~/validation/task';
 import { Form, useActionData } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
+import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 
 import { useErrors } from '~/utils/hooks/useErrors';
 
@@ -30,7 +31,12 @@ export function FormComponent() {
               id="task"
             />
           </Label>
-          <Label htmlFor="date" errorMessage={fieldErrors?.body || ''}>
+          <Label
+            htmlFor="date"
+            errorMessage={fieldErrors?.body || ''}
+            hasIcon
+            icon={<CalendarIcon isFilled />}
+          >
             <Input required aria-label="date" name="date" id="date" />
           </Label>
         </div>

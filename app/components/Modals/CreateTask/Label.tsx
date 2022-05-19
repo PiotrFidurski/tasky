@@ -1,13 +1,17 @@
-import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
+import { ReactNode } from 'react';
 
 type FieldWrapperProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
   errorMessage: string | string[];
+  hasIcon?: boolean;
+  icon?: ReactNode;
 };
 
 export function Label({
   htmlFor,
   children,
   errorMessage,
+  hasIcon,
+  icon,
   ...htmlLabelProps
 }: FieldWrapperProps) {
   return (
@@ -18,13 +22,15 @@ export function Label({
         className="mb-4 w-full border border-gray-500 rounded-md flex text-lightGray relative min-h-[4rem]"
       >
         <div className="flex justify-between items-center w-full">
-          <div className="max-w-[70%]">
+          <div className="w-full">
             <span className="px-2">{htmlFor}</span>
             {children}
           </div>
-          <div className="max-w-[30%] px-2 flex justify-end">
-            <ArrowleftIcon />
-          </div>
+          {hasIcon ? (
+            <div className="max-w-[30%] pr-4 flex justify-end h-full items-center">
+              {icon}
+            </div>
+          ) : null}
         </div>
       </label>
 
