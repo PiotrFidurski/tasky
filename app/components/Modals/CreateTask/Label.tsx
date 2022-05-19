@@ -12,9 +12,9 @@ export function Label({
     <label
       htmlFor={htmlFor}
       {...htmlLabelProps}
-      className="border border-gray-500 rounded-md flex flex-col items-center justify-center"
+      className="border border-gray-500 rounded-md flex flex-col justify-end text-lightGray relative min-h-[4rem]"
     >
-      <span className="sr-only">{htmlFor}</span>
+      <span className="absolute left-2 top-2">{htmlFor}</span>
       {children}
       <div>
         <span

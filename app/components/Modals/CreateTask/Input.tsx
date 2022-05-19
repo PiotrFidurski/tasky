@@ -9,7 +9,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         ref={ref}
         {...htmlInputProps}
-        className="bg-transparent w-full h-full p-2 dark:text-lightGray"
+        className="bg-transparent w-full h-full py-2 px-2 dark:text-lightGray"
       />
     );
   }
