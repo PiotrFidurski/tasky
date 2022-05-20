@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { Form, useActionData } from 'remix';
+import { Form, Link, useActionData, useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
@@ -15,7 +15,7 @@ type ActionData = z.infer<typeof ZodTaskErrors>;
 
 export function FormComponent() {
   const actionData = useActionData<ActionData>();
-
+  const { day } = useParams<'day'>();
   const { fieldErrors } = useErrors(actionData);
 
   return (
@@ -37,7 +37,9 @@ export function FormComponent() {
             hasIcon
             icon={<CalendarIcon />}
           >
-            <Input required aria-label="date" name="date" id="date" />
+            <Link to={`/calendar/${day}/calendar`}>
+              <Input required aria-label="date" name="date" id="date" />
+            </Link>
           </Label>
         </div>
         <div className="flex justify-end">
