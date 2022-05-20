@@ -19,7 +19,7 @@ export function FormComponent() {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <div className="p-4 text-custom__gray">
+    <div className="py-4 text-custom__gray">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
           <Label htmlFor="task" errorMessage={fieldErrors?.body || ''}>
