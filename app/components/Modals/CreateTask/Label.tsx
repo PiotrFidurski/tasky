@@ -19,7 +19,7 @@ export function Label({
       <label
         htmlFor={htmlFor}
         {...htmlLabelProps}
-        className="mb-4 w-full border border-gray-500 rounded-md flex text-lightGray relative min-h-[4rem] focus-within:border-highlight"
+        className="mb-4 w-full border-2 border-gray-500 rounded-md flex text-lightGray relative min-h-[4rem] focus-within:border-highlight transition-colors"
       >
         <div className="flex justify-between items-center w-full">
           <div className="w-full">
@@ -33,7 +33,6 @@ export function Label({
           ) : null}
         </div>
       </label>
-
       <div>
         <span
           aria-live="polite"
