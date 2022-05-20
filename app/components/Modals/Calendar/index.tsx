@@ -11,7 +11,9 @@ export function CalendarModal() {
   const { day } = useParams<'day'>();
 
   const navigate = useNavigate();
+
   const [open, setOpen] = useState(true);
+
   const handleOpenChange = () => {
     setOpen(false);
     navigate(`/calendar/${day}/create`);
