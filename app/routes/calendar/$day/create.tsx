@@ -16,9 +16,9 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     const form = await request.formData();
 
-    const { body } = schema.parse(form);
+    const { body, title } = schema.parse(form);
 
-    await createTask(body, userId);
+    await createTask({ body, title, userId });
 
     return redirect(`/calendar/${params.day}`);
   } catch (error) {

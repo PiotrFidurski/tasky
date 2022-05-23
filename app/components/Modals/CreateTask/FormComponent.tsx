@@ -26,7 +26,7 @@ export function FormComponent() {
         <div className="w-full mb-2">
           <Label
             htmlFor="title"
-            errorMessage={fieldErrors?.body || ''}
+            errorMessage={fieldErrors?.title || ''}
             labelName="Title"
           >
             <Input
@@ -54,7 +54,7 @@ export function FormComponent() {
             <Label
               labelName="Date"
               htmlFor="date"
-              errorMessage={fieldErrors?.body || ''}
+              errorMessage=""
               hasIcon
               icon={<CalendarIcon />}
             >

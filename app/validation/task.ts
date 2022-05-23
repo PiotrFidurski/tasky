@@ -4,6 +4,7 @@ import { zfd } from 'zod-form-data';
 export const ZodTaskErrors = z.object({
   errors: z.object({
     body: z.array(z.string()),
+    title: z.array(z.string()),
   }),
 });
 
