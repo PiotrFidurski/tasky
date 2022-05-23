@@ -58,7 +58,7 @@ export function FormComponent() {
               hasIcon
               icon={<CalendarIcon />}
             >
-              <Input required aria-label="date" name="date" id="date" />
+              <Input aria-label="date" name="date" id="date" />
             </Label>
           </Link>
         </div>
