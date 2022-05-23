@@ -35,10 +35,17 @@ export function groupTasksByScheduledFor(userId: string) {
   });
 }
 
-export function createTask(body: string, userId: string) {
+type CreateTaskProps = {
+  body: string;
+  title: string;
+  userId: string;
+};
+
+export function createTask({ body, title, userId }: CreateTaskProps) {
   return db.task.create({
     data: {
       body,
+      title,
       userId,
     },
   });
