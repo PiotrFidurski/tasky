@@ -4,6 +4,7 @@ type FieldWrapperProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
   errorMessage: string | string[];
   hasIcon?: boolean;
   icon?: ReactNode;
+  labelName: string;
 };
 
 export function Label({
@@ -12,6 +13,7 @@ export function Label({
   errorMessage,
   hasIcon,
   icon,
+  labelName,
   ...htmlLabelProps
 }: FieldWrapperProps) {
   return (
@@ -23,7 +25,7 @@ export function Label({
       >
         <div className="flex justify-between items-center w-full">
           <div className="w-full">
-            <span className="px-2">{htmlFor}</span>
+            <span className="px-2">{labelName}</span>
             {children}
           </div>
           {hasIcon ? (
