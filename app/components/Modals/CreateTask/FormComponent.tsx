@@ -24,7 +24,11 @@ export function FormComponent() {
     <div className="py-4 text-custom__gray">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
-          <Label htmlFor="title" errorMessage={fieldErrors?.body || ''}>
+          <Label
+            htmlFor="title"
+            errorMessage={fieldErrors?.body || ''}
+            labelName="Title"
+          >
             <Input
               placeholder="task title"
               required
@@ -33,7 +37,11 @@ export function FormComponent() {
               id="title"
             />
           </Label>
-          <Label htmlFor="body" errorMessage={fieldErrors?.body || ''}>
+          <Label
+            htmlFor="body"
+            labelName="Body"
+            errorMessage={fieldErrors?.body || ''}
+          >
             <Input
               placeholder="What do you want to do today?"
               required
@@ -44,6 +52,7 @@ export function FormComponent() {
           </Label>
           <Link to={`/calendar/${day}/calendar`} tabIndex={-1}>
             <Label
+              labelName="Date"
               htmlFor="date"
               errorMessage={fieldErrors?.body || ''}
               hasIcon
