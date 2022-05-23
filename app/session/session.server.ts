@@ -22,7 +22,7 @@ export async function createUserSession(userId: string) {
 
   session.set('userId', userId);
 
-  return redirect('/home', {
+  return redirect('/', {
     headers: {
       'Set-Cookie': await sessionStorage.commitSession(session),
     },
