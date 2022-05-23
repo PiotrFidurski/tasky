@@ -16,7 +16,7 @@ export function Header({ children }: HeaderProps) {
           <ArrowleftIcon />
         </Button>
       </Dialog.Close>
-      <div className="w-full text-center">
+      <div className="w-full text-center pr-[20px]">
         <Dialog.Title className="font-bold">{children}</Dialog.Title>
       </div>
       <Dialog.Description className="sr-only">
