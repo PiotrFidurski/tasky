@@ -24,13 +24,22 @@ export function FormComponent() {
     <div className="py-4 text-custom__gray">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
-          <Label htmlFor="task" errorMessage={fieldErrors?.body || ''}>
+          <Label htmlFor="title" errorMessage={fieldErrors?.body || ''}>
+            <Input
+              placeholder="task title"
+              required
+              aria-label="title"
+              name="title"
+              id="title"
+            />
+          </Label>
+          <Label htmlFor="body" errorMessage={fieldErrors?.body || ''}>
             <Input
               placeholder="What do you want to do today?"
               required
               aria-label="body"
               name="body"
-              id="task"
+              id="body"
             />
           </Label>
           <Link to={`/calendar/${day}/calendar`} tabIndex={-1}>
@@ -46,7 +55,7 @@ export function FormComponent() {
         </div>
         <div className="flex justify-end">
           <Button
-            className="rounded-full font-bold px-4 py-2 justify-center"
+            className="rounded-full font-bold px-4 py-2 justify-center border-2"
             primary
           >
             <span>Add Task</span>
