@@ -33,16 +33,16 @@ export function FormComponent() {
               id="task"
             />
           </Label>
-          <Label
-            htmlFor="date"
-            errorMessage={fieldErrors?.body || ''}
-            hasIcon
-            icon={<CalendarIcon />}
-          >
-            <Link to={`/calendar/${day}/calendar`}>
+          <Link to={`/calendar/${day}/calendar`} tabIndex={-1}>
+            <Label
+              htmlFor="date"
+              errorMessage={fieldErrors?.body || ''}
+              hasIcon
+              icon={<CalendarIcon />}
+            >
               <Input required aria-label="date" name="date" id="date" />
-            </Link>
-          </Label>
+            </Label>
+          </Link>
         </div>
         <div className="flex justify-end">
           <Button
