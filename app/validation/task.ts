@@ -13,4 +13,9 @@ export const schema = zfd.formData({
       .string({ required_error: 'Task body is required.' })
       .min(3, 'Body should be at least 3 characters long.')
   ),
+  title: zfd.text(
+    z
+      .string({ required_error: 'Task title is required.' })
+      .min(3, 'Title should be at least 3 characters long.')
+  ),
 });
