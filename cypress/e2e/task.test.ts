@@ -13,8 +13,9 @@ describe('task', () => {
     cy.findByRole('link', { name: /create task/i }).click();
 
     cy.findByRole('textbox', { name: /body/i }).type('this is a test task');
+    cy.findByRole('textbox', { name: /title/i }).type('this is a task title');
 
-    cy.findByRole('button', { name: /add task/i }).click();
+    cy.findByRole('button', { name: /create task/i }).click();
 
     cy.findByText(/this is a test task/i);
   });
@@ -25,9 +26,12 @@ describe('task', () => {
     cy.findByRole('link', { name: /create task/i }).click();
 
     cy.findByRole('textbox', { name: /body/i }).type('k');
-    cy.findByRole('button', { name: /add task/i }).click();
+    cy.findByRole('textbox', { name: /title/i }).type('k');
+
+    cy.findByRole('button', { name: /create task/i }).click();
 
     cy.findByText(/Body should be at least 3 characters long./i);
+    cy.findByText(/Title should be at least 3 characters long./i);
   });
 
   it('should allow users to complete tasks.', () => {
@@ -73,7 +77,8 @@ describe('task', () => {
 
     cy.findByRole('link', { name: /create task/i }).click();
 
-    cy.findByRole('textbox', { name: /body/i }).type(`delete me later{enter}`);
+    cy.findByRole('textbox', { name: /body/i }).type(`delete me later`);
+    cy.findByRole('textbox', { name: /title/i }).type(`delete me later{enter}`);
 
     cy.findByRole('article', { name: /delete me later/i }).within(() => {
       cy.findByRole('button', { name: /open task menu/i }).click();

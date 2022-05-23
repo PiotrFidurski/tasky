@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 describe('login', () => {
   const username = Cypress.env('TEST_USERNAME');
   const password = Cypress.env('TEST_PASSWORD');
@@ -16,9 +18,13 @@ describe('login', () => {
     cy.get('@passwordInput').should('have.attr', 'minLength', 8);
 
     cy.get('@usernameInput').type(username);
+
     cy.get('@passwordInput').type(`${password}{enter}`);
 
-    cy.url().should('eq', `${Cypress.config().baseUrl}/home`);
+    cy.url().should(
+      'eq',
+      `${Cypress.config().baseUrl}/${format(new Date(), 'yyyy-MM-dd')}`
+    );
 
     cy.getCookie('_auth').should('exist');
 
