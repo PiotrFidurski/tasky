@@ -55,10 +55,10 @@ export function FormComponent() {
         </div>
         <div className="flex justify-end">
           <Button
-            className="rounded-full font-bold px-4 py-2 justify-center border-2"
+            className="rounded-full font-bold px-4 py-2 justify-center border-2 bg-highlight dark:text-black"
             primary
           >
-            <span>Add Task</span>
+            <span>Create task</span>
           </Button>
         </div>
       </Form>
