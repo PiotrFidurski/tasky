@@ -1,11 +1,12 @@
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { Form, Link, useActionData, useParams } from 'remix';
+import { Form, Link, useActionData, useParams, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 
+import { formatDate } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { Input } from './Input';
@@ -17,7 +18,7 @@ export function FormComponent() {
   const actionData = useActionData<ActionData>();
 
   const { day } = useParams<'day'>();
-
+  const [searchParams] = useSearchParams();
   const { fieldErrors } = useErrors(actionData);
 
   return (
@@ -62,7 +63,12 @@ export function FormComponent() {
               className="mb-0 outline-none border-none"
               icon={<CalendarIcon />}
             >
-              <Input aria-label="date" name="date" id="date" />
+              <Input
+                aria-label="date"
+                name="date"
+                id="date"
+                defaultValue={searchParams.get('selectedDate') ?? formatDate()}
+              />
             </Label>
           </Link>
         </div>

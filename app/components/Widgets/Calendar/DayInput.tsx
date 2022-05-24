@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
-import { useParams } from 'remix';
+import { redirect, useNavigate, useParams } from 'remix';
 
-import { getCalendarDayHelpers } from '~/utils/date';
+import { formatDate, getCalendarDayHelpers } from '~/utils/date';
 
 type DayInputProps = {
   day: string;
@@ -15,23 +15,41 @@ export function DayInput({ day, date, stats }: DayInputProps) {
     getCalendarDayHelpers(day, date);
   console.log({ stats });
   const params = useParams<'day'>();
-
+  const navigate = useNavigate();
   //   const [total, complete] = stats[day] ?? [];
 
   const isActive = day === params.day;
 
   return (
-    <input
-      className={clsx(
-        'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
-        isTodaysDate &&
-          !isActive &&
-          'ring-2 dark:ring-highlight dark:text-highlight ring-highlightDarker text-highlightDarker',
-        isDateBeforeToday && !isTodaysDate && 'text-gray-500',
-        !isInThisMonth && 'text-gray-800'
-      )}
-      value={dayOfMonth}
-    />
+    <div className="relative focus-within:ring-2 focus-within:ring-highlight rounded-full w-10 h-10 mb-2 px-1 flex items-center">
+      <input
+        onClick={(e) => {
+          return navigate(
+            `/calendar/${params.day}/create?selectedDate=${e.currentTarget.value}`
+          );
+        }}
+        onKeyPress={(e) => {
+          return navigate(
+            `/calendar/${params.day}/create?selectedDate=${e.currentTarget.value}`
+          );
+        }}
+        className={clsx(
+          'w-full h-auto overflow-hidden bg-transparent text-center text-transparent z-10 selection:text-transparent',
+          isTodaysDate &&
+            !isActive &&
+            'ring-2 dark:ring-highlight dark:text-highlight ring-highlightDarker text-highlightDarker',
+          isDateBeforeToday && !isTodaysDate && 'text-gray-500',
+          !isInThisMonth && 'text-gray-800'
+        )}
+        defaultValue={formatDate(new Date(day))}
+      />
+      <div
+        className="absolute inset-0 rounded-full flex items-center justify-center bg-slate-900"
+        tabIndex={-1}
+      >
+        {dayOfMonth}
+      </div>
+    </div>
   );
 }
 
