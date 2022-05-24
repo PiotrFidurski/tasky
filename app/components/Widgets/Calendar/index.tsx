@@ -6,22 +6,29 @@ import { useParams } from 'remix';
 
 import { getCalendarData } from '~/utils/date';
 
-import { Day } from './Day';
 import { DayNames } from './DayNames';
 import { Header } from './Header';
 import { variants } from './animationVariants';
 import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 
+type RenderProps = {
+  day: string;
+  date: Date;
+  stats: { [key: string]: number[] };
+};
+
 type CalendarProps = {
   startingDate: Date;
   stats: { [key: string]: number[] };
   weeksCount?: number;
+  children: ({ day, date, stats }: RenderProps) => JSX.Element;
 };
 
 export function Calendar({
   startingDate,
   stats,
   weeksCount = 5,
+  children,
 }: CalendarProps) {
   const [date, setDate] = useState(startingDate);
 
@@ -75,9 +82,7 @@ export function Calendar({
           <section>
             {calendarData.map((week) => (
               <div key={week[0]} className="flex justify-between items-center">
-                {week.map((day) => (
-                  <Day day={day} date={date} key={day} stats={stats} />
-                ))}
+                {week.map((day) => children({ day, date, stats }))}
               </div>
             ))}
           </section>
