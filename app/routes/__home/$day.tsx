@@ -32,7 +32,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const { completed, total } = getTotalTasksCount(groupedTasks);
 
-  const percentage = Number(((completed / total) * 100).toFixed());
+  const percentage = ((completed / total) * 100).toFixed();
 
   const stats = getDayStats(groupedTasks);
 
@@ -40,7 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     stats,
     completed,
     total,
-    percentage,
+    percentage: !Number.isNaN(Number(percentage)) ? Number(percentage) : 0,
   };
 
   return json(data, { status: 200 });
