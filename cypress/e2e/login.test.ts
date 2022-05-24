@@ -30,7 +30,9 @@ describe('login', () => {
 
     cy.findByRole('button', { name: /open menu/i }).click();
 
-    cy.findByRole('button', { name: /logout/i }).click();
+    cy.findByRole('button', { name: /logout/i }).trigger('keydown', {
+      key: 'Enter',
+    });
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/login`);
 
