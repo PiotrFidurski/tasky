@@ -21,7 +21,7 @@ export function FormComponent() {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <div className="py-4 text-custom__gray">
+    <div className="py-4">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
           <Label
@@ -50,12 +50,16 @@ export function FormComponent() {
               id="body"
             />
           </Label>
-          <Link to={`/calendar/${day}/calendar`} tabIndex={-1}>
+          <Link
+            to={`/calendar/${day}/calendar`}
+            className="border-2 border-gray-500 outline-none rounded-md text-lightGray focus-within:border-highlight focus-within:text-highlight flex"
+          >
             <Label
               labelName="Date"
               htmlFor="date"
               errorMessage=""
               hasIcon
+              className="mb-0 outline-none border-none"
               icon={<CalendarIcon />}
             >
               <Input aria-label="date" name="date" id="date" />
