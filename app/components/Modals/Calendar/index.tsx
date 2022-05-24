@@ -6,9 +6,10 @@ import { useNavigate, useParams } from 'remix';
 import { Button } from '~/components/Elements/Button';
 import { CloseIcon } from '~/components/Icons/CloseIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
+import { DayInput } from '~/components/Widgets/Calendar/DayInput';
 
 export function CalendarModal() {
-  const { day } = useParams<'day'>();
+  const params = useParams<'day'>();
 
   const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ export function CalendarModal() {
 
   const handleOpenChange = () => {
     setOpen(false);
-    navigate(`/calendar/${day}/create`);
+    navigate(`/calendar/${params.day}/create`);
   };
 
   return (
@@ -28,7 +29,11 @@ export function CalendarModal() {
           <Button onClick={handleOpenChange}>
             <CloseIcon />
           </Button>
-          <Calendar startingDate={new Date()} stats={{}} />
+          <Calendar startingDate={new Date()} stats={{}}>
+            {({ date, day, stats }) => (
+              <DayInput day={day} date={date} key={day} stats={stats} />
+            )}
+          </Calendar>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

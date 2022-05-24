@@ -13,6 +13,7 @@ import {
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
+import { Day } from '~/components/Widgets/Calendar/Day';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { formatDate } from '~/utils/date';
@@ -51,7 +52,11 @@ export default function DayRoute() {
 
   return (
     <div>
-      <Calendar startingDate={new Date()} stats={stats} />
+      <Calendar startingDate={new Date()} stats={stats}>
+        {({ day, date }) => (
+          <Day stats={stats} day={day} key={day} date={date} />
+        )}
+      </Calendar>
       <CompletedTasks
         total={total}
         completed={completed}
