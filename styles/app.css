@@ -23,4 +23,8 @@ input:focus-visible {
     stroke-linecap: round;
     stroke-linejoin: round;
   }
+
+  .text-fill-transparent {
+    -webkit-text-fill-color: transparent;
+  }
 }
