@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { redirect, useNavigate, useParams } from 'remix';
+import { useNavigate, useParams } from 'remix';
 
 import { formatDate, getCalendarDayHelpers } from '~/utils/date';
 
@@ -13,11 +13,11 @@ type DayInputProps = {
 export function DayInput({ day, date, stats }: DayInputProps) {
   const { isTodaysDate, dayOfMonth, isDateBeforeToday, isInThisMonth } =
     getCalendarDayHelpers(day, date);
-  console.log({ stats });
+
   const params = useParams<'day'>();
+
   const navigate = useNavigate();
   //   const [total, complete] = stats[day] ?? [];
-
   const isActive = day === params.day;
 
   return (
@@ -34,7 +34,7 @@ export function DayInput({ day, date, stats }: DayInputProps) {
           );
         }}
         className={clsx(
-          'w-full h-auto overflow-hidden bg-transparent text-center text-transparent z-10 selection:text-transparent',
+          'w-full h-auto overflow-hidden bg-transparent focus-visible:text-fill-transparent text-center z-10 text-transparent focus:text-transparent select-none focus:selection:text-transparent',
           isTodaysDate &&
             !isActive &&
             'ring-2 dark:ring-highlight dark:text-highlight ring-highlightDarker text-highlightDarker',
@@ -43,10 +43,7 @@ export function DayInput({ day, date, stats }: DayInputProps) {
         )}
         defaultValue={formatDate(new Date(day))}
       />
-      <div
-        className="absolute inset-0 rounded-full flex items-center justify-center bg-slate-900"
-        tabIndex={-1}
-      >
+      <div className="absolute inset-0 rounded-full flex items-center justify-center bg-slate-900">
         {dayOfMonth}
       </div>
     </div>
