@@ -6,9 +6,13 @@ import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 type HeaderProps = {
   children: ReactNode;
+  srDescription?: string;
 };
 
-export function Header({ children }: HeaderProps) {
+export function Header({
+  children,
+  srDescription = `${children} dialog`,
+}: HeaderProps) {
   return (
     <div className="flex p-2 max-w-full items-center backdrop-blur-[10px] bg-slate-900/[.06]">
       <Dialog.Close asChild>
@@ -20,7 +24,7 @@ export function Header({ children }: HeaderProps) {
         <Dialog.Title className="font-bold">{children}</Dialog.Title>
       </div>
       <Dialog.Description className="sr-only">
-        {`${children} dialog`}
+        {srDescription}
       </Dialog.Description>
     </div>
   );
