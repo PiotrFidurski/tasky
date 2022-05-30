@@ -53,7 +53,7 @@ export function Calendar({
 
   return (
     <div
-      className="dark:bg-slate-900 bg-light max-w-sm p-4 rounded-xl mt-16 relative overflow-hidden mb-4"
+      className="dark:bg-slate-900 bg-light max-w-sm p-4 rounded-xl relative overflow-hidden mb-4"
       style={{
         minHeight: `calc(${weeksCount} * ${ROW_SIZE}rem + ${HEADER_SIZE}rem + ${ROWS_POSTION_TOP}rem)`,
       }}
