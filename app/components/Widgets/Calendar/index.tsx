@@ -61,7 +61,7 @@ export function Calendar({
       <div className="flex items-center justify-between mb-4">
         {params.day ? (
           <Header
-            date={new Date(params.day)}
+            date={date}
             onPrevMonth={handlePrevMonth}
             onNextMonth={handleNextMonth}
           />
