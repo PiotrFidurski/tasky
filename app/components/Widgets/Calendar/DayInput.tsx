@@ -16,7 +16,7 @@ export function DayInput({ day, date }: DayInputProps) {
   const params = useParams<'day'>();
 
   const navigate = useNavigate();
-  //   const [total, complete] = stats[day] ?? [];
+
   const isActive = day === params.day;
 
   const handleDayPress = (
