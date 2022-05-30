@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import { useNavigate, useParams } from 'remix';
 
+import { Header } from '../components/Header';
 import { FormComponent } from './FormComponent';
-import { Header } from './Header';
 
 export function CreateTask() {
   const navigate = useNavigate();
