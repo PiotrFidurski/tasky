@@ -30,9 +30,7 @@ export function CalendarModal() {
             <CloseIcon />
           </Button>
           <Calendar startingDate={new Date()} stats={{}}>
-            {({ date, day, stats }) => (
-              <DayInput day={day} date={date} key={day} stats={stats} />
-            )}
+            {({ date, day }) => <DayInput day={day} date={date} key={day} />}
           </Calendar>
         </Dialog.Content>
       </Dialog.Portal>
