@@ -14,7 +14,7 @@ export function Header({
   srDescription = `${children} dialog`,
 }: HeaderProps) {
   return (
-    <div className="flex p-2 max-w-full items-center backdrop-blur-[10px] bg-slate-900/[.06]">
+    <div className="w-full flex p-2 max-w-full items-center backdrop-blur-[10px] bg-slate-900/[.06]">
       <Dialog.Close asChild>
         <Button buttonType className="w-auto" isIconWrapper>
           <ArrowleftIcon />
