@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'remix';
 import { Calendar } from '~/components/Widgets/Calendar';
 import { DayInput } from '~/components/Widgets/Calendar/DayInput';
 
+import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
 
 export function CalendarModal() {
@@ -24,8 +25,8 @@ export function CalendarModal() {
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger />
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
-        <Dialog.Content className="z-50 absolute inset-0 h-full bottom-auto dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray max-w-full lg:max-w-lg m-auto">
+        <Dialog.Overlay className={modalOverlay} />
+        <Dialog.Content className={modalContent}>
           <Header srDescription="Date picker dialog">Choose day</Header>
           <Calendar startingDate={new Date()} stats={{}}>
             {({ date, day }) => <DayInput day={day} date={date} key={day} />}

@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { useNavigate, useParams } from 'remix';
 
+import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
 import { FormComponent } from './FormComponent';
 
@@ -23,8 +24,8 @@ export function CreateTask() {
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger />
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
-        <Dialog.Content className="z-50 absolute inset-0 h-full bottom-auto dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray max-w-full lg:max-w-lg m-auto">
+        <Dialog.Overlay className={modalOverlay} />
+        <Dialog.Content className={modalContent}>
           <Header srDescription="Create task dialog">Create task</Header>
           <FormComponent />
         </Dialog.Content>

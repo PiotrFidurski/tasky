@@ -24,7 +24,7 @@ export function Label({
         htmlFor={htmlFor}
         {...htmlLabelProps}
         className={clsx(
-          'mb-4 w-full border-2 border-gray-500 rounded-md flex relative min-h-[4rem] focus-within:border-highlight focus-within:text-highlight transition-colors',
+          'mb-4 w-full border-2 border-gray-500 rounded-md flex relative min-h-[4rem] max-h- focus-within:border-highlight focus-within:text-highlight transition-colors',
           className
         )}
       >
