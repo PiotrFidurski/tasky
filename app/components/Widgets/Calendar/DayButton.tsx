@@ -4,12 +4,12 @@ import { useNavigate, useParams } from 'remix';
 
 import { formatDate, getCalendarDayHelpers } from '~/utils/date';
 
-type DayInputProps = {
+type DayButtonProps = {
   day: string;
   date: Date;
 };
 
-export function DayInput({ day, date }: DayInputProps) {
+export function DayButton({ day, date }: DayButtonProps) {
   const { isTodaysDate, dayOfMonth, isDateBeforeToday, isInThisMonth } =
     getCalendarDayHelpers(day, date);
 

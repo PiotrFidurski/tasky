@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'remix';
 
 import { Calendar } from '~/components/Widgets/Calendar';
-import { DayInput } from '~/components/Widgets/Calendar/DayInput';
+import { DayButton } from '~/components/Widgets/Calendar/DayButton';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
@@ -29,7 +29,7 @@ export function CalendarModal() {
         <Dialog.Content className={modalContent}>
           <Header srDescription="Date picker dialog">Choose day</Header>
           <Calendar startingDate={new Date()} stats={{}}>
-            {({ date, day }) => <DayInput day={day} date={date} key={day} />}
+            {({ date, day }) => <DayButton day={day} date={date} key={day} />}
           </Calendar>
         </Dialog.Content>
       </Dialog.Portal>
