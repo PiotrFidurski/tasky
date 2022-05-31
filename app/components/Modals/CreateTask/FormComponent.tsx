@@ -21,6 +21,7 @@ export function FormComponent() {
   const [searchParams] = useSearchParams();
 
   const [title, setTitle] = useState(searchParams.get('title') ?? '');
+
   const [body, setBody] = useState(searchParams.get('body') ?? '');
 
   const { day } = useParams<'day'>();
@@ -70,7 +71,9 @@ export function FormComponent() {
             />
           </Label>
           <Link
-            to={`/calendar/${day}/calendar?title=${title}&body=${body}`}
+            to={`/calendar/${day}/calendar?title=${title}&body=${body}&selectedDate=${
+              searchParams.get('selectedDate') ?? formatDate()
+            }`}
             className="flex border-2 border-slate-900 dark:border-gray-500 outline-none rounded-md text-lightGray focus:border-highlight focus:text-highlight transition-colors"
           >
             <Label
