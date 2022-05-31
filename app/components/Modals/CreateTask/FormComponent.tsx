@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
@@ -18,28 +18,21 @@ type ActionData = z.infer<typeof ZodTaskErrors>;
 export function FormComponent() {
   const actionData = useActionData<ActionData>();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+
+  const [title, setTitle] = useState(searchParams.get('title') ?? '');
+  const [body, setBody] = useState(searchParams.get('body') ?? '');
 
   const { day } = useParams<'day'>();
-
-  // const [searchParams] = useSearchParams();
 
   const { fieldErrors } = useErrors(actionData);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchParams({
-      title: e.target.value,
-      body: searchParams.get('body') ?? '',
-      selectedDate: searchParams.get('selectedDate') ?? '',
-    });
+    setTitle(e.target.value);
   };
 
   const handleBodyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchParams({
-      body: e.target.value,
-      title: searchParams.get('title') ?? '',
-      selectedDate: searchParams.get('selectedDate') ?? '',
-    });
+    setBody(e.target.value);
   };
 
   return (
@@ -55,7 +48,7 @@ export function FormComponent() {
               onChange={handleTitleChange}
               placeholder="task title"
               required
-              defaultValue={searchParams.get('title') ?? ''}
+              value={title}
               aria-label="title"
               name="title"
               id="title"
@@ -70,14 +63,14 @@ export function FormComponent() {
               onChange={handleBodyChange}
               placeholder="What do you want to do today?"
               required
-              defaultValue={searchParams.get('body') ?? ''}
+              value={body}
               aria-label="body"
               name="body"
               id="body"
             />
           </Label>
           <Link
-            to={`/calendar/${day}/calendar`}
+            to={`/calendar/${day}/calendar?title=${title}&body=${body}`}
             className="flex border-2 border-slate-900 dark:border-gray-500 outline-none rounded-md text-lightGray focus:border-highlight focus:text-highlight transition-colors"
           >
             <Label
