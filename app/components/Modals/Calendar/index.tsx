@@ -6,10 +6,14 @@ import { useNavigate, useParams, useSearchParams } from 'remix';
 import { Calendar } from '~/components/Widgets/Calendar';
 import { DayButton } from '~/components/Widgets/Calendar/DayButton';
 
-import { formatDate } from '~/utils/date';
-
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
+
+function getUrlFromSearchParams(entries: Array<Array<string>>) {
+  return entries.map(([key, value], index) => {
+    return index < entries.length - 1 ? `${key}=${value}&` : `${key}=${value}`;
+  });
+}
 
 export function CalendarModal() {
   const params = useParams<'day'>();
@@ -23,13 +27,11 @@ export function CalendarModal() {
   const handleOpenChange = () => {
     setOpen(false);
 
-    navigate(
-      `/calendar/${params.day}/create?title=${
-        searchParams.get('title') ?? ''
-      }&body=${searchParams.get('body') ?? ''}&selectedDate=${
-        searchParams.get('selectedDate') ?? formatDate()
-      }`
-    );
+    const urlSearchParams = getUrlFromSearchParams([
+      ...searchParams.entries(),
+    ]).join('');
+
+    navigate(`/calendar/${params.day}/create?${urlSearchParams}`);
   };
 
   return (
