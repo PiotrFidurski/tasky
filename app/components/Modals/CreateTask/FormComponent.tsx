@@ -53,7 +53,7 @@ export function FormComponent() {
           </Label>
           <Link
             to={`/calendar/${day}/calendar`}
-            className="flex border-2 border-gray-500 outline-none rounded-md text-lightGray focus:border-highlight focus:text-highlight transition-colors"
+            className="flex border-2 border-slate-900 dark:border-gray-500 outline-none rounded-md text-lightGray focus:border-highlight focus:text-highlight transition-colors"
           >
             <Label
               labelName="Date"
