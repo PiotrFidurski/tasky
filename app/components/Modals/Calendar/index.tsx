@@ -18,6 +18,7 @@ export function CalendarModal() {
 
   const handleOpenChange = () => {
     setOpen(false);
+
     navigate(`/calendar/${params.day}/create`);
   };
 

@@ -2,6 +2,8 @@ import clsx from 'clsx';
 
 import { useNavigate, useParams } from 'remix';
 
+import { Button } from '~/components/Elements/Button';
+
 import { formatDate, getCalendarDayHelpers } from '~/utils/date';
 
 type DayButtonProps = {
@@ -30,21 +32,22 @@ export function DayButton({ day, date }: DayButtonProps) {
   };
 
   return (
-    <button
+    <Button
+      isIconWrapper
       value={formatDate(new Date(day))}
       onKeyPress={handleDayPress}
       onClick={handleDayPress}
       type="button"
       className={clsx(
-        'rounded-full flex items-center justify-center w-10 h-10 border-0 mb-2 px-1 focus:outline-none focus:ring-2 focus:ring-highlight hover:bg-active dark:hover:bg-active_dark',
-        isDateBeforeToday && !isTodaysDate && 'text-gray-500',
+        'w-10 h-10 mb-2 justify-center',
+        isDateBeforeToday && !isTodaysDate && 'dark:text-gray-500',
+        !isInThisMonth && 'dark:text-gray-800',
         isTodaysDate &&
           !isActive &&
-          'ring-2 dark:ring-highlight dark:text-highlight ring-highlightDarker text-highlightDarker',
-        !isInThisMonth && 'text-gray-800'
+          'ring-2 dark:ring-highlight dark:text-highlight ring-highlightDarker text-highlightDarker'
       )}
     >
       {dayOfMonth}
-    </button>
+    </Button>
   );
 }
