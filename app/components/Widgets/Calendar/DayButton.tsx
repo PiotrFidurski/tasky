@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { useNavigate, useParams } from 'remix';
+import { useNavigate, useParams, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 
@@ -17,6 +17,8 @@ export function DayButton({ day, date }: DayButtonProps) {
 
   const params = useParams<'day'>();
 
+  const [searchParams] = useSearchParams();
+
   const navigate = useNavigate();
 
   const isActive = day === params.day;
@@ -27,7 +29,11 @@ export function DayButton({ day, date }: DayButtonProps) {
       | React.KeyboardEvent<HTMLButtonElement>
   ) => {
     navigate(
-      `/calendar/${params.day}/create?selectedDate=${e.currentTarget.value}`
+      `/calendar/${params.day}/create?title=${
+        searchParams.get('title') ?? ''
+      }&body=${searchParams.get('body') ?? ''}&selectedDate=${
+        e.currentTarget.value
+      }`
     );
   };
 
