@@ -1,3 +1,4 @@
+import React from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
@@ -17,9 +18,29 @@ type ActionData = z.infer<typeof ZodTaskErrors>;
 export function FormComponent() {
   const actionData = useActionData<ActionData>();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { day } = useParams<'day'>();
-  const [searchParams] = useSearchParams();
+
+  // const [searchParams] = useSearchParams();
+
   const { fieldErrors } = useErrors(actionData);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchParams({
+      title: e.target.value,
+      body: searchParams.get('body') ?? '',
+      selectedDate: searchParams.get('selectedDate') ?? '',
+    });
+  };
+
+  const handleBodyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchParams({
+      body: e.target.value,
+      title: searchParams.get('title') ?? '',
+      selectedDate: searchParams.get('selectedDate') ?? '',
+    });
+  };
 
   return (
     <div className="py-4">
@@ -31,8 +52,10 @@ export function FormComponent() {
             labelName="Title"
           >
             <Input
+              onChange={handleTitleChange}
               placeholder="task title"
               required
+              defaultValue={searchParams.get('title') ?? ''}
               aria-label="title"
               name="title"
               id="title"
@@ -44,8 +67,10 @@ export function FormComponent() {
             errorMessage={fieldErrors?.body || ''}
           >
             <Input
+              onChange={handleBodyChange}
               placeholder="What do you want to do today?"
               required
+              defaultValue={searchParams.get('body') ?? ''}
               aria-label="body"
               name="body"
               id="body"
