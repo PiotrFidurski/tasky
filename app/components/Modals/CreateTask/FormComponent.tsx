@@ -5,13 +5,13 @@ import { ZodTaskErrors } from '~/validation/task';
 import { Form, Link, useActionData, useParams, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
+import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 
 import { formatDate } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { Input } from './Input';
-import { Label } from './Label';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
@@ -40,7 +40,7 @@ export function FormComponent() {
     <div className="py-4">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
-          <Label
+          <FieldWrapper
             htmlFor="title"
             errorMessage={fieldErrors?.title || ''}
             labelName="Title"
@@ -54,8 +54,8 @@ export function FormComponent() {
               name="title"
               id="title"
             />
-          </Label>
-          <Label
+          </FieldWrapper>
+          <FieldWrapper
             htmlFor="body"
             labelName="Body"
             errorMessage={fieldErrors?.body || ''}
@@ -69,14 +69,14 @@ export function FormComponent() {
               name="body"
               id="body"
             />
-          </Label>
+          </FieldWrapper>
           <Link
             to={`/calendar/${day}/calendar?title=${title}&body=${body}&selectedDate=${
               searchParams.get('selectedDate') ?? formatDate()
             }`}
-            className="flex border-2 border-slate-900 dark:border-gray-500 outline-none rounded-md text-lightGray focus:border-highlight focus:text-highlight transition-colors"
+            className="flex border-2 border-gray-500 outline-none rounded-md text-lightGray focus-within:border-2 focus-within:border-highlight focus:text-highlight transition-colors"
           >
-            <Label
+            <FieldWrapper
               labelName="Date"
               htmlFor="date"
               errorMessage=""
@@ -91,7 +91,7 @@ export function FormComponent() {
                 id="date"
                 defaultValue={searchParams.get('selectedDate') ?? formatDate()}
               />
-            </Label>
+            </FieldWrapper>
           </Link>
         </div>
         <div className="flex justify-end">
