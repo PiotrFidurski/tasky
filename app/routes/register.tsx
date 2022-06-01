@@ -63,6 +63,7 @@ export default function LoginRoute() {
       </h1>
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
+          labelName="Username"
           htmlFor="username"
           errorMessage={fieldErrors?.username || ''}
         >
@@ -75,6 +76,7 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <FieldWrapper
+          labelName="Password"
           htmlFor="password"
           errorMessage={fieldErrors?.password || ''}
         >
@@ -89,6 +91,7 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <FieldWrapper
+          labelName="Password confirmation"
           htmlFor="password confirmation"
           errorMessage={fieldErrors?.passwordConfirmation || ''}
         >
