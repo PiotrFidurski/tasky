@@ -6,12 +6,11 @@ import { Form, Link, useActionData, useParams, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
+import { InputField } from '~/components/Form/InputField';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 
 import { formatDate } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
-
-import { Input } from './Input';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
@@ -45,7 +44,7 @@ export function FormComponent() {
             errorMessage={fieldErrors?.title || ''}
             labelName="Title"
           >
-            <Input
+            <InputField
               onChange={handleTitleChange}
               placeholder="task title"
               required
@@ -60,7 +59,7 @@ export function FormComponent() {
             labelName="Body"
             errorMessage={fieldErrors?.body || ''}
           >
-            <Input
+            <InputField
               onChange={handleBodyChange}
               placeholder="What do you want to do today?"
               required
@@ -84,7 +83,7 @@ export function FormComponent() {
               className="mb-0 outline-none border-none"
               icon={<CalendarIcon />}
             >
-              <Input
+              <InputField
                 disabled
                 aria-label="date"
                 name="date"
