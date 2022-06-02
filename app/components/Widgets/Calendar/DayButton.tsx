@@ -43,7 +43,6 @@ export function DayButton({ day, date }: DayButtonProps) {
       value={formatDate(new Date(day))}
       onKeyPress={handleDayPress}
       onClick={handleDayPress}
-      type="button"
       className={clsx(
         'w-10 h-10 mb-2 justify-center',
         isDateBeforeToday && !isTodaysDate && 'dark:text-gray-500',
