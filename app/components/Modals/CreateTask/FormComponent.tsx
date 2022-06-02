@@ -45,6 +45,7 @@ export function FormComponent() {
             labelName="Title"
           >
             <InputField
+              autoComplete="off"
               onChange={handleTitleChange}
               placeholder="task title"
               required
@@ -60,6 +61,7 @@ export function FormComponent() {
             errorMessage={fieldErrors?.body || ''}
           >
             <InputField
+              autoComplete="off"
               onChange={handleBodyChange}
               placeholder="What do you want to do today?"
               required
@@ -84,6 +86,7 @@ export function FormComponent() {
               icon={<CalendarIcon />}
             >
               <InputField
+                autoComplete="off"
                 disabled
                 aria-label="date"
                 name="date"
