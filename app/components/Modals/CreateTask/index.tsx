@@ -7,7 +7,12 @@ import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
 import { FormComponent } from './FormComponent';
 
-export function CreateTask() {
+type CreateTaskProps = {
+  title: string;
+  body: string;
+};
+
+export function CreateTask({ title, body }: CreateTaskProps) {
   const navigate = useNavigate();
 
   const { day } = useParams<'day'>();
@@ -27,7 +32,7 @@ export function CreateTask() {
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
           <Header srDescription="Create task dialog">Create task</Header>
-          <FormComponent />
+          <FormComponent data={{ title, body }} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
