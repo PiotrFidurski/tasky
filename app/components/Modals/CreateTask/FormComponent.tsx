@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { Form, Link, useActionData, useParams, useSearchParams } from 'remix';
+import { useActionData, useFetcher, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -14,30 +13,22 @@ import { useErrors } from '~/utils/hooks/useErrors';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
-export function FormComponent() {
+type FormComponentProps = {
+  data: { title: string; body: string };
+};
+
+export function FormComponent({ data }: FormComponentProps) {
+  const fetcher = useFetcher();
+
   const actionData = useActionData<ActionData>();
 
   const [searchParams] = useSearchParams();
 
-  const [title, setTitle] = useState(searchParams.get('title') ?? '');
-
-  const [body, setBody] = useState(searchParams.get('body') ?? '');
-
-  const { day } = useParams<'day'>();
-
   const { fieldErrors } = useErrors(actionData);
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handleBodyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBody(e.target.value);
-  };
 
   return (
     <div className="py-4">
-      <Form method="post" className="p-4">
+      <fetcher.Form method="post" className="p-4">
         <div className="w-full mb-2">
           <FieldWrapper
             htmlFor="title"
@@ -46,10 +37,9 @@ export function FormComponent() {
           >
             <InputField
               autoComplete="off"
-              onChange={handleTitleChange}
               placeholder="task title"
               required
-              value={title}
+              defaultValue={data.title}
               aria-label="title"
               name="title"
               id="title"
@@ -62,19 +52,21 @@ export function FormComponent() {
           >
             <InputField
               autoComplete="off"
-              onChange={handleBodyChange}
               placeholder="What do you want to do today?"
               required
-              value={body}
+              defaultValue={data.body}
               aria-label="body"
               name="body"
               id="body"
             />
           </FieldWrapper>
-          <Link
-            to={`/calendar/${day}/calendar?title=${title}&body=${body}&selectedDate=${
-              searchParams.get('selectedDate') ?? formatDate()
-            }`}
+          <button
+            onClick={(e) => fetcher.submit(e.currentTarget, { method: 'post' })}
+            type="button"
+            name="create_task_data"
+            value="create_task_data"
+            // type="submit"
+            // onClick={() => navigate(`/calendar/${day}/calendar`)}
             className="flex border-2 border-gray-500 outline-none rounded-md text-lightGray focus-within:border-2 focus-within:border-highlight focus:text-highlight transition-colors"
           >
             <FieldWrapper
@@ -94,7 +86,7 @@ export function FormComponent() {
                 defaultValue={searchParams.get('selectedDate') ?? formatDate()}
               />
             </FieldWrapper>
-          </Link>
+          </button>
         </div>
         <div className="flex justify-end">
           <Button
@@ -104,7 +96,7 @@ export function FormComponent() {
             <span>Create task</span>
           </Button>
         </div>
-      </Form>
+      </fetcher.Form>
     </div>
   );
 }
