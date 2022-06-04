@@ -1,14 +1,34 @@
 import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
+import {
+  getCreateTaskDataSession,
+  updateTaskDataSession,
+} from '~/session/createTaskData.server';
 import { getAuthUserId } from '~/session/session.server';
 import { schema } from '~/validation/task';
 
-import { ActionFunction, redirect } from 'remix';
+import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+
+type LoaderData = {
+  title: string;
+  body: string;
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const createTaskDataSession = await getCreateTaskDataSession(request);
+
+  const data: LoaderData = {
+    title: createTaskDataSession.get('createTaskData:title') || '',
+    body: createTaskDataSession.get('createTaskData:body') || '',
+  };
+
+  return data;
+};
 
 export const action: ActionFunction = async ({ params, request }) => {
   try {
@@ -17,6 +37,12 @@ export const action: ActionFunction = async ({ params, request }) => {
     const form = await request.formData();
 
     const { body, title } = schema.parse(form);
+
+    const type = form.get('create_task_data');
+
+    if (type) {
+      return await updateTaskDataSession(request, { title, body });
+    }
 
     await createTask({ body, title, userId });
 
@@ -35,5 +61,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 export default function CreateTaskRoute() {
-  return <CreateTask />;
+  const { title, body } = useLoaderData<LoaderData>();
+
+  return <CreateTask title={title} body={body} />;
 }
