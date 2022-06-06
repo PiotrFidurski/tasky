@@ -10,7 +10,7 @@ if (!process.env.TASK_DRAFT_SECRET) {
 
 const taskDraftStorage = createCookieSessionStorage({
   cookie: {
-    name: 'temp_create_task_data',
+    name: 'task_draft',
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
