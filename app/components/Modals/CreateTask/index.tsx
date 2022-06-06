@@ -8,11 +8,10 @@ import { Header } from '../components/Header';
 import { FormComponent } from './FormComponent';
 
 type CreateTaskProps = {
-  title: string;
-  body: string;
+  draft: { title: string; body: string };
 };
 
-export function CreateTask({ title, body }: CreateTaskProps) {
+export function CreateTask({ draft }: CreateTaskProps) {
   const navigate = useNavigate();
 
   const { day } = useParams<'day'>();
@@ -32,7 +31,7 @@ export function CreateTask({ title, body }: CreateTaskProps) {
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
           <Header srDescription="Create task dialog">Create task</Header>
-          <FormComponent data={{ title, body }} />
+          <FormComponent draft={draft} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

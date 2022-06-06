@@ -38,9 +38,9 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     const { body, title } = schema.parse(form);
 
-    const type = form.get('create_task_data');
+    const taskDraft = form.get('task_draft');
 
-    if (type) {
+    if (taskDraft) {
       return await updateTaskDraftSession(request, { title, body });
     }
 
@@ -61,7 +61,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 export default function CreateTaskRoute() {
-  const { title, body } = useLoaderData<LoaderData>();
+  const draftData = useLoaderData<LoaderData>();
 
-  return <CreateTask title={title} body={body} />;
+  return <CreateTask draft={draftData} />;
 }

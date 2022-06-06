@@ -14,10 +14,10 @@ import { useErrors } from '~/utils/hooks/useErrors';
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
 type FormComponentProps = {
-  data: { title: string; body: string };
+  draft: { title: string; body: string };
 };
 
-export function FormComponent({ data }: FormComponentProps) {
+export function FormComponent({ draft }: FormComponentProps) {
   const fetcher = useFetcher();
 
   const actionData = useActionData<ActionData>();
@@ -39,7 +39,7 @@ export function FormComponent({ data }: FormComponentProps) {
               autoComplete="off"
               placeholder="task title"
               required
-              defaultValue={data.title}
+              defaultValue={draft.title}
               aria-label="title"
               name="title"
               id="title"
@@ -54,7 +54,7 @@ export function FormComponent({ data }: FormComponentProps) {
               autoComplete="off"
               placeholder="What do you want to do today?"
               required
-              defaultValue={data.body}
+              defaultValue={draft.body}
               aria-label="body"
               name="body"
               id="body"
@@ -63,8 +63,8 @@ export function FormComponent({ data }: FormComponentProps) {
           <button
             onClick={(e) => fetcher.submit(e.currentTarget, { method: 'post' })}
             type="button"
-            name="create_task_data"
-            value="create_task_data"
+            name="task_draft"
+            value="task_draft"
             // type="submit"
             // onClick={() => navigate(`/calendar/${day}/calendar`)}
             className="flex border-2 border-gray-500 outline-none rounded-md text-lightGray focus-within:border-2 focus-within:border-highlight focus:text-highlight transition-colors"
