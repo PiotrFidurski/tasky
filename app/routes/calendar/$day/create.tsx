@@ -1,10 +1,10 @@
 import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
-import {
-  getCreateTaskDataSession,
-  updateTaskDataSession,
-} from '~/session/createTaskData.server';
 import { getAuthUserId } from '~/session/session.server';
+import {
+  getTaskDraftSession,
+  updateTaskDraftSession,
+} from '~/session/taskDraft';
 import { schema } from '~/validation/task';
 
 import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
@@ -20,11 +20,11 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const createTaskDataSession = await getCreateTaskDataSession(request);
+  const createTaskDataSession = await getTaskDraftSession(request);
 
   const data: LoaderData = {
-    title: createTaskDataSession.get('createTaskData:title') || '',
-    body: createTaskDataSession.get('createTaskData:body') || '',
+    title: createTaskDataSession.get('taskDraft:title') || '',
+    body: createTaskDataSession.get('taskDraft:body') || '',
   };
 
   return data;
@@ -41,7 +41,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     const type = form.get('create_task_data');
 
     if (type) {
-      return await updateTaskDataSession(request, { title, body });
+      return await updateTaskDraftSession(request, { title, body });
     }
 
     await createTask({ body, title, userId });
