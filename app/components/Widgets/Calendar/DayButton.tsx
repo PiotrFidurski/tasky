@@ -29,7 +29,6 @@ export function DayButton({ day, date }: DayButtonProps) {
     <Button
       isIconWrapper
       value={formatDate(new Date(day))}
-      onKeyPress={handleDayPress}
       onClick={handleDayPress}
       className={clsx(
         'w-10 h-10 mb-2 justify-center',

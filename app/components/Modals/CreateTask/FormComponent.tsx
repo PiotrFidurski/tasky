@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { useActionData, useFetcher, useNavigate, useParams } from 'remix';
+import { Form, useActionData, useFetcher, useNavigate, useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -30,7 +30,7 @@ export function FormComponent({ draft }: FormComponentProps) {
 
   return (
     <div className="py-4">
-      <fetcher.Form method="post" className="p-4">
+      <Form method="post" className="p-4">
         <div className="w-full mb-2">
           <FieldWrapper
             htmlFor="title"
@@ -100,7 +100,7 @@ export function FormComponent({ draft }: FormComponentProps) {
             <span>Create task</span>
           </Button>
         </div>
-      </fetcher.Form>
+      </Form>
     </div>
   );
 }

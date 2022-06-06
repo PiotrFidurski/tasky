@@ -2,12 +2,13 @@ import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
 import { getAuthUserId } from '~/session/session.server';
 import {
+  destroyTaskDraftSession,
   getTaskDraftSession,
   updateTaskDraftSession,
 } from '~/session/taskDraft';
 import { schema } from '~/validation/task';
 
-import { ActionFunction, LoaderFunction, redirect, useLoaderData } from 'remix';
+import { ActionFunction, LoaderFunction, useLoaderData } from 'remix';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
 
@@ -45,8 +46,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     }
 
     await createTask({ body, title, userId });
-
-    return redirect(`/calendar/${params.day}`);
+    return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.flatten();
