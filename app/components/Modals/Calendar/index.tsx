@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
-import { useNavigate, useParams, useSearchParams } from 'remix';
+import { useNavigate } from 'remix';
 
 import { Calendar } from '~/components/Widgets/Calendar';
 import { DayButton } from '~/components/Widgets/Calendar/DayButton';
@@ -9,17 +9,7 @@ import { DayButton } from '~/components/Widgets/Calendar/DayButton';
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
 
-function getUrlFromSearchParams(entries: Array<Array<string>>) {
-  return entries.map(([key, value], index) => {
-    return index < entries.length - 1 ? `${key}=${value}&` : `${key}=${value}`;
-  });
-}
-
 export function CalendarModal() {
-  const params = useParams<'day'>();
-
-  const [searchParams] = useSearchParams();
-
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(true);
@@ -27,11 +17,7 @@ export function CalendarModal() {
   const handleOpenChange = () => {
     setOpen(false);
 
-    const urlSearchParams = getUrlFromSearchParams([
-      ...searchParams.entries(),
-    ]).join('');
-
-    navigate(`/calendar/${params.day}/create?${urlSearchParams}`);
+    navigate(-1);
   };
 
   return (
