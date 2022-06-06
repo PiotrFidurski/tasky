@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { useActionData, useFetcher, useSearchParams } from 'remix';
+import { useActionData, useFetcher, useNavigate, useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -20,9 +20,11 @@ type FormComponentProps = {
 export function FormComponent({ draft }: FormComponentProps) {
   const fetcher = useFetcher();
 
+  const navigate = useNavigate();
+
   const actionData = useActionData<ActionData>();
 
-  const [searchParams] = useSearchParams();
+  const { day } = useParams<'day'>();
 
   const { fieldErrors } = useErrors(actionData);
 
@@ -60,14 +62,16 @@ export function FormComponent({ draft }: FormComponentProps) {
               id="body"
             />
           </FieldWrapper>
+
           <button
-            onClick={(e) => fetcher.submit(e.currentTarget, { method: 'post' })}
+            className="flex border-2 border-gray-500 outline-none rounded-md text-lightGray focus-within:border-2 focus-within:border-highlight focus:text-highlight transition-colors"
+            onClick={(e) => {
+              fetcher.submit(e.currentTarget, { method: 'post' });
+              navigate(`/calendar/${day}/calendar`);
+            }}
             type="button"
             name="task_draft"
             value="task_draft"
-            // type="submit"
-            // onClick={() => navigate(`/calendar/${day}/calendar`)}
-            className="flex border-2 border-gray-500 outline-none rounded-md text-lightGray focus-within:border-2 focus-within:border-highlight focus:text-highlight transition-colors"
           >
             <FieldWrapper
               labelName="Date"
@@ -83,7 +87,7 @@ export function FormComponent({ draft }: FormComponentProps) {
                 aria-label="date"
                 name="date"
                 id="date"
-                defaultValue={searchParams.get('selectedDate') ?? formatDate()}
+                defaultValue={formatDate()}
               />
             </FieldWrapper>
           </button>
