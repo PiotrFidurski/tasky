@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         // new dark mode
         // highlight: '#00E5B0',
-        highlight: '#f44336',
+        highlight: '#00B7FC',
         highlightDarker: '#ef9a9a66',
         highlightLighter: '#ef9a9a',
         dark: '#050507',

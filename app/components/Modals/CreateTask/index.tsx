@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
-import { useNavigate, useParams } from 'remix';
+import { useNavigate } from 'remix';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
@@ -14,14 +14,12 @@ type CreateTaskProps = {
 export function CreateTask({ draft }: CreateTaskProps) {
   const navigate = useNavigate();
 
-  const { day } = useParams<'day'>();
-
   const [open, setOpen] = useState(true);
 
   const handleOpenChange = () => {
     setOpen(false);
 
-    navigate(`/calendar/${day}`);
+    navigate(-1);
   };
 
   return (
