@@ -29,9 +29,9 @@ export function FieldWrapper({
         )}
       >
         <div className="flex justify-between items-center w-full">
-          <div className="w-full">
+          <div className="w-full items-baseline flex flex-col">
             <span className="px-2">{labelName}</span>
-            {children}
+            <div>{children}</div>
           </div>
           {hasIcon ? (
             <div className="max-w-[30%] pr-4 flex justify-end h-full items-center">
