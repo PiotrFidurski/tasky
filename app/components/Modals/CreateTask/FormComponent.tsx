@@ -73,7 +73,7 @@ export function FormComponent({ draft }: FormComponentProps) {
           </FieldWrapper>
 
           <button
-            className="border-2 w-full border-gray-500 outline-none rounded-md text-slate-900 focus-within:border-2 focus-within:border-highlight dark:focus-within:text-highlight transition-colors"
+            className="border-2 w-full mb-2 border-gray-500 outline-none rounded-md text-slate-900 focus-within:border-2 focus-within:border-highlight dark:focus-within:text-highlight transition-colors"
             onClick={(e) => {
               fetcher.submit(e.currentTarget, { method: 'post' });
               navigate(`/calendar/${day}/calendar`);
@@ -103,7 +103,7 @@ export function FormComponent({ draft }: FormComponentProps) {
         </div>
         <div className="flex justify-end">
           <Button
-            className="rounded-full font-bold px-4 py-2 justify-center border-2 bg-highlight dark:text-black"
+            className="rounded-full w-auto font-bold px-4 py-2 justify-center border-2 bg-highlight dark:text-black"
             primary
           >
             <span>Create task</span>
