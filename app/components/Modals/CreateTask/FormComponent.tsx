@@ -73,7 +73,7 @@ export function FormComponent({ draft }: FormComponentProps) {
           </FieldWrapper>
 
           <button
-            className="border-2 w-full border-gray-500 outline-none rounded-md text-lightGray focus-within:border-2 focus-within:border-highlight focus:text-highlight transition-colors"
+            className="border-2 w-full border-gray-500 outline-none rounded-md text-slate-900 focus-within:border-2 focus-within:border-highlight dark:focus-within:text-highlight transition-colors"
             onClick={(e) => {
               fetcher.submit(e.currentTarget, { method: 'post' });
               navigate(`/calendar/${day}/calendar`);
