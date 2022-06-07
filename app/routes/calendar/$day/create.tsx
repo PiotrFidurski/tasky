@@ -42,7 +42,10 @@ export const action: ActionFunction = async ({ params, request }) => {
     const taskDraft = form.get('task_draft');
 
     if (taskDraft) {
-      return await updateTaskDraftSession(request, { title, body });
+      return await updateTaskDraftSession(request, {
+        title,
+        body,
+      });
     }
 
     await createTask({ body, title, userId });

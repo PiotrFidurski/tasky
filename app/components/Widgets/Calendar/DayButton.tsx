@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import React from 'react';
 
 import { useNavigate, useParams } from 'remix';
 
@@ -21,15 +22,15 @@ export function DayButton({ day, date }: DayButtonProps) {
 
   const isActive = day === params.day;
 
-  const handleDayPress = () => {
-    navigate(-1);
+  const handleClick = (e: any) => {
+    navigate(`/calendar/${day}/create?selectedDate=${e.target.value}`);
   };
 
   return (
     <Button
       isIconWrapper
       value={formatDate(new Date(day))}
-      onClick={handleDayPress}
+      onClick={handleClick}
       className={clsx(
         'w-10 h-10 mb-2 justify-center',
         isDateBeforeToday && !isTodaysDate && 'dark:text-gray-500',
