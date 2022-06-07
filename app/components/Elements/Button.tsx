@@ -30,7 +30,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           isMenuItem &&
             'hover:bg-active focus:bg-light_active dark:focus:bg-dark_active focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
           isIconWrapper &&
-            'p-2 border-none bg-transparent rounded-full hover:bg-active dark:hover:bg-active_dark focus:bg-active dark:focus:bg-active_dark focus:ring-highlightDarker dark:focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
+            'p-2 border-none bg-transparent rounded-full hover:bg-active dark:hover:bg-active_dark focus:bg-active dark:focus:bg-active_dark focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
           className
         )}
         type={buttonType ? 'button' : 'submit'}

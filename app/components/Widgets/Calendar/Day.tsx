@@ -28,9 +28,7 @@ export function Day({ day, date, stats }: DayProps) {
       to={`/${day}`}
       className={clsx(
         'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
-        isTodaysDate &&
-          !isActive &&
-          'ring-2 dark:ring-highlight dark:text-highlight ring-highlightDarker text-highlightDarker',
+        isTodaysDate && !isActive && 'ring-2 ring-highlight text-highlight',
         isDateBeforeToday && !isTodaysDate && 'text-gray-500',
         !isInThisMonth && 'text-gray-800'
       )}

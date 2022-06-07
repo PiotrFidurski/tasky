@@ -38,7 +38,7 @@ export function FormComponent({ draft }: FormComponentProps) {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <div className="py-4 w-full">
+    <div className="py-4 w-full text-gray-400">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
           <FieldWrapper
@@ -73,7 +73,7 @@ export function FormComponent({ draft }: FormComponentProps) {
           </FieldWrapper>
 
           <button
-            className="border-2 w-full mb-2 border-gray-500 outline-none rounded-md text-slate-900 focus-within:border-2 focus-within:border-highlight dark:focus-within:text-highlight transition-colors"
+            className="border-2 w-full mb-2 border-gray-500 outline-none rounded-md focus-within:border-2 focus-within:border-highlight focus-within:text-highlight transition-colors"
             onClick={(e) => {
               fetcher.submit(e.currentTarget, { method: 'post' });
               navigate(`/calendar/${day}/calendar`);

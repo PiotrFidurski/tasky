@@ -35,9 +35,7 @@ export function DayButton({ day, date }: DayButtonProps) {
         'w-10 h-10 mb-2 justify-center',
         isDateBeforeToday && !isTodaysDate && 'dark:text-gray-500',
         !isInThisMonth && 'dark:text-gray-800',
-        isTodaysDate &&
-          !isActive &&
-          'ring-2 dark:ring-highlight dark:text-highlight ring-highlightDarker text-highlightDarker'
+        isTodaysDate && !isActive && 'ring-2 ring-highlight text-highlight'
       )}
     >
       {dayOfMonth}
