@@ -1,7 +1,14 @@
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { Form, useActionData, useFetcher, useNavigate, useParams } from 'remix';
+import {
+  Form,
+  useActionData,
+  useFetcher,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -19,6 +26,8 @@ type FormComponentProps = {
 
 export function FormComponent({ draft }: FormComponentProps) {
   const fetcher = useFetcher();
+
+  const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
@@ -87,7 +96,7 @@ export function FormComponent({ draft }: FormComponentProps) {
                 aria-label="date"
                 name="date"
                 id="date"
-                defaultValue={formatDate()}
+                defaultValue={searchParams.get('selectedDate') ?? formatDate()}
               />
             </FieldWrapper>
           </button>
