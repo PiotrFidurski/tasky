@@ -1,19 +1,36 @@
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { Form, Link, useActionData, useParams } from 'remix';
+import {
+  Form,
+  useActionData,
+  useFetcher,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'remix';
 
 import { Button } from '~/components/Elements/Button';
+import { FieldWrapper } from '~/components/Form/FieldWrapper';
+import { InputField } from '~/components/Form/InputField';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 
+import { formatDate } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
-
-import { Input } from './Input';
-import { Label } from './Label';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
-export function FormComponent() {
+type FormComponentProps = {
+  draft: { title: string; body: string };
+};
+
+export function FormComponent({ draft }: FormComponentProps) {
+  const fetcher = useFetcher();
+
+  const [searchParams] = useSearchParams();
+
+  const navigate = useNavigate();
+
   const actionData = useActionData<ActionData>();
 
   const { day } = useParams<'day'>();
@@ -21,40 +38,51 @@ export function FormComponent() {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <div className="py-4">
+    <div className="py-4 w-full text-gray-400">
       <Form method="post" className="p-4">
         <div className="w-full mb-2">
-          <Label
+          <FieldWrapper
             htmlFor="title"
             errorMessage={fieldErrors?.title || ''}
             labelName="Title"
           >
-            <Input
+            <InputField
+              autoComplete="off"
               placeholder="task title"
               required
+              defaultValue={draft.title}
               aria-label="title"
               name="title"
               id="title"
             />
-          </Label>
-          <Label
+          </FieldWrapper>
+          <FieldWrapper
             htmlFor="body"
             labelName="Body"
             errorMessage={fieldErrors?.body || ''}
           >
-            <Input
+            <InputField
+              autoComplete="off"
               placeholder="What do you want to do today?"
               required
+              defaultValue={draft.body}
               aria-label="body"
               name="body"
               id="body"
             />
-          </Label>
-          <Link
-            to={`/calendar/${day}/calendar`}
-            className="flex border-2 border-gray-500 outline-none rounded-md text-lightGray focus-within:border-highlight focus-within:text-highlight transition-colors"
+          </FieldWrapper>
+
+          <button
+            className="border-2 w-full mb-2 border-gray-500 outline-none rounded-md focus-within:border-2 focus-within:border-highlight focus-within:text-highlight transition-colors"
+            onClick={(e) => {
+              fetcher.submit(e.currentTarget, { method: 'post' });
+              navigate(`/calendar/${day}/calendar`);
+            }}
+            type="button"
+            name="task_draft"
+            value="task_draft"
           >
-            <Label
+            <FieldWrapper
               labelName="Date"
               htmlFor="date"
               errorMessage=""
@@ -62,13 +90,20 @@ export function FormComponent() {
               className="mb-0 outline-none border-none"
               icon={<CalendarIcon />}
             >
-              <Input aria-label="date" name="date" id="date" />
-            </Label>
-          </Link>
+              <InputField
+                autoComplete="off"
+                disabled
+                aria-label="date"
+                name="date"
+                id="date"
+                defaultValue={searchParams.get('selectedDate') ?? formatDate()}
+              />
+            </FieldWrapper>
+          </button>
         </div>
         <div className="flex justify-end">
           <Button
-            className="rounded-full font-bold px-4 py-2 justify-center border-2 bg-highlight dark:text-black"
+            className="rounded-full w-auto font-bold px-4 py-2 justify-center border-2 bg-highlight dark:text-black"
             primary
           >
             <span>Create task</span>

@@ -5,9 +5,10 @@ module.exports = {
     extend: {
       colors: {
         // new dark mode
-        highlight: '#00E5B0',
-        highlightDarker: '#113c32',
-        highlightLighter: '#d4ede7',
+        // highlight: '#00E5B0',
+        highlight: '#00B7FC',
+        highlightDarker: '#ef9a9a66',
+        highlightLighter: '#ef9a9a',
         dark: '#050507',
         active_dark: '#212121',
         lightGray: '#F2FAFF',

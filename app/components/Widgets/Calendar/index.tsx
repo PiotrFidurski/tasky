@@ -6,22 +6,29 @@ import { useParams } from 'remix';
 
 import { getCalendarData } from '~/utils/date';
 
-import { Day } from './Day';
 import { DayNames } from './DayNames';
 import { Header } from './Header';
 import { variants } from './animationVariants';
 import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 
+type RenderProps = {
+  day: string;
+  date: Date;
+  stats: { [key: string]: number[] };
+};
+
 type CalendarProps = {
   startingDate: Date;
   stats: { [key: string]: number[] };
   weeksCount?: number;
+  children: ({ day, date, stats }: RenderProps) => JSX.Element;
 };
 
 export function Calendar({
   startingDate,
   stats,
   weeksCount = 5,
+  children,
 }: CalendarProps) {
   const [date, setDate] = useState(startingDate);
 
@@ -46,7 +53,7 @@ export function Calendar({
 
   return (
     <div
-      className="dark:bg-slate-900 bg-light max-w-sm p-4 rounded-xl mt-16 relative overflow-hidden mb-4"
+      className="dark:bg-slate-900 w-full bg-light max-w-sm p-4 rounded-xl relative overflow-hidden mb-4"
       style={{
         minHeight: `calc(${weeksCount} * ${ROW_SIZE}rem + ${HEADER_SIZE}rem + ${ROWS_POSTION_TOP}rem)`,
       }}
@@ -54,7 +61,7 @@ export function Calendar({
       <div className="flex items-center justify-between mb-4">
         {params.day ? (
           <Header
-            date={new Date(params.day)}
+            date={date}
             onPrevMonth={handlePrevMonth}
             onNextMonth={handleNextMonth}
           />
@@ -75,9 +82,7 @@ export function Calendar({
           <section>
             {calendarData.map((week) => (
               <div key={week[0]} className="flex justify-between items-center">
-                {week.map((day) => (
-                  <Day day={day} date={date} key={day} stats={stats} />
-                ))}
+                {week.map((day) => children({ day, date, stats }))}
               </div>
             ))}
           </section>
