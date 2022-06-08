@@ -34,12 +34,16 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ params, request }) => {
   try {
     const userId = await getAuthUserId(request);
-
     const form = await request.formData();
 
-    const { body, title } = schema.parse(form);
-
+    const reset = form.get('reset');
     const taskDraft = form.get('task_draft');
+
+    if (reset) {
+      return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
+    }
+
+    const { body, title } = schema.parse(form);
 
     if (taskDraft) {
       return await updateTaskDraftSession(request, {
