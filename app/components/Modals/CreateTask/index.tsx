@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
-import { useNavigate } from 'remix';
+import { Form, useNavigate } from 'remix';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
@@ -17,9 +17,9 @@ export function CreateTask({ draft }: CreateTaskProps) {
   const [open, setOpen] = useState(true);
 
   const handleOpenChange = () => {
-    setOpen(false);
-
-    navigate(-1);
+    // fetcher.submit({ reset: 'reset' }, { method: 'post' });
+    // setOpen(false);
+    // navigate(-1);
   };
 
   return (
@@ -27,10 +27,12 @@ export function CreateTask({ draft }: CreateTaskProps) {
       <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
-        <Dialog.Content className={modalContent}>
-          <Header srDescription="Create task dialog">Create task</Header>
-          <FormComponent draft={draft} />
-        </Dialog.Content>
+        <Form method="post">
+          <Dialog.Content className={modalContent}>
+            <Header srDescription="Create task dialog">Create task</Header>
+            <FormComponent draft={draft} />
+          </Dialog.Content>
+        </Form>
       </Dialog.Portal>
     </Dialog.Root>
   );
