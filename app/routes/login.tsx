@@ -64,9 +64,7 @@ export default function LoginRoute() {
 
   return (
     <main className="flex flex-col justify-center items-center h-screen">
-      <h1 className="text-custom__gray dark:text-custom__ghostly font-bold text-4xl py-4">
-        Login
-      </h1>
+      <h1 className="font-bold text-4xl py-4">Login</h1>
       <Form method="post" className="flex flex-col gap-3 max-w-lg w-full px-4">
         <FieldWrapper
           labelName="Username"

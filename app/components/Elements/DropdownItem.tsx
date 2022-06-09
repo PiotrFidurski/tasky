@@ -11,9 +11,9 @@ export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
       <Item
         ref={ref}
         className={clsx(
-          `text-custom__gray font-semibold flex items-center gap-4
+          `font-semibold flex items-center gap-4
            outline-none focus:bg-custom__hoverlight fill-custom__gray
-         dark:text-custom__ghostly focus:dark:bg-custom__hoverdark dark:fill-custom__ghostly`,
+           focus:dark:black dark:fill-white`,
           className
         )}
         {...itemProps}

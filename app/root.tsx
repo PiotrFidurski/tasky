@@ -104,7 +104,7 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   return (
-    <div className="dark:text-custom__ghostly text-custom__gray">
+    <div>
       <h1>Caught</h1>
       <p>Status: {caught.status}</p>
       <p>Status: {caught.statusText}</p>

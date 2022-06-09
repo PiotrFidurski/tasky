@@ -17,7 +17,7 @@ export function Sidebar() {
   return (
     <div className="w-full flex flex-col items-start justify-between min-h-[calc(100vh-2rem)]">
       <div className="w-full">
-        <div className="flex lg:justify-end w-full p-2 mb-10 text-custom__gray dark:text-custom__ghostly">
+        <div className="flex lg:justify-end w-full p-2 mb-10">
           <UserMenu />
         </div>
         <nav>

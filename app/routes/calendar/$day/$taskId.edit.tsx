@@ -88,7 +88,7 @@ export default function EditTaskRoute() {
       <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
-        <Dialog.Content className="z-50 absolute inset-0 top-12 bottom-auto bg-white dark:bg-custom__bluedark max-w-full lg:max-w-lg m-auto rounded-md border dark:border-gray-600 text-custom__gray dark:text-custom__ghostly">
+        <Dialog.Content className="z-50 absolute inset-0 top-12 bottom-auto bg-white dark:bg-custom__bluedark max-w-full lg:max-w-lg m-auto rounded-md border dark:border-gray-600">
           <div className="flex p-2 max-w-full justify-between items-center border-b dark:border-gray-600">
             <Dialog.Title className="font-bold uppercase">
               Edit task
@@ -119,9 +119,13 @@ export default function EditTaskRoute() {
               </Button>
             </Dialog.Close>
           </div>
-          <div className="p-4 text-custom__gray">
+          <div className="p-4">
             <Form method="post">
-              <FieldWrapper htmlFor="body" errorMessage="">
+              <FieldWrapper
+                htmlFor="body"
+                errorMessage=""
+                labelName="Task body"
+              >
                 <InputField ref={inputRef} defaultValue={body} />
               </FieldWrapper>
               <div className="flex justify-end">

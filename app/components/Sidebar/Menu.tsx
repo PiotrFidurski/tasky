@@ -29,11 +29,7 @@ export function Menu({
 
   return (
     <>
-      <nav
-        aria-label="sidebar"
-        id="sidebar"
-        className="text-darkGray dark:text-lightGray"
-      >
+      <nav aria-label="sidebar" id="sidebar">
         <div className="flex items-center p-4">
           <h2 className="w-full">Menu</h2>
           {isMobile ? (

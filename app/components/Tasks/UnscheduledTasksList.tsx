@@ -20,9 +20,7 @@ export function UnscheduledTasksList({
   return (
     <>
       <div className="min-h-[4rem] items-center flex mb-2">
-        <h2 className="font-bold text-custom__gray text-xl dark:text-custom__ghostly">
-          Unscheduled
-        </h2>
+        <h2 className="font-bold text-xl">Unscheduled</h2>
       </div>
       {unscheduledTasks.concat(updates).map((task) => (
         <TaskComponent key={task.id} task={task} />

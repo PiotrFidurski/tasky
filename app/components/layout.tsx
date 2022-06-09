@@ -3,11 +3,7 @@ import * as React from 'react';
 type LayoutProps = React.HTMLAttributes<HTMLDivElement | HTMLElement>;
 
 export function RootLayout({ children }: LayoutProps) {
-  return (
-    <div className="w-full h-full dark:text-custom__ghostly relative flex">
-      {children}
-    </div>
-  );
+  return <div className="w-full h-full relative flex">{children}</div>;
 }
 
 export function MainLayout({ children }: LayoutProps) {

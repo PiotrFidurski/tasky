@@ -29,13 +29,13 @@ export function Day({ day, date, stats }: DayProps) {
       className={clsx(
         'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
         isTodaysDate && !isActive && 'ring-2 ring-highlight text-highlight',
-        isDateBeforeToday && !isTodaysDate && 'text-gray-500',
-        !isInThisMonth && 'text-gray-800'
+        isDateBeforeToday && !isTodaysDate && '',
+        !isInThisMonth && ''
       )}
     >
       {dayOfMonth}
       {total !== complete ? (
-        <span className="absolute top-4 text-indigo-300 text-2xl">·</span>
+        <span className="absolute top-4 text-2xl">·</span>
       ) : null}
       {total && total === complete ? (
         <span className="absolute top-4 text-pink-600 text-2xl">·</span>

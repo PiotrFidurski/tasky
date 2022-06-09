@@ -73,7 +73,7 @@ export function CatchBoundary() {
   const navigate = useNavigate();
 
   return (
-    <div className="dark:text-custom__ghostly text-custom__gray mt-12 p-4 bg-red-400 rounded-md">
+    <div className="mt-12 p-4 bg-red-400 rounded-md">
       <div className="flex items-center mb-4">
         <Button
           isIconWrapper

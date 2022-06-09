@@ -57,7 +57,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
           <span>Settings</span>
         </DropdownItem>
         <LogoutForm />
-        <DropdownMenu.Label className="text-gray-600 font-semibold text-xs py-4 px-2 dark:text-gray-400">
+        <DropdownMenu.Label className="font-semibold text-xs py-4 px-2  ">
           <span>Options</span>
         </DropdownMenu.Label>
         <DropdownMenu.Separator className="bg-gray-200 w-full h-px my-2 dark:bg-custom__gray" />

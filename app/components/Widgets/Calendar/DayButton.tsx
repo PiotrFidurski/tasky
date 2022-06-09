@@ -32,8 +32,8 @@ export function DayButton({ day, date }: DayButtonProps) {
       onClick={handleClick}
       className={clsx(
         'w-10 h-10 mb-2 justify-center',
-        isDateBeforeToday && !isTodaysDate && 'dark:text-gray-500',
-        !isInThisMonth && 'dark:text-gray-800',
+        isDateBeforeToday && !isTodaysDate && '',
+        !isInThisMonth && '',
         isTodaysDate && !isActive && 'ring-2 ring-highlight text-highlight'
       )}
     >
