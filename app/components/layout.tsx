@@ -28,7 +28,7 @@ export function MobileNavLayout({ children }: LayoutProps) {
 
 export function CalendarLayout({ children }: LayoutProps) {
   return (
-    <div className="w-full border dark:border-custom__gray max-h-[calc(100vh-3rem)] h-full overflow-auto">
+    <div className="w-full border max-h-[calc(100vh-3rem)] h-full overflow-auto">
       {children}
     </div>
   );

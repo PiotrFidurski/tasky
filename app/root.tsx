@@ -76,7 +76,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-white dark:bg-custom__bluedark h-screen overflow-x-hidden">
+      <body className="bg-white dark:bg-dark h-screen overflow-x-hidden dark:text-white">
         {children}
         <ScrollRestoration />
         <Scripts />

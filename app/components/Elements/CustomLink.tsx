@@ -19,8 +19,7 @@ export function CustomLink({
     <Link
       to={to}
       className={clsx(
-        `flex justify-center hover:bg-active dark:hover:bg-active_dark
-         focus:bg-active dark:focus:bg-active_dark focus:ring-highlight
+        `flex justify-center focus:ring-highlight
          focus:ring-2 focus:ring-inset focus:outline-none transition-all`,
         isActive && 'ring-2 ring-highlight text-highlight',
         className

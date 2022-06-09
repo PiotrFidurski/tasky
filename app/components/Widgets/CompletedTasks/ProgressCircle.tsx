@@ -26,7 +26,7 @@ export function CircularProgress({
       className="transition-all"
     >
       <circle
-        className="dark:stroke-highlightDarker stroke-highlightLighter fill-light dark:fill-slate-900"
+        className="dark:stroke-white stroke-black fill-light dark:fill-slate-900"
         cx={squareSize / 2}
         cy={squareSize / 2}
         r={radius}

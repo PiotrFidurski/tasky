@@ -25,7 +25,7 @@ export function CompleteTaskForm({
         <Button
           type="submit"
           aria-label={isComplete() ? 'uncomplete task' : 'complete task'}
-          className="rounded-full border-2 border-custom__gray dark:border-custom__ghostly"
+          className="rounded-full border-2"
         >
           {isComplete() ? <CheckmarkIcon /> : <div className="h-6 w-6" />}
         </Button>

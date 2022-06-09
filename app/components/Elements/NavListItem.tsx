@@ -14,10 +14,10 @@ export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
         to={to}
         className={({ isActive }) =>
           clsx(
-            isActive && 'bg-active dark:bg-active_dark',
-            `p-3 flex w-full items-center hover:bg-active dark:hover:bg-active_dark
+            isActive && 'bg-active',
+            `p-3 flex w-full items-center hover:bg-active
              focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none 
-             focus:bg-active dark:focus:bg-active_dark transition-all`
+             focus:bg-active transition-all`
           )
         }
       >

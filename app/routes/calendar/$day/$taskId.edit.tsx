@@ -87,8 +87,8 @@ export default function EditTaskRoute() {
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger />
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-custom__gray dark:bg-custom__ghostly fixed inset-0 opacity-20 z-50" />
-        <Dialog.Content className="z-50 absolute inset-0 top-12 bottom-auto bg-white dark:bg-custom__bluedark max-w-full lg:max-w-lg m-auto rounded-md border dark:border-gray-600">
+        <Dialog.Overlay className="fixed inset-0 opacity-20 z-50" />
+        <Dialog.Content className="z-50 absolute inset-0 top-12 bottom-auto bg-white max-w-full lg:max-w-lg m-auto rounded-md border dark:border-gray-600">
           <div className="flex p-2 max-w-full justify-between items-center border-b dark:border-gray-600">
             <Dialog.Title className="font-bold uppercase">
               Edit task

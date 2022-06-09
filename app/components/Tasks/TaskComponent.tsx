@@ -35,14 +35,9 @@ export function TaskComponent({ task }: { task: Task }) {
         exit={{ opacity: 0 }}
         aria-label={task.body}
         style={{ display: isScheduling || isUnscheduling ? 'none' : 'block' }}
-        className={clsx(
-          'border  mb-2 flex flex-col',
-          isComplete()
-            ? 'border-custom__gray dark:border-custom__ghostly'
-            : 'border-custom__hoverlight dark:border-custom__hoverdark'
-        )}
+        className={clsx('border  mb-2 flex flex-col', isComplete() ? '' : '')}
       >
-        <div className="flex gap-2 flex-wrap items-center p-2 dark:border-custom__hoverdark justify-between">
+        <div className="flex gap-2 flex-wrap items-center p-2 justify-between">
           {!task.scheduledFor ? (
             <ScheduleTaskForm task={task} fetcher={fetcher} />
           ) : null}

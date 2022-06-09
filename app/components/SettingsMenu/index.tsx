@@ -35,15 +35,12 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         alignOffset={isMobile ? -14 : 0}
         loop
         className={clsx(
-          'rounded-lg border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray',
+          'rounded-lg border bg-white dark:bg-dark transition-colors',
           isMobile ? 'min-w-[calc(100vw-17px)]' : 'min-w-[14rem]'
         )}
       >
         {!isMobile ? (
-          <DropdownMenu.Arrow
-            className="fill-custom__ghostly dark:fill-custom__gray"
-            offset={20}
-          />
+          <DropdownMenu.Arrow className="fill-white" offset={20} />
         ) : null}
         <DropdownItem
           aria-label="user profile"
@@ -60,7 +57,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         <DropdownMenu.Label className="font-semibold text-xs py-4 px-2  ">
           <span>Options</span>
         </DropdownMenu.Label>
-        <DropdownMenu.Separator className="bg-gray-200 w-full h-px my-2 dark:bg-custom__gray" />
+        <DropdownMenu.Separator className="bg-gray-200 w-full h-px my-2" />
         <DropdownItem
           className="w-full rounded-bl-md rounded-br-md"
           onClick={switchTheme}
