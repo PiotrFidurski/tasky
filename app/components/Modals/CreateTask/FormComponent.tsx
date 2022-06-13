@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
 import {
+  Form,
   useActionData,
   useFetcher,
   useNavigate,
@@ -37,7 +38,7 @@ export function FormComponent({ draft }: FormComponentProps) {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <div className="w-full mb-2 p-6">
+    <Form className="w-full p-6">
       <FieldWrapper
         htmlFor="title"
         errorMessage={fieldErrors?.title || ''}
@@ -105,6 +106,6 @@ export function FormComponent({ draft }: FormComponentProps) {
           <span>Create task</span>
         </Button>
       </div>
-    </div>
+    </Form>
   );
 }
