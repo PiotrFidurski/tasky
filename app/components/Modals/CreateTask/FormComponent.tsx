@@ -38,7 +38,7 @@ export function FormComponent({ draft }: FormComponentProps) {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <Form className="w-full p-6">
+    <Form method="post" className="w-full p-6">
       <FieldWrapper
         htmlFor="title"
         errorMessage={fieldErrors?.title || ''}
