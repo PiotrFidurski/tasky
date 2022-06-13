@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
-import { Form, useFetcher, useLocation, useNavigate, useParams } from 'remix';
+import { Form, useFetcher } from 'remix';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
@@ -12,21 +12,14 @@ type CreateTaskProps = {
 };
 
 export function CreateTask({ draft }: CreateTaskProps) {
-  const navigate = useNavigate();
   const fetcher = useFetcher();
-  const [open, setOpen] = useState(true);
-  const location = useLocation();
 
-  const { day } = useParams<'day'>();
+  const [open, setOpen] = useState(true);
 
   const handleOpenChange = () => {
-    fetcher.submit({ reset: 'reset' }, { method: 'post' });
+    fetcher.submit({ destroy_draft: 'destroy_draft' }, { method: 'post' });
 
     setOpen(false);
-
-    if (location.pathname === `/calendar/${day}/create`) {
-      navigate(-1);
-    }
   };
 
   return (
