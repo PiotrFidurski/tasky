@@ -36,10 +36,10 @@ export const action: ActionFunction = async ({ params, request }) => {
     const userId = await getAuthUserId(request);
     const form = await request.formData();
 
-    const reset = form.get('reset');
+    const destroyDraft = form.get('destroy_draft');
     const taskDraft = form.get('task_draft');
 
-    if (reset) {
+    if (destroyDraft) {
       return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
     }
 
