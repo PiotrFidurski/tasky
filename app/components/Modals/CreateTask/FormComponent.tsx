@@ -37,70 +37,66 @@ export function FormComponent({ draft }: FormComponentProps) {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <div className="py-4 w-full">
-      {/* <Form method="post" className="p-4"> */}
+    <div className="w-full mb-2 p-6">
+      <FieldWrapper
+        htmlFor="title"
+        errorMessage={fieldErrors?.title || ''}
+        labelName="Title"
+      >
+        <InputField
+          autoComplete="off"
+          placeholder="task title"
+          required
+          defaultValue={draft.title}
+          aria-label="title"
+          name="title"
+          id="title"
+        />
+      </FieldWrapper>
+      <FieldWrapper
+        htmlFor="body"
+        labelName="Body"
+        errorMessage={fieldErrors?.body || ''}
+      >
+        <InputField
+          autoComplete="off"
+          placeholder="What do you want to do today?"
+          required
+          defaultValue={draft.body}
+          aria-label="body"
+          name="body"
+          id="body"
+        />
+      </FieldWrapper>
 
-      <div className="w-full mb-2">
+      <button
+        className="border-2 w-full mb-2 border-gray-500 outline-none rounded-md focus-within:border-2 focus-within:border-highlight focus-within:text-highlight transition-colors"
+        onClick={(e) => {
+          fetcher.submit(e.currentTarget, { method: 'post' });
+          navigate(`/calendar/${day}/calendar`);
+        }}
+        type="button"
+        name="task_draft"
+        value="task_draft"
+      >
         <FieldWrapper
-          htmlFor="title"
-          errorMessage={fieldErrors?.title || ''}
-          labelName="Title"
+          labelName="Date"
+          htmlFor="date"
+          errorMessage=""
+          hasIcon
+          className="mb-0 outline-none border-none"
+          icon={<CalendarIcon />}
         >
           <InputField
             autoComplete="off"
-            placeholder="task title"
-            required
-            defaultValue={draft.title}
-            aria-label="title"
-            name="title"
-            id="title"
+            disabled
+            aria-label="date"
+            name="date"
+            id="date"
+            defaultValue={searchParams.get('selectedDate') ?? formatDate()}
           />
         </FieldWrapper>
-        <FieldWrapper
-          htmlFor="body"
-          labelName="Body"
-          errorMessage={fieldErrors?.body || ''}
-        >
-          <InputField
-            autoComplete="off"
-            placeholder="What do you want to do today?"
-            required
-            defaultValue={draft.body}
-            aria-label="body"
-            name="body"
-            id="body"
-          />
-        </FieldWrapper>
-
-        <button
-          className="border-2 w-full mb-2 border-gray-500 outline-none rounded-md focus-within:border-2 focus-within:border-highlight focus-within:text-highlight transition-colors"
-          onClick={(e) => {
-            fetcher.submit(e.currentTarget, { method: 'post' });
-            navigate(`/calendar/${day}/calendar`);
-          }}
-          type="button"
-          name="task_draft"
-          value="task_draft"
-        >
-          <FieldWrapper
-            labelName="Date"
-            htmlFor="date"
-            errorMessage=""
-            hasIcon
-            className="mb-0 outline-none border-none"
-            icon={<CalendarIcon />}
-          >
-            <InputField
-              autoComplete="off"
-              disabled
-              aria-label="date"
-              name="date"
-              id="date"
-              defaultValue={searchParams.get('selectedDate') ?? formatDate()}
-            />
-          </FieldWrapper>
-        </button>
-      </div>
+      </button>
       <div className="flex justify-end">
         <Button
           className="rounded-full w-auto font-bold px-4 py-2 justify-center border-2 bg-highlight"
@@ -109,7 +105,6 @@ export function FormComponent({ draft }: FormComponentProps) {
           <span>Create task</span>
         </Button>
       </div>
-      {/* </Form> */}
     </div>
   );
 }
