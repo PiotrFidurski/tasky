@@ -7,6 +7,7 @@ module.exports = {
         light: '#F3F3F4',
         dark: '#050507',
         highlight: '#00B7FC',
+        strokeHighlight: '#00b7fc54',
       },
     },
   },
