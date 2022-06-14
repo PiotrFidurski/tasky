@@ -22,7 +22,7 @@ export function FieldWrapper({
       htmlFor={htmlFor}
       {...htmlLabelProps}
       className={clsx(
-        'mb-4 w-full border-2 border-black dark:border-gray-500 rounded-md flex relative min-h-[4rem] dark:focus-within:border-highlight focus-within:border-highlight dark:focus-within:text-highlight focus-within:text-highlight transition-colors',
+        'mb-4 w-full border-2 border-black dark:text-slate-500 dark:border-slate-500 rounded-md flex relative min-h-[4rem] dark:focus-within:border-highlight focus-within:border-highlight dark:focus-within:text-highlight focus-within:text-highlight transition-colors',
         className
       )}
     >
@@ -42,7 +42,7 @@ export function FieldWrapper({
             key={JSON.stringify(errorMessage)}
           >
             {!errorMessage ? (
-              <span className="font-semibold">{labelName}</span>
+              <span>{labelName}</span>
             ) : (
               <span
                 aria-live="polite"
