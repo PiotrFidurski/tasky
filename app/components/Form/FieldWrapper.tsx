@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 
 type FieldWrapperProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
   errorMessage: string | string[];
-  hasIcon?: boolean;
   icon?: ReactNode;
   labelName: string;
 };
@@ -14,7 +13,6 @@ export function FieldWrapper({
   htmlFor,
   className,
   labelName,
-  hasIcon,
   icon,
   ...htmlLabelProps
 }: FieldWrapperProps) {
@@ -33,7 +31,7 @@ export function FieldWrapper({
             <span className="px-2 text-sm font-bold">{labelName}</span>
             <div>{children}</div>
           </div>
-          {hasIcon ? (
+          {icon ? (
             <div className="max-w-[30%] pr-4 flex justify-end h-full items-center">
               {icon}
             </div>

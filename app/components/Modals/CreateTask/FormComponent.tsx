@@ -84,7 +84,6 @@ export function FormComponent({ draft }: FormComponentProps) {
           labelName="Date"
           htmlFor="date"
           errorMessage=""
-          hasIcon
           className="mb-0 outline-none border-none"
           icon={<CalendarIcon />}
         >
