@@ -5,6 +5,7 @@ export const ZodTaskErrors = z.object({
   errors: z.object({
     body: z.array(z.string()),
     title: z.array(z.string()),
+    date: z.array(z.string()),
   }),
 });
 
@@ -19,4 +20,5 @@ export const schema = zfd.formData({
       .string({ required_error: 'Task title is required.' })
       .min(3, 'Title should be at least 3 characters long.')
   ),
+  date: zfd.text().optional(),
 });
