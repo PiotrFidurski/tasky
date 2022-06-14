@@ -26,10 +26,7 @@ export function Header({
   };
 
   return (
-    <Form
-      method="post"
-      className="w-full flex p-2 max-w-full items-center backdrop-blur-[10px] bg-slate-900/[.06]"
-    >
+    <Form method="post" className="w-full flex p-2 max-w-full items-center">
       <Dialog.Close asChild>
         <Button
           buttonType

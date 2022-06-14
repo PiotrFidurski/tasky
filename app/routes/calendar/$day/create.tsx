@@ -43,7 +43,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
     }
 
-    const { body, title } = schema.parse(form);
+    const { body, title, date } = schema.parse(form);
 
     if (taskDraft) {
       return await updateTaskDraftSession(request, {
@@ -51,8 +51,12 @@ export const action: ActionFunction = async ({ params, request }) => {
         body,
       });
     }
-
-    await createTask({ body, title, userId });
+    await createTask({
+      body,
+      title,
+      userId,
+      scheduledFor: date ?? '',
+    });
     return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
   } catch (error) {
     if (error instanceof ZodError) {
