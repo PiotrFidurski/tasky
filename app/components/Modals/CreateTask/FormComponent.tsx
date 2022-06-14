@@ -74,7 +74,7 @@ export function FormComponent({ draft }: FormComponentProps) {
         />
       </FieldWrapper>
       <button
-        className="border-2 w-full mb-2 border-black dark:border-gray-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
+        className="border-2 w-full mb-6 border-black dark:border-gray-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
         onClick={handleTaskDraftSubmit}
         type="button"
         name="task_draft"
@@ -89,7 +89,6 @@ export function FormComponent({ draft }: FormComponentProps) {
         >
           <InputField
             autoComplete="off"
-            disabled
             aria-label="date"
             name="date"
             id="date"
