@@ -1,14 +1,8 @@
+import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import {
-  Form,
-  useActionData,
-  useFetcher,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from 'remix';
+import { useFetcher, useNavigate, useParams, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -25,20 +19,30 @@ type FormComponentProps = {
 };
 
 export function FormComponent({ draft }: FormComponentProps) {
-  const fetcher = useFetcher();
+  const fetcher = useFetcher<ActionData & { success: boolean }>();
 
   const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
-  const actionData = useActionData<ActionData>();
-
   const { day } = useParams<'day'>();
 
-  const { fieldErrors } = useErrors(actionData);
+  const { fieldErrors } = useErrors(fetcher.data);
+
+  const handleTaskDraftSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    fetcher.submit(e.currentTarget, {
+      method: 'post',
+    });
+  };
+
+  useEffect(() => {
+    if (fetcher.data?.success) {
+      navigate(`/calendar/${day}/calendar`);
+    }
+  }, [fetcher.data, day]);
 
   return (
-    <Form method="post" className="w-full p-6">
+    <fetcher.Form method="post" className="w-full p-6">
       <FieldWrapper
         htmlFor="title"
         errorMessage={fieldErrors?.title || ''}
@@ -69,13 +73,9 @@ export function FormComponent({ draft }: FormComponentProps) {
           id="body"
         />
       </FieldWrapper>
-
       <button
         className="border-2 w-full mb-2 border-gray-500 outline-none rounded-md focus-within:border-2 focus-within:border-highlight focus-within:text-highlight transition-colors"
-        onClick={(e) => {
-          fetcher.submit(e.currentTarget, { method: 'post' });
-          navigate(`/calendar/${day}/calendar`);
-        }}
+        onClick={handleTaskDraftSubmit}
         type="button"
         name="task_draft"
         value="task_draft"
@@ -106,6 +106,6 @@ export function FormComponent({ draft }: FormComponentProps) {
           <span>Create task</span>
         </Button>
       </div>
-    </Form>
+    </fetcher.Form>
   );
 }
