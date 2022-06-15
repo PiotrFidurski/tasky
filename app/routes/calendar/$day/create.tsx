@@ -11,6 +11,7 @@ import { schema } from '~/validation/task';
 import { ActionFunction, LoaderFunction, useLoaderData } from 'remix';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
+import { CREATE_DRAFT, DESTROY_DRAFT } from '~/components/Modals/actionTypes';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
@@ -36,8 +37,8 @@ export const action: ActionFunction = async ({ params, request }) => {
     const userId = await getAuthUserId(request);
     const form = await request.formData();
 
-    const destroyDraft = form.get('destroy_draft');
-    const taskDraft = form.get('task_draft');
+    const destroyDraft = form.get(DESTROY_DRAFT);
+    const taskDraft = form.get(CREATE_DRAFT);
 
     if (destroyDraft) {
       return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
