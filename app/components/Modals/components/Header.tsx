@@ -6,6 +6,8 @@ import { Form, useFetcher } from 'remix';
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
+import { DESTROY_DRAFT } from '../actionTypes';
+
 type HeaderProps = {
   children: ReactNode;
   srDescription?: string;
@@ -30,8 +32,8 @@ export function Header({
       <Dialog.Close asChild>
         <Button
           buttonType
-          name="destroy_draft"
-          value="destroy_draft"
+          name={DESTROY_DRAFT}
+          value={DESTROY_DRAFT}
           className="w-auto"
           isIconWrapper
           onClick={handleClick}

@@ -12,6 +12,8 @@ import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { formatDate } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
+import { CREATE_DRAFT } from '../actionTypes';
+
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
 type FormComponentProps = {
@@ -77,8 +79,8 @@ export function FormComponent({ draft }: FormComponentProps) {
         className="border-2 w-full mb-6 border-black dark:border-gray-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
         onClick={handleTaskDraftSubmit}
         type="button"
-        name="task_draft"
-        value="task_draft"
+        name={CREATE_DRAFT}
+        value={CREATE_DRAFT}
       >
         <FieldWrapper
           labelName="Date"
