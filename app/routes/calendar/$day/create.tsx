@@ -1,3 +1,4 @@
+import { isValid } from 'date-fns';
 import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
 import { getAuthUserId } from '~/session/session.server';
@@ -56,7 +57,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       body,
       title,
       userId,
-      scheduledFor: date ?? '',
+      scheduledFor: date,
     });
     return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
   } catch (error) {
