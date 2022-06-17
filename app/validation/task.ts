@@ -1,3 +1,4 @@
+import { isValid } from 'date-fns';
 import * as z from 'zod';
 import { zfd } from 'zod-form-data';
 
@@ -20,5 +21,11 @@ export const schema = zfd.formData({
       .string({ required_error: 'Task title is required.' })
       .min(3, 'Title should be at least 3 characters long.')
   ),
-  date: zfd.text().optional(),
+  date: zfd.text(
+    z
+      .string({ required_error: 'Date is required.' })
+      .refine((val) => isValid(new Date(val)), {
+        message: 'date must be yyyy-MM-dd format.',
+      })
+  ),
 });
