@@ -24,7 +24,7 @@ export const schema = zfd.formData({
   date: zfd.text(
     z
       .string({ required_error: 'Date is required.' })
-      .refine((val) => isValid(new Date(val)), {
+      .refine((val) => isValid(val), {
         message: 'date must be yyyy-MM-dd format.',
       })
   ),

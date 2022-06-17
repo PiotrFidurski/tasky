@@ -14,6 +14,7 @@ import { CreateTask } from '~/components/Modals/CreateTask';
 import { CREATE_DRAFT, DESTROY_DRAFT } from '~/components/Modals/actionTypes';
 
 import { badRequest } from '~/utils/badRequest';
+import { formatDate } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
 type LoaderData = {
@@ -56,7 +57,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       body,
       title,
       userId,
-      scheduledFor: date,
+      scheduledFor: formatDate(new Date(date)),
     });
     return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
   } catch (error) {
