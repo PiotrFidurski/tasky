@@ -35,13 +35,14 @@ export function FormComponent({ draft }: FormComponentProps) {
     fetcher.submit(e.currentTarget, {
       method: 'post',
     });
+    navigate(`/calendar/${day}/calendar`);
   };
 
   useEffect(() => {
-    if (fetcher.data?.success) {
-      navigate(`/calendar/${day}/calendar`);
-    }
-  }, [fetcher.data, day]);
+    // if (fetcher.data?.success) {
+    //   navigate(`/calendar/${day}/calendar`);
+    // }
+  }, [fetcher.data]);
 
   return (
     <fetcher.Form method="post" className="w-full p-6">
@@ -85,9 +86,9 @@ export function FormComponent({ draft }: FormComponentProps) {
         <FieldWrapper
           labelName="Date"
           htmlFor="date"
-          errorMessage=""
           className="mb-0 outline-none border-none"
           icon={<CalendarIcon />}
+          errorMessage={fieldErrors?.date || ''}
         >
           <InputField
             autoComplete="off"
