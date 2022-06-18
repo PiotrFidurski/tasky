@@ -99,7 +99,7 @@ export default function DayRoute() {
     <>
       <ContentLayout>
         <CalendarLayout>
-          {/* <Calendar data={calendarData} stats={stats} /> */}
+          <Calendar data={calendarData} stats={stats} />
         </CalendarLayout>
         <ColumnLayout aria-label={day}>
           <DayTasksList

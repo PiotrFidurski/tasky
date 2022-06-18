@@ -6,7 +6,7 @@ import {
   getTaskDraftSession,
   updateTaskDraftSession,
 } from '~/session/taskDraft.server';
-import { schema } from '~/validation/task';
+import { dateSchema, schema } from '~/validation/task';
 
 import { ActionFunction, LoaderFunction, useLoaderData } from 'remix';
 
@@ -45,7 +45,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
     }
 
-    const { body, title, date } = schema.parse(form);
+    const { body, title } = schema.parse(form);
 
     if (taskDraft) {
       return await updateTaskDraftSession(request, {
@@ -53,6 +53,9 @@ export const action: ActionFunction = async ({ params, request }) => {
         body,
       });
     }
+
+    const { date } = dateSchema.parse(form);
+
     await createTask({
       body,
       title,

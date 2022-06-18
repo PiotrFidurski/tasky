@@ -21,10 +21,13 @@ export const schema = zfd.formData({
       .string({ required_error: 'Task title is required.' })
       .min(3, 'Title should be at least 3 characters long.')
   ),
+});
+
+export const dateSchema = zfd.formData({
   date: zfd.text(
     z
       .string({ required_error: 'Date is required.' })
-      .refine((val) => isValid(val), {
+      .refine((val) => isValid(new Date(val)), {
         message: 'date must be yyyy-MM-dd format.',
       })
   ),
