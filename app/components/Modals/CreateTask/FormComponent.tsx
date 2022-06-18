@@ -1,3 +1,4 @@
+import { isValid } from 'date-fns';
 import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
@@ -25,6 +26,8 @@ export function FormComponent({ draft }: FormComponentProps) {
 
   const [searchParams] = useSearchParams();
 
+  const selectedDate = searchParams.get('selectedDate') ?? formatDate();
+
   const navigate = useNavigate();
 
   const { day } = useParams<'day'>();
@@ -35,14 +38,13 @@ export function FormComponent({ draft }: FormComponentProps) {
     fetcher.submit(e.currentTarget, {
       method: 'post',
     });
-    navigate(`/calendar/${day}/calendar`);
   };
 
   useEffect(() => {
-    // if (fetcher.data?.success) {
-    //   navigate(`/calendar/${day}/calendar`);
-    // }
-  }, [fetcher.data]);
+    if (fetcher.data?.success) {
+      navigate(`/calendar/${day}/calendar`);
+    }
+  }, [fetcher.data, day]);
 
   return (
     <fetcher.Form method="post" className="w-full p-6">
@@ -95,7 +97,9 @@ export function FormComponent({ draft }: FormComponentProps) {
             aria-label="date"
             name="date"
             id="date"
-            defaultValue={searchParams.get('selectedDate') ?? formatDate()}
+            defaultValue={
+              isValid(new Date(selectedDate)) ? selectedDate : formatDate()
+            }
           />
         </FieldWrapper>
       </button>
