@@ -1,4 +1,4 @@
-import { isValid } from 'date-fns';
+import { isMatch, isValid } from 'date-fns';
 import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
@@ -45,7 +45,6 @@ export function FormComponent({ draft }: FormComponentProps) {
       navigate(`/calendar/${day}/calendar`);
     }
   }, [fetcher.data, day]);
-
   return (
     <fetcher.Form method="post" className="w-full p-6">
       <FieldWrapper
@@ -98,7 +97,10 @@ export function FormComponent({ draft }: FormComponentProps) {
             name="date"
             id="date"
             defaultValue={
-              isValid(new Date(selectedDate)) ? selectedDate : formatDate()
+              isMatch(selectedDate, 'yyyy-MM-dd') &&
+              isValid(new Date(selectedDate))
+                ? selectedDate
+                : formatDate()
             }
           />
         </FieldWrapper>
