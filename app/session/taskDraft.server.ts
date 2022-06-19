@@ -2,19 +2,13 @@ import { Task } from '@prisma/client';
 
 import { createCookieSessionStorage, json, redirect } from 'remix';
 
-if (!process.env.TASK_DRAFT_SECRET) {
-  throw new Error(
-    'TASK_DRAFT_SECRET must be set in your environment variables.'
-  );
-}
-
 const taskDraftStorage = createCookieSessionStorage({
   cookie: {
     name: 'task_draft',
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
-    secrets: [process.env.TASK_DRAFT_SECRET],
+    secrets: [process.env.TASK_DRAFT_SECRET || 'secret'],
     secure: process.env.NODE_ENV === 'production',
   },
 });
