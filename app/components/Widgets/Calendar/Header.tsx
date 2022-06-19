@@ -1,12 +1,10 @@
 import clsx from 'clsx';
-import { isToday } from 'date-fns';
+import { format, isToday } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
-
-import { getCalendarHeader } from '~/utils/date';
 
 type HeaderProps = {
   date: Date;
@@ -15,7 +13,7 @@ type HeaderProps = {
 };
 
 export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
-  const headerContent = getCalendarHeader(date);
+  const headerContent = format(date, 'dd MMMM, yyyy');
 
   return (
     <header className="flex items-center justify-between w-full">

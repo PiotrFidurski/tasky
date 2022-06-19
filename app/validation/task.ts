@@ -1,6 +1,7 @@
-import { isValid } from 'date-fns';
 import * as z from 'zod';
 import { zfd } from 'zod-form-data';
+
+import { isValidDateFormat } from '~/utils/date';
 
 export const ZodTaskErrors = z.object({
   errors: z.object({
@@ -27,7 +28,7 @@ export const dateSchema = zfd.formData({
   date: zfd.text(
     z
       .string({ required_error: 'Date is required.' })
-      .refine((val) => isValid(new Date(val)), {
+      .refine((val) => isValidDateFormat(val), {
         message: 'date must be yyyy-MM-dd format.',
       })
   ),

@@ -2,12 +2,17 @@ import {
   addDays,
   format,
   isBefore,
+  isMatch,
   isSameMonth,
   isToday,
+  isValid,
   parseISO,
   startOfWeek,
 } from 'date-fns';
 
+const DATE_FORMAT = 'yyyy-MM-dd';
+
+// todo: delete this junk
 export function getCalendarDayHelpers(day: string, date: Date) {
   const currentDate = new Date(day);
 
@@ -22,12 +27,14 @@ export function getCalendarDayHelpers(day: string, date: Date) {
   return { dayOfMonth, isTodaysDate, isDateBeforeToday, isInThisMonth };
 }
 
-export function getCalendarHeader(date: Date) {
-  return format(date, 'dd MMMM, yyyy');
+// todo: remove this use format in components, import DATE_FORMAT only
+// or rename to something better
+export function formatDate(date: Date = new Date()) {
+  return format(date, DATE_FORMAT);
 }
 
-export function formatDate(date: Date = new Date()) {
-  return format(date, 'yyyy-MM-dd');
+export function isValidDateFormat(date: string) {
+  return isValid(new Date(date)) && isMatch(date, DATE_FORMAT);
 }
 
 type CalendarDataProps = {
