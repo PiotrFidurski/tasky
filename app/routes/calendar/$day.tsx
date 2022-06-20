@@ -123,7 +123,7 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   return (
-    <ContentLayout className="   ">
+    <ContentLayout>
       <h1>Caught</h1>
       <p>Status: {caught.status}</p>
       <p>Status: {caught.statusText}</p>

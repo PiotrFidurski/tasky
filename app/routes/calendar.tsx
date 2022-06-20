@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { requireUserId } from '~/session/auth.server';
 
 import { LoaderFunction, Outlet, redirect } from 'remix';
@@ -12,13 +13,13 @@ import {
   SidebarLayout,
 } from '~/components/layout';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   await requireUserId(request);
 
   if (!params.day) {
-    const today = formatDate();
+    const today = format(new Date(), DATE_FORMAT);
     return redirect(`/calendar/${today}`);
   }
 
