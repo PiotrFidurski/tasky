@@ -1,10 +1,11 @@
 import clsx from 'clsx';
+import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
 
 import { useNavigate, useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 
-import { formatDate, getCalendarDayHelpers } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 
 type DayButtonProps = {
   day: string;
@@ -12,8 +13,9 @@ type DayButtonProps = {
 };
 
 export function DayButton({ day, date }: DayButtonProps) {
-  const { isTodaysDate, dayOfMonth, isDateBeforeToday, isInThisMonth } =
-    getCalendarDayHelpers(day, date);
+  const currentDate = new Date(day);
+
+  const dayOfMonth = format(currentDate, 'dd');
 
   const params = useParams<'day'>();
 
@@ -28,13 +30,15 @@ export function DayButton({ day, date }: DayButtonProps) {
   return (
     <Button
       isIconWrapper
-      value={formatDate(new Date(day))}
+      value={format(new Date(day), DATE_FORMAT)}
       onClick={handleClick}
       className={clsx(
         'w-10 h-10 mb-2 justify-center',
-        isDateBeforeToday && !isTodaysDate && '',
-        !isInThisMonth && '',
-        isTodaysDate && !isActive && 'ring-2 ring-highlight text-highlight'
+        isBefore(currentDate, new Date()) && !isToday(parseISO(day)) && '',
+        !isSameMonth(currentDate, date) && '',
+        isToday(parseISO(day)) &&
+          !isActive &&
+          'ring-2 ring-highlight text-highlight'
       )}
     >
       {dayOfMonth}

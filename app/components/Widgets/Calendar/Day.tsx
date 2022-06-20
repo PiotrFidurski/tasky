@@ -1,10 +1,9 @@
 import clsx from 'clsx';
+import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
 
 import { useParams } from 'remix';
 
 import { CustomLink } from '~/components/Elements/CustomLink';
-
-import { getCalendarDayHelpers } from '~/utils/date';
 
 type DayProps = {
   day: string;
@@ -13,8 +12,9 @@ type DayProps = {
 };
 
 export function Day({ day, date, stats }: DayProps) {
-  const { isTodaysDate, dayOfMonth, isDateBeforeToday, isInThisMonth } =
-    getCalendarDayHelpers(day, date);
+  const currentDate = new Date(day);
+
+  const dayOfMonth = format(currentDate, 'dd');
 
   const params = useParams<'day'>();
 
@@ -28,9 +28,11 @@ export function Day({ day, date, stats }: DayProps) {
       to={`/${day}`}
       className={clsx(
         'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
-        isTodaysDate && !isActive && 'ring-2 ring-highlight text-highlight',
-        isDateBeforeToday && !isTodaysDate && '',
-        !isInThisMonth && ''
+        isToday(parseISO(day)) &&
+          !isActive &&
+          'ring-2 ring-highlight text-highlight',
+        isBefore(currentDate, new Date()) && !isToday(parseISO(day)) && '',
+        !isSameMonth(currentDate, date) && ''
       )}
     >
       {dayOfMonth}
