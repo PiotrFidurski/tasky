@@ -1,37 +1,6 @@
-import {
-  addDays,
-  format,
-  isBefore,
-  isMatch,
-  isSameMonth,
-  isToday,
-  isValid,
-  parseISO,
-  startOfWeek,
-} from 'date-fns';
+import { addDays, format, isMatch, isValid, startOfWeek } from 'date-fns';
 
-const DATE_FORMAT = 'yyyy-MM-dd';
-
-// todo: delete this junk
-export function getCalendarDayHelpers(day: string, date: Date) {
-  const currentDate = new Date(day);
-
-  const dayOfMonth = format(currentDate, 'dd');
-
-  const isTodaysDate = isToday(parseISO(day));
-
-  const isDateBeforeToday = isBefore(currentDate, new Date());
-
-  const isInThisMonth = isSameMonth(currentDate, date);
-
-  return { dayOfMonth, isTodaysDate, isDateBeforeToday, isInThisMonth };
-}
-
-// todo: remove this use format in components, import DATE_FORMAT only
-// or rename to something better
-export function formatDate(date: Date = new Date()) {
-  return format(date, DATE_FORMAT);
-}
+export const DATE_FORMAT = 'yyyy-MM-dd';
 
 export function isValidDateFormat(date: string) {
   return isValid(new Date(date)) && isMatch(date, DATE_FORMAT);
@@ -52,6 +21,19 @@ type CalendarDataProps = {
   weeksCount?: number;
 };
 
+function getStartOfWeek(
+  date: Date,
+  weekStartsOn: CalendarDataProps['weekStartsOn']
+) {
+  return startOfWeek(date, {
+    weekStartsOn,
+  });
+}
+
+function getWeekRows(weeksCount: CalendarDataProps['weeksCount']) {
+  return new Array(weeksCount).fill(null);
+}
+
 /**
  * Creates two-dimensional array, where first array consists of arrays for weeks,
  * each week containing Date objects for each day of the week.
@@ -63,25 +45,23 @@ export function getCalendarData({
   date,
   weeksCount = 18,
 }: CalendarDataProps) {
-  let startingDay = startOfWeek(date, {
-    weekStartsOn,
-  });
+  let startingDate = getStartOfWeek(date, weekStartsOn);
 
-  const weekRows = new Array(weeksCount).fill(null);
+  const weekRows = getWeekRows(weeksCount);
 
-  const calendarMatrix: Array<Array<string>> = [];
+  const calendarData: Array<Array<string>> = [];
 
   weekRows.forEach(() => {
     const week: Array<string> = [];
 
     [1, 2, 3, 4, 5, 6, 7].forEach(() => {
-      week.push(formatDate(startingDay));
+      week.push(format(startingDate, DATE_FORMAT));
 
-      startingDay = addDays(startingDay, 1);
+      startingDate = addDays(startingDate, 1);
     });
 
-    calendarMatrix.push(week);
+    calendarData.push(week);
   });
 
-  return calendarMatrix;
+  return calendarData;
 }
