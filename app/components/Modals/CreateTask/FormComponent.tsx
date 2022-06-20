@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
@@ -9,7 +10,7 @@ import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 
-import { formatDate, isValidDateFormat } from '~/utils/date';
+import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { CREATE_DRAFT } from '../actionTypes';
@@ -25,7 +26,8 @@ export function FormComponent({ draft }: FormComponentProps) {
 
   const [searchParams] = useSearchParams();
 
-  const selectedDate = searchParams.get('selectedDate') ?? formatDate();
+  const selectedDate =
+    searchParams.get('selectedDate') ?? format(new Date(), DATE_FORMAT);
 
   const navigate = useNavigate();
 
@@ -78,7 +80,7 @@ export function FormComponent({ draft }: FormComponentProps) {
         />
       </FieldWrapper>
       <button
-        className="border-2 w-full mb-6 border-black dark:border-gray-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
+        className="border-2 w-full mb-6 border-black dark:border-slate-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
         onClick={handleTaskDraftSubmit}
         type="button"
         name={CREATE_DRAFT}
@@ -97,7 +99,9 @@ export function FormComponent({ draft }: FormComponentProps) {
             name="date"
             id="date"
             defaultValue={
-              isValidDateFormat(selectedDate) ? selectedDate : formatDate()
+              isValidDateFormat(selectedDate)
+                ? selectedDate
+                : format(new Date(), DATE_FORMAT)
             }
           />
         </FieldWrapper>

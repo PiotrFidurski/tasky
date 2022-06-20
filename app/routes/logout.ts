@@ -1,8 +1,9 @@
+import { format } from 'date-fns';
 import { destroyUserSession } from '~/session/session.server';
 
 import { ActionFunction, LoaderFunction, redirect } from 'remix';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -13,5 +14,5 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const loader: LoaderFunction = () => {
-  return redirect(`/${formatDate()}`);
+  return redirect(`/${format(new Date(), DATE_FORMAT)}`);
 };

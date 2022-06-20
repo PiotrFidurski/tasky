@@ -26,7 +26,7 @@ export function CalendarModal() {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <Header srDescription="Date picker dialog">Choose day</Header>
+          <Header srDescription="Date picker dialog">Pick a date</Header>
           <Calendar startingDate={new Date()} stats={{}}>
             {({ date, day }) => <DayButton day={day} date={date} key={day} />}
           </Calendar>

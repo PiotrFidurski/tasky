@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
 
-import { useNavigate, useParams } from 'remix';
+import { useNavigate } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 
@@ -17,11 +17,7 @@ export function DayButton({ day, date }: DayButtonProps) {
 
   const dayOfMonth = format(currentDate, 'dd');
 
-  const params = useParams<'day'>();
-
   const navigate = useNavigate();
-
-  const isActive = day === params.day;
 
   const handleClick = (e: any) => {
     navigate(`/calendar/${day}/create?selectedDate=${e.target.value}`);
@@ -34,11 +30,12 @@ export function DayButton({ day, date }: DayButtonProps) {
       onClick={handleClick}
       className={clsx(
         'w-10 h-10 mb-2 justify-center',
-        isBefore(currentDate, new Date()) && !isToday(parseISO(day)) && '',
-        !isSameMonth(currentDate, date) && '',
-        isToday(parseISO(day)) &&
-          !isActive &&
-          'ring-2 ring-highlight text-highlight'
+        !isSameMonth(currentDate, date) && 'text-slate-800',
+        isBefore(currentDate, new Date()) &&
+          isSameMonth(currentDate, date) &&
+          !isToday(parseISO(day)) &&
+          'text-gray-500',
+        isToday(parseISO(day)) && 'text-highlight font-bold'
       )}
     >
       {dayOfMonth}

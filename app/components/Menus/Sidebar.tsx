@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { useParams } from 'remix';
 
 import { CustomLink } from '~/components/Elements/CustomLink';
@@ -7,12 +9,12 @@ import { HomeIcon } from '~/components/Icons/HomeIcon';
 import { PlusIcon } from '~/components/Icons/PlusIcon';
 import { UserMenu } from '~/components/SettingsMenu';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 
 export function Sidebar() {
   const { day } = useParams<'day'>();
 
-  const dayParam = !day ? formatDate() : day;
+  const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
   return (
     <div className="w-full flex flex-col items-start justify-between min-h-[calc(100vh-2rem)]">

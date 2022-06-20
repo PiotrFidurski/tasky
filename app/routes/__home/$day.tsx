@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { groupTasksByScheduledFor } from '~/models/task';
 import { requireUserId } from '~/session/auth.server';
 
@@ -16,7 +17,7 @@ import { Calendar } from '~/components/Widgets/Calendar';
 import { Day } from '~/components/Widgets/Calendar/Day';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 import { getDayStats, getTotalTasksCount } from '~/utils/getStats';
 
 type LoaderData = {
@@ -78,7 +79,7 @@ export function CatchBoundary() {
         <Button
           isIconWrapper
           className="w-auto"
-          onClick={() => navigate(`/${formatDate(new Date())}`)}
+          onClick={() => navigate(`/${format(new Date(), DATE_FORMAT)}`)}
         >
           <ArrowleftIcon />
         </Button>

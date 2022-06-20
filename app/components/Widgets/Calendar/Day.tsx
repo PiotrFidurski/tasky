@@ -28,11 +28,12 @@ export function Day({ day, date, stats }: DayProps) {
       to={`/${day}`}
       className={clsx(
         'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
-        isToday(parseISO(day)) &&
-          !isActive &&
-          'ring-2 ring-highlight text-highlight',
-        isBefore(currentDate, new Date()) && !isToday(parseISO(day)) && '',
-        !isSameMonth(currentDate, date) && ''
+        !isSameMonth(currentDate, date) && 'text-slate-800',
+        isBefore(currentDate, new Date()) &&
+          isSameMonth(currentDate, date) &&
+          !isToday(parseISO(day)) &&
+          'text-gray-500',
+        isToday(parseISO(day)) && 'text-highlight font-bold'
       )}
     >
       {dayOfMonth}
