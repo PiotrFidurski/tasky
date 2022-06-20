@@ -11,18 +11,18 @@ import { DESTROY_DRAFT } from '../actionTypes';
 type HeaderProps = {
   children: ReactNode;
   srDescription?: string;
-  destroyDraftOnClose?: boolean;
+  shouldSubmitOnClose?: boolean;
 };
 
 export function Header({
   children,
   srDescription = `${children} dialog`,
-  destroyDraftOnClose,
+  shouldSubmitOnClose,
 }: HeaderProps) {
   const fetcher = useFetcher();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (destroyDraftOnClose) {
+    if (shouldSubmitOnClose) {
       fetcher.submit(e.currentTarget, { method: 'post' });
     }
   };

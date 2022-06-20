@@ -29,7 +29,7 @@ export function CreateTask({ draft }: CreateTaskProps) {
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
           <Dialog.Content className={modalContent}>
-            <Header srDescription="Create task dialog" destroyDraftOnClose>
+            <Header srDescription="Create task dialog" shouldSubmitOnClose>
               Create task
             </Header>
             <FormComponent draft={draft} />
