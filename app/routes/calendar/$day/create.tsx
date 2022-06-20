@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
 import { getAuthUserId } from '~/session/session.server';
@@ -5,7 +6,7 @@ import {
   destroyTaskDraftSession,
   getTaskDraftSession,
   updateTaskDraftSession,
-} from '~/session/taskDraft.server';
+} from '~/session/taskdraft.server';
 import { dateSchema, schema } from '~/validation/task';
 
 import { ActionFunction, LoaderFunction, useLoaderData } from 'remix';
@@ -14,7 +15,7 @@ import { CreateTask } from '~/components/Modals/CreateTask';
 import { CREATE_DRAFT, DESTROY_DRAFT } from '~/components/Modals/actionTypes';
 
 import { badRequest } from '~/utils/badRequest';
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
 type LoaderData = {
@@ -60,7 +61,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       body,
       title,
       userId,
-      scheduledFor: formatDate(new Date(date)),
+      scheduledFor: format(new Date(date), DATE_FORMAT),
     });
     return await destroyTaskDraftSession(request, `/calendar/${params.day}`);
   } catch (error) {
