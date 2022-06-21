@@ -20,7 +20,9 @@ export function DayButton({ day, date }: DayButtonProps) {
   const navigate = useNavigate();
 
   const handleClick = (e: any) => {
-    navigate(`/calendar/${day}/create?selectedDate=${e.target.value}`);
+    navigate(`/calendar/${day}/create?selectedDate=${e.target.value}`, {
+      replace: true,
+    });
   };
 
   return (

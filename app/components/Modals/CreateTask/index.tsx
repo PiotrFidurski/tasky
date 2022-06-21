@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
-import { Form, useFetcher } from 'remix';
+import { Form, useFetcher, useNavigate } from 'remix';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
@@ -13,18 +13,17 @@ type CreateTaskProps = {
 
 export function CreateTask({ draft }: CreateTaskProps) {
   const fetcher = useFetcher();
-
-  const [open, setOpen] = useState(true);
+  const navigate = useNavigate();
 
   const handleOpenChange = () => {
     fetcher.submit({ destroy_draft: 'destroy_draft' }, { method: 'post' });
-
-    setOpen(false);
+    navigate(-1);
+    // setOpen(false);
   };
 
   return (
     <Form method="post">
-      <Dialog.Root open={open} onOpenChange={handleOpenChange}>
+      <Dialog.Root defaultOpen onOpenChange={handleOpenChange}>
         <Dialog.Trigger />
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
