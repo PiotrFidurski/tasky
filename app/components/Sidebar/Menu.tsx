@@ -80,7 +80,7 @@ export function Menu({
         </ul>
       </nav>
       <CustomLink
-        to={`/calendar/${dayParam}/create`}
+        to={`/${dayParam}/create`}
         aria-label="create task"
         className="flex justify-between p-3"
       >

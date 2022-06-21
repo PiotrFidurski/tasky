@@ -1,6 +1,6 @@
 import { Task } from '@prisma/client';
 
-import { createCookieSessionStorage, json, redirect } from 'remix';
+import { createCookieSessionStorage, json } from 'remix';
 
 const taskDraftStorage = createCookieSessionStorage({
   cookie: {
@@ -39,15 +39,15 @@ export async function updateTaskDraftSession(
   );
 }
 
-export async function destroyTaskDraftSession(
-  request: Request,
-  path: string = '/'
-) {
+export async function destroyTaskDraftSession(request: Request) {
   const session = await getTaskDraftSession(request);
 
-  return redirect(path, {
-    headers: {
-      'Set-Cookie': await taskDraftStorage.destroySession(session),
-    },
-  });
+  return json(
+    { success: true },
+    {
+      headers: {
+        'Set-Cookie': await taskDraftStorage.destroySession(session),
+      },
+    }
+  );
 }

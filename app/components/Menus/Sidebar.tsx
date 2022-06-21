@@ -46,7 +46,7 @@ export function Sidebar() {
       <div className="w-auto lg:w-full">
         <CustomLink
           aria-label="create task"
-          to={`/calendar/${dayParam}/create`}
+          to={`/${dayParam}/create`}
           className="flex items-center lg:justify-between p-4 rounded-full font-semibold uppercase"
         >
           <span className="sr-only lg:not-sr-only">Create task</span>

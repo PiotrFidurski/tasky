@@ -43,7 +43,7 @@ export function FormComponent({ draft }: FormComponentProps) {
 
   useEffect(() => {
     if (fetcher.data?.success) {
-      navigate(`/calendar/${day}/calendar`);
+      navigate(`/${day}/calendar`);
     }
   }, [fetcher.data, day]);
 
