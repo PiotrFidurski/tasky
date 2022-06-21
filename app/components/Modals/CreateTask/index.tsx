@@ -14,16 +14,17 @@ type CreateTaskProps = {
 export function CreateTask({ draft }: CreateTaskProps) {
   const fetcher = useFetcher();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(true);
 
   const handleOpenChange = () => {
     fetcher.submit({ destroy_draft: 'destroy_draft' }, { method: 'post' });
-    navigate(-1);
-    // setOpen(false);
+    navigate(-2);
+    setOpen(false);
   };
 
   return (
     <Form method="post">
-      <Dialog.Root defaultOpen onOpenChange={handleOpenChange}>
+      <Dialog.Root open={open} onOpenChange={handleOpenChange}>
         <Dialog.Trigger />
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
