@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
-import { Form, useFetcher, useNavigate } from 'remix';
+import { Form, useFetcher, useNavigate, useSearchParams } from 'remix';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
@@ -13,12 +13,18 @@ type CreateTaskProps = {
 
 export function CreateTask({ draft }: CreateTaskProps) {
   const fetcher = useFetcher();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
   const [open, setOpen] = useState(true);
 
   const handleOpenChange = () => {
     fetcher.submit({ destroy_draft: 'destroy_draft' }, { method: 'post' });
+    if (searchParams.get('selectedDate')) {
+      navigate(-3);
+    }
     navigate(-2);
+
     setOpen(false);
   };
 

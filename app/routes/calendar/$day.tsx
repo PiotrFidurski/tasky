@@ -1,5 +1,4 @@
 import { Task } from '@prisma/client';
-import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
 import { action } from '~/actions/task.server';
 import {
@@ -28,7 +27,7 @@ import {
 } from '~/components/layout';
 
 import { badRequest } from '~/utils/badRequest';
-import { getCalendarData } from '~/utils/date';
+import { getCalendarData, isValidDateFormat } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 import { getDayStats } from '~/utils/getStats';
 
@@ -47,7 +46,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       .string({ invalid_type_error: 'expected a string.' })
       .parse(params.day);
 
-    if (!isValid(new Date(day))) {
+    if (!isValidDateFormat(day)) {
       throw badRequest(
         'No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".',
         404

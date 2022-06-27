@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
 
-import { useNavigate } from 'remix';
+import { useNavigate, useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 
@@ -15,14 +15,14 @@ type DayButtonProps = {
 export function DayButton({ day, date }: DayButtonProps) {
   const currentDate = new Date(day);
 
+  const params = useParams<'day'>();
+
   const dayOfMonth = format(currentDate, 'dd');
 
   const navigate = useNavigate();
 
   const handleClick = (e: any) => {
-    navigate(`/${day}/create?selectedDate=${e.target.value}`, {
-      replace: true,
-    });
+    navigate(`/${params.day}/create?selectedDate=${e.target.value}`);
   };
 
   return (
