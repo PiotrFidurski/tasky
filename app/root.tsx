@@ -25,7 +25,23 @@ import { getThemeSession } from './session/theme.server';
 import styles from './styles/app.css';
 
 export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [
+    { rel: 'stylesheet', href: styles },
+    {
+      rel: 'preload',
+      as: 'font',
+      href: '/fonts/Montserrat/Montserrat-Medium.woff2',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'preload',
+      as: 'font',
+      href: '/fonts/Montserrat/Montserrat-Medium.woff',
+      type: 'font/woff',
+      crossOrigin: 'anonymous',
+    },
+  ];
 }
 
 export const meta: MetaFunction = () => {
