@@ -2,23 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .bg-conic-gradient {
-    background: conic-gradient(
-      #f3f3f4,
-      #f3f3f4,
-      #00e5b0,
-      #00e5b0,
-      #00e5b0,
-      #00e5b0,
-      #00e5b0
-    );
-  }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:focus-visible {
+  outline: none;
+  border: 0;
+  outline-width: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  transition: background-color 5000s ease-in-out 0s;
+  color: black;
+}
 
+@media (prefers-color-scheme: dark) {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:focus-visible {
+    color: #f2faff;
+  }
+}
+
+@layer utilities {
   .circle-progress {
-    stroke: #00e5b0;
+    stroke: #00b7fc;
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+
+  .text-fill-transparent {
+    -webkit-text-fill-color: transparent;
   }
 }

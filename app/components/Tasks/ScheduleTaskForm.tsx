@@ -1,8 +1,9 @@
+import { format } from 'date-fns';
 import { actionTypes } from '~/actions/actionTypes';
 
 import { useParams } from 'remix';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 
 import { Button } from '../Elements/Button';
 import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
@@ -17,7 +18,11 @@ export function ScheduleTaskForm({
   return (
     <fetcher.Form method="post">
       <input name="_action" value={actionTypes.SCHEDULE_TASK} type="hidden" />
-      <input name="date" value={!day ? formatDate() : day} type="hidden" />
+      <input
+        name="date"
+        value={!day ? format(new Date(), DATE_FORMAT) : day}
+        type="hidden"
+      />
       <input name="id" value={task.id} type="hidden" />
       <Button type="submit" aria-label="schedule task">
         {/* arrow icon */}

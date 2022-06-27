@@ -3,11 +3,7 @@ import * as React from 'react';
 type LayoutProps = React.HTMLAttributes<HTMLDivElement | HTMLElement>;
 
 export function RootLayout({ children }: LayoutProps) {
-  return (
-    <div className="w-full h-full dark:text-custom__ghostly relative flex">
-      {children}
-    </div>
-  );
+  return <div className="w-full h-full relative flex">{children}</div>;
 }
 
 export function MainLayout({ children }: LayoutProps) {
@@ -32,7 +28,7 @@ export function MobileNavLayout({ children }: LayoutProps) {
 
 export function CalendarLayout({ children }: LayoutProps) {
   return (
-    <div className="w-full border dark:border-custom__gray max-h-[calc(100vh-3rem)] h-full overflow-auto">
+    <div className="w-full border max-h-[calc(100vh-3rem)] h-full overflow-auto">
       {children}
     </div>
   );

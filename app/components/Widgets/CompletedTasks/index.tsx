@@ -15,7 +15,7 @@ export function CompletedTasks({
   percentage,
 }: CompletedTasksProps) {
   return (
-    <div className="w-full max-w-sm rounded-2xl dark:bg-slate-900 bg-light text-darkGray dark:text-lightGray z-10">
+    <div className="w-full max-w-sm rounded-2xl dark:bg-slate-900 bg-light z-10">
       <div
         style={{ boxShadow: '0px 1px 0px 0px #20283c' }}
         className="flex items-center justify-between w-full p-8"

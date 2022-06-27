@@ -19,8 +19,8 @@ export function Weeks({
           // eslint-disable-next-line react/no-array-index-key
           key={index}
           className={clsx(
-            isFirstRow(index) ? 'border-t dark:border-custom__gray' : null,
-            isLastRow(index) ? 'border-b dark:border-custom__gray' : null,
+            isFirstRow(index) ? 'border-t' : null,
+            isLastRow(index) ? 'border-b' : null,
             'grid grid-cols-[repeat(7,minmax(auto,1fr))]'
           )}
         >

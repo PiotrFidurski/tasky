@@ -27,12 +27,9 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
       </DropdownTrigger>
       <DropdownMenu.Content
         loop
-        className="rounded-lg min-w-[15rem] border bg-white dark:bg-custom__bluedark transition-colors dark:border-custom__gray"
+        className="rounded-lg min-w-[15rem] border bg-white transition-colors"
       >
-        <DropdownMenu.Arrow
-          className="fill-custom__ghostly dark:fill-custom__gray"
-          offset={20}
-        />
+        <DropdownMenu.Arrow className="fill-white" offset={20} />
         {user?.id === task.userId ? (
           <DeleteTaskForm userId={user.id} taskId={task.id} />
         ) : null}

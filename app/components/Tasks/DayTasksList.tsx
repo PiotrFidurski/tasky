@@ -26,7 +26,7 @@ export function DayTasksList({
   return (
     <>
       <div className="min-h-[4rem] items-center flex mb-2">
-        <h2 className="font-bold text-custom__gray text-xl dark:text-custom__ghostly">
+        <h2 className="font-bold text-xl">
           {format(new Date(day as string), 'iiii MMM, yyyy')}
         </h2>
       </div>

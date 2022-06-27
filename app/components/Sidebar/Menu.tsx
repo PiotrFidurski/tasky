@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
@@ -10,7 +12,7 @@ import { HomeIcon } from '~/components/Icons/HomeIcon';
 import { PlusIcon } from '~/components/Icons/PlusIcon';
 import { UserMenu } from '~/components/SettingsMenu';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 
 type MenuProps = {
   visible: boolean;
@@ -25,15 +27,11 @@ export function Menu({
 }: MenuProps) {
   const { day } = useParams<'day'>();
 
-  const dayParam = !day ? formatDate() : day;
+  const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
   return (
     <>
-      <nav
-        aria-label="sidebar"
-        id="sidebar"
-        className="text-darkGray dark:text-lightGray"
-      >
+      <nav aria-label="sidebar" id="sidebar">
         <div className="flex items-center p-4">
           <h2 className="w-full">Menu</h2>
           {isMobile ? (
@@ -82,7 +80,7 @@ export function Menu({
         </ul>
       </nav>
       <CustomLink
-        to={`/calendar/${dayParam}/create`}
+        to={`/${dayParam}/create`}
         aria-label="create task"
         className="flex justify-between p-3"
       >

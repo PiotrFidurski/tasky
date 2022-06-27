@@ -17,10 +17,8 @@ export const DropdownTrigger = forwardRef<
       asChild
       ref={ref}
       className={clsx(
-        `p-1 dark:text-custom__ghostly rounded-full hover:bg-custom__hoverlight
-       dark:hover:bg-custom__hoverdark active:outline-custom__hoverlight 
-         focus:outline-2 focus:outline-offset-4 focus:outline-custom__gray
-       focus:dark:outline-custom__ghostly`,
+        `p-1 rounded-full
+         focus:outline-2 focus:outline-offset-4`,
         className
       )}
       {...triggerProps}

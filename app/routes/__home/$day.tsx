@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { groupTasksByScheduledFor } from '~/models/task';
 import { requireUserId } from '~/session/auth.server';
 
@@ -13,9 +14,10 @@ import {
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
+import { Day } from '~/components/Widgets/Calendar/Day';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 import { getDayStats, getTotalTasksCount } from '~/utils/getStats';
 
 type LoaderData = {
@@ -32,7 +34,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const { completed, total } = getTotalTasksCount(groupedTasks);
 
-  const percentage = Number(((completed / total) * 100).toFixed());
+  const percentage = ((completed / total) * 100).toFixed();
 
   const stats = getDayStats(groupedTasks);
 
@@ -40,7 +42,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     stats,
     completed,
     total,
-    percentage,
+    percentage: !Number.isNaN(Number(percentage)) ? Number(percentage) : 0,
   };
 
   return json(data, { status: 200 });
@@ -51,7 +53,11 @@ export default function DayRoute() {
 
   return (
     <div>
-      <Calendar startingDate={new Date()} stats={stats} />
+      <Calendar startingDate={new Date()} stats={stats}>
+        {({ day, date }) => (
+          <Day stats={stats} day={day} key={day} date={date} />
+        )}
+      </Calendar>
       <CompletedTasks
         total={total}
         completed={completed}
@@ -68,12 +74,12 @@ export function CatchBoundary() {
   const navigate = useNavigate();
 
   return (
-    <div className="dark:text-custom__ghostly text-custom__gray mt-12 p-4 bg-red-400 rounded-md">
+    <div className="mt-12 p-4 bg-red-400 rounded-md">
       <div className="flex items-center mb-4">
         <Button
           isIconWrapper
           className="w-auto"
-          onClick={() => navigate(`/${formatDate(new Date())}`)}
+          onClick={() => navigate(`/${format(new Date(), DATE_FORMAT)}`)}
         >
           <ArrowleftIcon />
         </Button>

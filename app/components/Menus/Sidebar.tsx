@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { useParams } from 'remix';
 
 import { CustomLink } from '~/components/Elements/CustomLink';
@@ -7,17 +9,17 @@ import { HomeIcon } from '~/components/Icons/HomeIcon';
 import { PlusIcon } from '~/components/Icons/PlusIcon';
 import { UserMenu } from '~/components/SettingsMenu';
 
-import { formatDate } from '~/utils/date';
+import { DATE_FORMAT } from '~/utils/date';
 
 export function Sidebar() {
   const { day } = useParams<'day'>();
 
-  const dayParam = !day ? formatDate() : day;
+  const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
   return (
     <div className="w-full flex flex-col items-start justify-between min-h-[calc(100vh-2rem)]">
       <div className="w-full">
-        <div className="flex lg:justify-end w-full p-2 mb-10 text-custom__gray dark:text-custom__ghostly">
+        <div className="flex lg:justify-end w-full p-2 mb-10">
           <UserMenu />
         </div>
         <nav>
@@ -44,7 +46,7 @@ export function Sidebar() {
       <div className="w-auto lg:w-full">
         <CustomLink
           aria-label="create task"
-          to={`/calendar/${dayParam}/create`}
+          to={`/${dayParam}/create`}
           className="flex items-center lg:justify-between p-4 rounded-full font-semibold uppercase"
         >
           <span className="sr-only lg:not-sr-only">Create task</span>

@@ -76,7 +76,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-white dark:bg-custom__bluedark h-screen overflow-x-hidden">
+      <body className="bg-white dark:bg-dark h-screen overflow-x-hidden dark:text-white">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -104,7 +104,7 @@ export function CatchBoundary() {
   const caught = useCatch();
 
   return (
-    <div className="dark:text-custom__ghostly text-custom__gray">
+    <div>
       <h1>Caught</h1>
       <p>Status: {caught.status}</p>
       <p>Status: {caught.statusText}</p>

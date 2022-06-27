@@ -33,12 +33,10 @@ export function Day({
       aria-label={day}
       to={`/calendar/${day}`}
       className={clsx(
-        'relative flex flex-col justify-center items-center min-h-[4rem] p-2 border-r dark:border-custom__gray',
-        day === params.day
-          ? 'bg-custom__hoverlight dark:bg-custom__hoverdark'
-          : null,
+        'relative flex flex-col justify-center items-center min-h-[4rem] p-2 border-r',
+        day === params.day ? '' : null,
         isToday(parseISO(day))
-          ? 'before:content-["TODAY"] before:absolute before:top-1 before:text-gray-400 before:dark:text-gray-600 before:font-semibold'
+          ? 'before:content-["TODAY"] before:absolute before:top-1 before:font-semibold'
           : null
       )}
     >
@@ -56,16 +54,12 @@ export function Day({
         </div>
       ) : null}
       {isFirstDayOfMonth(date) ? (
-        <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
-          {monthName}
-        </span>
+        <span className="text-xs font-bold">{monthName}</span>
       ) : null}
       {isThisYear(date) ? (
-        <span className="font-semibold text-custom__gray dark:text-custom__ghostly">
-          {dayOfMonth}
-        </span>
+        <span className="font-semibold">{dayOfMonth}</span>
       ) : (
-        <span className="text-gray-300">{dayOfMonth}</span>
+        <span className=" ">{dayOfMonth}</span>
       )}
     </Link>
   );

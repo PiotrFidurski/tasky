@@ -1,0 +1,2 @@
+export const CREATE_DRAFT = 'CREATE_DRAFT';
+export const DESTROY_DRAFT = 'DESTROY_DRAFT';

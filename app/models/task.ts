@@ -1,3 +1,4 @@
+import { Task } from '@prisma/client';
 import { db } from '~/db/db.server';
 
 export function getManyTasks() {
@@ -35,10 +36,19 @@ export function groupTasksByScheduledFor(userId: string) {
   });
 }
 
-export function createTask(body: string, userId: string) {
+type CreateTaskProps = Pick<Task, 'body' | 'title' | 'userId' | 'scheduledFor'>;
+
+export function createTask({
+  body,
+  title,
+  userId,
+  scheduledFor,
+}: CreateTaskProps) {
   return db.task.create({
     data: {
       body,
+      title,
+      scheduledFor,
       userId,
     },
   });

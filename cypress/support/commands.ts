@@ -31,7 +31,7 @@ Cypress.Commands.add('login', () => {
 
   cy.request({
     url: '/login',
-    method: 'POST',
+    method: 'GET',
     form: true,
     body: { username, password },
   }).then(() => {
