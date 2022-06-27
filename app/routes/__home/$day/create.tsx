@@ -34,11 +34,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   return data;
 };
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ params, request }) => {
   try {
     const userId = await getAuthUserId(request);
     const form = await request.formData();
-
     const destroyDraft = form.get(DESTROY_DRAFT);
     const taskDraft = form.get(CREATE_DRAFT);
 
@@ -63,7 +62,8 @@ export const action: ActionFunction = async ({ request }) => {
       userId,
       scheduledFor: format(new Date(date), DATE_FORMAT),
     });
-    return await destroyTaskDraftSession(request);
+
+    return await destroyTaskDraftSession(request, true, `/${params.day}`);
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.flatten();
