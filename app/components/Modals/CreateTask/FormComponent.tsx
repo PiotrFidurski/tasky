@@ -90,6 +90,8 @@ export function FormComponent({ draft }: FormComponentProps) {
       </button>
       <div className="flex justify-end">
         <Button
+          value="_create"
+          name="_create"
           className="rounded-full w-auto font-bold px-4 py-2 justify-center border-2 bg-highlight"
           primary
         >

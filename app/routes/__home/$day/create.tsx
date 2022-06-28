@@ -42,6 +42,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     const destroyDraft = form.get(DESTROY_DRAFT);
     const taskDraft = form.get(CREATE_DRAFT);
+    const createAction = form.get('_create');
 
     const path = `/${params.day}`;
 
@@ -58,14 +59,19 @@ export const action: ActionFunction = async ({ params, request }) => {
       });
     }
 
-    // const { date } = dateSchema.parse(form);
+    if (createAction) {
+      const { body, title } = schema.parse(form);
+      const { date } = dateSchema.parse(form);
 
-    // await createTask({
-    //   body,
-    //   title,
-    //   userId,
-    //   scheduledFor: format(new Date(date), DATE_FORMAT),
-    // });
+      await createTask({
+        body,
+        title,
+        userId,
+        scheduledFor: format(new Date(date), DATE_FORMAT),
+      });
+
+      return await destroyDraftWithRedirect({ request, redirectTo: path });
+    }
 
     return await destroyDraftWithRedirect({ request, redirectTo: path });
   } catch (error) {
