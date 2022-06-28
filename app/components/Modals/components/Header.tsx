@@ -12,14 +12,12 @@ type HeaderProps = {
   children: ReactNode;
   srDescription?: string;
   shouldSubmitOnClose?: boolean;
-  onOpenChange?: () => void;
 };
 
 export function Header({
   children,
   srDescription = `${children} dialog`,
   shouldSubmitOnClose,
-  onOpenChange,
 }: HeaderProps) {
   return (
     <Form method="post" className="w-full flex p-2 max-w-full items-center">
@@ -30,13 +28,7 @@ export function Header({
         className="w-auto"
         isIconWrapper
       >
-        <Dialog.Close
-          asChild
-          onClick={(e) => {
-            e.preventDefault();
-            onOpenChange?.();
-          }}
-        >
+        <Dialog.Close asChild>
           <ArrowleftIcon />
         </Dialog.Close>
       </Button>

@@ -1,5 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { useState } from 'react';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
@@ -10,23 +9,13 @@ type CreateTaskProps = {
 };
 
 export function CreateTask({ draft }: CreateTaskProps) {
-  const [open, setOpen] = useState(true);
-
-  const handleOpenChange = () => {
-    setOpen(false);
-  };
-
   return (
-    <Dialog.Root open={open} onOpenChange={handleOpenChange}>
+    <Dialog.Root defaultOpen>
       <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <Header
-            srDescription="Create task dialog"
-            shouldSubmitOnClose
-            onOpenChange={handleOpenChange}
-          >
+          <Header srDescription="Create task dialog" shouldSubmitOnClose>
             Create task
           </Header>
           <FormComponent draft={draft} />
