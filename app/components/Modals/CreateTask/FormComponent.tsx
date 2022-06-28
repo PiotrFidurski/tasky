@@ -1,9 +1,8 @@
 import { format } from 'date-fns';
-import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { useFetcher, useNavigate, useParams, useSearchParams } from 'remix';
+import { Form, useFetcher, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -29,26 +28,10 @@ export function FormComponent({ draft }: FormComponentProps) {
   const selectedDate =
     searchParams.get('selectedDate') ?? format(new Date(), DATE_FORMAT);
 
-  const navigate = useNavigate();
-
-  const { day } = useParams<'day'>();
-
   const { fieldErrors } = useErrors(fetcher.data);
 
-  const handleTaskDraftSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    fetcher.submit(e.currentTarget, {
-      method: 'post',
-    });
-  };
-
-  useEffect(() => {
-    if (fetcher.data?.success) {
-      navigate(`/${day}/calendar`);
-    }
-  }, [fetcher.data, day]);
-
   return (
-    <fetcher.Form method="post" className="w-full p-6">
+    <Form method="post" className="w-full p-6">
       <FieldWrapper
         htmlFor="title"
         errorMessage={fieldErrors?.title || ''}
@@ -81,10 +64,9 @@ export function FormComponent({ draft }: FormComponentProps) {
       </FieldWrapper>
       <button
         className="border-2 w-full mb-6 border-black dark:border-slate-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
-        onClick={handleTaskDraftSubmit}
-        type="button"
         name={CREATE_DRAFT}
         value={CREATE_DRAFT}
+        type="submit"
       >
         <FieldWrapper
           labelName="Date"
@@ -114,6 +96,6 @@ export function FormComponent({ draft }: FormComponentProps) {
           <span>Create task</span>
         </Button>
       </div>
-    </fetcher.Form>
+    </Form>
   );
 }

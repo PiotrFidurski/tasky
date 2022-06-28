@@ -36,10 +36,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ params, request }) => {
   try {
-    const clonedRequest = request.clone();
     const userId = await getAuthUserId(request);
 
-    const form = await clonedRequest.formData();
+    const form = await request.formData();
 
     const destroyDraft = form.get(DESTROY_DRAFT);
     const taskDraft = form.get(CREATE_DRAFT);
@@ -50,23 +49,23 @@ export const action: ActionFunction = async ({ params, request }) => {
       return await destroyDraftWithRedirect({ request, redirectTo: path });
     }
 
-    const { body, title } = schema.parse(form);
-
     if (taskDraft) {
+      const { body, title } = schema.parse(form);
+
       return await updateTaskDraftSession(request, {
         title,
         body,
       });
     }
 
-    const { date } = dateSchema.parse(form);
+    // const { date } = dateSchema.parse(form);
 
-    await createTask({
-      body,
-      title,
-      userId,
-      scheduledFor: format(new Date(date), DATE_FORMAT),
-    });
+    // await createTask({
+    //   body,
+    //   title,
+    //   userId,
+    //   scheduledFor: format(new Date(date), DATE_FORMAT),
+    // });
 
     return await destroyDraftWithRedirect({ request, redirectTo: path });
   } catch (error) {
