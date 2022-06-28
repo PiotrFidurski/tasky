@@ -39,25 +39,20 @@ export async function updateTaskDraftSession(
   );
 }
 
-export async function destroyTaskDraftSession(
-  request: Request,
-  shouldRedirect?: boolean,
-  path = '/'
-) {
+type DestroyDraftWithRedirect = {
+  request: Request;
+  redirectTo: string;
+};
+
+export async function destroyDraftWithRedirect({
+  request,
+  redirectTo = '/',
+}: DestroyDraftWithRedirect) {
   const session = await getTaskDraftSession(request);
 
-  return shouldRedirect
-    ? redirect(path, {
-        headers: {
-          'Set-Cookie': await taskDraftStorage.destroySession(session),
-        },
-      })
-    : json(
-        { success: true },
-        {
-          headers: {
-            'Set-Cookie': await taskDraftStorage.destroySession(session),
-          },
-        }
-      );
+  return redirect(redirectTo, {
+    headers: {
+      'Set-Cookie': await taskDraftStorage.destroySession(session),
+    },
+  });
 }

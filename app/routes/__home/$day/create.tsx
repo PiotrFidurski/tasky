@@ -41,8 +41,10 @@ export const action: ActionFunction = async ({ params, request }) => {
     const destroyDraft = form.get(DESTROY_DRAFT);
     const taskDraft = form.get(CREATE_DRAFT);
 
+    const path = `/${params.day}`;
+
     if (destroyDraft) {
-      return await destroyTaskDraftSession(request);
+      return await destroyTaskDraftSession(request, path);
     }
 
     const { body, title } = schema.parse(form);
@@ -63,7 +65,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       scheduledFor: format(new Date(date), DATE_FORMAT),
     });
 
-    return await destroyTaskDraftSession(request, true, `/${params.day}`);
+    return await destroyTaskDraftSession(request, path);
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.flatten();
