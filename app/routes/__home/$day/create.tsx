@@ -51,11 +51,12 @@ export const action: ActionFunction = async ({ params, request }) => {
     }
 
     if (taskDraft) {
-      const { body, title } = schema.parse(form);
+      const data = schema.parse(form);
 
-      return await updateTaskDraftSession(request, {
-        title,
-        body,
+      return await updateTaskDraftSession({
+        request,
+        data,
+        redirectTo: `/${params.day}/calendar`,
       });
     }
 

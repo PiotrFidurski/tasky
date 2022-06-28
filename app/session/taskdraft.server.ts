@@ -1,6 +1,6 @@
 import { Task } from '@prisma/client';
 
-import { createCookieSessionStorage, json, redirect } from 'remix';
+import { createCookieSessionStorage, redirect } from 'remix';
 
 export const taskDraftStorage = createCookieSessionStorage({
   cookie: {
@@ -19,27 +19,30 @@ export function getTaskDraftSession(request: Request) {
 
 type CreateTaskData = Pick<Task, 'body' | 'title'>;
 
-export async function updateTaskDraftSession(
-  request: Request,
-  data: CreateTaskData
-) {
+type UpdateDraftWithRedirectProps = {
+  request: Request;
+  data: CreateTaskData;
+  redirectTo: string;
+};
+
+export async function updateTaskDraftSession({
+  request,
+  data,
+  redirectTo,
+}: UpdateDraftWithRedirectProps) {
   const session = await getTaskDraftSession(request);
 
   session.set('taskDraft:title', data.title);
   session.set('taskDraft:body', data.body);
 
-  return json(
-    { success: true },
-    {
-      status: 200,
-      headers: {
-        'Set-Cookie': await taskDraftStorage.commitSession(session),
-      },
-    }
-  );
+  return redirect(redirectTo, {
+    headers: {
+      'Set-Cookie': await taskDraftStorage.commitSession(session),
+    },
+  });
 }
 
-type DestroyDraftWithRedirect = {
+type DestroyDraftWithRedirectProps = {
   request: Request;
   redirectTo: string;
 };
@@ -47,7 +50,7 @@ type DestroyDraftWithRedirect = {
 export async function destroyDraftWithRedirect({
   request,
   redirectTo = '/',
-}: DestroyDraftWithRedirect) {
+}: DestroyDraftWithRedirectProps) {
   const session = await getTaskDraftSession(request);
 
   return redirect(redirectTo, {

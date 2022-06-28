@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { Form, useFetcher, useSearchParams } from 'remix';
+import { Form, useActionData, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -21,14 +21,14 @@ type FormComponentProps = {
 };
 
 export function FormComponent({ draft }: FormComponentProps) {
-  const fetcher = useFetcher<ActionData & { success: boolean }>();
+  const actionData = useActionData<ActionData | undefined>();
 
   const [searchParams] = useSearchParams();
 
   const selectedDate =
     searchParams.get('selectedDate') ?? format(new Date(), DATE_FORMAT);
 
-  const { fieldErrors } = useErrors(fetcher.data);
+  const { fieldErrors } = useErrors(actionData);
 
   return (
     <Form method="post" className="w-full p-6">
