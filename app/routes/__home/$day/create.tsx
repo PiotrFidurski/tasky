@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
 import { getAuthUserId } from '~/session/session.server';
 import {
-  destroyTaskDraftSession,
+  destroyDraftWithRedirect,
   getTaskDraftSession,
   updateTaskDraftSession,
 } from '~/session/taskdraft.server';
@@ -44,7 +44,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     const path = `/${params.day}`;
 
     if (destroyDraft) {
-      return await destroyTaskDraftSession(request, path);
+      return await destroyDraftWithRedirect({ request, redirectTo: path });
     }
 
     const { body, title } = schema.parse(form);
@@ -65,7 +65,7 @@ export const action: ActionFunction = async ({ params, request }) => {
       scheduledFor: format(new Date(date), DATE_FORMAT),
     });
 
-    return await destroyTaskDraftSession(request, path);
+    return await destroyDraftWithRedirect({ request, redirectTo: path });
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.flatten();
