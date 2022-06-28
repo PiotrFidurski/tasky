@@ -36,8 +36,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ params, request }) => {
   try {
+    const clonedRequest = request.clone();
     const userId = await getAuthUserId(request);
-    const form = await request.formData();
+
+    const form = await clonedRequest.formData();
+
     const destroyDraft = form.get(DESTROY_DRAFT);
     const taskDraft = form.get(CREATE_DRAFT);
 
