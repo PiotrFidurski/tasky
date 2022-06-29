@@ -12,7 +12,11 @@ import { dateSchema, schema } from '~/validation/task';
 import { ActionFunction, LoaderFunction, useLoaderData } from 'remix';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
-import { CREATE_DRAFT, DESTROY_DRAFT } from '~/components/Modals/actionTypes';
+import {
+  CREATE_DRAFT,
+  DESTROY_DRAFT,
+  SUBMIT_FORM,
+} from '~/components/Modals/actionTypes';
 
 import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
@@ -40,41 +44,43 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     const form = await request.formData();
 
-    const destroyDraft = form.get(DESTROY_DRAFT);
-    const taskDraft = form.get(CREATE_DRAFT);
-    const createAction = form.get('_create');
+    const actionType = form.get('_action');
 
     const path = `/${params.day}`;
 
-    if (destroyDraft) {
-      return await destroyDraftWithRedirect({ request, redirectTo: path });
+    switch (actionType) {
+      case DESTROY_DRAFT: {
+        return await destroyDraftWithRedirect({ request, redirectTo: path });
+      }
+
+      case CREATE_DRAFT: {
+        const data = schema.parse(form);
+
+        return await updateTaskDraftSession({
+          request,
+          data,
+          redirectTo: `/${params.day}/calendar`,
+        });
+      }
+
+      case SUBMIT_FORM: {
+        const { body, title } = schema.parse(form);
+        const { date } = dateSchema.parse(form);
+
+        await createTask({
+          body,
+          title,
+          userId,
+          scheduledFor: format(new Date(date), DATE_FORMAT),
+        });
+
+        return await destroyDraftWithRedirect({ request, redirectTo: path });
+      }
+
+      default: {
+        return await destroyDraftWithRedirect({ request, redirectTo: path });
+      }
     }
-
-    if (taskDraft) {
-      const data = schema.parse(form);
-
-      return await updateTaskDraftSession({
-        request,
-        data,
-        redirectTo: `/${params.day}/calendar`,
-      });
-    }
-
-    if (createAction) {
-      const { body, title } = schema.parse(form);
-      const { date } = dateSchema.parse(form);
-
-      await createTask({
-        body,
-        title,
-        userId,
-        scheduledFor: format(new Date(date), DATE_FORMAT),
-      });
-
-      return await destroyDraftWithRedirect({ request, redirectTo: path });
-    }
-
-    return await destroyDraftWithRedirect({ request, redirectTo: path });
   } catch (error) {
     if (error instanceof ZodError) {
       const errors = error.flatten();
