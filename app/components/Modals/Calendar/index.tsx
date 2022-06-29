@@ -1,5 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { useState } from 'react';
 
 import { useNavigate } from 'remix';
 
@@ -12,16 +11,12 @@ import { Header } from '../components/Header';
 export function CalendarModal() {
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(true);
-
   const handleOpenChange = () => {
-    setOpen(false);
-
     navigate(-1);
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={handleOpenChange}>
+    <Dialog.Root defaultOpen onOpenChange={handleOpenChange}>
       <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
