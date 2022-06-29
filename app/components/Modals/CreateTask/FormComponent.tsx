@@ -12,7 +12,7 @@ import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-import { CREATE_DRAFT } from '../actionTypes';
+import { CREATE_DRAFT, SUBMIT_FORM } from '../actionTypes';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
@@ -64,7 +64,7 @@ export function FormComponent({ draft }: FormComponentProps) {
       </FieldWrapper>
       <button
         className="border-2 w-full mb-6 border-black dark:border-slate-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
-        name={CREATE_DRAFT}
+        name="_action"
         value={CREATE_DRAFT}
         type="submit"
       >
@@ -90,8 +90,8 @@ export function FormComponent({ draft }: FormComponentProps) {
       </button>
       <div className="flex justify-end">
         <Button
-          value="_create"
-          name="_create"
+          value={SUBMIT_FORM}
+          name="_action"
           className="rounded-full w-auto font-bold px-4 py-2 justify-center border-2 bg-highlight"
           primary
         >
