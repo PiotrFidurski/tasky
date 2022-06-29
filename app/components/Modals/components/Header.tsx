@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { ReactNode } from 'react';
 
-import { Form } from 'remix';
+import { Form, useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
@@ -19,19 +19,27 @@ export function Header({
   srDescription = `${children} dialog`,
   shouldSubmitOnClose,
 }: HeaderProps) {
+  const { day } = useParams<'day'>();
+
   return (
-    <Form method="post" className="w-full flex p-2 max-w-full items-center">
-      <Button
-        type="submit"
-        name={DESTROY_DRAFT}
-        value={shouldSubmitOnClose ? DESTROY_DRAFT : undefined}
-        className="w-auto"
-        isIconWrapper
-      >
-        <Dialog.Close asChild>
-          <ArrowleftIcon />
-        </Dialog.Close>
-      </Button>
+    <Form
+      method="post"
+      action={`/${day}/create`}
+      className="w-full flex p-2 max-w-full items-center"
+    >
+      <Dialog.Close asChild>
+        <Button
+          type={shouldSubmitOnClose ? 'submit' : 'button'}
+          name="_action"
+          value={shouldSubmitOnClose ? DESTROY_DRAFT : undefined}
+          className="w-auto"
+          isIconWrapper
+        >
+          <div className="w-full">
+            <ArrowleftIcon />
+          </div>
+        </Button>
+      </Dialog.Close>
       <div className="w-full text-center pr-[20px]">
         <Dialog.Title className="font-bold">{children}</Dialog.Title>
       </div>
