@@ -53,7 +53,7 @@ export function FieldWrapper({
               </span>
             )}
           </motion.div>
-          <div>{children}</div>
+          <div className="w-full">{children}</div>
         </div>
         {icon ? (
           <div className="max-w-[30%] pr-4 flex justify-end h-full items-center">

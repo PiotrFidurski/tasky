@@ -1,9 +1,8 @@
 import { format } from 'date-fns';
-import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { ZodTaskErrors } from '~/validation/task';
 
-import { useFetcher, useNavigate, useParams, useSearchParams } from 'remix';
+import { Form, useActionData, useSearchParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -13,7 +12,7 @@ import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-import { CREATE_DRAFT } from '../actionTypes';
+import { CREATE_DRAFT, SUBMIT_FORM } from '../actionTypes';
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
@@ -22,33 +21,17 @@ type FormComponentProps = {
 };
 
 export function FormComponent({ draft }: FormComponentProps) {
-  const fetcher = useFetcher<ActionData & { success: boolean }>();
+  const actionData = useActionData<ActionData | undefined>();
 
   const [searchParams] = useSearchParams();
 
   const selectedDate =
     searchParams.get('selectedDate') ?? format(new Date(), DATE_FORMAT);
 
-  const navigate = useNavigate();
-
-  const { day } = useParams<'day'>();
-
-  const { fieldErrors } = useErrors(fetcher.data);
-
-  const handleTaskDraftSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    fetcher.submit(e.currentTarget, {
-      method: 'post',
-    });
-  };
-
-  useEffect(() => {
-    if (fetcher.data?.success) {
-      navigate(`/${day}/calendar`);
-    }
-  }, [fetcher.data, day]);
+  const { fieldErrors } = useErrors(actionData);
 
   return (
-    <fetcher.Form method="post" className="w-full p-6">
+    <Form method="post" className="w-full p-6">
       <FieldWrapper
         htmlFor="title"
         errorMessage={fieldErrors?.title || ''}
@@ -81,10 +64,9 @@ export function FormComponent({ draft }: FormComponentProps) {
       </FieldWrapper>
       <button
         className="border-2 w-full mb-6 border-black dark:border-slate-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
-        onClick={handleTaskDraftSubmit}
-        type="button"
-        name={CREATE_DRAFT}
+        name="_action"
         value={CREATE_DRAFT}
+        type="submit"
       >
         <FieldWrapper
           labelName="Date"
@@ -108,12 +90,14 @@ export function FormComponent({ draft }: FormComponentProps) {
       </button>
       <div className="flex justify-end">
         <Button
+          value={SUBMIT_FORM}
+          name="_action"
           className="rounded-full w-auto font-bold px-4 py-2 justify-center border-2 bg-highlight"
           primary
         >
           <span>Create task</span>
         </Button>
       </div>
-    </fetcher.Form>
+    </Form>
   );
 }

@@ -1,6 +1,6 @@
 import { Task } from '@prisma/client';
 
-import { createCookieSessionStorage, json, redirect } from 'remix';
+import { createCookieSessionStorage, redirect } from 'remix';
 
 export const taskDraftStorage = createCookieSessionStorage({
   cookie: {
@@ -19,45 +19,43 @@ export function getTaskDraftSession(request: Request) {
 
 type CreateTaskData = Pick<Task, 'body' | 'title'>;
 
-export async function updateTaskDraftSession(
-  request: Request,
-  data: CreateTaskData
-) {
+type UpdateDraftWithRedirectProps = {
+  request: Request;
+  data: CreateTaskData;
+  redirectTo: string;
+};
+
+export async function updateTaskDraftSession({
+  request,
+  data,
+  redirectTo,
+}: UpdateDraftWithRedirectProps) {
   const session = await getTaskDraftSession(request);
 
   session.set('taskDraft:title', data.title);
   session.set('taskDraft:body', data.body);
 
-  return json(
-    { success: true },
-    {
-      status: 200,
-      headers: {
-        'Set-Cookie': await taskDraftStorage.commitSession(session),
-      },
-    }
-  );
+  return redirect(redirectTo, {
+    headers: {
+      'Set-Cookie': await taskDraftStorage.commitSession(session),
+    },
+  });
 }
 
-export async function destroyTaskDraftSession(
-  request: Request,
-  shouldRedirect?: boolean,
-  path = '/'
-) {
+type DestroyDraftWithRedirectProps = {
+  request: Request;
+  redirectTo: string;
+};
+
+export async function destroyDraftWithRedirect({
+  request,
+  redirectTo = '/',
+}: DestroyDraftWithRedirectProps) {
   const session = await getTaskDraftSession(request);
 
-  return shouldRedirect
-    ? redirect(path, {
-        headers: {
-          'Set-Cookie': await taskDraftStorage.destroySession(session),
-        },
-      })
-    : json(
-        { success: true },
-        {
-          headers: {
-            'Set-Cookie': await taskDraftStorage.destroySession(session),
-          },
-        }
-      );
+  return redirect(redirectTo, {
+    headers: {
+      'Set-Cookie': await taskDraftStorage.destroySession(session),
+    },
+  });
 }

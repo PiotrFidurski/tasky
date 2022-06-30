@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { Form, useFetcher } from 'remix';
+import { Form, useParams } from 'remix';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
@@ -19,26 +19,25 @@ export function Header({
   srDescription = `${children} dialog`,
   shouldSubmitOnClose,
 }: HeaderProps) {
-  const fetcher = useFetcher();
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (shouldSubmitOnClose) {
-      fetcher.submit(e.currentTarget, { method: 'post' });
-    }
-  };
+  const { day } = useParams<'day'>();
 
   return (
-    <Form method="post" className="w-full flex p-2 max-w-full items-center">
+    <Form
+      method="post"
+      action={`/${day}/create`}
+      className="w-full flex p-2 max-w-full items-center"
+    >
       <Dialog.Close asChild>
         <Button
-          buttonType
-          name={DESTROY_DRAFT}
-          value={DESTROY_DRAFT}
+          type={shouldSubmitOnClose ? 'submit' : 'button'}
+          name="_action"
+          value={shouldSubmitOnClose ? DESTROY_DRAFT : undefined}
           className="w-auto"
           isIconWrapper
-          onClick={handleClick}
         >
-          <ArrowleftIcon />
+          <div className="w-full">
+            <ArrowleftIcon />
+          </div>
         </Button>
       </Dialog.Close>
       <div className="w-full text-center pr-[20px]">
