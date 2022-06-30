@@ -15,13 +15,15 @@ import {
   useLoaderData,
 } from 'remix';
 
+import { getUserSession } from './session/session.server';
+import { getThemeSession } from './session/theme.server';
+
 import { AuthProvider } from './components/Auth/AuthProvider';
 import { ThemeProvider, useTheme } from './components/Theme/ThemeProvider';
 import { LoadUserThemePreferences } from './components/Theme/systemTheme';
 import { Theme } from './components/Theme/themeContext';
+
 import { getUserById } from './models/user';
-import { getUserSession } from './session/session.server';
-import { getThemeSession } from './session/theme.server';
 import styles from './styles/app.css';
 
 export function links() {
@@ -54,16 +56,18 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getUserSession(request);
+  const userSession = await getUserSession(request);
   const themeSession = await getThemeSession(request);
 
-  if (session.has('userId')) {
-    const userId = session.get('userId');
+  const theme = themeSession.get('theme');
+
+  if (userSession.has('userId')) {
+    const userId = userSession.get('userId');
 
     const user = await getUserById(userId);
 
     const data: LoaderData = {
-      theme: themeSession.get('theme'),
+      theme,
       user,
     };
 
@@ -71,7 +75,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const data: LoaderData = {
-    theme: themeSession.get('theme'),
+    theme,
     user: null,
   };
 

@@ -6,7 +6,10 @@
   "semi": true,
   "importOrder": [
     "^remix(.*)$",
+    "^~/session/(.*)$",
+    "^./session/(.*)$",
     "^~/components/(.*)$",
+    "^./components/(.*)$",
     "^~/utils/(.*)$",
     "^[./]"
   ],
