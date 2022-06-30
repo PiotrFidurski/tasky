@@ -42,15 +42,15 @@ export async function updateTaskDraftSession({
   });
 }
 
-type DestroyDraftWithRedirectProps = {
+type DestroyDraftSessionProps = {
   request: Request;
   redirectTo: string;
 };
 
-export async function destroyDraftWithRedirect({
+export async function destroyDraftSession({
   request,
   redirectTo = '/',
-}: DestroyDraftWithRedirectProps) {
+}: DestroyDraftSessionProps) {
   const session = await getTaskDraftSession(request);
 
   return redirect(redirectTo, {

@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import { groupTasksByScheduledFor } from '~/models/task';
-import { requireUserId } from '~/session/auth.server';
 
 import {
   LoaderFunction,
@@ -11,6 +10,8 @@ import {
   useNavigate,
 } from 'remix';
 
+import { requireUserId } from '~/session/auth.server';
+
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
@@ -18,7 +19,7 @@ import { Day } from '~/components/Widgets/Calendar/Day';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { DATE_FORMAT } from '~/utils/date';
-import { getDayStats, getTotalTasksCount } from '~/utils/getStats';
+import { getDayStats, getTotalTasksCount } from '~/utils/taskStats';
 
 type LoaderData = {
   total: number;

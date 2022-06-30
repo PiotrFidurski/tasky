@@ -1,15 +1,16 @@
 import { format } from 'date-fns';
 import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
-import { getAuthUserId } from '~/session/session.server';
-import {
-  destroyDraftWithRedirect,
-  getTaskDraftSession,
-  updateTaskDraftSession,
-} from '~/session/taskdraft.server';
 import { dateSchema, schema } from '~/validation/task';
 
 import { ActionFunction, LoaderFunction, useLoaderData } from 'remix';
+
+import { getAuthUserId } from '~/session/session.server';
+import {
+  destroyDraftSession,
+  getTaskDraftSession,
+  updateTaskDraftSession,
+} from '~/session/taskdraft.server';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
 import {
@@ -50,7 +51,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     switch (actionType) {
       case DESTROY_DRAFT: {
-        return await destroyDraftWithRedirect({ request, redirectTo: path });
+        return await destroyDraftSession({ request, redirectTo: path });
       }
 
       case CREATE_DRAFT: {
@@ -74,11 +75,11 @@ export const action: ActionFunction = async ({ params, request }) => {
           scheduledFor: format(new Date(date), DATE_FORMAT),
         });
 
-        return await destroyDraftWithRedirect({ request, redirectTo: path });
+        return await destroyDraftSession({ request, redirectTo: path });
       }
 
       default: {
-        return await destroyDraftWithRedirect({ request, redirectTo: path });
+        return await destroyDraftSession({ request, redirectTo: path });
       }
     }
   } catch (error) {

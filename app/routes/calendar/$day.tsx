@@ -6,7 +6,6 @@ import {
   getUnscheduledTasks,
   groupTasksByScheduledFor,
 } from '~/models/task';
-import { getAuthUserId } from '~/session/session.server';
 
 import {
   LoaderFunction,
@@ -16,6 +15,8 @@ import {
   useLoaderData,
   useParams,
 } from 'remix';
+
+import { getAuthUserId } from '~/session/session.server';
 
 import { Calendar } from '~/components/Calendar/root';
 import { DayTasksList } from '~/components/Tasks/DayTasksList';
@@ -29,7 +30,7 @@ import {
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData, isValidDateFormat } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
-import { getDayStats } from '~/utils/getStats';
+import { getDayStats } from '~/utils/taskStats';
 
 export type LoaderData = {
   tasksForTheDay: Task[];
