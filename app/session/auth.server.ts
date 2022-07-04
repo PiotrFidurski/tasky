@@ -17,7 +17,7 @@ type UserInput = Pick<User, 'username' | 'password'>;
  * @param username - Username of the user.
  * @returns `Promise<User | null>`
  */
-export async function login(username: string) {
+export async function login(username: UserInput['username']) {
   const user = await getUserByUsername(username);
 
   if (!user) return null;
