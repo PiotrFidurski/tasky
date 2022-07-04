@@ -1,17 +1,12 @@
 import { format } from 'date-fns';
-import { requireUserId } from '~/session/auth.server';
 
 import { LoaderFunction, Outlet, redirect } from 'remix';
 
-import { MobileNav } from '~/components/Menus/MobileNav';
+import { requireUserId } from '~/session/auth.server';
+
 import { DesktopSidebar } from '~/components/Sidebar/desktop';
 import { MobileSidebar } from '~/components/Sidebar/mobile';
-import {
-  MainLayout,
-  MobileNavLayout,
-  RootLayout,
-  SidebarLayout,
-} from '~/components/layout';
+import { MainLayout, RootLayout, SidebarLayout } from '~/components/layout';
 
 import { DATE_FORMAT } from '~/utils/date';
 
@@ -34,9 +29,6 @@ export default function CalendarRoute() {
         <MobileSidebar />
       </SidebarLayout>
       <MainLayout>
-        <MobileNavLayout>
-          <MobileNav />
-        </MobileNavLayout>
         <Outlet />
       </MainLayout>
     </RootLayout>
