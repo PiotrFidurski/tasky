@@ -2,12 +2,7 @@ import { useRef } from 'react';
 
 import { useSubmit } from 'remix';
 
-type ProgrammaticSubmitProps = {
-  formRef: React.MutableRefObject<HTMLFormElement | null>;
-  handleSubmit: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-};
-
-export function useProgrammaticSubmit(): ProgrammaticSubmitProps {
+export function useProgrammaticSubmit() {
   const submit = useSubmit();
 
   const formRef = useRef<HTMLFormElement | null>(null);
