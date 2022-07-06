@@ -4,7 +4,7 @@ export type GroupedTask = {
 };
 // [day.scheduledFor]: [day._count.scheduledFor, day._count.isComplete],
 
-export function getDayStats(data: Array<GroupedTask>) {
+export function getTaskStatsForEachDay(data: Array<GroupedTask>) {
   return data.reduce<Record<string, number[]>>((acc, value) => {
     // eslint-disable-next-line no-param-reassign
     acc = {

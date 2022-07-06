@@ -19,7 +19,7 @@ import { Day } from '~/components/Widgets/Calendar/Day';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { DATE_FORMAT } from '~/utils/date';
-import { getDayStats, getTotalTasksCount } from '~/utils/taskStats';
+import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
 
 type LoaderData = {
   total: number;
@@ -37,7 +37,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const percentage = ((completed / total) * 100).toFixed();
 
-  const stats = getDayStats(groupedTasks);
+  const stats = getTaskStatsForEachDay(groupedTasks);
 
   const data: LoaderData = {
     stats,

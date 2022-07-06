@@ -30,7 +30,7 @@ import {
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData, isValidDateFormat } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
-import { getDayStats } from '~/utils/taskStats';
+import { getTaskStatsForEachDay } from '~/utils/taskStats';
 
 export type LoaderData = {
   tasksForTheDay: Task[];
@@ -62,7 +62,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       groupTasksByScheduledFor(userId),
     ]);
 
-    const stats = getDayStats(groupedTasks);
+    const stats = getTaskStatsForEachDay(groupedTasks);
 
     const data: LoaderData = {
       tasksForTheDay,
@@ -94,7 +94,6 @@ export default function DayRoute() {
     useLoaderData<LoaderData>();
 
   const { day } = useParams<'day'>();
-
   return (
     <>
       <ContentLayout>
