@@ -11,16 +11,16 @@ export const loginSchema = zfd.formData({
   username: zfd.text(
     z
       .string({
-        required_error: 'Username is required.',
+        required_error: 'username is required.',
       })
-      .min(3, 'Username must be at least 3 characters long.')
+      .min(3, 'username must be at least 3 characters long.')
   ),
   password: zfd.text(
     z
       .string({
-        required_error: 'Password is required.',
+        required_error: 'password is required.',
       })
-      .min(8, 'Password must be at least 8 characters long.')
+      .min(8, 'password must be at least 8 characters long.')
   ),
 });
 
@@ -29,29 +29,29 @@ export const registerSchema = zfd
     username: zfd.text(
       z
         .string({
-          required_error: 'Username is required.',
+          required_error: 'username is required.',
         })
-        .min(3, 'Username must be at least 3 characters long.')
+        .min(3, 'username must be at least 3 characters long.')
     ),
     password: zfd.text(
       z
         .string({
-          required_error: 'Password is required.',
+          required_error: 'password is required.',
         })
-        .min(8, 'Password must be at least 8 characters long.')
+        .min(8, 'password must be at least 8 characters long.')
         .regex(
           PWD_REGEX_PATTERN,
-          'Password must include special characters, numbers, and upper case letters.'
+          'password must include special characters, numbers, and upper case letters.'
         )
     ),
     passwordConfirmation: zfd.text(
       z.string({
-        required_error: 'Password Confirmation is required.',
+        required_error: 'password Confirmation is required.',
       })
     ),
   })
   .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Provided passwords don't match.",
+    message: "provided passwords don't match.",
     path: ['passwordConfirmation'],
   });
 
