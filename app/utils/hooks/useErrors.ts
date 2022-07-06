@@ -2,6 +2,14 @@ import { useEffect, useState } from 'react';
 
 import { useTransition } from 'remix';
 
+type UseErrorsProps<T> = {
+  errors: T | null;
+};
+
+type Errors<T> = {
+  fieldErrors: T | null;
+};
+
 /**
  * This hook accepts `actionData` returned from `useActionData` remix hook,
  * and based on transition `state` it produces an object with error fields.
@@ -11,13 +19,13 @@ import { useTransition } from 'remix';
  * @param actionData - data returned from `useActionData` hook.
  * @returns `fieldErrors` - object with error fields depending on `actionData` provided.
  */
-export function useErrors<T>(actionData: { errors: T } | undefined) {
-  const [errors, setErrors] = useState<{ fieldErrors: T } | {}>({});
+export function useErrors<T>(actionData: UseErrorsProps<T> | undefined) {
+  const [errors, setErrors] = useState<Errors<T> | null>(null);
 
   const { state } = useTransition();
 
   useEffect(() => {
-    setErrors({ fieldErrors: {} });
+    setErrors({ fieldErrors: null });
 
     if (state === 'idle' && actionData?.errors) {
       setErrors({ fieldErrors: { ...actionData.errors } });
