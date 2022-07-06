@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import { z } from 'zod';
-import { ZodTaskErrors } from '~/validation/task';
 
 import { Form, useActionData, useSearchParams } from 'remix';
 
@@ -13,6 +12,14 @@ import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { CREATE_DRAFT, SUBMIT_FORM } from '../actionTypes';
+
+const ZodTaskErrors = z.object({
+  errors: z.object({
+    body: z.array(z.string()),
+    title: z.array(z.string()),
+    date: z.array(z.string()),
+  }),
+});
 
 type ActionData = z.infer<typeof ZodTaskErrors>;
 
