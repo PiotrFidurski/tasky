@@ -19,7 +19,7 @@ export function getTaskDraftSession(request: Request) {
 
 type CreateTaskData = Pick<Task, 'body' | 'title'>;
 
-type UpdateDraftWithRedirectProps = {
+type UpdateTaskDraftSessionProps = {
   request: Request;
   data: CreateTaskData;
   redirectTo: string;
@@ -29,7 +29,7 @@ export async function updateTaskDraftSession({
   request,
   data,
   redirectTo,
-}: UpdateDraftWithRedirectProps) {
+}: UpdateTaskDraftSessionProps) {
   const session = await getTaskDraftSession(request);
 
   session.set('taskDraft:title', data.title);
@@ -42,15 +42,15 @@ export async function updateTaskDraftSession({
   });
 }
 
-type DestroyDraftSessionProps = {
+type DestroyTaskDraftSessionProps = {
   request: Request;
   redirectTo: string;
 };
 
-export async function destroyDraftSession({
+export async function destroyTaskDraftSession({
   request,
   redirectTo = '/',
-}: DestroyDraftSessionProps) {
+}: DestroyTaskDraftSessionProps) {
   const session = await getTaskDraftSession(request);
 
   return redirect(redirectTo, {

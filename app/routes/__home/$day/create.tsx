@@ -7,7 +7,7 @@ import { ActionFunction, LoaderFunction, useLoaderData } from 'remix';
 
 import { getAuthUserId } from '~/session/session.server';
 import {
-  destroyDraftSession,
+  destroyTaskDraftSession,
   getTaskDraftSession,
   updateTaskDraftSession,
 } from '~/session/taskdraft.server';
@@ -51,7 +51,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     switch (actionType) {
       case DESTROY_DRAFT: {
-        return await destroyDraftSession({ request, redirectTo: path });
+        return await destroyTaskDraftSession({ request, redirectTo: path });
       }
 
       case CREATE_DRAFT: {
@@ -75,11 +75,11 @@ export const action: ActionFunction = async ({ params, request }) => {
           scheduledFor: format(new Date(date), DATE_FORMAT),
         });
 
-        return await destroyDraftSession({ request, redirectTo: path });
+        return await destroyTaskDraftSession({ request, redirectTo: path });
       }
 
       default: {
-        return await destroyDraftSession({ request, redirectTo: path });
+        return await destroyTaskDraftSession({ request, redirectTo: path });
       }
     }
   } catch (error) {
