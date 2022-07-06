@@ -3,19 +3,19 @@ import * as React from 'react';
 type LayoutProps = React.HTMLAttributes<HTMLDivElement | HTMLElement>;
 
 export function RootLayout({ children }: LayoutProps) {
-  return <div className="w-full h-full relative flex">{children}</div>;
-}
-
-export function MainLayout({ children }: LayoutProps) {
-  return <main className="w-full">{children}</main>;
+  return <div className="w-full h-full flex">{children}</div>;
 }
 
 export function SidebarLayout({ children }: LayoutProps) {
   return (
-    <div className="max-w-full md:max-w-[16rem] w-full md:flex md:items-start md:h-full md:relative absolute">
+    <div className="md:max-w-[16rem] md:relative w-full h-full absolute z-10">
       {children}
     </div>
   );
+}
+
+export function MainLayout({ children }: LayoutProps) {
+  return <main className="w-full">{children}</main>;
 }
 
 export function MobileNavLayout({ children }: LayoutProps) {
