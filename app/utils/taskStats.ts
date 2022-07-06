@@ -2,18 +2,21 @@ export type GroupedTask = {
   scheduledFor: string;
   _count: { isComplete: number; scheduledFor: number };
 };
+// [day.scheduledFor]: [day._count.scheduledFor, day._count.isComplete],
 
 export function getDayStats(data: Array<GroupedTask>) {
-  let stats: { [key: string]: Array<number> } = {};
-
-  data.forEach((day) => {
-    stats = {
-      ...stats,
-      [day.scheduledFor]: [day._count.scheduledFor, day._count.isComplete],
+  return data.reduce<Record<string, number[]>>((acc, value) => {
+    // eslint-disable-next-line no-param-reassign
+    acc = {
+      ...acc,
+      [value.scheduledFor]: [
+        value._count.scheduledFor,
+        value._count.isComplete,
+      ],
     };
-  });
 
-  return stats;
+    return acc;
+  }, {});
 }
 
 export function getTotalTasksCount(data: Array<GroupedTask>) {
