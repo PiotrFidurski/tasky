@@ -1,10 +1,11 @@
 import { ZodError, z } from 'zod';
 import { getUserByUsername } from '~/models/user';
-import { register } from '~/session/auth.server';
-import { createUserSession } from '~/session/session.server';
 import { ZodRegisterErrors, registerSchema } from '~/validation/user';
 
 import { ActionFunction, Form, useActionData } from 'remix';
+
+import { register } from '~/session/auth.server';
+import { createUserSession } from '~/session/session.server';
 
 import { Button } from '~/components/Elements/Button';
 import { CustomLink } from '~/components/Elements/CustomLink';
