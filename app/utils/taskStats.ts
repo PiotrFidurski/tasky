@@ -2,7 +2,6 @@ export type GroupedTask = {
   scheduledFor: string;
   _count: { isComplete: number; scheduledFor: number };
 };
-// [day.scheduledFor]: [day._count.scheduledFor, day._count.isComplete],
 
 export function getTaskStatsForEachDay(data: Array<GroupedTask>) {
   return data.reduce<Record<string, number[]>>((acc, value) => {
