@@ -6,7 +6,7 @@ if (!process.env.SESSION_SECRET) {
   throw new Error('SESSION_SECRET must be set in your environment variables.');
 }
 
-export const sessionStorage = createCookieSessionStorage({
+export const userSessionStorage = createCookieSessionStorage({
   cookie: {
     name: '_auth',
     sameSite: 'lax',
@@ -18,13 +18,13 @@ export const sessionStorage = createCookieSessionStorage({
 });
 
 export async function createUserSession(userId: string) {
-  const session = await sessionStorage.getSession();
+  const session = await userSessionStorage.getSession();
 
   session.set('userId', userId);
 
   return redirect('/', {
     headers: {
-      'Set-Cookie': await sessionStorage.commitSession(session),
+      'Set-Cookie': await userSessionStorage.commitSession(session),
     },
   });
 }
@@ -36,11 +36,11 @@ export async function createUserSession(userId: string) {
  * @returns `Promise<Session>`
  */
 export function getUserSession(request: Request) {
-  return sessionStorage.getSession(request.headers.get('Cookie'));
+  return userSessionStorage.getSession(request.headers.get('Cookie'));
 }
 
 export async function getAuthUserId(request: Request) {
-  const session = await sessionStorage.getSession(
+  const session = await userSessionStorage.getSession(
     request.headers.get('Cookie')
   );
 
@@ -54,7 +54,7 @@ export async function destroyUserSession(request: Request) {
 
   return redirect('/login', {
     headers: {
-      'Set-Cookie': await sessionStorage.destroySession(session),
+      'Set-Cookie': await userSessionStorage.destroySession(session),
     },
   });
 }

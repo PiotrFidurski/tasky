@@ -6,7 +6,7 @@ if (!process.env.THEME_SECRET) {
   throw new Error('THEME_SECRET must be set in your environment variables.');
 }
 
-const themeStorage = createCookieSessionStorage({
+const themeSessionStorage = createCookieSessionStorage({
   cookie: {
     name: 'user_preferences',
     sameSite: 'lax',
@@ -18,7 +18,7 @@ const themeStorage = createCookieSessionStorage({
 });
 
 export function getThemeSession(request: Request) {
-  return themeStorage.getSession(request.headers.get('Cookie'));
+  return themeSessionStorage.getSession(request.headers.get('Cookie'));
 }
 
 export async function updateThemeSession(request: Request, theme: Theme) {
@@ -30,7 +30,9 @@ export async function updateThemeSession(request: Request, theme: Theme) {
     { success: true },
     {
       status: 200,
-      headers: { 'Set-Cookie': await themeStorage.commitSession(session) },
+      headers: {
+        'Set-Cookie': await themeSessionStorage.commitSession(session),
+      },
     }
   );
 }

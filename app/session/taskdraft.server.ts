@@ -2,7 +2,7 @@ import { Task } from '@prisma/client';
 
 import { createCookieSessionStorage, redirect } from 'remix';
 
-export const taskDraftStorage = createCookieSessionStorage({
+export const taskDraftSessionStorage = createCookieSessionStorage({
   cookie: {
     name: 'task_draft',
     sameSite: 'lax',
@@ -14,7 +14,7 @@ export const taskDraftStorage = createCookieSessionStorage({
 });
 
 export function getTaskDraftSession(request: Request) {
-  return taskDraftStorage.getSession(request.headers.get('Cookie'));
+  return taskDraftSessionStorage.getSession(request.headers.get('Cookie'));
 }
 
 type CreateTaskData = Pick<Task, 'body' | 'title'>;
@@ -37,7 +37,7 @@ export async function updateTaskDraftSession({
 
   return redirect(redirectTo, {
     headers: {
-      'Set-Cookie': await taskDraftStorage.commitSession(session),
+      'Set-Cookie': await taskDraftSessionStorage.commitSession(session),
     },
   });
 }
@@ -55,7 +55,7 @@ export async function destroyDraftSession({
 
   return redirect(redirectTo, {
     headers: {
-      'Set-Cookie': await taskDraftStorage.destroySession(session),
+      'Set-Cookie': await taskDraftSessionStorage.destroySession(session),
     },
   });
 }
