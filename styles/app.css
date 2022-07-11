@@ -17,19 +17,6 @@ input:focus-visible {
   outline: none;
   border: 0;
   outline-width: 0px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: white !important;
-  color: white;
-}
-
-@media (prefers-color-scheme: dark) {
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:focus-visible {
-  }
 }
 
 @layer utilities {
