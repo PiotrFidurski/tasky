@@ -70,7 +70,7 @@ export function FormComponent({ draft }: FormComponentProps) {
         />
       </FieldWrapper>
       <button
-        className="border-2 w-full mb-6 border-black dark:border-slate-500 outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
+        className="border-2 w-full mb-6 border-black dark:border-white outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
         name="_action"
         value={CREATE_DRAFT}
         type="submit"
