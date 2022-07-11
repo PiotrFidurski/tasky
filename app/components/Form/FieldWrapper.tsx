@@ -27,15 +27,18 @@ export function FieldWrapper({
       )}
     >
       <div className="flex justify-between items-center w-full">
-        <div className="w-full items-baseline flex flex-col">
+        <div className="w-full items-baseline flex flex-col h-full justify-between">
           <motion.div
-            className="px-2 text-sm font-normal min-w-[16rem] text-left"
+            className={clsx(
+              'px-2 text-sm font-normal min-w-[16rem] text-left',
+              !errorMessage && 'mt-1'
+            )}
             layout
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
               transform: errorMessage
-                ? 'translateY(-70%) translateX(5%)'
+                ? 'translateY(-60%) translateX(5%)'
                 : 'translateY(0) translateX(0)',
             }}
             exit={{ opacity: 0 }}
