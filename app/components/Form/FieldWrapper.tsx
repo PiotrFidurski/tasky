@@ -22,7 +22,7 @@ export function FieldWrapper({
       htmlFor={htmlFor}
       {...htmlLabelProps}
       className={clsx(
-        'mb-4 w-full border-2 dark:border-white border-black dark:text-white rounded-md flex relative min-h-[4rem] dark:focus-within:border-highlight focus-within:border-highlight dark:focus-within:text-highlight focus-within:text-highlight transition-colors',
+        'mb-4 w-full border-2 dark:border-white border-black dark:text-white rounded-md flex relative min-h-[4.5rem] dark:focus-within:border-highlight focus-within:border-highlight dark:focus-within:text-highlight focus-within:text-highlight transition-colors',
         className
       )}
     >
