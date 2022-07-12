@@ -99,7 +99,7 @@ export function FormComponent({ draft }: FormComponentProps) {
         <Button
           value={SUBMIT_FORM}
           name="_action"
-          className="rounded-full w-auto font-bold px-4 py-2 justify-center border-2 bg-highlight"
+          className="rounded-full w-auto font-bold px-4 py-2 justify-center bg-highlight focus:bg-highlightActive"
           primary
         >
           <span>Create task</span>

@@ -26,11 +26,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={clsx(
           'flex gap-4 outline-none items-center w-full transition-all',
-          primary && 'ring-2 ring-highlight focus:ring-highlightActive',
-          isMenuItem &&
-            'focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
+          isMenuItem && 'focus:ring-highlight focus:ring-2 focus:ring-inset',
           isIconWrapper &&
-            'p-2 border-none bg-transparent rounded-full focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
+            'p-2 rounded-full focus:ring-highlight focus:ring-2 focus:ring-inset',
           className
         )}
         type={buttonType ? 'button' : 'submit'}
