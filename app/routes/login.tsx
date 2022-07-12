@@ -96,14 +96,17 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button primary className="p-2 justify-center uppercase font-bold">
+          <Button
+            className="rounded-full font-bold px-4 py-2 justify-center text-white bg-highlight focus:bg-highlightActive"
+            primary
+          >
             <span>Login</span>
           </Button>
           <CustomLink
             to="/register"
-            className="font-bold w-full py-2 uppercase"
+            className="font-bold w-full py-2 ring-2 dark:ring-white ring-black"
           >
-            Register
+            <span>Register</span>
           </CustomLink>
         </div>
       </Form>
