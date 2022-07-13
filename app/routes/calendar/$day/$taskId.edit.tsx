@@ -132,12 +132,7 @@ export default function EditTaskRoute() {
                 <InputField ref={inputRef} defaultValue={body} />
               </FieldWrapper>
               <div className="flex justify-end">
-                <Button
-                  primary
-                  className="rounded-full px-2 py-1 max-w-[8rem] w-auto font-bold"
-                >
-                  Update
-                </Button>
+                <Button primary>Update</Button>
               </div>
             </Form>
           </div>

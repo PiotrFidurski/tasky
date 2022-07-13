@@ -30,63 +30,62 @@ export function Menu({
   const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
   return (
-    <>
-      <nav aria-label="sidebar" id="sidebar">
-        <div className="flex items-center p-4">
-          <h2 className="w-full">Menu</h2>
-          {isMobile ? (
-            <div className="flex justify-end">
-              <Button
-                isIconWrapper
-                onClick={onHandleClose}
-                buttonType
-                aria-controls="sidebar"
-                aria-label="close sidebar"
-                aria-expanded={visible}
-              >
-                <CloseIcon />
-              </Button>
-            </div>
-          ) : null}
-        </div>
-        <div className="p-4 mb-4">
-          <UserMenu />
-        </div>
-        <ul className="flex flex-col">
-          <NavListItem to={`/${dayParam}`}>
-            {({ isActive }) => (
-              <>
-                <HomeIcon isFilled={isActive} />
-                <span>Home</span>
-              </>
-            )}
-          </NavListItem>
-          <NavListItem to="/calendar">
-            {({ isActive }) => (
-              <>
-                <CalendarIcon isFilled={isActive} />
-                <span>Calendar</span>
-              </>
-            )}
-          </NavListItem>
-          <NavListItem to="/calendar">
-            {() => (
-              <>
-                <EditIcon />
-                <span>Tasks</span>
-              </>
-            )}
-          </NavListItem>
-        </ul>
-      </nav>
-      <CustomLink
-        to={`/${dayParam}/create`}
-        aria-label="create task"
-        className="flex justify-between p-3 w-auto rounded-none"
-      >
-        <span>Create Task</span>
-        <PlusIcon />
-      </CustomLink>
-    </>
+    <nav aria-label="sidebar" id="sidebar">
+      <div className="flex items-center p-4">
+        <h2 className="w-full">Menu</h2>
+        {isMobile ? (
+          <div className="flex justify-end">
+            <Button
+              isIconWrapper
+              onClick={onHandleClose}
+              buttonType
+              aria-controls="sidebar"
+              aria-label="close sidebar"
+              aria-expanded={visible}
+            >
+              <CloseIcon />
+            </Button>
+          </div>
+        ) : null}
+      </div>
+      <div className="p-4 mb-4">
+        <UserMenu />
+      </div>
+      <ul className="flex flex-col">
+        <NavListItem to={`/${dayParam}`}>
+          {({ isActive }) => (
+            <>
+              <HomeIcon isFilled={isActive} />
+              <span>Home</span>
+            </>
+          )}
+        </NavListItem>
+        <NavListItem to="/calendar">
+          {({ isActive }) => (
+            <>
+              <CalendarIcon isFilled={isActive} />
+              <span>Calendar</span>
+            </>
+          )}
+        </NavListItem>
+        <NavListItem to="/calendar">
+          {() => (
+            <>
+              <EditIcon />
+              <span>Tasks</span>
+            </>
+          )}
+        </NavListItem>
+
+        <CustomLink
+          to={`/${dayParam}/create`}
+          aria-label="create task"
+          className="flex justify-between p-3 w-auto rounded-none ml-[0.125rem]"
+        >
+          <span>Create Task</span>
+          <PlusIcon />
+        </CustomLink>
+      </ul>
+    </nav>
   );
 }
