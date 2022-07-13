@@ -25,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          'flex gap-4 outline-none items-center w-full transition-all',
+          'flex gap-4 outline-none items-center w-full transition-all focus:ring-2 focus:ring-highlight',
           isMenuItem && 'focus:ring-highlight focus:ring-2 focus:ring-inset',
           primary &&
             'bg-highlight rounded-full py-2 px-4 focus:bg-highlightActive justify-center ring-2 ring-highlight text-white font-bold',

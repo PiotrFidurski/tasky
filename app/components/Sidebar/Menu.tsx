@@ -82,7 +82,7 @@ export function Menu({
       <CustomLink
         to={`/${dayParam}/create`}
         aria-label="create task"
-        className="flex justify-between p-3"
+        className="flex justify-between p-3 w-auto rounded-none"
       >
         <span>Create Task</span>
         <PlusIcon />
