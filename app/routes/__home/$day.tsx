@@ -64,12 +64,6 @@ export default function DayRoute() {
         completed={completed}
         percentage={percentage}
       />
-      <Button isIconWrapper className="w-auto">
-        <ArrowleftIcon />
-      </Button>
-      <Button>normal buttons</Button>
-      <Button primary>primary</Button>
-
       <Outlet />
     </div>
   );

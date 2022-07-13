@@ -27,7 +27,7 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
       </DropdownTrigger>
       <DropdownMenu.Content
         loop
-        className="rounded-lg min-w-[15rem] border bg-white transition-colors"
+        className="rounded-lg min-w-[15rem] border bg-white dark:bg-black transition-colors"
       >
         <DropdownMenu.Arrow className="fill-white" offset={20} />
         {user?.id === task.userId ? (

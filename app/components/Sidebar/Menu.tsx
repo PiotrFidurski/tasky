@@ -76,7 +76,6 @@ export function Menu({
             </>
           )}
         </NavListItem>
-
         <CustomLink
           to={`/${dayParam}/create`}
           aria-label="create task"
