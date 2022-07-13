@@ -65,10 +65,13 @@ export const action: ActionFunction = async () => {
 
 export default function EditTaskRoute() {
   const { body } = useLoaderData<LoaderData>();
+
   const navigate = useNavigate();
+
   const { day } = useParams<'day'>();
 
   const [open, setOpen] = useState(true);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleOpenChange = () => {
