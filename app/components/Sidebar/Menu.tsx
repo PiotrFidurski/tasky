@@ -70,9 +70,9 @@ export function Menu({
             )}
           </NavListItem>
           <NavListItem to="/calendar">
-            {({ isActive }) => (
+            {() => (
               <>
-                <EditIcon isFilled={isActive} />
+                <EditIcon />
                 <span>Tasks</span>
               </>
             )}
