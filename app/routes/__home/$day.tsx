@@ -53,7 +53,7 @@ export default function DayRoute() {
   const { completed, percentage, total, stats } = useLoaderData<LoaderData>();
 
   return (
-    <div>
+    <>
       <Calendar startingDate={new Date()} stats={stats}>
         {({ day, date }) => (
           <Day stats={stats} day={day} key={day} date={date} />
@@ -64,8 +64,9 @@ export default function DayRoute() {
         completed={completed}
         percentage={percentage}
       />
+
       <Outlet />
-    </div>
+    </>
   );
 }
 
