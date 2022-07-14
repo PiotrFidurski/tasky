@@ -4,6 +4,7 @@ import { useNavigate } from 'remix';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
+import { FormComponent } from './FormComponent';
 
 export function EditTask() {
   const navigate = useNavigate();
@@ -19,8 +20,9 @@ export function EditTask() {
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
           <Header srDescription="Create task dialog" shouldSubmitOnClose>
-            Create task
+            Edit task
           </Header>
+          <FormComponent />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
