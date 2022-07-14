@@ -10,7 +10,7 @@ import { CloseIcon } from '~/components/Icons/CloseIcon';
 import { EditIcon } from '~/components/Icons/EditIcon';
 import { HomeIcon } from '~/components/Icons/HomeIcon';
 import { PlusIcon } from '~/components/Icons/PlusIcon';
-import { UserMenu } from '~/components/SettingsMenu';
+import { UserMenu } from '~/components/UserMenu';
 
 import { DATE_FORMAT } from '~/utils/date';
 
