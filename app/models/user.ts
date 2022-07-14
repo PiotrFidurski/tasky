@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { db } from '~/db/db.server';
 
 export function getUserByUsername(username: string) {
@@ -8,7 +9,9 @@ export function getUserById(id: string) {
   return db.user.findUnique({ where: { id } });
 }
 
-export function createUser(username: string, password: string) {
+type UserInput = Pick<User, 'username' | 'password'>;
+
+export function createUser({ username, password }: UserInput) {
   return db.user.create({
     data: {
       username,
