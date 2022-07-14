@@ -11,6 +11,7 @@ module.exports = {
         highlight: '#00B7FC',
         highlightActive: '#039be5',
         strokeHighlight: '#00b7fc54',
+        shadowHighlight: '#26327636',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif', ...defaultTheme.fontFamily.sans],

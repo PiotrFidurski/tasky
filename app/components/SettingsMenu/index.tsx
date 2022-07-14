@@ -35,13 +35,13 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         alignOffset={isMobile ? -14 : 0}
         loop
         className={clsx(
-          'rounded-lg bg-white dark:bg-slate-900 transition-colors border dark:border-slate-800 border-gray-200',
+          'rounded-lg dark:bg-gray-900 bg-white transition-colors border dark:border-slate-800 border-gray-200',
           isMobile ? 'min-w-[calc(100vw-17px)]' : 'min-w-[14rem]'
         )}
       >
         {!isMobile ? (
           <DropdownMenu.Arrow
-            className="fill-white dark:fill-slate-900"
+            className="fill-white dark:fill-gray-900"
             offset={20}
           />
         ) : null}
