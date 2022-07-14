@@ -27,7 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           primary &&
             'bg-highlight rounded-full py-2 px-4 focus:bg-highlightActive justify-center ring-2 ring-highlight text-white font-bold',
           isIconWrapper &&
-            'p-2 rounded-full focus:ring-highlight focus:ring-2 focus:ring-inset',
+            'p-2 rounded-full w-auto focus:ring-highlight focus:ring-2 focus:ring-inset',
           className
         )}
         type={buttonType ? 'button' : 'submit'}
