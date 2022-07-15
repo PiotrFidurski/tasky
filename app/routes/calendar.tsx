@@ -1,7 +1,7 @@
 import { Outlet } from '@remix-run/react';
 import { format } from 'date-fns';
 
-import { LoaderFunction, redirect } from 'remix';
+import { LoaderArgs, redirect } from 'remix';
 
 import { requireUserId } from '~/session/auth.server';
 
@@ -11,7 +11,7 @@ import { MainLayout, RootLayout, SidebarLayout } from '~/components/layout';
 
 import { DATE_FORMAT } from '~/utils/date';
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export async function loader({ request, params }: LoaderArgs) {
   await requireUserId(request);
 
   if (!params.day) {
@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 
   return null;
-};
+}
 
 export default function CalendarRoute() {
   return (

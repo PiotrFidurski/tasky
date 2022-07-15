@@ -4,7 +4,7 @@ import { ZodError } from 'zod';
 import { createTask } from '~/models/task';
 import { dateSchema, schema } from '~/validation/task';
 
-import { ActionFunction, LoaderFunction } from 'remix';
+import { ActionArgs, LoaderArgs } from 'remix';
 
 import { getAuthUserId } from '~/session/session.server';
 import {
@@ -24,23 +24,18 @@ import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
-type LoaderData = {
-  title: string;
-  body: string;
-};
-
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const createTaskDataSession = await getTaskDraftSession(request);
 
-  const data: LoaderData = {
+  const data = {
     title: createTaskDataSession.get('taskDraft:title') || '',
     body: createTaskDataSession.get('taskDraft:body') || '',
   };
 
   return data;
-};
+}
 
-export const action: ActionFunction = async ({ params, request }) => {
+export async function action({ params, request }: ActionArgs) {
   try {
     const userId = await getAuthUserId(request);
 
@@ -94,10 +89,10 @@ export const action: ActionFunction = async ({ params, request }) => {
 
     throw badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export default function CreateTaskRoute() {
-  const draftData = useLoaderData<LoaderData>();
+  const draftData = useLoaderData<typeof loader>();
 
   return <CreateTask draft={draftData} />;
 }

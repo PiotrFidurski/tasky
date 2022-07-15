@@ -1,9 +1,13 @@
 import { useTransition } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
-type UseErrorsProps<T> = {
-  errors: T | null;
-};
+type UseErrorsProps<T> =
+  | {
+      errors: T | null;
+    }
+  | {
+      message: string;
+    };
 
 type Errors<T> = {
   fieldErrors: T | null;

@@ -1,18 +1,14 @@
 import { ZodError, z } from 'zod';
 import { getTask } from '~/models/task';
 
-import { ActionFunction, LoaderFunction, json } from 'remix';
+import { ActionFunction, LoaderArgs, json } from 'remix';
 
 import { EditTask } from '~/components/Modals/EditTask';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
-type LoaderData = {
-  body: string;
-};
-
-export const loader: LoaderFunction = async ({ params }) => {
+export async function loader({ params }: LoaderArgs) {
   try {
     const taskId = z
       .string({
@@ -26,7 +22,7 @@ export const loader: LoaderFunction = async ({ params }) => {
       throw json("Couldn't find task with provided taskId.", { status: 404 });
     }
 
-    const data: LoaderData = {
+    const data = {
       body: task.body,
     };
 
@@ -44,7 +40,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
     throw badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export const action: ActionFunction = async () => {
   // do task update here

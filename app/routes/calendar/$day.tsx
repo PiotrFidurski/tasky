@@ -8,7 +8,7 @@ import {
   groupTasksByScheduledFor,
 } from '~/models/task';
 
-import { LoaderFunction, json } from 'remix';
+import { LoaderArgs, json } from 'remix';
 
 import { getAuthUserId } from '~/session/session.server';
 
@@ -26,14 +26,7 @@ import { getCalendarData, isValidDateFormat } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 import { getTaskStatsForEachDay } from '~/utils/taskStats';
 
-export type LoaderData = {
-  tasksForTheDay: Task[];
-  unscheduledTasks: Task[];
-  calendarData: Array<Array<string>>;
-  stats: Record<string, number[]>;
-};
-
-export const loader: LoaderFunction = async ({ request, params }) => {
+export async function loader({ request, params }: LoaderArgs) {
   const userId = await getAuthUserId(request);
 
   try {
@@ -58,7 +51,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
     const stats = getTaskStatsForEachDay(groupedTasks);
 
-    const data: LoaderData = {
+    const data = {
       tasksForTheDay,
       unscheduledTasks,
       calendarData,
@@ -79,15 +72,16 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
     throw badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export { action };
 
 export default function DayRoute() {
   const { tasksForTheDay, unscheduledTasks, calendarData, stats } =
-    useLoaderData<LoaderData>();
+    useLoaderData<typeof loader>();
 
   const { day } = useParams<'day'>();
+
   return (
     <>
       <ContentLayout>

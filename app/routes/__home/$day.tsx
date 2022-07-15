@@ -2,7 +2,7 @@ import { Outlet, useCatch, useLoaderData, useNavigate } from '@remix-run/react';
 import { format } from 'date-fns';
 import { groupTasksByScheduledFor } from '~/models/task';
 
-import { LoaderFunction, json } from 'remix';
+import { LoaderArgs, json } from 'remix';
 
 import { requireUserId } from '~/session/auth.server';
 
@@ -15,14 +15,7 @@ import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 import { DATE_FORMAT } from '~/utils/date';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
 
-type LoaderData = {
-  total: number;
-  completed: number;
-  percentage: number;
-  stats: { [key: string]: number[] };
-};
-
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const userId = await requireUserId(request);
 
   const groupedTasks = await groupTasksByScheduledFor(userId);
@@ -33,7 +26,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const stats = getTaskStatsForEachDay(groupedTasks);
 
-  const data: LoaderData = {
+  const data = {
     stats,
     completed,
     total,
@@ -41,10 +34,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   };
 
   return json(data, { status: 200 });
-};
+}
 
 export default function DayRoute() {
-  const { completed, percentage, total, stats } = useLoaderData<LoaderData>();
+  const { completed, percentage, total, stats } =
+    useLoaderData<typeof loader>();
 
   return (
     <>

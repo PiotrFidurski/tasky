@@ -1,9 +1,9 @@
 import { Form, useActionData } from '@remix-run/react';
-import { ZodError, z } from 'zod';
+import { ZodError } from 'zod';
 import { getUserByUsername } from '~/models/user';
-import { ZodRegisterErrors, registerSchema } from '~/validation/user';
+import { registerSchema } from '~/validation/user';
 
-import { ActionFunction } from 'remix';
+import { ActionArgs } from 'remix';
 
 import { register } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
@@ -17,9 +17,7 @@ import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-type ActionData = z.infer<typeof ZodRegisterErrors>;
-
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: ActionArgs) {
   try {
     const form = await request.formData();
 
@@ -51,10 +49,10 @@ export const action: ActionFunction = async ({ request }) => {
 
     return badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export default function LoginRoute() {
-  const actionData = useActionData<ActionData | undefined>();
+  const actionData = useActionData<typeof action>();
 
   const { fieldErrors } = useErrors(actionData);
 

@@ -1,9 +1,9 @@
 import { Form, useActionData } from '@remix-run/react';
 import bcrypt from 'bcryptjs';
-import { ZodError, z } from 'zod';
-import { ZodLoginErrors, loginSchema } from '~/validation/user';
+import { ZodError } from 'zod';
+import { loginSchema } from '~/validation/user';
 
-import { ActionFunction } from 'remix';
+import { ActionArgs } from 'remix';
 
 import { login } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
@@ -17,9 +17,7 @@ import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-type ActionData = z.infer<typeof ZodLoginErrors>;
-
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: ActionArgs) {
   try {
     const form = await request.formData();
 
@@ -57,10 +55,10 @@ export const action: ActionFunction = async ({ request }) => {
 
     return badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export default function LoginRoute() {
-  const actionData = useActionData<ActionData | undefined>();
+  const actionData = useActionData<typeof action>();
 
   const { fieldErrors } = useErrors(actionData);
 

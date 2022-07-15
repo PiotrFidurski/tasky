@@ -1,21 +1,16 @@
-import { Task } from '@prisma/client';
 import { useLoaderData, useParams } from '@remix-run/react';
 import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
 import { getTasksForDay } from '~/models/task';
 
-import { LoaderFunction, json } from 'remix';
+import { LoaderArgs, json } from 'remix';
 
 import { getAuthUserId } from '~/session/session.server';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 
-type LoaderData = {
-  tasks: Array<Task>;
-};
-
-export const loader: LoaderFunction = async ({ request, params }) => {
+export async function loader({ request, params }: LoaderArgs) {
   const userId = await getAuthUserId(request);
 
   try {
@@ -32,7 +27,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
     const tasks = await getTasksForDay(day, userId);
 
-    const data: LoaderData = {
+    const data = {
       tasks,
     };
 
@@ -50,10 +45,10 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
     throw badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export default function IndexRoute() {
-  const { tasks } = useLoaderData<LoaderData>();
+  const { tasks } = useLoaderData<typeof loader>();
 
   const params = useParams<'day'>();
 
