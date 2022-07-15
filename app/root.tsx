@@ -1,7 +1,4 @@
 import { User } from '@prisma/client';
-import clsx from 'clsx';
-import React from 'react';
-
 import {
   Links,
   LiveReload,
@@ -13,7 +10,9 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
-} from 'remix';
+} from '@remix-run/react';
+import clsx from 'clsx';
+import React from 'react';
 
 import { getUserSession } from './session/session.server';
 import { getThemeSession } from './session/theme.server';

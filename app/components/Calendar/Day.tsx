@@ -1,3 +1,4 @@
+import { Link, useParams } from '@remix-run/react';
 import clsx from 'clsx';
 import {
   format,
@@ -6,8 +7,6 @@ import {
   isToday,
   parseISO,
 } from 'date-fns';
-
-import { Link, useParams } from 'remix';
 
 export function Day({
   day,

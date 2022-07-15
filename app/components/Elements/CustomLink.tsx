@@ -1,7 +1,6 @@
+import { Link } from '@remix-run/react';
 import { RemixLinkProps } from '@remix-run/react/components';
 import clsx from 'clsx';
-
-import { Link } from 'remix';
 
 type CustomLinkProps = RemixLinkProps & {
   to: string;

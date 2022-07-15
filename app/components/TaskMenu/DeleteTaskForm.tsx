@@ -1,6 +1,5 @@
+import { Form } from '@remix-run/react';
 import { actionTypes } from '~/actions/actionTypes';
-
-import { Form } from 'remix';
 
 import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
 

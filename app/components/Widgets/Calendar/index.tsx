@@ -1,8 +1,7 @@
+import { useParams } from '@remix-run/react';
 import { addMonths, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-
-import { useParams } from 'remix';
 
 import { getCalendarData } from '~/utils/date';
 
@@ -21,7 +20,7 @@ type CalendarProps = {
   startingDate: Date;
   stats: { [key: string]: number[] };
   weeksCount?: number;
-  children: ({ day, date, stats }: RenderProps) => JSX.Element;
+  children: (props: RenderProps) => JSX.Element;
 };
 
 export function Calendar({

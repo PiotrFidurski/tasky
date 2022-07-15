@@ -1,4 +1,5 @@
 import { Task } from '@prisma/client';
+import { Outlet, useCatch, useLoaderData, useParams } from '@remix-run/react';
 import { ZodError, z } from 'zod';
 import { action } from '~/actions/task.server';
 import {
@@ -7,14 +8,7 @@ import {
   groupTasksByScheduledFor,
 } from '~/models/task';
 
-import {
-  LoaderFunction,
-  Outlet,
-  json,
-  useCatch,
-  useLoaderData,
-  useParams,
-} from 'remix';
+import { LoaderFunction, json } from 'remix';
 
 import { getAuthUserId } from '~/session/session.server';
 

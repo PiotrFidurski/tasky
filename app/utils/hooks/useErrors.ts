@@ -1,6 +1,5 @@
+import { useTransition } from '@remix-run/react';
 import { useEffect, useState } from 'react';
-
-import { useTransition } from 'remix';
 
 type UseErrorsProps<T> = {
   errors: T | null;

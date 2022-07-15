@@ -1,6 +1,7 @@
+import { Outlet } from '@remix-run/react';
 import { format } from 'date-fns';
 
-import { LoaderFunction, Outlet, redirect } from 'remix';
+import { LoaderFunction, redirect } from 'remix';
 
 import { requireUserId } from '~/session/auth.server';
 

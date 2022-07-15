@@ -1,7 +1,6 @@
 import { Task } from '@prisma/client';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 
 import { useUser } from '../Auth/useUser';
 import { Button } from '../Elements/Button';

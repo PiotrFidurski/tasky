@@ -1,7 +1,8 @@
 import { format } from 'date-fns';
-import { destroyUserSession } from '~/session/session.server';
 
 import { ActionFunction, LoaderFunction, redirect } from 'remix';
+
+import { destroyUserSession } from '~/session/session.server';
 
 import { DATE_FORMAT } from '~/utils/date';
 

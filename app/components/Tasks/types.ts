@@ -1,7 +1,6 @@
 import { Task } from '@prisma/client';
+import { FormProps } from '@remix-run/react';
 import { Fetcher } from '@remix-run/react/transition';
-
-import { FormProps } from 'remix';
 
 export type ComponentWithFetcherProps<TData> = {
   task: Task;

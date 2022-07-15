@@ -1,8 +1,9 @@
+import { Form, useActionData } from '@remix-run/react';
 import { ZodError, z } from 'zod';
 import { getUserByUsername } from '~/models/user';
 import { ZodRegisterErrors, registerSchema } from '~/validation/user';
 
-import { ActionFunction, Form, useActionData } from 'remix';
+import { ActionFunction } from 'remix';
 
 import { register } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';

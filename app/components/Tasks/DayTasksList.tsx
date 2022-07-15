@@ -1,8 +1,7 @@
 import { Task } from '@prisma/client';
+import { useParams } from '@remix-run/react';
 import { format } from 'date-fns';
 import { actionTypes } from '~/actions/actionTypes';
-
-import { useParams } from 'remix';
 
 import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
 

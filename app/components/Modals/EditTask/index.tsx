@@ -1,6 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
-
-import { useNavigate } from 'remix';
+import { useNavigate } from '@remix-run/react';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';

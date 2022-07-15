@@ -1,14 +1,8 @@
+import { Outlet, useCatch, useLoaderData, useNavigate } from '@remix-run/react';
 import { format } from 'date-fns';
 import { groupTasksByScheduledFor } from '~/models/task';
 
-import {
-  LoaderFunction,
-  Outlet,
-  json,
-  useCatch,
-  useLoaderData,
-  useNavigate,
-} from 'remix';
+import { LoaderFunction, json } from 'remix';
 
 import { requireUserId } from '~/session/auth.server';
 
