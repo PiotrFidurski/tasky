@@ -1,9 +1,9 @@
-import { Task } from '@prisma/client';
 import { useFetchers } from '@remix-run/react';
+import { JsonifiedTask } from '~/types';
 
 type UpdateTaskProps = {
   action: string;
-  tasks: Array<Task>;
+  tasks: Array<JsonifiedTask>;
   updateValue?: string;
 };
 
@@ -13,7 +13,7 @@ export function useUpdateTasks({
   updateValue = '',
 }: UpdateTaskProps) {
   const fetchers = useFetchers();
-  const updates: Array<Task> = [];
+  const updates: Array<JsonifiedTask> = [];
 
   fetchers.forEach((fetcher) => {
     if (fetcher.submission?.formData.get('_action') === action) {
@@ -26,7 +26,7 @@ export function useUpdateTasks({
           const updatedTask = {
             ...task,
             scheduledFor: updateValue,
-            sortDate: new Date(),
+            sortDate: new Date().toISOString(),
           };
 
           updates.push(updatedTask);
