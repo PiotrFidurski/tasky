@@ -1,4 +1,3 @@
-import { Task } from '@prisma/client';
 import { Outlet, useCatch, useLoaderData, useParams } from '@remix-run/react';
 import { ZodError, z } from 'zod';
 import { action } from '~/actions/task.server';
