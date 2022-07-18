@@ -1,10 +1,7 @@
-import { User } from '@prisma/client';
 import {
   Links,
   LiveReload,
-  LoaderFunction,
   Meta,
-  MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -14,13 +11,14 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 
+import { LoaderArgs } from 'remix';
+
 import { getUserSession } from './session/session.server';
 import { getThemeSession } from './session/theme.server';
 
 import { AuthProvider } from './components/Auth/AuthProvider';
 import { ThemeProvider, useTheme } from './components/Theme/ThemeProvider';
 import { LoadUserThemePreferences } from './components/Theme/systemTheme';
-import { Theme } from './components/Theme/themeContext';
 
 import { getUserById } from './models/user';
 import styles from './styles/app.css';
@@ -45,16 +43,11 @@ export function links() {
   ];
 }
 
-export const meta: MetaFunction = () => {
+export function meta() {
   return { title: 'Tasky' };
-};
+}
 
-type LoaderData = {
-  theme: Theme;
-  user: User | null;
-};
-
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const userSession = await getUserSession(request);
   const themeSession = await getThemeSession(request);
 
@@ -65,7 +58,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
     const user = await getUserById(userId);
 
-    const data: LoaderData = {
+    const data = {
       theme,
       user,
     };
@@ -73,18 +66,18 @@ export const loader: LoaderFunction = async ({ request }) => {
     return data;
   }
 
-  const data: LoaderData = {
+  const data = {
     theme,
     user: null,
   };
 
   return data;
-};
+}
 
 function Document({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
-  const data = useLoaderData<LoaderData>();
+  const data = useLoaderData<typeof loader>();
 
   return (
     <html lang="en" className={clsx(theme)}>
@@ -106,7 +99,7 @@ function Document({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const data = useLoaderData<LoaderData>();
+  const data = useLoaderData<typeof loader>();
 
   return (
     <AuthProvider user={data.user}>
