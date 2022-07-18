@@ -5,9 +5,8 @@ type UseErrorsProps<T> =
   | {
       errors: T | null;
     }
-  | {
-      message: string;
-    };
+  | { message: string }
+  | undefined;
 
 type Errors<T> = {
   fieldErrors: T | null;
@@ -22,7 +21,7 @@ type Errors<T> = {
  * @param actionData - data returned from `useActionData` hook.
  * @returns `fieldErrors` - object with error fields depending on `actionData` provided.
  */
-export function useErrors<T>(actionData: UseErrorsProps<T> | undefined) {
+export function useErrors<T>(actionData: UseErrorsProps<T>) {
   const [errors, setErrors] = useState<Errors<T> | null>(null);
 
   const { state } = useTransition();

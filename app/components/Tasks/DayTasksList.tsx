@@ -1,7 +1,7 @@
-import { Task } from '@prisma/client';
 import { useParams } from '@remix-run/react';
 import { format } from 'date-fns';
 import { actionTypes } from '~/actions/actionTypes';
+import { JsonifiedTask } from '~/types';
 
 import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
 
@@ -11,8 +11,8 @@ export function DayTasksList({
   dayTasks,
   unscheduledTasks,
 }: {
-  dayTasks: Array<Task>;
-  unscheduledTasks: Array<Task>;
+  dayTasks: Array<JsonifiedTask>;
+  unscheduledTasks: Array<JsonifiedTask>;
 }) {
   const { day } = useParams<'day'>();
 

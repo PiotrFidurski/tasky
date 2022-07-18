@@ -1,8 +1,8 @@
-import { Task } from '@prisma/client';
 import { useFetcher } from '@remix-run/react';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { actionTypes } from '~/actions/actionTypes';
+import { JsonifiedTask } from '~/types';
 
 import { TaskMenuDropdown } from '../TaskMenu';
 import { CompleteTaskForm } from './CompleteTaskForm';
@@ -10,7 +10,7 @@ import { ScheduleTaskForm } from './ScheduleTaskForm';
 import { UnscheduleTaskForm } from './UnscheduleTaskForm';
 import { getActionType } from './utils';
 
-export function TaskComponent({ task }: { task: Task }) {
+export function TaskComponent({ task }: { task: JsonifiedTask }) {
   const fetcher = useFetcher();
 
   const { isScheduling, isUnscheduling } = getActionType(fetcher.submission);

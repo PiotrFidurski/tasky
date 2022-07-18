@@ -1,6 +1,6 @@
-import { Task } from '@prisma/client';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Link } from '@remix-run/react';
+import { JsonifiedTask } from '~/types';
 
 import { useUser } from '../Auth/useUser';
 import { Button } from '../Elements/Button';
@@ -11,7 +11,7 @@ import { EditIcon } from '../Icons/EditIcon';
 import { DeleteTaskForm } from './DeleteTaskForm';
 
 type TaskMenuDropdownProps = {
-  task: Task;
+  task: JsonifiedTask;
 };
 
 export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
