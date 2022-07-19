@@ -1,13 +1,15 @@
-import { useParams } from '@remix-run/react';
 import { addMonths, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
+
 import { useState } from 'react';
+
+import { useParams } from '@remix-run/react';
 
 import { getCalendarData } from '~/utils/date';
 
-import { DaysOfWeek } from './DaysOfWeek';
-import { Header } from './Header';
 import { variants } from './animationVariants';
+import { DaysOfWeek } from './components/DaysOfWeek';
+import { Header } from './components/Header';
 import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 
 type RenderProps = {

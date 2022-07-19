@@ -1,4 +1,4 @@
-import { DAYS_OF_WEEK } from './consts';
+import { DAYS_OF_WEEK } from '../consts';
 
 export function DaysOfWeek() {
   return (

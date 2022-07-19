@@ -9,7 +9,7 @@ import { requireUserId } from '~/session/auth.server';
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
-import { DayLink } from '~/components/Widgets/Calendar/DayLink';
+import { DayLink } from '~/components/Widgets/Calendar/components/DayLink';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { DATE_FORMAT } from '~/utils/date';

@@ -5,11 +5,10 @@
   "tabWidth": 2,
   "semi": true,
   "importOrder": [
+    "^react(.*)$",
     "^remix(.*)$",
-    "^~/session/(.*)$",
-    "^./session/(.*)$",
+    "^@remix-run(.*)$",
     "^~/components/(.*)$",
-    "^./components/(.*)$",
     "^~/utils/(.*)$",
     "^[./]"
   ],
