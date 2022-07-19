@@ -9,7 +9,7 @@ import { requireUserId } from '~/session/auth.server';
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
-import { Day } from '~/components/Widgets/Calendar/Day';
+import { DayLink } from '~/components/Widgets/Calendar/DayLink';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { DATE_FORMAT } from '~/utils/date';
@@ -44,7 +44,7 @@ export default function DayRoute() {
     <>
       <Calendar startingDate={new Date()} stats={stats}>
         {({ day, date }) => (
-          <Day stats={stats} day={day} key={day} date={date} />
+          <DayLink stats={stats} day={day} key={day} date={date} />
         )}
       </Calendar>
       <CompletedTasks

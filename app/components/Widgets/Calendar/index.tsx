@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { getCalendarData } from '~/utils/date';
 
-import { DayNames } from './DayNames';
+import { DaysOfWeek } from './DaysOfWeek';
 import { Header } from './Header';
 import { variants } from './animationVariants';
 import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
@@ -77,7 +77,7 @@ export function Calendar({
           animate="center"
           exit="exit"
         >
-          <DayNames />
+          <DaysOfWeek />
           <section>
             {calendarData.map((week) => (
               <div key={week[0]} className="flex justify-between items-center">

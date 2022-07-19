@@ -10,7 +10,7 @@ type DayProps = {
   stats: { [key: string]: number[] };
 };
 
-export function Day({ day, date, stats }: DayProps) {
+export function DayLink({ day, date, stats }: DayProps) {
   const currentDate = new Date(day);
 
   const dayOfMonth = format(currentDate, 'dd');
