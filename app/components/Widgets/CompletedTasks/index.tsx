@@ -27,7 +27,7 @@ export function CompletedTasks({
         </div>
       </div>
       <CustomLink
-        className="rounded-t-none rounded-b-xl dark:bg-shadowHighlight bg-[#e7e7e7] p-2 font-bold"
+        className="rounded-t-none rounded-b-xl dark:bg-shadowHighlight bg-greyLight p-2 font-bold"
         to="/"
       >
         View more
