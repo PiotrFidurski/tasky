@@ -1,4 +1,3 @@
-import { ActionFunction, json } from '@remix-run/react';
 import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
 import {
@@ -8,6 +7,8 @@ import {
   scheduleTask,
   unscheduleTask,
 } from '~/models/task';
+
+import { ActionArgs, json } from 'remix';
 
 import { requireUserId } from '~/session/auth.server';
 
@@ -20,7 +21,7 @@ function unauthorizedResponse(message: string) {
   return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
 }
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: ActionArgs) {
   try {
     const userId = await requireUserId(request);
 
@@ -100,4 +101,4 @@ export const action: ActionFunction = async ({ request }) => {
 
     throw badRequest(message);
   }
-};
+}
