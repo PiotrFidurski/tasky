@@ -1,8 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog';
+
 import { useNavigate } from '@remix-run/react';
 
 import { Calendar } from '~/components/Widgets/Calendar';
-import { DayButton } from '~/components/Widgets/Calendar/DayButton';
+import { DayButton } from '~/components/Widgets/Calendar/components/DayButton';
 
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
