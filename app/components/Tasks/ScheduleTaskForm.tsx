@@ -1,11 +1,14 @@
-import { useParams } from '@remix-run/react';
 import { format } from 'date-fns';
+
+import { useParams } from '@remix-run/react';
+
+import { Button } from '~/components/Elements/Button';
+import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
+
 import { actionTypes } from '~/actions/actionTypes';
 
 import { DATE_FORMAT } from '~/utils/date';
 
-import { Button } from '../Elements/Button';
-import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
 import { ComponentWithFetcherProps } from './types';
 
 export function ScheduleTaskForm({

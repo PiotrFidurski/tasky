@@ -1,4 +1,5 @@
 import { Fetcher, FormProps } from '@remix-run/react';
+
 import { JsonifiedTask } from '~/types';
 
 export type ComponentWithFetcherProps<TData> = {

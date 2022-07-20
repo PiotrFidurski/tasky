@@ -1,7 +1,8 @@
 import { actionTypes } from '~/actions/actionTypes';
-import { JsonifiedTask } from '~/types';
 
 import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
+
+import { JsonifiedTask } from '~/types';
 
 import { TaskComponent } from './TaskComponent';
 

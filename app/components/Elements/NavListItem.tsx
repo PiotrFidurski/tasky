@@ -1,5 +1,6 @@
-import { NavLink } from '@remix-run/react';
 import clsx from 'clsx';
+
+import { NavLink } from '@remix-run/react';
 
 type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
   to: string;

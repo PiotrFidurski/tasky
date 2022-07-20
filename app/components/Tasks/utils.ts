@@ -1,4 +1,5 @@
 import { Fetcher } from '@remix-run/react';
+
 import { actionTypes } from '~/actions/actionTypes';
 
 export function getActionType(submission: Fetcher['submission']) {

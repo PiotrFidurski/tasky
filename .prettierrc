@@ -5,9 +5,9 @@
   "tabWidth": 2,
   "semi": true,
   "importOrder": [
-    "^react(.*)$",
+    "^react",
     "^@prisma/client",
-    "^cslx",
+    "cslx",
     "^zod",
     "^date-fns",
     "^remix",
