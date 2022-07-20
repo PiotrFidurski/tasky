@@ -1,9 +1,12 @@
-import { useLoaderData, useParams } from '@remix-run/react';
-import { isValid } from 'date-fns';
 import { ZodError, z } from 'zod';
-import { getTasksForDay } from '~/models/task';
+
+import { isValid } from 'date-fns';
 
 import { LoaderArgs, json } from 'remix';
+
+import { useLoaderData, useParams } from '@remix-run/react';
+
+import { getTasksForDay } from '~/models/task';
 
 import { getAuthUserId } from '~/session/session.server';
 

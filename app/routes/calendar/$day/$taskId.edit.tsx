@@ -1,7 +1,8 @@
 import { ZodError, z } from 'zod';
-import { getTask } from '~/models/task';
 
 import { ActionFunction, LoaderArgs, json } from 'remix';
+
+import { getTask } from '~/models/task';
 
 import { EditTask } from '~/components/Modals/EditTask';
 

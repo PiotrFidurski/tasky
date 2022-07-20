@@ -1,8 +1,8 @@
-import { Button } from '../Elements/Button';
-import { MoonIcon } from '../Icons/MoonIcon';
-import { SunIcon } from '../Icons/SunIcon';
-import { useTheme } from '../Theme/ThemeProvider';
-import { Theme } from '../Theme/themeContext';
+import { Button } from '~/components/Elements/Button';
+import { MoonIcon } from '~/components/Icons/MoonIcon';
+import { SunIcon } from '~/components/Icons/SunIcon';
+import { useTheme } from '~/components/Theme/ThemeProvider';
+import { Theme } from '~/components/Theme/themeContext';
 
 export function ToggleThemeButton() {
   const { theme } = useTheme();

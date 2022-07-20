@@ -1,5 +1,6 @@
-import { useFetcher } from '@remix-run/react';
 import { useContext, useEffect, useRef, useState } from 'react';
+
+import { useFetcher } from '@remix-run/react';
 
 import { getSystemTheme } from './systemTheme';
 import { Theme, themeContext } from './themeContext';

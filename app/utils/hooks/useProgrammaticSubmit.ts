@@ -1,5 +1,6 @@
-import { useSubmit } from '@remix-run/react';
 import { useRef } from 'react';
+
+import { useSubmit } from '@remix-run/react';
 
 export function useProgrammaticSubmit() {
   const submit = useSubmit();

@@ -1,4 +1,5 @@
 import { Task } from '@prisma/client';
+
 import { db } from '~/db/db.server';
 
 export function getManyTasks() {

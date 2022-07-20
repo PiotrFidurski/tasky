@@ -1,13 +1,14 @@
-import { Outlet, useCatch, useLoaderData, useParams } from '@remix-run/react';
 import { ZodError, z } from 'zod';
-import { action } from '~/actions/task.server';
+
+import { LoaderArgs, json } from 'remix';
+
+import { Outlet, useCatch, useLoaderData, useParams } from '@remix-run/react';
+
 import {
   getTasksForDay,
   getUnscheduledTasks,
   groupTasksByScheduledFor,
 } from '~/models/task';
-
-import { LoaderArgs, json } from 'remix';
 
 import { getAuthUserId } from '~/session/session.server';
 
@@ -19,6 +20,8 @@ import {
   ColumnLayout,
   ContentLayout,
 } from '~/components/layout';
+
+import { action } from '~/actions/task.server';
 
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData, isValidDateFormat } from '~/utils/date';

@@ -1,3 +1,9 @@
+import clsx from 'clsx';
+
+import React from 'react';
+
+import { LoaderArgs } from 'remix';
+
 import {
   Links,
   LiveReload,
@@ -8,20 +14,17 @@ import {
   useCatch,
   useLoaderData,
 } from '@remix-run/react';
-import clsx from 'clsx';
-import React from 'react';
 
-import { LoaderArgs } from 'remix';
+import { getUserById } from '~/models/user';
 
-import { getUserSession } from './session/session.server';
-import { getThemeSession } from './session/theme.server';
+import { getUserSession } from '~/session/session.server';
+import { getThemeSession } from '~/session/theme.server';
 
-import { AuthProvider } from './components/Auth/AuthProvider';
-import { ThemeProvider, useTheme } from './components/Theme/ThemeProvider';
-import { LoadUserThemePreferences } from './components/Theme/systemTheme';
+import { AuthProvider } from '~/components/Auth/AuthProvider';
+import { ThemeProvider, useTheme } from '~/components/Theme/ThemeProvider';
+import { LoadUserThemePreferences } from '~/components/Theme/systemTheme';
 
-import { getUserById } from './models/user';
-import styles from './styles/app.css';
+import styles from '~/styles/app.css';
 
 export function links() {
   return [

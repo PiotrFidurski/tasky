@@ -1,10 +1,12 @@
-import { User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import { createUser, getUserByUsername } from '~/models/user';
+
+import { User } from '@prisma/client';
 
 import { redirect } from 'remix';
 
-import { getUserSession } from './session.server';
+import { createUser, getUserByUsername } from '~/models/user';
+
+import { getUserSession } from '~/session/session.server';
 
 /**
  * Partial fields of User Model.

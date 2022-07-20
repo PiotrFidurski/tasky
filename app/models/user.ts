@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+
 import { db } from '~/db/db.server';
 
 export function getUserByUsername(username: string) {

@@ -1,10 +1,10 @@
 import { Form } from '@remix-run/react';
 
-import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
+import { Button } from '~/components/Elements/Button';
+import { DropdownItem } from '~/components/Elements/DropdownItem';
+import { LogoutIcon } from '~/components/Icons/LogoutIcon';
 
-import { Button } from '../Elements/Button';
-import { DropdownItem } from '../Elements/DropdownItem';
-import { LogoutIcon } from '../Icons/LogoutIcon';
+import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
 
 export function LogoutForm() {
   const { formRef, handleSubmit } = useProgrammaticSubmit();

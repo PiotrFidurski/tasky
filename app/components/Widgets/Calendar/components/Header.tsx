@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import { format, isToday } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import { format, isToday } from 'date-fns';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';

@@ -1,9 +1,12 @@
-import { Form, useActionData } from '@remix-run/react';
 import bcrypt from 'bcryptjs';
+
 import { ZodError } from 'zod';
-import { loginSchema } from '~/validation/user';
 
 import { ActionArgs } from 'remix';
+
+import { Form, useActionData } from '@remix-run/react';
+
+import { loginSchema } from '~/validation/user';
 
 import { login } from '~/session/auth.server';
 import { createUserSession } from '~/session/session.server';
