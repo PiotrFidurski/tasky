@@ -1,5 +1,3 @@
-import { loader } from '~/rmx_loaders/editTask.server';
-
 import { useEffect, useRef } from 'react';
 
 import { Form, useLoaderData } from '@remix-run/react';
@@ -7,6 +5,8 @@ import { Form, useLoaderData } from '@remix-run/react';
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
+
+import { loader } from '~/server/loaders/editTask.server';
 
 export function FormComponent() {
   const { body } = useLoaderData<typeof loader>();

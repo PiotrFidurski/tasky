@@ -1,6 +1,6 @@
-import { actionTypes } from '~/rmx_actions/actionTypes';
-
 import { Fetcher } from '@remix-run/react';
+
+import { actionTypes } from '~/server/actions/actionTypes';
 
 export function getActionType(submission: Fetcher['submission']) {
   const action = submission?.formData.get('_action');

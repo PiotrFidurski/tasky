@@ -1,8 +1,8 @@
-import { actionTypes } from '~/rmx_actions/actionTypes';
-
 import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
+
+import { actionTypes } from '~/server/actions/actionTypes';
 
 import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
 
