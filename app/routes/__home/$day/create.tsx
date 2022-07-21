@@ -1,3 +1,5 @@
+import { action } from '~/rmx_actions/createTask.server';
+
 import { LoaderArgs } from 'remix';
 
 import { useLoaderData } from '@remix-run/react';
@@ -5,8 +7,6 @@ import { useLoaderData } from '@remix-run/react';
 import { getTaskDraftSession } from '~/session/taskdraft.server';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
-
-import { action } from '~/actions/createTask.server';
 
 export { action };
 

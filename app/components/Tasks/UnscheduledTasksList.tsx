@@ -1,4 +1,4 @@
-import { actionTypes } from '~/actions/actionTypes';
+import { actionTypes } from '~/rmx_actions/actionTypes';
 
 import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
 

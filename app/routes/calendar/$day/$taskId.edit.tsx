@@ -1,4 +1,4 @@
-import { loader } from '~/aloaders/editTask.server';
+import { loader } from '~/rmx_loaders/editTask.server';
 
 import { ActionFunction } from 'remix';
 

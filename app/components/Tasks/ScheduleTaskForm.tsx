@@ -1,11 +1,11 @@
+import { actionTypes } from '~/rmx_actions/actionTypes';
+
 import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
-
-import { actionTypes } from '~/actions/actionTypes';
 
 import { DATE_FORMAT } from '~/utils/date';
 
