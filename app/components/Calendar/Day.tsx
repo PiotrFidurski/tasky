@@ -21,10 +21,10 @@ export function Day({
 
   const params = useParams<'day'>();
 
-  // convert string eg: '2022-02-13' back to date
   const date = new Date(day);
 
   const monthName = format(date, 'MMM');
+
   const dayOfMonth = date.getDate();
 
   const completion = (complete / total) * 100;
