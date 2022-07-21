@@ -1,3 +1,5 @@
+import { loader } from '~/aloaders/editTask.server';
+
 import { useEffect, useRef } from 'react';
 
 import { Form, useLoaderData } from '@remix-run/react';
@@ -6,10 +8,8 @@ import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
-type LoaderData = { body: string };
-
 export function FormComponent() {
-  const { body } = useLoaderData<LoaderData>();
+  const { body } = useLoaderData<typeof loader>();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
