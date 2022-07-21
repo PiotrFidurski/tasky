@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 import { format } from 'date-fns';
 
 import { Form, useActionData, useSearchParams } from '@remix-run/react';
@@ -9,27 +7,19 @@ import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 
+import { action } from '~/actions/createTask.server';
+
 import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { CREATE_DRAFT, SUBMIT_FORM } from '../actionTypes';
-
-const ZodTaskErrors = z.object({
-  errors: z.object({
-    body: z.array(z.string()),
-    title: z.array(z.string()),
-    date: z.array(z.string()),
-  }),
-});
-
-type ActionData = z.infer<typeof ZodTaskErrors>;
 
 type FormComponentProps = {
   draft: { title: string; body: string };
 };
 
 export function FormComponent({ draft }: FormComponentProps) {
-  const actionData = useActionData<ActionData | undefined>();
+  const actionData = useActionData<typeof action>();
 
   const [searchParams] = useSearchParams();
 
