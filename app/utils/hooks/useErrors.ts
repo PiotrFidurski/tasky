@@ -29,9 +29,10 @@ export function useErrors<T>(actionData: UseErrorsProps<T>) {
 
   useEffect(() => {
     setErrors({ fieldErrors: null });
-
-    if (state === 'idle' && actionData?.errors) {
-      setErrors({ fieldErrors: { ...actionData.errors } });
+    if (actionData && 'errors' in actionData) {
+      if (state === 'idle' && actionData?.errors) {
+        setErrors({ fieldErrors: { ...actionData.errors } });
+      }
     }
   }, [state, actionData]);
 
