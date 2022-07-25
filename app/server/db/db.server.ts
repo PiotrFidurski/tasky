@@ -1,8 +1,10 @@
+// eslint-disable
 import { PrismaClient } from '@prisma/client';
 
 let db: PrismaClient;
 
 declare global {
+  // eslint-disable-next-line vars-on-top, no-var
   var __db: PrismaClient | undefined;
 }
 

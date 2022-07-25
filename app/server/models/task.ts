@@ -1,6 +1,6 @@
 import { Task } from '@prisma/client';
 
-import { db } from '~/db/db.server';
+import { db } from '~/server/db/db.server';
 
 export function getManyTasks() {
   return db.task.findMany({ orderBy: { createdAt: 'desc' } });
