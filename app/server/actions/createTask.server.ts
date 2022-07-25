@@ -8,11 +8,11 @@ import { createTask } from '~/models/task';
 
 import { dateSchema, schema } from '~/validation/task';
 
-import { getAuthUserId } from '~/session/session.server';
+import { getAuthUserId } from '~/server/session/session.server';
 import {
   destroyTaskDraftSession,
   updateTaskDraftSession,
-} from '~/session/taskdraft.server';
+} from '~/server/session/taskdraft.server';
 
 import {
   CREATE_DRAFT,

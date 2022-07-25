@@ -4,7 +4,7 @@ import { LoaderArgs, redirect } from 'remix';
 
 import { Outlet } from '@remix-run/react';
 
-import { requireUserId } from '~/session/auth.server';
+import { requireUserId } from '~/server/session/auth.server';
 
 import { DesktopSidebar } from '~/components/Sidebar/desktop';
 import { MobileSidebar } from '~/components/Sidebar/mobile';

@@ -8,8 +8,8 @@ import { getUserByUsername } from '~/models/user';
 
 import { registerSchema } from '~/validation/user';
 
-import { register } from '~/session/auth.server';
-import { createUserSession } from '~/session/session.server';
+import { register } from '~/server/session/auth.server';
+import { createUserSession } from '~/server/session/session.server';
 
 import { Button } from '~/components/Elements/Button';
 import { CustomLink } from '~/components/Elements/CustomLink';

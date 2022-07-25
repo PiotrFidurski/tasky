@@ -8,7 +8,7 @@ import { useLoaderData, useParams } from '@remix-run/react';
 
 import { getTasksForDay } from '~/models/task';
 
-import { getAuthUserId } from '~/session/session.server';
+import { getAuthUserId } from '~/server/session/session.server';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';

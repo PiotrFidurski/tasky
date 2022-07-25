@@ -2,11 +2,10 @@ import { LoaderArgs } from 'remix';
 
 import { useLoaderData } from '@remix-run/react';
 
-import { getTaskDraftSession } from '~/session/taskdraft.server';
+import { action } from '~/server/actions/createTask.server';
+import { getTaskDraftSession } from '~/server/session/taskdraft.server';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
-
-import { action } from '~/server/actions/createTask.server';
 
 export { action };
 

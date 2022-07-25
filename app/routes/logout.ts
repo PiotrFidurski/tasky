@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 import { ActionArgs, LoaderFunction, redirect } from 'remix';
 
-import { destroyUserSession } from '~/session/session.server';
+import { destroyUserSession } from '~/server/session/session.server';
 
 import { DATE_FORMAT } from '~/utils/date';
 

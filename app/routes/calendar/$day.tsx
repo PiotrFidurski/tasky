@@ -10,7 +10,8 @@ import {
   groupTasksByScheduledFor,
 } from '~/models/task';
 
-import { getAuthUserId } from '~/session/session.server';
+import { action } from '~/server/actions/task.server';
+import { getAuthUserId } from '~/server/session/session.server';
 
 import { Calendar } from '~/components/Calendar/root';
 import { DayTasksList } from '~/components/Tasks/DayTasksList';
@@ -20,8 +21,6 @@ import {
   ColumnLayout,
   ContentLayout,
 } from '~/components/layout';
-
-import { action } from '~/server/actions/task.server';
 
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData, isValidDateFormat } from '~/utils/date';

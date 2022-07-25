@@ -17,8 +17,8 @@ import {
 
 import { getUserById } from '~/models/user';
 
-import { getUserSession } from '~/session/session.server';
-import { getThemeSession } from '~/session/theme.server';
+import { getUserSession } from '~/server/session/session.server';
+import { getThemeSession } from '~/server/session/theme.server';
 
 import { AuthProvider } from '~/components/Auth/AuthProvider';
 import { ThemeProvider, useTheme } from '~/components/Theme/ThemeProvider';

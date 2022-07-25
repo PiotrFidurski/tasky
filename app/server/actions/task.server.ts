@@ -12,7 +12,7 @@ import {
   unscheduleTask,
 } from '~/models/task';
 
-import { requireUserId } from '~/session/auth.server';
+import { requireUserId } from '~/server/session/auth.server';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';

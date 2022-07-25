@@ -6,7 +6,7 @@ import { redirect } from 'remix';
 
 import { createUser, getUserByUsername } from '~/models/user';
 
-import { getUserSession } from '~/session/session.server';
+import { getUserSession } from '~/server/session/session.server';
 
 /**
  * Partial fields of User Model.

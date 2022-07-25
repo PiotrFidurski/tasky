@@ -1,10 +1,12 @@
-import { Outlet, useCatch, useLoaderData, useNavigate } from '@remix-run/react';
 import { format } from 'date-fns';
-import { groupTasksByScheduledFor } from '~/models/task';
 
 import { LoaderArgs, json } from 'remix';
 
-import { requireUserId } from '~/session/auth.server';
+import { Outlet, useCatch, useLoaderData, useNavigate } from '@remix-run/react';
+
+import { groupTasksByScheduledFor } from '~/models/task';
+
+import { requireUserId } from '~/server/session/auth.server';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';

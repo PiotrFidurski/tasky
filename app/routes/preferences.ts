@@ -1,6 +1,6 @@
 import { ActionArgs, LoaderFunction, redirect } from 'remix';
 
-import { updateThemeSession } from '~/session/theme.server';
+import { updateThemeSession } from '~/server/session/theme.server';
 
 import { isValidTheme } from '~/components/Theme/ThemeProvider';
 
