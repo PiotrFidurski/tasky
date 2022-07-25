@@ -10,8 +10,7 @@ import {
   markTaskIncomplete,
   scheduleTask,
   unscheduleTask,
-} from '~/models/task';
-
+} from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
 
 import { badRequest } from '~/utils/badRequest';

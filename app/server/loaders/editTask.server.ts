@@ -2,7 +2,7 @@ import { ZodError, z } from 'zod';
 
 import { LoaderArgs, json } from 'remix';
 
-import { getTask } from '~/models/task';
+import { getTask } from '~/server/models/task';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';

@@ -4,8 +4,7 @@ import { LoaderArgs, json } from 'remix';
 
 import { Outlet, useCatch, useLoaderData, useNavigate } from '@remix-run/react';
 
-import { groupTasksByScheduledFor } from '~/models/task';
-
+import { groupTasksByScheduledFor } from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
 
 import { Button } from '~/components/Elements/Button';

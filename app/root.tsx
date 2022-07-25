@@ -15,8 +15,7 @@ import {
   useLoaderData,
 } from '@remix-run/react';
 
-import { getUserById } from '~/models/user';
-
+import { getUserById } from '~/server/models/user';
 import { getUserSession } from '~/server/session/session.server';
 import { getThemeSession } from '~/server/session/theme.server';
 

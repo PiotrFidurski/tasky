@@ -4,8 +4,7 @@ import { User } from '@prisma/client';
 
 import { redirect } from 'remix';
 
-import { createUser, getUserByUsername } from '~/models/user';
-
+import { createUser, getUserByUsername } from '~/server/models/user';
 import { getUserSession } from '~/server/session/session.server';
 
 /**

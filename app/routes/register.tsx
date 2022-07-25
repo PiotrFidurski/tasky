@@ -4,10 +4,9 @@ import { ActionArgs } from 'remix';
 
 import { Form, useActionData } from '@remix-run/react';
 
-import { getUserByUsername } from '~/models/user';
-
 import { registerSchema } from '~/validation/user';
 
+import { getUserByUsername } from '~/server/models/user';
 import { register } from '~/server/session/auth.server';
 import { createUserSession } from '~/server/session/session.server';
 

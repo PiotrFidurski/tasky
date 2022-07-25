@@ -6,8 +6,7 @@ import { LoaderArgs, json } from 'remix';
 
 import { useLoaderData, useParams } from '@remix-run/react';
 
-import { getTasksForDay } from '~/models/task';
-
+import { getTasksForDay } from '~/server/models/task';
 import { getAuthUserId } from '~/server/session/session.server';
 
 import { badRequest } from '~/utils/badRequest';

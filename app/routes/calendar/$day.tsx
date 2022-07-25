@@ -4,13 +4,12 @@ import { LoaderArgs, json } from 'remix';
 
 import { Outlet, useCatch, useLoaderData, useParams } from '@remix-run/react';
 
+import { action } from '~/server/actions/task.server';
 import {
   getTasksForDay,
   getUnscheduledTasks,
   groupTasksByScheduledFor,
-} from '~/models/task';
-
-import { action } from '~/server/actions/task.server';
+} from '~/server/models/task';
 import { getAuthUserId } from '~/server/session/session.server';
 
 import { Calendar } from '~/components/Calendar/root';

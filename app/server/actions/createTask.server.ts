@@ -4,10 +4,9 @@ import { format } from 'date-fns';
 
 import { ActionArgs } from 'remix';
 
-import { createTask } from '~/models/task';
-
 import { dateSchema, schema } from '~/validation/task';
 
+import { createTask } from '~/server/models/task';
 import { getAuthUserId } from '~/server/session/session.server';
 import {
   destroyTaskDraftSession,
