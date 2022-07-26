@@ -1,13 +1,11 @@
 import { Task, User } from '@prisma/client';
 
-export type UserResponse<T extends keyof User> = Omit<User, T> &
+export type JsonResponseShape<Model, T extends keyof Model> = Omit<Model, T> &
   Record<T, string>;
 
-export type TaskResponse<T extends keyof Task> = Omit<Task, T> &
-  Record<T, string>;
+export type JsonifiedUser = JsonResponseShape<User, 'createdAt' | 'updatedAt'>;
 
-export type JsonifiedUser = UserResponse<'createdAt' | 'updatedAt'>;
-
-export type JsonifiedTask = TaskResponse<
+export type JsonifiedTask = JsonResponseShape<
+  Task,
   'createdAt' | 'updatedAt' | 'sortDate'
 >;
