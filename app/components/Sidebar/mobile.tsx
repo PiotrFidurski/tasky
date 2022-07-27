@@ -3,10 +3,11 @@ import clsx from 'clsx';
 import { useState } from 'react';
 
 import { Menu } from './Menu';
+import { Menuv2 } from './Menuv2';
 import { OpenMenuButton } from './OpenMenuButton';
 
 export function MobileSidebar() {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const handleOpenMenu = () => {
     setExpanded(true);
@@ -31,12 +32,12 @@ export function MobileSidebar() {
       <div
         className={clsx(
           `font-semibold text-lg flex flex-col justify-between fixed top-0 
-          left-0 bottom-0 max-w-full z-50 bg-light dark:bg-dark w-full
+          left-0 bottom-0 max-w-full z-50 bg-secondary dark:bg-secondary w-full
           h-full py-4 transition-all`,
           expanded ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <Menu visible={expanded} onHandleClose={handleCloseMenu} />
+        <Menuv2 visible={expanded} onHandleClose={handleCloseMenu} />
       </div>
     </div>
   );

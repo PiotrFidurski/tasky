@@ -6,7 +6,7 @@ import { useUser } from '~/components/Auth/useUser';
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
-import { CaretIcon } from '~/components/Icons/CaretIcon';
+import { CaretDown } from '~/components/Icons/CaretDown';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { JsonifiedTask } from '~/types';
@@ -24,7 +24,7 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
     <DropdownMenu.Root>
       <DropdownTrigger>
         <Button className="w-auto" aria-label="open task menu" type="button">
-          <CaretIcon />
+          <CaretDown />
         </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
