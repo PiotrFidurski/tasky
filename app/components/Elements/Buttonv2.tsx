@@ -24,7 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          'outline-none focus:border-buttonColor dark:focus:border-light transition-colors',
+          'outline-none focus:border-buttonColor dark:focus:border-light hover:border-buttonColor dark:hover:border-light transition-colors',
           className
         )}
         type={buttonType ? 'button' : 'submit'}
