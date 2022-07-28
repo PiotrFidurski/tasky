@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
-import { NavListItem } from '~/components/Elements/NavListItem';
+import { NavListItem } from '~/components/Elements/NavListItemv2';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { DATE_FORMAT } from '~/utils/date';
@@ -67,7 +67,7 @@ export function Menuv2({
         <p className="text-4xl">{user?.username}</p>
       </div>
       <ul className="flex flex-col text-base">
-        <NavListItem to={`/${dayParam}`} className="font-normal">
+        <NavListItem to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
               {isActive ? (
@@ -79,7 +79,7 @@ export function Menuv2({
             </>
           )}
         </NavListItem>
-        <NavListItem to="/" className="font-normal">
+        <NavListItem to="/">
           {({ isActive }) => (
             <>
               {isActive ? (
@@ -91,7 +91,7 @@ export function Menuv2({
             </>
           )}
         </NavListItem>
-        <NavListItem to="/calendar" className="font-normal">
+        <NavListItem to="/calendar">
           {() => (
             <>
               <EditIcon className="stroke-borderAndIcons" />
@@ -99,7 +99,7 @@ export function Menuv2({
             </>
           )}
         </NavListItem>
-        <NavListItem to="/calendar" className="font-normal">
+        <NavListItem to="/calendar">
           {({ isActive }) => (
             <>
               {isActive ? (
