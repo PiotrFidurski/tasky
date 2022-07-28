@@ -10,7 +10,10 @@ type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
 export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
   return (
     <li {...htmlLiProps}>
-      <NavLink to={to} className={clsx(`py-3 flex w-full`)}>
+      <NavLink
+        to={to}
+        className={clsx(`py-3 flex w-full font-normal text-light`)}
+      >
         {({ isActive }) => (
           <div className="flex items-center gap-4 transition-all">
             {children({ isActive })}
