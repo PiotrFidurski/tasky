@@ -2,13 +2,13 @@ import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
-import { Button } from '~/components/Elements/Button';
 import { NavListItem } from '~/components/Elements/NavListItem';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { DATE_FORMAT } from '~/utils/date';
 
 import { useUser } from '../Auth/useUser';
+import { Button } from '../Elements/Buttonv2';
 import { CaretLeft } from '../Icons/CaretLeft';
 import { GridIcon } from '../Icons/GridIcon';
 import { GridIconFilled } from '../Icons/GridIconFilled';
@@ -44,7 +44,7 @@ export function Menuv2({
               isIconWrapper
               onClick={onHandleClose}
               buttonType
-              className="rounded-full border-2 border-borderAndIcons text-primary p-4"
+              className="rounded-full border-2 border-borderAndIcons text-primary p-3"
               aria-controls="sidebar"
               aria-label="close sidebar"
               aria-expanded={visible}
@@ -56,7 +56,7 @@ export function Menuv2({
       </div>
       <div className="mb-12">
         <Button
-          className="w-auto border-4 border-borderAndIcons rounded-full p-2"
+          className="w-auto border-2 border-borderAndIcons rounded-full p-2"
           aria-label="open menu"
           type="button"
         >
@@ -64,7 +64,7 @@ export function Menuv2({
         </Button>
       </div>
       <div className="mb-12">
-        <p className="text-xl">{user?.username}</p>
+        <p className="text-4xl">{user?.username}</p>
       </div>
       <ul className="flex flex-col text-base">
         <NavListItem to={`/${dayParam}`} className="font-normal">
