@@ -3,20 +3,19 @@ import { format } from 'date-fns';
 import { useParams } from '@remix-run/react';
 
 import { Button } from '~/components/Elements/Button';
-import { CustomLink } from '~/components/Elements/CustomLink';
 import { NavListItem } from '~/components/Elements/NavListItem';
-import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { EditIcon } from '~/components/Icons/EditIcon';
-import { HomeIcon } from '~/components/Icons/HomeIcon';
-import { PlusIcon } from '~/components/Icons/PlusIcon';
-import { UserMenu } from '~/components/UserMenu';
 
 import { DATE_FORMAT } from '~/utils/date';
 
 import { useUser } from '../Auth/useUser';
 import { CaretLeft } from '../Icons/CaretLeft';
 import { GridIcon } from '../Icons/GridIcon';
+import { GridIconFilled } from '../Icons/GridIconFilled';
+import { HomeIcon } from '../Icons/HomeIcon';
+import { HomeIconFilled } from '../Icons/HomeIconFilled';
 import { SettingsIcon } from '../Icons/SettingsIcon';
+import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
 import { UserAvatar } from '../UserMenu/UserAvatar';
 
 type MenuProps = {
@@ -67,47 +66,51 @@ export function Menuv2({
       <div className="mb-12">
         <p className="text-xl">{user?.username}</p>
       </div>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col text-base">
         <NavListItem to={`/${dayParam}`} className="font-normal">
           {({ isActive }) => (
             <>
-              <GridIcon className="stroke-borderAndIcons" />
+              {isActive ? (
+                <HomeIconFilled className="fill-borderAndIcons" />
+              ) : (
+                <HomeIcon className="stroke-borderAndIcons" />
+              )}
               <span>Home</span>
             </>
           )}
         </NavListItem>
-        <NavListItem to="/calendar" className="font-normal">
+        <NavListItem to="/" className="font-normal">
           {({ isActive }) => (
             <>
-              <GridIcon />
-              <span>Calendar</span>
+              {isActive ? (
+                <GridIconFilled className="fill-borderAndIcons" />
+              ) : (
+                <GridIcon className="stroke-borderAndIcons" />
+              )}
+              <span>Categories</span>
             </>
           )}
         </NavListItem>
         <NavListItem to="/calendar" className="font-normal">
           {() => (
             <>
-              <EditIcon />
+              <EditIcon className="stroke-borderAndIcons" />
               <span>Tasks</span>
             </>
           )}
         </NavListItem>
         <NavListItem to="/calendar" className="font-normal">
-          {() => (
+          {({ isActive }) => (
             <>
-              <SettingsIcon className="stroke-borderAndIcons" />
+              {isActive ? (
+                <SettingsIconFilled className="fill-borderAndIcons" />
+              ) : (
+                <SettingsIcon className="stroke-borderAndIcons" />
+              )}
               <span>Settings</span>
             </>
           )}
         </NavListItem>
-        <CustomLink
-          to={`/${dayParam}/create`}
-          aria-label="create task"
-          className="flex justify-between p-3 w-auto rounded-none ml-[0.125rem]"
-        >
-          <span>Create Task</span>
-          <PlusIcon />
-        </CustomLink>
       </ul>
     </nav>
   );
