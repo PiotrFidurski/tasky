@@ -44,7 +44,6 @@ export function Menuv2({
               isIconWrapper
               onClick={onHandleClose}
               buttonType
-              className="rounded-full border-2 border-borderAndIcons text-primary p-3"
               aria-controls="sidebar"
               aria-label="close sidebar"
               aria-expanded={visible}
@@ -55,26 +54,20 @@ export function Menuv2({
         ) : null}
       </div>
       <div className="mb-12">
-        <Button
-          className="w-auto border-2 border-borderAndIcons rounded-full p-2"
-          aria-label="open menu"
-          type="button"
-        >
+        <Button aria-label="open menu" type="button">
           <UserAvatar width={60} height={60} />
         </Button>
       </div>
       <div className="mb-12">
-        <p className="text-4xl">{user?.username}</p>
+        <p className="text-4xl text-secondary dark:text-primary">
+          {user?.username}
+        </p>
       </div>
       <ul className="flex flex-col text-base">
         <NavListItem to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
-              {isActive ? (
-                <HomeIconFilled className="fill-borderAndIcons" />
-              ) : (
-                <HomeIcon className="stroke-borderAndIcons" />
-              )}
+              {isActive ? <HomeIconFilled /> : <HomeIcon />}
               <span>Home</span>
             </>
           )}
@@ -82,11 +75,7 @@ export function Menuv2({
         <NavListItem to="/">
           {({ isActive }) => (
             <>
-              {isActive ? (
-                <GridIconFilled className="fill-borderAndIcons" />
-              ) : (
-                <GridIcon className="stroke-borderAndIcons" />
-              )}
+              {isActive ? <GridIconFilled /> : <GridIcon />}
               <span>Categories</span>
             </>
           )}
@@ -94,7 +83,7 @@ export function Menuv2({
         <NavListItem to="/calendar">
           {() => (
             <>
-              <EditIcon className="stroke-borderAndIcons" />
+              <EditIcon />
               <span>Tasks</span>
             </>
           )}
@@ -102,11 +91,7 @@ export function Menuv2({
         <NavListItem to="/calendar">
           {({ isActive }) => (
             <>
-              {isActive ? (
-                <SettingsIconFilled className="fill-borderAndIcons" />
-              ) : (
-                <SettingsIcon className="stroke-borderAndIcons" />
-              )}
+              {isActive ? <SettingsIconFilled /> : <SettingsIcon />}
               <span>Settings</span>
             </>
           )}
