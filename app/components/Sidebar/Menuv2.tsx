@@ -36,10 +36,10 @@ export function Menuv2({
   const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
   return (
-    <nav aria-label="sidebar" id="sidebar" className="mt-12 px-16">
+    <nav aria-label="sidebar" id="sidebar" className="mt-12">
       <div className="flex items-center">
         {isMobile ? (
-          <div className="flex justify-end w-full">
+          <div className="flex justify-end w-full px-16">
             <Button
               isIconWrapper
               onClick={onHandleClose}
@@ -53,17 +53,17 @@ export function Menuv2({
           </div>
         ) : null}
       </div>
-      <div className="mb-12">
+      <div className="mb-12 px-16">
         <Button aria-label="open menu" type="button">
           <UserAvatar width={60} height={60} />
         </Button>
       </div>
-      <div className="mb-12">
+      <div className="mb-12 px-16">
         <p className="text-4xl text-secondary dark:text-primary">
           {user?.username}
         </p>
       </div>
-      <ul className="flex flex-col text-base">
+      <ul className="flex flex-col text-base px-14">
         <NavListItem to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
