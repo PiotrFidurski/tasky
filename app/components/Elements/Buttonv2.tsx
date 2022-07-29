@@ -16,6 +16,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         border-buttonColor dark:border-borderAndIcons
          focus:border-secondary dark:focus:border-light 
          focus:bg-light-rgba dark:focus:bg-dark-rgba
+         hover:border-secondary dark:hover:border-light 
+         hover:bg-light-rgba dark:hover:bg-dark-rgba
          transition-colors`,
           className
         )}

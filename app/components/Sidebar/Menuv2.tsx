@@ -98,7 +98,7 @@ export function Menuv2({
           )}
         </NavListItem>
         <div className="flex justify-end w-full pr-2">
-          <Button className="bg-buttonColor text-primary focus:bg-blue-800 focus:border-transparent">
+          <Button className="bg-buttonColor dark:bg-primary text-primary dark:text-secondary focus:bg-blue-800 dark:focus:bg-borderAndIcons border-none hover:bg-blue-800 dark:hover:bg-borderAndIcons">
             <PlusIcon />
           </Button>
         </div>
