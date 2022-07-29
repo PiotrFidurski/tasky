@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import { forwardRef } from 'react';
 
@@ -23,12 +23,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={clsx(
+        className={twMerge(
           `outline-none border-2 rounded-full p-3 text-secondary dark:text-primary
-          border-buttonColor dark:border-borderAndIcons
-           focus:border-secondary dark:focus:border-light 
-           focus:bg-light-rgba dark:focus:bg-dark-rgba
-           transition-colors`,
+        border-buttonColor dark:border-borderAndIcons
+         focus:border-secondary dark:focus:border-light 
+         focus:bg-light-rgba dark:focus:bg-dark-rgba
+         transition-colors`,
           className
         )}
         type={buttonType ? 'button' : 'submit'}

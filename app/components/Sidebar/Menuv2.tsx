@@ -14,6 +14,7 @@ import { GridIcon } from '../Icons/GridIcon';
 import { GridIconFilled } from '../Icons/GridIconFilled';
 import { HomeIcon } from '../Icons/HomeIcon';
 import { HomeIconFilled } from '../Icons/HomeIconFilled';
+import { PlusIcon } from '../Icons/PlusIcon';
 import { SettingsIcon } from '../Icons/SettingsIcon';
 import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
 import { UserAvatar } from '../UserMenu/UserAvatar';
@@ -44,6 +45,7 @@ export function Menuv2({
               isIconWrapper
               onClick={onHandleClose}
               buttonType
+              className="w-auto"
               aria-controls="sidebar"
               aria-label="close sidebar"
               aria-expanded={visible}
@@ -97,6 +99,9 @@ export function Menuv2({
           )}
         </NavListItem>
       </ul>
+      <Button className="bg-buttonColor">
+        <PlusIcon />
+      </Button>
     </nav>
   );
 }
