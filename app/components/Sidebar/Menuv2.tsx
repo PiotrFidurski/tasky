@@ -42,7 +42,6 @@ export function Menuv2({
         {isMobile ? (
           <div className="flex justify-end w-full px-16">
             <Button
-              isIconWrapper
               onClick={onHandleClose}
               buttonType
               className="w-auto"
@@ -65,7 +64,7 @@ export function Menuv2({
           {user?.username}
         </p>
       </div>
-      <ul className="flex flex-col text-base px-14">
+      <ul className="flex flex-col items-start text-base px-14">
         <NavListItem to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
@@ -98,10 +97,12 @@ export function Menuv2({
             </>
           )}
         </NavListItem>
+        <div className="flex justify-end w-full pr-2">
+          <Button className="bg-buttonColor text-primary focus:bg-blue-800 focus:border-transparent">
+            <PlusIcon />
+          </Button>
+        </div>
       </ul>
-      <Button className="bg-buttonColor">
-        <PlusIcon />
-      </Button>
     </nav>
   );
 }

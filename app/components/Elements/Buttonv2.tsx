@@ -3,23 +3,11 @@ import { twMerge } from 'tailwind-merge';
 import { forwardRef } from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  primary?: boolean;
-  isIconWrapper?: boolean;
   buttonType?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      primary,
-      isIconWrapper,
-      buttonType,
-      className,
-      ...htmlButtonProps
-    },
-    ref
-  ) => {
+  ({ children, buttonType, className, ...htmlButtonProps }, ref) => {
     return (
       <button
         ref={ref}
