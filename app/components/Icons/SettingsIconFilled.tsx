@@ -1,14 +1,9 @@
-import clsx from 'clsx';
-
-type Props = React.SVGAttributes<HTMLOrSVGElement>;
-
-export function SettingsIconFilled({ className }: Props) {
+export function SettingsIconFilled() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={clsx('h-6 w-6', className)}
+      className="w-6 h-6 fill-buttonColor dark:fill-borderAndIcons"
       viewBox="0 0 20 20"
-      fill="currentColor"
     >
       <path
         fillRule="evenodd"

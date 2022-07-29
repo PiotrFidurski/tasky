@@ -1,16 +1,12 @@
-import clsx from 'clsx';
-
-type Props = React.SVGAttributes<HTMLOrSVGElement>;
-
-export function GridIcon({ className }: Props) {
+export function GridIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={clsx('h-6 w-6', className)}
+      className="h-6 w-6 stroke-buttonColor dark:stroke-borderAndIcons"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
-      strokeWidth={1}
+      strokeWidth={2}
     >
       <path
         strokeLinecap="round"
