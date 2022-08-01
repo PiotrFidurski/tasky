@@ -10,8 +10,8 @@ import { getUserByUsername } from '~/server/models/user';
 import { register } from '~/server/session/auth.server';
 import { createUserSession } from '~/server/session/session.server';
 
-import { Button } from '~/components/Elements/Button';
-import { CustomLink } from '~/components/Elements/CustomLink';
+import { Button } from '~/components/Elements/Buttonv2';
+import { CustomLink } from '~/components/Elements/CustomLinkv2';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
@@ -106,13 +106,10 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button primary>
+          <Button primary className="w-full">
             <span>Register</span>
           </Button>
-          <CustomLink
-            to="/login"
-            className="font-bold w-full py-2 ring-2 dark:ring-white ring-black"
-          >
+          <CustomLink to="/login" className="w-full flex justify-center">
             <span>Login</span>
           </CustomLink>
         </div>
