@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 
 import { Form, useParams } from '@remix-run/react';
 
-import { Button } from '~/components/Elements/Button';
+import { Button } from '~/components/Elements/Buttonv2';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { DESTROY_DRAFT } from '../actionTypes';
@@ -30,11 +30,11 @@ export function Header({
     >
       <Dialog.Close asChild>
         <Button
+          primary
           type={shouldSubmitOnClose ? 'submit' : 'button'}
           name="_action"
           value={shouldSubmitOnClose ? DESTROY_DRAFT : undefined}
           className="w-auto"
-          isIconWrapper
         >
           <div className="w-full">
             <ArrowleftIcon />

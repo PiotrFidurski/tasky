@@ -2,12 +2,13 @@ import { format } from 'date-fns';
 
 import { Form, useActionData, useSearchParams } from '@remix-run/react';
 
+import { action } from '~/server/actions/createTask.server';
+
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
+import { TextArea } from '~/components/Form/TextArea';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
-
-import { action } from '~/server/actions/createTask.server';
 
 import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
@@ -30,36 +31,11 @@ export function FormComponent({ draft }: FormComponentProps) {
 
   return (
     <Form method="post" className="w-full p-6">
-      <FieldWrapper
-        htmlFor="title"
-        errorMessage={fieldErrors?.title || ''}
-        labelName="Title"
-      >
-        <InputField
-          autoComplete="off"
-          placeholder="Title of the task"
-          required
-          defaultValue={draft.title}
-          aria-label="title"
-          name="title"
-          id="title"
-        />
-      </FieldWrapper>
-      <FieldWrapper
-        htmlFor="body"
-        labelName="Body"
+      <TextArea
         errorMessage={fieldErrors?.body || ''}
-      >
-        <InputField
-          autoComplete="off"
-          placeholder="What do you want to do today?"
-          required
-          defaultValue={draft.body}
-          aria-label="body"
-          name="body"
-          id="body"
-        />
-      </FieldWrapper>
+        name="body"
+        labelName="Body"
+      />
       <button
         className="border-2 w-full mb-6 border-black dark:border-white outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
         name="_action"
