@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { NavLink } from 'remix';
+import { NavLink } from '@remix-run/react';
 
 type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
   to: string;
@@ -15,7 +15,7 @@ export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
         className={({ isActive }) =>
           clsx(
             isActive && 'bg-active',
-            `p-3 flex w-full items-center hover:bg-active
+            `py-3 flex w-full items-center hover:bg-active
              focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none 
              focus:bg-active transition-all`
           )

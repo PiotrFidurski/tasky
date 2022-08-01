@@ -1,13 +1,18 @@
 import bcrypt from 'bcryptjs';
-import { ZodError, z } from 'zod';
-import { login } from '~/session/auth.server';
-import { createUserSession } from '~/session/session.server';
-import { ZodLoginErrors, loginSchema } from '~/validation/user';
 
-import { ActionFunction, Form, useActionData } from 'remix';
+import { ZodError } from 'zod';
 
-import { Button } from '~/components/Elements/Button';
-import { CustomLink } from '~/components/Elements/CustomLink';
+import { ActionArgs } from 'remix';
+
+import { Form, useActionData } from '@remix-run/react';
+
+import { loginSchema } from '~/validation/user';
+
+import { login } from '~/server/session/auth.server';
+import { createUserSession } from '~/server/session/session.server';
+
+import { Button } from '~/components/Elements/Buttonv2';
+import { CustomLink } from '~/components/Elements/CustomLinkv2';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
@@ -15,9 +20,7 @@ import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-type ActionData = z.infer<typeof ZodLoginErrors>;
-
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: ActionArgs) {
   try {
     const form = await request.formData();
 
@@ -55,10 +58,10 @@ export const action: ActionFunction = async ({ request }) => {
 
     return badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export default function LoginRoute() {
-  const actionData = useActionData<ActionData | undefined>();
+  const actionData = useActionData<typeof action>();
 
   const { fieldErrors } = useErrors(actionData);
 
@@ -95,14 +98,11 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button primary className="p-2 justify-center uppercase font-bold">
+          <Button primary className="w-full">
             <span>Login</span>
           </Button>
-          <CustomLink
-            to="/register"
-            className="font-bold w-full py-2 uppercase"
-          >
-            Register
+          <CustomLink to="/register" className="w-full flex justify-center">
+            <span>Register</span>
           </CustomLink>
         </div>
       </Form>

@@ -1,18 +1,20 @@
-import { Task } from '@prisma/client';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 
-import { useUser } from '../Auth/useUser';
-import { Button } from '../Elements/Button';
-import { DropdownItem } from '../Elements/DropdownItem';
-import { DropdownTrigger } from '../Elements/DropdownTrigger';
-import { CaretIcon } from '../Icons/CaretIcon';
-import { EditIcon } from '../Icons/EditIcon';
+import { useUser } from '~/components/Auth/useUser';
+import { Button } from '~/components/Elements/Button';
+import { DropdownItem } from '~/components/Elements/DropdownItem';
+import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
+import { CaretDown } from '~/components/Icons/CaretDown';
+import { EditIcon } from '~/components/Icons/EditIcon';
+
+import { JsonifiedTask } from '~/types';
+
 import { DeleteTaskForm } from './DeleteTaskForm';
 
 type TaskMenuDropdownProps = {
-  task: Task;
+  task: JsonifiedTask;
 };
 
 export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
@@ -22,12 +24,12 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
     <DropdownMenu.Root>
       <DropdownTrigger>
         <Button className="w-auto" aria-label="open task menu" type="button">
-          <CaretIcon />
+          <CaretDown />
         </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
         loop
-        className="rounded-lg min-w-[15rem] border bg-white transition-colors"
+        className="rounded-lg min-w-[15rem] border bg-white dark:bg-black transition-colors"
       >
         <DropdownMenu.Arrow className="fill-white" offset={20} />
         {user?.id === task.userId ? (

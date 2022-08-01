@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { Day } from '~/components/Calendar/Day';
+import { Day } from './Day';
 
 export function Weeks({
   data,

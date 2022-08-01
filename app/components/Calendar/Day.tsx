@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import {
   format,
   isFirstDayOfMonth,
@@ -7,7 +8,7 @@ import {
   parseISO,
 } from 'date-fns';
 
-import { Link, useParams } from 'remix';
+import { Link, useParams } from '@remix-run/react';
 
 export function Day({
   day,
@@ -20,10 +21,10 @@ export function Day({
 
   const params = useParams<'day'>();
 
-  // convert string eg: '2022-02-13' back to date
   const date = new Date(day);
 
   const monthName = format(date, 'MMM');
+
   const dayOfMonth = date.getDate();
 
   const completion = (complete / total) * 100;

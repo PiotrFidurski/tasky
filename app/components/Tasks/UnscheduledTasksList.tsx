@@ -1,7 +1,8 @@
-import { Task } from '@prisma/client';
-import { actionTypes } from '~/actions/actionTypes';
+import { actionTypes } from '~/server/actions/actionTypes';
 
 import { useUpdateTasks } from '~/utils/hooks/useUpdateTasks';
+
+import { JsonifiedTask } from '~/types';
 
 import { TaskComponent } from './TaskComponent';
 
@@ -9,8 +10,8 @@ export function UnscheduledTasksList({
   unscheduledTasks,
   dayTasks,
 }: {
-  dayTasks: Array<Task>;
-  unscheduledTasks: Array<Task>;
+  dayTasks: Array<JsonifiedTask>;
+  unscheduledTasks: Array<JsonifiedTask>;
 }) {
   const updates = useUpdateTasks({
     action: actionTypes.UNSCHEDULE_TASK,

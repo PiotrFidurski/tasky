@@ -43,6 +43,7 @@
           "li",
           "section",
           "Trigger",
+          "textarea",
           "Item",
           "Link"
         ]

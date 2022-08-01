@@ -1,10 +1,9 @@
-import { Task } from '@prisma/client';
-import { Fetcher } from '@remix-run/react/transition';
+import { Fetcher, FormProps } from '@remix-run/react';
 
-import { FormProps } from 'remix';
+import { JsonifiedTask } from '~/types';
 
 export type ComponentWithFetcherProps<TData> = {
-  task: Task;
+  task: JsonifiedTask;
   fetcher: {
     Form: React.ForwardRefExoticComponent<
       FormProps & React.RefAttributes<HTMLFormElement>

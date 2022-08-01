@@ -1,11 +1,11 @@
 import clsx from 'clsx';
+
 import { forwardRef } from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   primary?: boolean;
   isIconWrapper?: boolean;
   buttonType?: boolean;
-  isMenuItem?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -14,7 +14,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       primary,
       isIconWrapper,
-      isMenuItem,
       buttonType,
       className,
       ...htmlButtonProps
@@ -25,12 +24,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          'flex gap-4 items-center w-full transition-all',
-          primary && 'border border-highlight ',
-          isMenuItem &&
-            'focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
+          'flex gap-4 outline-none items-center w-full transition-all focus:ring-2 focus:ring-highlight',
+          primary &&
+            'bg-highlight rounded-full py-2 px-4 focus:bg-highlightActive justify-center ring-2 ring-highlight text-white font-bold',
           isIconWrapper &&
-            'p-2 border-none bg-transparent rounded-full focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none',
+            'p-2 rounded-full w-auto focus:ring-highlight focus:ring-2 focus:ring-inset',
           className
         )}
         type={buttonType ? 'button' : 'submit'}

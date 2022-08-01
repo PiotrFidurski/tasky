@@ -1,4 +1,7 @@
-import { User } from '@prisma/client';
 import { createContext } from 'react';
 
-export const authContext = createContext<{ user: User | null } | null>(null);
+import { JsonifiedUser } from '~/types';
+
+export const authContext = createContext<{ user: JsonifiedUser | null } | null>(
+  null
+);
