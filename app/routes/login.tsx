@@ -11,8 +11,8 @@ import { loginSchema } from '~/validation/user';
 import { login } from '~/server/session/auth.server';
 import { createUserSession } from '~/server/session/session.server';
 
-import { Button } from '~/components/Elements/Button';
-import { CustomLink } from '~/components/Elements/CustomLink';
+import { Button } from '~/components/Elements/Buttonv2';
+import { CustomLink } from '~/components/Elements/CustomLinkv2';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
@@ -98,13 +98,10 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button primary>
+          <Button primary className="w-full">
             <span>Login</span>
           </Button>
-          <CustomLink
-            to="/register"
-            className="font-bold w-full py-2 ring-2 dark:ring-white ring-black"
-          >
+          <CustomLink to="/register" className="w-full flex justify-center">
             <span>Register</span>
           </CustomLink>
         </div>
