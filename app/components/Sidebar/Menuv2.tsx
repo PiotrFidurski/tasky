@@ -9,6 +9,7 @@ import { DATE_FORMAT } from '~/utils/date';
 
 import { useUser } from '../Auth/useUser';
 import { Button } from '../Elements/Buttonv2';
+import { CustomLink } from '../Elements/CustomLinkv2';
 import { CaretLeft } from '../Icons/CaretLeft';
 import { GridIcon } from '../Icons/GridIcon';
 import { GridIconFilled } from '../Icons/GridIconFilled';
@@ -98,9 +99,9 @@ export function Menuv2({
           )}
         </NavListItem>
         <div className="flex justify-end w-full pr-2">
-          <Button primary>
+          <CustomLink to={`/${dayParam}/create`} aria-label="create task">
             <PlusIcon />
-          </Button>
+          </CustomLink>
         </div>
       </ul>
     </nav>
