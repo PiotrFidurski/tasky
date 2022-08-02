@@ -4,11 +4,12 @@ import { Form, useActionData, useSearchParams } from '@remix-run/react';
 
 import { action } from '~/server/actions/createTask.server';
 
-import { Button } from '~/components/Elements/Button';
+import { Button } from '~/components/Elements/Buttonv2';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 import { TextArea } from '~/components/Form/TextArea';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
+import { CaretDown } from '~/components/Icons/CaretDown';
 
 import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
@@ -36,13 +37,15 @@ export function FormComponent({ draft }: FormComponentProps) {
         name="body"
         labelName="Body"
       />
-      <button
-        className="border-2 w-full mb-6 border-black dark:border-white outline-none rounded-md focus-within:border-2 dark:focus-within:border-highlight focus-within:border-highlight focus-within:text-highlight transition-colors"
+      <Button
         name="_action"
         value={CREATE_DRAFT}
         type="submit"
+        className="flex gap-4 items-center px-6 text-sm text-darkgray border-textGray"
       >
-        <FieldWrapper
+        <CalendarIcon />
+        <span>Today</span>
+        {/* <FieldWrapper
           labelName="Date"
           htmlFor="date"
           className="mb-0 outline-none border-none"
@@ -60,11 +63,17 @@ export function FormComponent({ draft }: FormComponentProps) {
                 : format(new Date(), DATE_FORMAT)
             }
           />
-        </FieldWrapper>
-      </button>
+        </FieldWrapper> */}
+      </Button>
       <div className="flex justify-end">
-        <Button value={SUBMIT_FORM} name="_action" primary>
-          <span>Create task</span>
+        <Button
+          value={SUBMIT_FORM}
+          name="_action"
+          primary
+          className="flex items-center gap-4 px-8 py-4 text-sm"
+        >
+          <span>New task</span>
+          <CaretDown />
         </Button>
       </div>
     </Form>
