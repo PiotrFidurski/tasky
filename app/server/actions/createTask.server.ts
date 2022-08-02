@@ -43,18 +43,18 @@ export async function action({ params, request }: ActionArgs) {
 
         return await updateTaskDraftSession({
           request,
-          data,
+          data: { ...data, title: '' },
           redirectTo: `/${params.day}/calendar`,
         });
       }
 
       case SUBMIT_FORM: {
-        const { body, title } = schema.parse(form);
+        const { body } = schema.parse(form);
         const { date } = dateSchema.parse(form);
 
         await createTask({
           body,
-          title,
+          title: '',
           userId,
           scheduledFor: format(new Date(date), DATE_FORMAT),
         });
