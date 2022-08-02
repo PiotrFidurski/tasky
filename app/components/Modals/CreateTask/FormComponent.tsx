@@ -25,27 +25,30 @@ export function FormComponent({ draft }: FormComponentProps) {
 
   const [searchParams] = useSearchParams();
 
-  const selectedDate =
-    searchParams.get('selectedDate') ?? format(new Date(), DATE_FORMAT);
+  const selectedDate = searchParams.get('selectedDate');
 
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <Form method="post" className="w-full p-12">
+    <Form
+      method="post"
+      className="w-full p-12 flex flex-col justify-center items-center h-full"
+    >
       <TextArea
         errorMessage={fieldErrors?.body || ''}
         name="body"
         labelName="Body"
       />
-      <Button
-        name="_action"
-        value={CREATE_DRAFT}
-        type="submit"
-        className="flex gap-4 items-center px-6 text-sm text-darkgray border-textGray"
-      >
-        <CalendarIcon />
-        <span>Today</span>
-        {/* <FieldWrapper
+      <div className="flex w-full items-center gap-4 mb-20">
+        <Button
+          name="_action"
+          value={CREATE_DRAFT}
+          type="submit"
+          className="flex gap-4 items-center px-6 text-sm text-darkgray border-textGray"
+        >
+          <CalendarIcon />
+          <span>{selectedDate || 'Today'}</span>
+          {/* <FieldWrapper
           labelName="Date"
           htmlFor="date"
           className="mb-0 outline-none border-none"
@@ -64,7 +67,18 @@ export function FormComponent({ draft }: FormComponentProps) {
             }
           />
         </FieldWrapper> */}
-      </Button>
+        </Button>
+        <Button className="flex justify-center items-center p-4 border-textGray text-darkgray">
+          <label
+            htmlFor="stuff"
+            name="stuff"
+            className="h-auto w-auto leading-[0]"
+          >
+            <InputField type="radio" name="stuff" className="w-5 h-5" />
+          </label>
+        </Button>
+      </div>
+
       <div className="flex justify-end">
         <Button
           value={SUBMIT_FORM}
