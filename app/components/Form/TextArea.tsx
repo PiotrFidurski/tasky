@@ -1,3 +1,5 @@
+import { twMerge } from 'tailwind-merge';
+
 import { ReactNode } from 'react';
 
 type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
@@ -14,5 +16,15 @@ export function TextArea({
   icon,
   ...htmlTextAreaProps
 }: TextAreaProps) {
-  return <textarea className={className} {...htmlTextAreaProps} />;
+  return (
+    <textarea
+      rows={4}
+      placeholder="Enter new task"
+      className={twMerge(
+        'w-full bg-primary text-xl placeholder-textGray dark:bg-secondary resize-none text-secondary dark:text-primary caret-secondary dark:caret-primary outline-none',
+        className
+      )}
+      {...htmlTextAreaProps}
+    />
+  );
 }

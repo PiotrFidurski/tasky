@@ -30,7 +30,7 @@ export function FormComponent({ draft }: FormComponentProps) {
   const { fieldErrors } = useErrors(actionData);
 
   return (
-    <Form method="post" className="w-full p-6">
+    <Form method="post" className="w-full p-12">
       <TextArea
         errorMessage={fieldErrors?.body || ''}
         name="body"
