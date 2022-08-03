@@ -30,7 +30,6 @@ export function Header({
     >
       <Dialog.Close asChild>
         <Button
-          primary
           type={shouldSubmitOnClose ? 'submit' : 'button'}
           name="_action"
           value={shouldSubmitOnClose ? DESTROY_DRAFT : undefined}

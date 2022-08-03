@@ -9,7 +9,7 @@ import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 import { TextArea } from '~/components/Form/TextArea';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
-import { CaretDown } from '~/components/Icons/CaretDown';
+import { CaretUp } from '~/components/Icons/CaretUp';
 
 import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
@@ -35,6 +35,7 @@ export function FormComponent({ draft }: FormComponentProps) {
       className="w-full relative p-12 flex flex-col justify-center items-start h-full"
     >
       <TextArea
+        rows={4}
         errorMessage={fieldErrors?.body || ''}
         name="body"
         labelName="Body"
@@ -44,40 +45,20 @@ export function FormComponent({ draft }: FormComponentProps) {
         name="_action"
         value={CREATE_DRAFT}
         type="submit"
-        className="flex gap-4 mb-20 items-center px-6 text-sm text-darkgray border-textGray"
+        className="flex gap-4 mb-20 items-center px-6 text-sm text-textGrayDarker font-semibold border-grayLight"
       >
         <CalendarIcon />
         <span>{selectedDate || 'Today'}</span>
-        {/* <FieldWrapper
-          labelName="Date"
-          htmlFor="date"
-          className="mb-0 outline-none border-none"
-          icon={<CalendarIcon />}
-          errorMessage={fieldErrors?.date || ''}
-        >
-          <InputField
-            autoComplete="off"
-            aria-label="date"
-            name="date"
-            id="date"
-            defaultValue={
-              isValidDateFormat(selectedDate)
-                ? selectedDate
-                : format(new Date(), DATE_FORMAT)
-            }
-          />
-        </FieldWrapper> */}
       </Button>
-
       <div className="flex justify-end">
         <Button
           value={SUBMIT_FORM}
           name="_action"
           primary
-          className="flex absolute top-auto bottom-12 right-12 items-center gap-4 px-8 py-4 text-sm"
+          className="flex absolute top-auto bottom-12 right-12 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>
-          <CaretDown />
+          <CaretUp />
         </Button>
       </div>
     </Form>

@@ -18,7 +18,6 @@ export function TextArea({
 }: TextAreaProps) {
   return (
     <textarea
-      rows={2}
       placeholder="Enter new task"
       className={twMerge(
         'w-full bg-primary mb-2 text-xl placeholder-textGray dark:bg-secondary resize-none text-secondary dark:text-primary caret-secondary dark:caret-primary outline-none',
