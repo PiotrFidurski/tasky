@@ -6,7 +6,7 @@ import { Calendar } from '~/components/Widgets/Calendar';
 import { DayButton } from '~/components/Widgets/Calendar/components/DayButton';
 
 import { modalContent, modalOverlay } from '../classNames';
-import { Header } from '../components/Header';
+import { BackButton } from '../components/BackButton';
 
 export function CalendarModal() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export function CalendarModal() {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <Header srDescription="Date picker dialog">Pick a date</Header>
+          <BackButton />
           <Calendar startingDate={new Date()} stats={{}}>
             {({ date, day }) => <DayButton day={day} date={date} key={day} />}
           </Calendar>
