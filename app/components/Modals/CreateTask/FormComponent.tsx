@@ -42,7 +42,7 @@ export function FormComponent({ draft }: FormComponentProps) {
         name="_action"
         value={CREATE_DRAFT}
         type="submit"
-        className="flex gap-4 mb-20 items-center px-6 text-sm text-textGrayDarker font-semibold border-grayLight"
+        className="flex gap-4 mb-20 items-center px-6 text-sm text-slate-500 font-semibold border-grayLight focus:border-slate-500"
       >
         <CalendarIcon />
         <span>{selectedDate || 'Today'}</span>
