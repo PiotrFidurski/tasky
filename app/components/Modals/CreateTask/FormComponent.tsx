@@ -1,17 +1,11 @@
-import { format } from 'date-fns';
-
 import { Form, useActionData, useSearchParams } from '@remix-run/react';
 
 import { action } from '~/server/actions/createTask.server';
 
 import { Button } from '~/components/Elements/Buttonv2';
-import { FieldWrapper } from '~/components/Form/FieldWrapper';
-import { InputField } from '~/components/Form/InputField';
-import { TextArea } from '~/components/Form/TextArea';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { CaretUp } from '~/components/Icons/CaretUp';
 
-import { DATE_FORMAT, isValidDateFormat } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { CREATE_DRAFT, SUBMIT_FORM } from '../actionTypes';
@@ -34,13 +28,14 @@ export function FormComponent({ draft }: FormComponentProps) {
       method="post"
       className="w-full relative p-12 flex flex-col justify-center items-start h-full"
     >
-      <TextArea
-        rows={4}
-        errorMessage={fieldErrors?.body || ''}
+      <textarea
         name="body"
-        labelName="Body"
         defaultValue={draft.body ?? ''}
+        rows={4}
+        placeholder="Enter new task"
+        className="w-full bg-primary mb-6 text-md placeholder-textGray dark:bg-secondary resize-none text-secondary dark:text-primary caret-secondary dark:caret-primary outline-none"
       />
+
       <Button
         name="_action"
         value={CREATE_DRAFT}
