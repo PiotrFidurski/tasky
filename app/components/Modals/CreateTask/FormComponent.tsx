@@ -35,7 +35,9 @@ export function FormComponent({ draft }: FormComponentProps) {
         placeholder="Enter new task"
         className="w-full bg-primary mb-6 text-md placeholder-textGray dark:bg-secondary resize-none text-secondary dark:text-primary caret-secondary dark:caret-primary outline-none"
       />
-
+      <div className="h-4 flex items-center overflow-hidden mb-6 text-xs text-red-500 dark:text-rose-500">
+        {fieldErrors?.body ? <span>{fieldErrors.body}</span> : null}
+      </div>
       <Button
         name="_action"
         value={CREATE_DRAFT}
