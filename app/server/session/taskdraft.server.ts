@@ -17,7 +17,7 @@ export function getTaskDraftSession(request: Request) {
   return taskDraftSessionStorage.getSession(request.headers.get('Cookie'));
 }
 
-type CreateTaskData = Pick<Task, 'body' | 'title'>;
+type CreateTaskData = Pick<Task, 'body' | 'scheduledFor'>;
 
 type UpdateTaskDraftSessionProps = {
   request: Request;
@@ -32,8 +32,8 @@ export async function updateTaskDraftSession({
 }: UpdateTaskDraftSessionProps) {
   const session = await getTaskDraftSession(request);
 
-  session.set('taskDraft:title', data.title);
   session.set('taskDraft:body', data.body);
+  session.set('taskDraft.scheduledFor', data.scheduledFor);
 
   return redirect(redirectTo, {
     headers: {
