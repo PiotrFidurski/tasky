@@ -50,6 +50,11 @@ export function FormComponent({ draft }: Props) {
         <CalendarIcon />
         <span>{selectedDate || 'Today'}</span>
       </Button>
+      <input
+        value={draft.scheduledFor ?? ''}
+        name="scheduledFor"
+        type="hidden"
+      />
       <div className="flex justify-end">
         <Button
           value={SUBMIT_FORM}
