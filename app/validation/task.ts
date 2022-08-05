@@ -11,8 +11,8 @@ export const schema = zfd.formData({
   ),
 });
 
-export const dateSchema = zfd.formData({
-  date: zfd.text(
+export const scheduledForSchema = zfd.formData({
+  scheduledFor: zfd.text(
     z
       .string({ required_error: 'date is required.' })
       .refine((val) => isValidDateFormat(val), {
