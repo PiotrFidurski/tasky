@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { Form, useActionData, useSearchParams } from '@remix-run/react';
 
 import { action } from '~/server/actions/createTask.server';
@@ -7,6 +9,7 @@ import { Button } from '~/components/Elements/Buttonv2';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { CaretUp } from '~/components/Icons/CaretUp';
 
+import { DATE_FORMAT } from '~/utils/date';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { CREATE_DRAFT_BODY, SUBMIT_FORM } from '../actionTypes';
@@ -19,13 +22,12 @@ export function FormComponent({ draft }: Props) {
   const actionData = useActionData<typeof action>();
 
   const [searchParams] = useSearchParams({
-    selectedDate: draft.scheduledFor ?? '',
+    selectedDate: draft.scheduledFor ?? format(new Date(), DATE_FORMAT),
   });
 
   const selectedDate = searchParams.get('selectedDate');
 
   const { fieldErrors } = useErrors(actionData);
-
   return (
     <Form
       method="post"
@@ -51,7 +53,11 @@ export function FormComponent({ draft }: Props) {
         <span>{selectedDate || 'Today'}</span>
       </Button>
       <input
-        value={draft.scheduledFor ?? ''}
+        value={
+          draft.scheduledFor
+            ? draft.scheduledFor
+            : format(new Date(), DATE_FORMAT)
+        }
         name="scheduledFor"
         type="hidden"
       />
