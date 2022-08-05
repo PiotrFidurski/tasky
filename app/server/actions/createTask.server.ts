@@ -4,17 +4,19 @@ import { format } from 'date-fns';
 
 import { ActionArgs } from 'remix';
 
-import { dateSchema, schema } from '~/validation/task';
+import { scheduledForSchema, schema } from '~/validation/task';
 
 import { createTask } from '~/server/models/task';
 import { getAuthUserId } from '~/server/session/session.server';
 import {
   destroyTaskDraftSession,
+  getTaskDraftSession,
   updateTaskDraftSession,
 } from '~/server/session/taskdraft.server';
 
 import {
-  CREATE_DRAFT,
+  CREATE_DRAFT_BODY,
+  CREATE_DRAFT_DATE,
   DESTROY_DRAFT,
   SUBMIT_FORM,
 } from '~/components/Modals/actionTypes';
@@ -38,25 +40,43 @@ export async function action({ params, request }: ActionArgs) {
         return await destroyTaskDraftSession({ request, redirectTo: path });
       }
 
-      case CREATE_DRAFT: {
+      case CREATE_DRAFT_BODY: {
         const data = schema.parse(form);
 
         return await updateTaskDraftSession({
           request,
-          data: { ...data, title: '' },
+          data: { ...data, scheduledFor: '' },
           redirectTo: `/${params.day}/calendar`,
+        });
+      }
+
+      case CREATE_DRAFT_DATE: {
+        const createTaskDataSession = await getTaskDraftSession(request);
+
+        const { scheduledFor } = scheduledForSchema.parse(form);
+
+        const draft = {
+          title: createTaskDataSession.get('taskDraft:title') || '',
+          body: createTaskDataSession.get('taskDraft:body') || '',
+          scheduledFor:
+            createTaskDataSession.get('taskDraft.scheduledFor') || '',
+        };
+
+        return await updateTaskDraftSession({
+          request,
+          data: { ...draft, scheduledFor },
+          redirectTo: `/${params.day}/create?selectedDate=${scheduledFor}`,
         });
       }
 
       case SUBMIT_FORM: {
         const { body } = schema.parse(form);
-        const { date } = dateSchema.parse(form);
+        const { scheduledFor } = scheduledForSchema.parse(form);
 
         await createTask({
           body,
-          title: '',
           userId,
-          scheduledFor: format(new Date(date), DATE_FORMAT),
+          scheduledFor: format(new Date(scheduledFor), DATE_FORMAT),
         });
 
         return await destroyTaskDraftSession({ request, redirectTo: path });

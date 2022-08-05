@@ -1,6 +1,7 @@
 import { Form, useActionData, useSearchParams } from '@remix-run/react';
 
 import { action } from '~/server/actions/createTask.server';
+import { CreateTaskProps } from '~/server/models/types';
 
 import { Button } from '~/components/Elements/Buttonv2';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
@@ -8,16 +9,18 @@ import { CaretUp } from '~/components/Icons/CaretUp';
 
 import { useErrors } from '~/utils/hooks/useErrors';
 
-import { CREATE_DRAFT, SUBMIT_FORM } from '../actionTypes';
+import { CREATE_DRAFT_BODY, SUBMIT_FORM } from '../actionTypes';
 
-type FormComponentProps = {
-  draft: { title: string; body: string };
+type Props = {
+  draft: Omit<CreateTaskProps, 'userId'>;
 };
 
-export function FormComponent({ draft }: FormComponentProps) {
+export function FormComponent({ draft }: Props) {
   const actionData = useActionData<typeof action>();
 
-  const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams({
+    selectedDate: draft.scheduledFor ?? '',
+  });
 
   const selectedDate = searchParams.get('selectedDate');
 
@@ -40,7 +43,7 @@ export function FormComponent({ draft }: FormComponentProps) {
       </div>
       <Button
         name="_action"
-        value={CREATE_DRAFT}
+        value={CREATE_DRAFT_BODY}
         type="submit"
         className="flex gap-4 mb-20 items-center px-6 text-sm text-slate-500 font-semibold border-grayLight focus:border-slate-500"
       >

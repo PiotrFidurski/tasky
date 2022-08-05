@@ -2,16 +2,18 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import { useFetcher, useNavigate, useSearchParams } from '@remix-run/react';
 
+import { CreateTaskProps } from '~/server/models/types';
+
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { Header } from '../components/Header';
 import { FormComponent } from './FormComponent';
 
-type CreateTaskProps = {
-  draft: { title: string; body: string };
+type Props = {
+  draft: Omit<CreateTaskProps, 'userId'>;
 };
 
-export function CreateTask({ draft }: CreateTaskProps) {
+export function CreateTask({ draft }: Props) {
   const navigate = useNavigate();
 
   const fetcher = useFetcher();

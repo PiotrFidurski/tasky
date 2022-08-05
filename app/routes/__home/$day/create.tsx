@@ -13,8 +13,8 @@ export async function loader({ request }: LoaderArgs) {
   const createTaskDataSession = await getTaskDraftSession(request);
 
   const data = {
-    title: createTaskDataSession.get('taskDraft:title') || '',
     body: createTaskDataSession.get('taskDraft:body') || '',
+    scheduledFor: createTaskDataSession.get('taskDraft.scheduledFor') || '',
   };
 
   return data;
