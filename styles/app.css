@@ -19,14 +19,22 @@ input:focus-visible {
   outline-width: 0px;
 }
 
-@layer utilities {
-  .circle-progress {
-    stroke: #00b7fc;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+.circle-progress {
+  stroke: #2643c4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
+body,
+.dark .circle-progress {
+  stroke: #adbaeb;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@layer utilities {
   .text-fill-transparent {
     -webkit-text-fill-color: transparent;
   }
