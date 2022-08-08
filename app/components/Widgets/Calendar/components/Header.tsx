@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { format, isToday } from 'date-fns';
 
-import { Button } from '~/components/Elements/Button';
+import { Button } from '~/components/Elements/Buttonv2';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
 
@@ -18,7 +18,10 @@ export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
 
   return (
     <header className="flex items-center justify-between w-full">
-      <Button onClick={onPrevMonth} isIconWrapper className="w-auto">
+      <Button
+        onClick={onPrevMonth}
+        className="border-transparent dark:border-transparent"
+      >
         <ArrowleftIcon />
       </Button>
       <AnimatePresence exitBeforeEnter initial={false}>
@@ -29,13 +32,16 @@ export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
           exit={{ opacity: 0 }}
           className={clsx(
             'font-bold text-xl',
-            isToday(date) && 'text-highlight'
+            isToday(date) && 'text-buttonColor dark:text-borderAndIcons'
           )}
         >
           {headerContent}
         </motion.p>
       </AnimatePresence>
-      <Button className="w-auto" isIconWrapper onClick={onNextMonth}>
+      <Button
+        className="border-transparent dark:border-transparent"
+        onClick={onNextMonth}
+      >
         <ArrowrightIcon />
       </Button>
     </header>
