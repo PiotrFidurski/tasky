@@ -28,6 +28,7 @@ export function FormComponent({ draft }: Props) {
   const selectedDate = searchParams.get('selectedDate');
 
   const { fieldErrors } = useErrors(actionData);
+
   return (
     <Form
       method="post"
