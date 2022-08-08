@@ -19,8 +19,9 @@ export function CustomLink({
     <Link
       to={to}
       className={clsx(
-        `flex justify-center rounded-full w-full focus:ring-2 focus:ring-highlight dark:focus:ring-highlight focus:text-highlight outline-none transition-all`,
-        isActive && 'ring-highlight text-highlight ring-inset',
+        `flex justify-center rounded-full w-full focus:ring-2 focus:ring-buttonColor dark:focus:ring-borderAndIcons focus:text-buttonColor dark:focus:text-borderAndIcons outline-none transition-all`,
+        isActive &&
+          'ring-2 ring-buttonColor dark:ring-borderAndIcons text-buttonColor dark:text-borderAndIcons ring-inset',
         className
       )}
       {...remixLinkProps}
