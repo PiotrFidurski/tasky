@@ -15,7 +15,7 @@ export function CompletedTasks({
   percentage,
 }: CompletedTasksProps) {
   return (
-    <div className="w-full max-w-sm rounded-2xl dark:bg-dark-rgba bg-light-rgba z-10">
+    <div className="w-full max-w-sm rounded-2xl shadow-md z-10 dark:shadow-slate-900">
       <div className="flex items-center justify-between w-full p-8 shadow-[0px_1px_0px_0px] shadow-shadowHighlight">
         <TextContent total={total} completed={completed} />
         <div className="w-full flex justify-end">
