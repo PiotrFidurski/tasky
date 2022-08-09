@@ -28,7 +28,7 @@ module.exports = {
         buttonColor: '#2643C4',
         grayLight: '#607d8b26',
         shadowPrimary: '#f4f6fd85',
-        shadowSecondary: '#2643c4a6',
+        shadowSecondary: '#5b79ffa6',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif', ...defaultTheme.fontFamily.sans],
