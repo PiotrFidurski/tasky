@@ -12,7 +12,7 @@ module.exports = {
         light: '#F3F3F4',
         greyLight: '#e7e7e7',
         dark: '#050507',
-        highlight: '#00B7FC',
+        highlight: '#e64a19',
         highlightActive: '#039be5',
         strokeHighlight: '#00b7fc54',
         shadowHighlight: '#26327636',
