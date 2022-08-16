@@ -26,7 +26,7 @@ export function CircularProgress({
       className="transition-all"
     >
       <circle
-        className="stroke-borderAndIcons dark:stroke-shadowSecondary"
+        className="stroke-custom-indigo dark:stroke-shadowSecondary"
         cx={squareSize / 2}
         cy={squareSize / 2}
         r={radius}
@@ -45,7 +45,7 @@ export function CircularProgress({
         }}
       />
       <text
-        className="text-2xl font-extrabold fill-buttonColor dark:fill-borderAndIcons stroke-transparent"
+        className="text-2xl font-extrabold fill-custom-blue dark:fill-custom-indigo stroke-transparent"
         x="50%"
         y="50%"
         dy=".3em"

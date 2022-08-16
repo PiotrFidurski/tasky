@@ -10,7 +10,7 @@ export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
     <li {...htmlLiProps} className="text-secondary dark:text-primary">
       <NavLink
         to={to}
-        className="py-3 outline-none flex w-full font-normal px-2 focus:text-buttonColor dark:focus:text-borderAndIcons underline-offset-2 focus:underline hover:text-buttonColor dark:hover:text-borderAndIcons hover:underline"
+        className="py-3 outline-none flex w-full font-normal px-2 focus:text-custom-blue dark:focus:text-custom-indigo underline-offset-2 focus:underline hover:text-custom-blue dark:hover:text-custom-indigo hover:underline"
       >
         {({ isActive }) => (
           <div className="flex items-center gap-4">

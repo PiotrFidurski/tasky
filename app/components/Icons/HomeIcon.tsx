@@ -2,7 +2,7 @@ export function HomeIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-6 h-6 stroke-buttonColor dark:stroke-borderAndIcons"
+      className="w-6 h-6 stroke-custom-blue dark:stroke-custom-indigo"
       fill="none"
       viewBox="0 0 24 24"
     >

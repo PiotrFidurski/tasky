@@ -20,7 +20,7 @@ export function CustomLink({
       to={to}
       className={twMerge(
         `outline-none border-2 rounded-full p-3 text-secondary dark:text-primary
-    border-buttonColor dark:border-borderAndIcons
+    border-custom-blue dark:border-custom-indigo
      focus:border-secondary dark:focus:border-light 
      focus:bg-light-rgba dark:focus:bg-dark-rgba
      hover:border-secondary dark:hover:border-light 
