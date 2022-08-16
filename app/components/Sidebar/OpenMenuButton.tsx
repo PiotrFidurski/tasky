@@ -1,4 +1,4 @@
-import { Button } from '~/components/Elements/Button';
+import { Button } from '~/components/Elements/Buttonv2';
 import { HamburgerIcon } from '~/components/Icons/HamburgerIcon';
 
 type OpenMenuProps = {
@@ -9,8 +9,7 @@ type OpenMenuProps = {
 export function OpenMenuButton({ onHandleOpen, show }: OpenMenuProps) {
   return (
     <Button
-      isIconWrapper
-      className="w-auto"
+      className="w-auto border-transparent dark:border-transparent"
       onClick={onHandleOpen}
       buttonType
       aria-controls="sidebar"
