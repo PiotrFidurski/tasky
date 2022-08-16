@@ -1,13 +1,17 @@
-import { ZodError, z } from 'zod';
-import { getUserByUsername } from '~/models/user';
-import { register } from '~/session/auth.server';
-import { createUserSession } from '~/session/session.server';
-import { ZodRegisterErrors, registerSchema } from '~/validation/user';
+import { ZodError } from 'zod';
 
-import { ActionFunction, Form, useActionData } from 'remix';
+import { ActionArgs } from 'remix';
 
-import { Button } from '~/components/Elements/Button';
-import { CustomLink } from '~/components/Elements/CustomLink';
+import { Form, useActionData } from '@remix-run/react';
+
+import { registerSchema } from '~/validation/user';
+
+import { getUserByUsername } from '~/server/models/user';
+import { register } from '~/server/session/auth.server';
+import { createUserSession } from '~/server/session/session.server';
+
+import { Button } from '~/components/Elements/Buttonv2';
+import { CustomLink } from '~/components/Elements/CustomLinkv2';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
@@ -15,9 +19,7 @@ import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-type ActionData = z.infer<typeof ZodRegisterErrors>;
-
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: ActionArgs) {
   try {
     const form = await request.formData();
 
@@ -49,10 +51,10 @@ export const action: ActionFunction = async ({ request }) => {
 
     return badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export default function LoginRoute() {
-  const actionData = useActionData<ActionData | undefined>();
+  const actionData = useActionData<typeof action>();
 
   const { fieldErrors } = useErrors(actionData);
 
@@ -103,12 +105,12 @@ export default function LoginRoute() {
             name="passwordConfirmation"
           />
         </FieldWrapper>
-        <div className="flex justify-between items-center gap-4">
-          <Button primary className="p-2 justify-center uppercase font-bold">
+        <div className="flex items-center justify-between w-full gap-4">
+          <Button primary className="w-full">
             <span>Register</span>
           </Button>
-          <CustomLink to="/login" className="py-2 w-full uppercase font-bold">
-            login
+          <CustomLink to="/login" className="w-full flex justify-center">
+            <span>Login</span>
           </CustomLink>
         </div>
       </Form>

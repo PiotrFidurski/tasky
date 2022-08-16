@@ -1,21 +1,16 @@
-import { Task } from '@prisma/client';
 import { ZodError, z } from 'zod';
-import { action } from '~/actions/task.server';
+
+import { LoaderArgs, json } from 'remix';
+
+import { Outlet, useCatch, useLoaderData, useParams } from '@remix-run/react';
+
+import { action } from '~/server/actions/task.server';
 import {
   getTasksForDay,
   getUnscheduledTasks,
   groupTasksByScheduledFor,
-} from '~/models/task';
-import { getAuthUserId } from '~/session/session.server';
-
-import {
-  LoaderFunction,
-  Outlet,
-  json,
-  useCatch,
-  useLoaderData,
-  useParams,
-} from 'remix';
+} from '~/server/models/task';
+import { getAuthUserId } from '~/server/session/session.server';
 
 import { Calendar } from '~/components/Calendar/root';
 import { DayTasksList } from '~/components/Tasks/DayTasksList';
@@ -29,16 +24,9 @@ import {
 import { badRequest } from '~/utils/badRequest';
 import { getCalendarData, isValidDateFormat } from '~/utils/date';
 import { getErrorMessage } from '~/utils/getErrorMessage';
-import { getDayStats } from '~/utils/getStats';
+import { getTaskStatsForEachDay } from '~/utils/taskStats';
 
-export type LoaderData = {
-  tasksForTheDay: Task[];
-  unscheduledTasks: Task[];
-  calendarData: Array<Array<string>>;
-  stats: Record<string, number[]>;
-};
-
-export const loader: LoaderFunction = async ({ request, params }) => {
+export async function loader({ request, params }: LoaderArgs) {
   const userId = await getAuthUserId(request);
 
   try {
@@ -61,9 +49,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       groupTasksByScheduledFor(userId),
     ]);
 
-    const stats = getDayStats(groupedTasks);
+    const stats = getTaskStatsForEachDay(groupedTasks);
 
-    const data: LoaderData = {
+    const data = {
       tasksForTheDay,
       unscheduledTasks,
       calendarData,
@@ -84,13 +72,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
     throw badRequest({ message: getErrorMessage(error) });
   }
-};
+}
 
 export { action };
 
 export default function DayRoute() {
   const { tasksForTheDay, unscheduledTasks, calendarData, stats } =
-    useLoaderData<LoaderData>();
+    useLoaderData<typeof loader>();
 
   const { day } = useParams<'day'>();
 

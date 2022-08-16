@@ -1,9 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog';
+
 import { ReactNode } from 'react';
 
-import { Form, useParams } from 'remix';
+import { Form, useParams } from '@remix-run/react';
 
-import { Button } from '~/components/Elements/Button';
+import { Button } from '~/components/Elements/Buttonv2';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { DESTROY_DRAFT } from '../actionTypes';
@@ -33,7 +34,6 @@ export function Header({
           name="_action"
           value={shouldSubmitOnClose ? DESTROY_DRAFT : undefined}
           className="w-auto"
-          isIconWrapper
         >
           <div className="w-full">
             <ArrowleftIcon />

@@ -1,7 +1,8 @@
-import { actionTypes } from '~/actions/actionTypes';
+import { Button } from '~/components/Elements/Button';
+import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
 
-import { Button } from '../Elements/Button';
-import { ArrowrightIcon } from '../Icons/ArrowrightIcon';
+import { actionTypes } from '~/server/actions/actionTypes';
+
 import { ComponentWithFetcherProps } from './types';
 
 export function UnscheduleTaskForm({

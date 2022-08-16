@@ -1,7 +1,8 @@
-import { actionTypes } from '~/actions/actionTypes';
+import { Button } from '~/components/Elements/Button';
+import { CheckmarkIcon } from '~/components/Icons/CheckmarkIcon';
 
-import { Button } from '../Elements/Button';
-import { CheckmarkIcon } from '../Icons/CheckmarkIcon';
+import { actionTypes } from '~/server/actions/actionTypes';
+
 import { ComponentWithFetcherProps } from './types';
 
 export function CompleteTaskForm({

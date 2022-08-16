@@ -1,3 +1,4 @@
-export const CREATE_DRAFT = 'CREATE_DRAFT';
+export const CREATE_DRAFT_BODY = 'CREATE_DRAFT_BODY';
+export const CREATE_DRAFT_DATE = 'CREATE_DRAFT_DATE';
 export const DESTROY_DRAFT = 'DESTROY_DRAFT';
 export const SUBMIT_FORM = 'SUBMIT_FORM';

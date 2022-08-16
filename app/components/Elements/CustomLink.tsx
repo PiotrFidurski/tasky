@@ -1,7 +1,7 @@
-import { RemixLinkProps } from '@remix-run/react/components';
 import clsx from 'clsx';
 
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
+import { RemixLinkProps } from '@remix-run/react/dist/components';
 
 type CustomLinkProps = RemixLinkProps & {
   to: string;
@@ -19,9 +19,9 @@ export function CustomLink({
     <Link
       to={to}
       className={clsx(
-        `flex justify-center focus:ring-highlight
-         focus:ring-2 focus:ring-inset focus:outline-none transition-all`,
-        isActive && 'ring-2 ring-highlight text-highlight',
+        `flex justify-center rounded-full w-full focus:ring-2 focus:ring-custom-blue dark:focus:ring-custom-indigo focus:text-custom-blue dark:focus:text-custom-indigo outline-none transition-all`,
+        isActive &&
+          'ring-2 ring-custom-blue dark:ring-custom-indigo text-custom-blue dark:text-custom-indigo ring-inset',
         className
       )}
       {...remixLinkProps}

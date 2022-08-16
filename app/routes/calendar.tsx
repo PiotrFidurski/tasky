@@ -1,21 +1,18 @@
 import { format } from 'date-fns';
-import { requireUserId } from '~/session/auth.server';
 
-import { LoaderFunction, Outlet, redirect } from 'remix';
+import { LoaderArgs, redirect } from 'remix';
 
-import { MobileNav } from '~/components/Menus/MobileNav';
+import { Outlet } from '@remix-run/react';
+
+import { requireUserId } from '~/server/session/auth.server';
+
 import { DesktopSidebar } from '~/components/Sidebar/desktop';
 import { MobileSidebar } from '~/components/Sidebar/mobile';
-import {
-  MainLayout,
-  MobileNavLayout,
-  RootLayout,
-  SidebarLayout,
-} from '~/components/layout';
+import { MainLayout, RootLayout, SidebarLayout } from '~/components/layout';
 
 import { DATE_FORMAT } from '~/utils/date';
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export async function loader({ request, params }: LoaderArgs) {
   await requireUserId(request);
 
   if (!params.day) {
@@ -24,7 +21,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 
   return null;
-};
+}
 
 export default function CalendarRoute() {
   return (
@@ -34,9 +31,6 @@ export default function CalendarRoute() {
         <MobileSidebar />
       </SidebarLayout>
       <MainLayout>
-        <MobileNavLayout>
-          <MobileNav />
-        </MobileNavLayout>
         <Outlet />
       </MainLayout>
     </RootLayout>

@@ -1,4 +1,4 @@
-import { Outlet } from 'remix';
+import { Outlet } from '@remix-run/react';
 
 import { DesktopSidebar } from '~/components/Sidebar/desktop';
 import { MobileSidebar } from '~/components/Sidebar/mobile';

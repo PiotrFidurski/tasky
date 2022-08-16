@@ -1,14 +1,16 @@
-import { addMonths, startOfMonth, subMonths } from 'date-fns';
 import { AnimatePresence, motion } from 'framer-motion';
+
 import { useState } from 'react';
 
-import { useParams } from 'remix';
+import { addMonths, startOfMonth, subMonths } from 'date-fns';
+
+import { useParams } from '@remix-run/react';
 
 import { getCalendarData } from '~/utils/date';
 
-import { DayNames } from './DayNames';
-import { Header } from './Header';
 import { variants } from './animationVariants';
+import { DaysOfWeek } from './components/DaysOfWeek';
+import { Header } from './components/Header';
 import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 
 type RenderProps = {
@@ -21,7 +23,7 @@ type CalendarProps = {
   startingDate: Date;
   stats: { [key: string]: number[] };
   weeksCount?: number;
-  children: ({ day, date, stats }: RenderProps) => JSX.Element;
+  children: (props: RenderProps) => JSX.Element;
 };
 
 export function Calendar({
@@ -53,7 +55,7 @@ export function Calendar({
 
   return (
     <div
-      className="dark:bg-slate-900 w-full bg-light max-w-sm p-4 rounded-xl relative overflow-hidden mb-4"
+      className="bg-light-rgba dark:bg-dark-rgba w-full max-w-sm p-4 rounded-xl relative overflow-hidden mb-4 text-secondary dark:text-primary"
       style={{
         minHeight: `calc(${weeksCount} * ${ROW_SIZE}rem + ${HEADER_SIZE}rem + ${ROWS_POSTION_TOP}rem)`,
       }}
@@ -78,7 +80,7 @@ export function Calendar({
           animate="center"
           exit="exit"
         >
-          <DayNames />
+          <DaysOfWeek />
           <section>
             {calendarData.map((week) => (
               <div key={week[0]} className="flex justify-between items-center">

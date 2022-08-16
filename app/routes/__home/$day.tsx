@@ -1,33 +1,22 @@
 import { format } from 'date-fns';
-import { groupTasksByScheduledFor } from '~/models/task';
-import { requireUserId } from '~/session/auth.server';
 
-import {
-  LoaderFunction,
-  Outlet,
-  json,
-  useCatch,
-  useLoaderData,
-  useNavigate,
-} from 'remix';
+import { LoaderArgs, json } from 'remix';
+
+import { Outlet, useCatch, useLoaderData, useNavigate } from '@remix-run/react';
+
+import { groupTasksByScheduledFor } from '~/server/models/task';
+import { requireUserId } from '~/server/session/auth.server';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
-import { Day } from '~/components/Widgets/Calendar/Day';
+import { DayLink } from '~/components/Widgets/Calendar/components/DayLink';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { DATE_FORMAT } from '~/utils/date';
-import { getDayStats, getTotalTasksCount } from '~/utils/getStats';
+import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
 
-type LoaderData = {
-  total: number;
-  completed: number;
-  percentage: number;
-  stats: { [key: string]: number[] };
-};
-
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const userId = await requireUserId(request);
 
   const groupedTasks = await groupTasksByScheduledFor(userId);
@@ -36,9 +25,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const percentage = ((completed / total) * 100).toFixed();
 
-  const stats = getDayStats(groupedTasks);
+  const stats = getTaskStatsForEachDay(groupedTasks);
 
-  const data: LoaderData = {
+  const data = {
     stats,
     completed,
     total,
@@ -46,16 +35,17 @@ export const loader: LoaderFunction = async ({ request }) => {
   };
 
   return json(data, { status: 200 });
-};
+}
 
 export default function DayRoute() {
-  const { completed, percentage, total, stats } = useLoaderData<LoaderData>();
+  const { completed, percentage, total, stats } =
+    useLoaderData<typeof loader>();
 
   return (
-    <div>
+    <>
       <Calendar startingDate={new Date()} stats={stats}>
         {({ day, date }) => (
-          <Day stats={stats} day={day} key={day} date={date} />
+          <DayLink stats={stats} day={day} key={day} date={date} />
         )}
       </Calendar>
       <CompletedTasks
@@ -63,8 +53,9 @@ export default function DayRoute() {
         completed={completed}
         percentage={percentage}
       />
+
       <Outlet />
-    </div>
+    </>
   );
 }
 

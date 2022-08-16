@@ -1,28 +1,29 @@
-import { User } from '@prisma/client';
 import clsx from 'clsx';
+
 import React from 'react';
+
+import { LoaderArgs } from 'remix';
 
 import {
   Links,
   LiveReload,
-  LoaderFunction,
   Meta,
-  MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
   useCatch,
   useLoaderData,
-} from 'remix';
+} from '@remix-run/react';
 
-import { AuthProvider } from './components/Auth/AuthProvider';
-import { ThemeProvider, useTheme } from './components/Theme/ThemeProvider';
-import { LoadUserThemePreferences } from './components/Theme/systemTheme';
-import { Theme } from './components/Theme/themeContext';
-import { getUserById } from './models/user';
-import { getUserSession } from './session/session.server';
-import { getThemeSession } from './session/theme.server';
-import styles from './styles/app.css';
+import { getUserById } from '~/server/models/user';
+import { getUserSession } from '~/server/session/session.server';
+import { getThemeSession } from '~/server/session/theme.server';
+
+import { AuthProvider } from '~/components/Auth/AuthProvider';
+import { ThemeProvider, useTheme } from '~/components/Theme/ThemeProvider';
+import { LoadUserThemePreferences } from '~/components/Theme/systemTheme';
+
+import styles from '~/styles/app.css';
 
 export function links() {
   return [
@@ -44,44 +45,41 @@ export function links() {
   ];
 }
 
-export const meta: MetaFunction = () => {
+export function meta() {
   return { title: 'Tasky' };
-};
+}
 
-type LoaderData = {
-  theme: Theme;
-  user: User | null;
-};
-
-export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getUserSession(request);
+export async function loader({ request }: LoaderArgs) {
+  const userSession = await getUserSession(request);
   const themeSession = await getThemeSession(request);
 
-  if (session.has('userId')) {
-    const userId = session.get('userId');
+  const theme = themeSession.get('theme');
+
+  if (userSession.has('userId')) {
+    const userId = userSession.get('userId');
 
     const user = await getUserById(userId);
 
-    const data: LoaderData = {
-      theme: themeSession.get('theme'),
+    const data = {
+      theme,
       user,
     };
 
     return data;
   }
 
-  const data: LoaderData = {
-    theme: themeSession.get('theme'),
+  const data = {
+    theme,
     user: null,
   };
 
   return data;
-};
+}
 
 function Document({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
-  const data = useLoaderData<LoaderData>();
+  const data = useLoaderData<typeof loader>();
 
   return (
     <html lang="en" className={clsx(theme)}>
@@ -92,7 +90,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-white dark:bg-dark h-screen overflow-x-hidden dark:text-white">
+      <body className="bg-primary dark:bg-secondary h-screen overflow-x-hidden dark:text-white">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -103,7 +101,7 @@ function Document({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const data = useLoaderData<LoaderData>();
+  const data = useLoaderData<typeof loader>();
 
   return (
     <AuthProvider user={data.user}>

@@ -1,10 +1,10 @@
-import { User } from '@prisma/client';
+import { JsonifiedUser } from '~/types';
 
 import { authContext } from './authContext';
 
 type ProviderProps = {
   children: React.ReactNode;
-  user: User | null;
+  user: JsonifiedUser | null;
 };
 
 export function AuthProvider({ children, user }: ProviderProps) {
