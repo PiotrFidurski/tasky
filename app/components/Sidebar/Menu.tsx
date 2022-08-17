@@ -18,7 +18,7 @@ import { HomeIconFilled } from '../Icons/HomeIconFilled';
 import { PlusIcon } from '../Icons/PlusIcon';
 import { SettingsIcon } from '../Icons/SettingsIcon';
 import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
-import { UserAvatar } from '../UserMenu/UserAvatar';
+import { UserMenu } from '../UserMenu';
 
 type MenuProps = {
   visible: boolean;
@@ -57,7 +57,7 @@ export function Menuv2({
       </div>
       <div className="mb-12 px-16">
         <Button aria-label="open menu" type="button">
-          <UserAvatar width={60} height={60} />
+          <UserMenu />
         </Button>
       </div>
       <div className="mb-12 px-16">
