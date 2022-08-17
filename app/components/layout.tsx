@@ -8,7 +8,7 @@ export function RootLayout({ children }: LayoutProps) {
 
 export function SidebarLayout({ children }: LayoutProps) {
   return (
-    <div className="md:max-w-[16rem] md:relative w-full h-full absolute">
+    <div className="md:max-w-[19rem] md:relative w-full h-full absolute">
       {children}
     </div>
   );

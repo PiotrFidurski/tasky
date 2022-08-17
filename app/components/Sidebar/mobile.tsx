@@ -2,8 +2,7 @@ import clsx from 'clsx';
 
 import { useState } from 'react';
 
-import { Menu } from './Menu';
-import { Menuv2 } from './Menuv2';
+import { Menuv2 } from './Menu';
 import { OpenMenuButton } from './OpenMenuButton';
 
 export function MobileSidebar() {
