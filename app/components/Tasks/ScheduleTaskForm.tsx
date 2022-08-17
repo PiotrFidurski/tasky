@@ -2,10 +2,10 @@ import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
+import { actionTypes } from '~/server/actions/actionTypes';
+
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
-
-import { actionTypes } from '~/server/actions/actionTypes';
 
 import { DATE_FORMAT } from '~/utils/date';
 

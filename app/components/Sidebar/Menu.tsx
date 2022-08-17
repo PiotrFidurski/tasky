@@ -36,7 +36,6 @@ export function Menu({
         {isMobile ? (
           <div className="flex justify-end">
             <Button
-              isIconWrapper
               onClick={onHandleClose}
               buttonType
               aria-controls="sidebar"

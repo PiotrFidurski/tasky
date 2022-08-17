@@ -1,7 +1,7 @@
+import { actionTypes } from '~/server/actions/actionTypes';
+
 import { Button } from '~/components/Elements/Button';
 import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
-
-import { actionTypes } from '~/server/actions/actionTypes';
 
 import { ComponentWithFetcherProps } from './types';
 

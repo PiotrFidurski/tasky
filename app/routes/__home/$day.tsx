@@ -68,7 +68,6 @@ export function CatchBoundary() {
     <div className="mt-12 p-4 bg-red-400 rounded-md">
       <div className="flex items-center mb-4">
         <Button
-          isIconWrapper
           className="w-auto"
           onClick={() => navigate(`/${format(new Date(), DATE_FORMAT)}`)}
         >

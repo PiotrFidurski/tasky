@@ -8,7 +8,7 @@ import { EditIcon } from '~/components/Icons/EditIcon';
 import { DATE_FORMAT } from '~/utils/date';
 
 import { useUser } from '../Auth/useUser';
-import { Button } from '../Elements/Buttonv2';
+import { Button } from '../Elements/Button';
 import { CustomLink } from '../Elements/CustomLinkv2';
 import { CaretLeft } from '../Icons/CaretLeft';
 import { GridIcon } from '../Icons/GridIcon';

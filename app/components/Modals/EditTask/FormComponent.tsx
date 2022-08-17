@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 
 import { Form, useLoaderData } from '@remix-run/react';
 
+import { loader } from '~/server/loaders/editTask.server';
+
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
-
-import { loader } from '~/server/loaders/editTask.server';
 
 export function FormComponent() {
   const { body } = useLoaderData<typeof loader>();

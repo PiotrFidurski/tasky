@@ -5,7 +5,7 @@ import { Form, useActionData, useSearchParams } from '@remix-run/react';
 import { action } from '~/server/actions/createTask.server';
 import { CreateTaskProps } from '~/server/models/types';
 
-import { Button } from '~/components/Elements/Buttonv2';
+import { Button } from '~/components/Elements/Button';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { CaretUp } from '~/components/Icons/CaretUp';
 

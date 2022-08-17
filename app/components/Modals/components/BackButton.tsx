@@ -1,6 +1,6 @@
 import { useNavigate } from 'remix';
 
-import { Button } from '~/components/Elements/Buttonv2';
+import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 export function BackButton() {

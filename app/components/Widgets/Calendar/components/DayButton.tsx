@@ -29,17 +29,18 @@ export function DayButton({ day, date }: DayButtonProps) {
         value={format(new Date(day), DATE_FORMAT)}
       />
       <Button
-        isIconWrapper
         name="_action"
         value={CREATE_DRAFT_DATE}
         className={clsx(
-          'w-10 h-10 mb-2 justify-center',
-          !isSameMonth(currentDate, date) && 'text-slate-800',
+          'w-10 h-10 mb-2 flex items-center border-transparent dark:border-transparent justify-center',
+          !isSameMonth(currentDate, date) &&
+            'dark:text-slate-800 text-slate-300',
           isBefore(currentDate, new Date()) &&
             isSameMonth(currentDate, date) &&
             !isToday(parseISO(day)) &&
-            'text-gray-500',
-          isToday(parseISO(day)) && 'text-highlight font-bold'
+            'text-gray-500 dark:text-gray-600',
+          isToday(parseISO(day)) &&
+            'text-highlight dark:text-highlight font-bold'
         )}
       >
         {dayOfMonth}
