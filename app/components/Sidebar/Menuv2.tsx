@@ -9,7 +9,7 @@ import { DATE_FORMAT } from '~/utils/date';
 
 import { useUser } from '../Auth/useUser';
 import { Button } from '../Elements/Button';
-import { CustomLink } from '../Elements/CustomLinkv2';
+import { CustomLink } from '../Elements/CustomLink';
 import { CaretLeft } from '../Icons/CaretLeft';
 import { GridIcon } from '../Icons/GridIcon';
 import { GridIconFilled } from '../Icons/GridIconFilled';

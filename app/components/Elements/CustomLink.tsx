@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import { Link } from '@remix-run/react';
 import { RemixLinkProps } from '@remix-run/react/dist/components';
@@ -18,10 +18,14 @@ export function CustomLink({
   return (
     <Link
       to={to}
-      className={clsx(
-        `flex justify-center rounded-full w-full focus:ring-2 focus:ring-custom-blue dark:focus:ring-custom-indigo focus:text-custom-blue dark:focus:text-custom-indigo outline-none transition-all`,
-        isActive &&
-          'ring-2 ring-custom-blue dark:ring-custom-indigo text-custom-blue dark:text-custom-indigo ring-inset',
+      className={twMerge(
+        `outline-none border-2 rounded-full p-3 text-secondary dark:text-primary
+    border-custom-blue dark:border-custom-indigo
+     focus:border-secondary dark:focus:border-light 
+     focus:bg-light-rgba dark:focus:bg-dark-rgba
+     hover:border-secondary dark:hover:border-light 
+     hover:bg-light-rgba dark:hover:bg-dark-rgba
+     transition-colors`,
         className
       )}
       {...remixLinkProps}
