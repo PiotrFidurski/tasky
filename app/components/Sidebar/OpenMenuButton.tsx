@@ -1,4 +1,4 @@
-import { Button } from '~/components/Elements/Buttonv2';
+import { Button } from '~/components/Elements/Button';
 import { HamburgerIcon } from '~/components/Icons/HamburgerIcon';
 
 type OpenMenuProps = {

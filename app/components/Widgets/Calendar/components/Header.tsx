@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { format, isToday } from 'date-fns';
 
-import { Button } from '~/components/Elements/Buttonv2';
+import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
 

@@ -11,8 +11,8 @@ import { loginSchema } from '~/validation/user';
 import { login } from '~/server/session/auth.server';
 import { createUserSession } from '~/server/session/session.server';
 
-import { Button } from '~/components/Elements/Buttonv2';
-import { CustomLink } from '~/components/Elements/CustomLinkv2';
+import { Button } from '~/components/Elements/Button';
+import { CustomLink } from '~/components/Elements/CustomLink';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 

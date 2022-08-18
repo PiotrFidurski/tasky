@@ -28,13 +28,13 @@ export function DayLink({ day, date, stats }: DayProps) {
       isActive={isActive}
       to={`/${day}`}
       className={clsx(
-        'w-10 h-10 flex items-center justify-center rounded-full mb-2 text-s font-bold relative',
-        !isSameMonth(currentDate, date) && 'text-slate-800',
+        'w-10 h-10 flex items-center justify-center rounded-full border-transparent dark:border-transparent mb-2 text-s relative',
+        !isSameMonth(currentDate, date) && 'dark:text-slate-800 text-slate-300',
         isBefore(currentDate, new Date()) &&
           isSameMonth(currentDate, date) &&
           !isToday(parseISO(day)) &&
-          'text-gray-500',
-        isToday(parseISO(day)) && 'text-highlight font-bold'
+          'text-gray-500 dark:text-gray-600',
+        isToday(parseISO(day)) && 'text-highlight dark:text-highlight font-bold'
       )}
     >
       {dayOfMonth}

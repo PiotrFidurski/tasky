@@ -2,17 +2,23 @@ import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
-import { Button } from '~/components/Elements/Button';
-import { CustomLink } from '~/components/Elements/CustomLink';
-import { NavListItem } from '~/components/Elements/NavListItem';
-import { CalendarIcon } from '~/components/Icons/CalendarIcon';
-import { CloseIcon } from '~/components/Icons/CloseIcon';
+import { NavListItem } from '~/components/Elements/NavListItemv2';
 import { EditIcon } from '~/components/Icons/EditIcon';
-import { HomeIcon } from '~/components/Icons/HomeIcon';
-import { PlusIcon } from '~/components/Icons/PlusIcon';
-import { UserMenu } from '~/components/UserMenu';
 
 import { DATE_FORMAT } from '~/utils/date';
+
+import { useUser } from '../Auth/useUser';
+import { Button } from '../Elements/Button';
+import { CustomLink } from '../Elements/CustomLink';
+import { CaretLeft } from '../Icons/CaretLeft';
+import { GridIcon } from '../Icons/GridIcon';
+import { GridIconFilled } from '../Icons/GridIconFilled';
+import { HomeIcon } from '../Icons/HomeIcon';
+import { HomeIconFilled } from '../Icons/HomeIconFilled';
+import { PlusIcon } from '../Icons/PlusIcon';
+import { SettingsIcon } from '../Icons/SettingsIcon';
+import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
+import { UserMenu } from '../UserMenu';
 
 type MenuProps = {
   visible: boolean;
@@ -20,51 +26,59 @@ type MenuProps = {
   isMobile?: boolean;
 };
 
-export function Menu({
+export function Menuv2({
   visible,
   onHandleClose = () => {},
   isMobile = true,
 }: MenuProps) {
   const { day } = useParams<'day'>();
 
+  const { user } = useUser();
+
   const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
   return (
-    <nav aria-label="sidebar" id="sidebar">
-      <div className="flex items-center p-4">
-        <h2 className="w-full">Menu</h2>
+    <nav aria-label="sidebar" id="sidebar" className="mt-12">
+      <div className="flex items-center">
         {isMobile ? (
-          <div className="flex justify-end">
+          <div className="flex justify-end w-full px-16">
             <Button
-              isIconWrapper
               onClick={onHandleClose}
               buttonType
+              className="w-auto"
               aria-controls="sidebar"
               aria-label="close sidebar"
               aria-expanded={visible}
             >
-              <CloseIcon />
+              <CaretLeft />
             </Button>
           </div>
         ) : null}
       </div>
-      <div className="p-4 mb-4">
-        <UserMenu />
+      <div className="mb-12 px-16">
+        <Button aria-label="open menu" type="button">
+          <UserMenu />
+        </Button>
       </div>
-      <ul className="flex flex-col">
+      <div className="mb-12 px-16">
+        <p className="text-4xl text-secondary dark:text-primary">
+          {user?.username}
+        </p>
+      </div>
+      <ul className="flex flex-col items-start text-base px-14">
         <NavListItem to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
-              <HomeIcon isFilled={isActive} />
+              {isActive ? <HomeIconFilled /> : <HomeIcon />}
               <span>Home</span>
             </>
           )}
         </NavListItem>
-        <NavListItem to="/calendar">
+        <NavListItem to="/">
           {({ isActive }) => (
             <>
-              <CalendarIcon isFilled={isActive} />
-              <span>Calendar</span>
+              {isActive ? <GridIconFilled /> : <GridIcon />}
+              <span>Categories</span>
             </>
           )}
         </NavListItem>
@@ -76,14 +90,19 @@ export function Menu({
             </>
           )}
         </NavListItem>
-        <CustomLink
-          to={`/${dayParam}/create`}
-          aria-label="create task"
-          className="flex justify-between p-3 w-auto rounded-none ml-[0.125rem]"
-        >
-          <span>Create Task</span>
-          <PlusIcon />
-        </CustomLink>
+        <NavListItem to="/calendar">
+          {({ isActive }) => (
+            <>
+              {isActive ? <SettingsIconFilled /> : <SettingsIcon />}
+              <span>Settings</span>
+            </>
+          )}
+        </NavListItem>
+        <div className="flex justify-end w-full pr-2">
+          <CustomLink to={`/${dayParam}/create`} aria-label="create task">
+            <PlusIcon />
+          </CustomLink>
+        </div>
       </ul>
     </nav>
   );
