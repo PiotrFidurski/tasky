@@ -56,9 +56,7 @@ export function Menuv2({
         ) : null}
       </div>
       <div className="mb-12 px-16">
-        <Button aria-label="open menu" type="button">
-          <UserMenu />
-        </Button>
+        <UserMenu />
       </div>
       <div className="mb-12 px-16">
         <p className="text-4xl text-secondary dark:text-primary">
