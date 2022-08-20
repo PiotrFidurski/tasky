@@ -10,8 +10,9 @@ import { SettingsIcon } from '~/components/Icons/SettingsIcon';
 import { useTheme } from '~/components/Theme/ThemeProvider';
 import { Theme } from '~/components/Theme/themeContext';
 
+import { MoonIcon } from '../Icons/MoonIcon';
+import { SunIcon } from '../Icons/SunIcon';
 import { LogoutForm } from './LogoutForm';
-import { ToggleThemeButton } from './ToggleThemeButton';
 import { UserAvatar } from './UserAvatar';
 
 type UserMenuProps = {
@@ -52,7 +53,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
           <ProfileIcon />
           <span>{user?.username}</span>
         </DropdownItem>
-        <DropdownItem aria-label="settings" className="px-2 py-4">
+        <DropdownItem aria-label="settings">
           <SettingsIcon />
           <span>Settings</span>
         </DropdownItem>
@@ -71,7 +72,8 @@ export function UserMenu({ isMobile }: UserMenuProps) {
           }
           onSelect={(e) => e.preventDefault()}
         >
-          <ToggleThemeButton />
+          {theme === Theme.light ? <MoonIcon /> : <SunIcon />}
+          <span>{theme === Theme.light ? 'Dark' : 'Light'}</span>
         </DropdownItem>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
