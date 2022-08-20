@@ -5,10 +5,11 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      boxShadow: {
+        'custom-light': '0px 0px 15px 2px rgb(0 0 0 / 10%)',
+        'custom-dark': '0px 0px 15px 2px rgb(255 255 255 / 15%)',
+      },
       colors: {
-        'dark-rgba': 'rgba(0, 0, 0, 0.10)',
-        'light-rgba': 'rgba(0, 0, 0, 0.01)',
-
         light: '#F3F3F4',
         greyLight: '#e7e7e7',
         dark: '#050507',
@@ -29,6 +30,8 @@ module.exports = {
         grayLight: '#607d8b26',
         shadowPrimary: '#f4f6fd85',
         shadowSecondary: '#5b79ffa6',
+        'dark-rgba': 'rgba(0, 0, 0, 0.10)',
+        'light-rgba': 'rgba(0, 0, 0, 0.01)',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif', ...defaultTheme.fontFamily.sans],
