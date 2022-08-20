@@ -51,7 +51,7 @@ export function FieldWrapper({
               <span
                 aria-live="polite"
                 aria-atomic="true"
-                className="text-rose-600 dark:text-rose-400 bg-light dark:bg-slate-900 px-2"
+                className="text-rose-600 dark:text-rose-400 px-2"
               >
                 {errorMessage}
               </span>
