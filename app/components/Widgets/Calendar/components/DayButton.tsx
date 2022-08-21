@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
 
@@ -30,8 +30,9 @@ export function DayButton({ day, date }: DayButtonProps) {
       />
       <Button
         name="_action"
+        type="submit"
         value={CREATE_DRAFT_DATE}
-        className={clsx(
+        className={twMerge(
           'w-10 h-10 mb-2 flex items-center border-transparent dark:border-transparent justify-center',
           !isSameMonth(currentDate, date) &&
             'dark:text-slate-800 text-slate-300',

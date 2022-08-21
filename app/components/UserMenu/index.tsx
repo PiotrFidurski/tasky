@@ -1,5 +1,4 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import clsx from 'clsx';
 
 import { useUser } from '~/components/Auth/useUser';
 import { Button } from '~/components/Elements/Button';
@@ -10,8 +9,9 @@ import { SettingsIcon } from '~/components/Icons/SettingsIcon';
 import { useTheme } from '~/components/Theme/ThemeProvider';
 import { Theme } from '~/components/Theme/themeContext';
 
+import { MoonIcon } from '../Icons/MoonIcon';
+import { SunIcon } from '../Icons/SunIcon';
 import { LogoutForm } from './LogoutForm';
-import { ToggleThemeButton } from './ToggleThemeButton';
 import { UserAvatar } from './UserAvatar';
 
 type UserMenuProps = {
@@ -31,20 +31,11 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
-        sideOffset={isMobile ? 20 : 0}
-        alignOffset={isMobile ? -14 : 0}
         loop
-        className={clsx(
-          'rounded-lg dark:bg-gray-900 bg-white transition-colors border dark:border-slate-800 border-gray-200',
-          isMobile ? 'min-w-[calc(100vw-17px)]' : 'min-w-[14rem]'
-        )}
+        sideOffset={10}
+        alignOffset={0}
+        className="rounded-lg min-w-[14rem] dark:bg-secondary bg-primary shadow-custom-light dark:shadow-custom-dark"
       >
-        {!isMobile ? (
-          <DropdownMenu.Arrow
-            className="fill-white dark:fill-gray-900"
-            offset={20}
-          />
-        ) : null}
         <DropdownItem
           aria-label="user profile"
           className="rounded-tl-md rounded-tr-md px-2 py-4"
@@ -52,7 +43,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
           <ProfileIcon />
           <span>{user?.username}</span>
         </DropdownItem>
-        <DropdownItem aria-label="settings" className="px-2 py-4">
+        <DropdownItem aria-label="settings">
           <SettingsIcon />
           <span>Settings</span>
         </DropdownItem>
@@ -62,7 +53,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         </DropdownMenu.Label>
         <DropdownMenu.Separator className="bg-gray-200 dark:bg-slate-800 w-full h-px my-2" />
         <DropdownItem
-          className="w-full rounded-bl-md rounded-br-md"
+          className=" rounded-bl-md rounded-br-md"
           onClick={switchTheme}
           aria-label={
             theme === Theme.light
@@ -71,7 +62,8 @@ export function UserMenu({ isMobile }: UserMenuProps) {
           }
           onSelect={(e) => e.preventDefault()}
         >
-          <ToggleThemeButton />
+          {theme === Theme.light ? <MoonIcon /> : <SunIcon />}
+          <span>{theme === Theme.light ? 'Dark' : 'Light'}</span>
         </DropdownItem>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

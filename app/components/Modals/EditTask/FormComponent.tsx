@@ -25,7 +25,9 @@ export function FormComponent() {
         <InputField ref={inputRef} defaultValue={body} />
       </FieldWrapper>
       <div className="flex justify-end">
-        <Button primary>Update</Button>
+        <Button primary type="submit">
+          Update
+        </Button>
       </div>
     </Form>
   );

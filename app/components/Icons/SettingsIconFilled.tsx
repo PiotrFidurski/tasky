@@ -2,7 +2,7 @@ export function SettingsIconFilled() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-6 h-6 fill-custom-blue dark:fill-custom-indigo"
+      className="w-6 h-6 fill-custom-blue dark:fill-custom-indigo stroke-custom-blue dark:stroke-custom-indigo"
       viewBox="0 0 20 20"
     >
       <path

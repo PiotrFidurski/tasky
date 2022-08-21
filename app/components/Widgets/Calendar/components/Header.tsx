@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { twMerge } from 'tailwind-merge';
 
 import { format, isToday } from 'date-fns';
 
@@ -30,7 +30,7 @@ export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className={clsx(
+          className={twMerge(
             'font-bold text-xl',
             isToday(date) && 'text-custom-blue dark:text-custom-indigo'
           )}

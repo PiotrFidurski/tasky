@@ -41,14 +41,14 @@ export function FormComponent({ draft }: Props) {
         placeholder="Enter new task"
         className="w-full bg-primary mb-6 text-md placeholder-textGray dark:bg-secondary resize-none text-secondary dark:text-primary caret-secondary dark:caret-primary outline-none"
       />
-      <div className="h-4 flex items-center overflow-hidden mb-6 text-xs text-red-500 dark:text-rose-500">
+      <div className="h-4 flex items-center overflow-hidden mb-6 text-xs text-red-600 dark:text-rose-400">
         {fieldErrors?.body ? <span>{fieldErrors.body}</span> : null}
       </div>
       <Button
         name="_action"
         value={CREATE_DRAFT_BODY}
         type="submit"
-        className="flex gap-4 mb-20 items-center px-6 text-sm text-slate-500 font-semibold border-grayLight focus:border-slate-500"
+        className="flex gap-4 mb-20 items-center px-6 text-sm text-slate-500 font-semibold border-grayLight focus:border-slate-500 hover:border-slate-500"
       >
         <CalendarIcon />
         <span>{selectedDate || 'Today'}</span>
@@ -67,6 +67,7 @@ export function FormComponent({ draft }: Props) {
           value={SUBMIT_FORM}
           name="_action"
           primary
+          type="submit"
           className="flex absolute top-auto bottom-12 right-12 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>

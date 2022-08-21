@@ -26,7 +26,7 @@ export function Header({
     <Form
       method="post"
       action={`/${day}/create`}
-      className="w-full flex p-2 max-w-full items-center"
+      className="w-full flex p-4 max-w-full items-center"
     >
       <Dialog.Close asChild>
         <Button
@@ -35,9 +35,7 @@ export function Header({
           value={shouldSubmitOnClose ? DESTROY_DRAFT : undefined}
           className="w-auto"
         >
-          <div className="w-full">
-            <ArrowleftIcon />
-          </div>
+          <ArrowleftIcon />
         </Button>
       </Dialog.Close>
       <div className="w-full text-center pr-[20px]">

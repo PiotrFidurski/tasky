@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
-import { NavListItem } from '~/components/Elements/NavListItemv2';
+import { NavListItem } from '~/components/Elements/NavListItem';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { DATE_FORMAT } from '~/utils/date';
@@ -44,7 +44,6 @@ export function Menuv2({
           <div className="flex justify-end w-full px-16">
             <Button
               onClick={onHandleClose}
-              buttonType
               className="w-auto"
               aria-controls="sidebar"
               aria-label="close sidebar"
@@ -56,9 +55,7 @@ export function Menuv2({
         ) : null}
       </div>
       <div className="mb-12 px-16">
-        <Button aria-label="open menu" type="button">
-          <UserMenu />
-        </Button>
+        <UserMenu />
       </div>
       <div className="mb-12 px-16">
         <p className="text-4xl text-secondary dark:text-primary">

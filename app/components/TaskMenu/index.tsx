@@ -23,7 +23,7 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownTrigger>
-        <Button className="w-auto" aria-label="open task menu" type="button">
+        <Button className="w-auto" aria-label="open task menu">
           <CaretDown />
         </Button>
       </DropdownTrigger>

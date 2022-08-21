@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
 
@@ -27,7 +27,7 @@ export function DayLink({ day, date, stats }: DayProps) {
     <CustomLink
       isActive={isActive}
       to={`/${day}`}
-      className={clsx(
+      className={twMerge(
         'w-10 h-10 flex items-center justify-center rounded-full border-transparent dark:border-transparent mb-2 text-s relative',
         !isSameMonth(currentDate, date) && 'dark:text-slate-800 text-slate-300',
         isBefore(currentDate, new Date()) &&
@@ -39,10 +39,12 @@ export function DayLink({ day, date, stats }: DayProps) {
     >
       {dayOfMonth}
       {total !== complete ? (
-        <span className="absolute top-4 text-2xl">·</span>
+        <span className="absolute h-1 top-[0.75rem] text-2xl">·</span>
       ) : null}
       {total && total === complete ? (
-        <span className="absolute top-4 text-pink-600 text-2xl">·</span>
+        <span className="absolute h-1 top-[0.75rem] text-pink-600 text-2xl font-normal">
+          ·
+        </span>
       ) : null}
     </CustomLink>
   );
