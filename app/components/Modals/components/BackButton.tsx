@@ -6,11 +6,9 @@ import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 export function BackButton() {
   const navigate = useNavigate();
   return (
-    <div className="w-full flex p-2">
+    <div className="w-full flex p-4">
       <Button className="w-auto" onClick={() => navigate(-1)}>
-        <div className="w-full">
-          <ArrowleftIcon />
-        </div>
+        <ArrowleftIcon />
       </Button>
     </div>
   );

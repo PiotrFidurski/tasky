@@ -20,7 +20,7 @@ export function FieldWrapper({
       {...htmlLabelProps}
       className={twMerge(
         `mb-4 w-full border-2 dark:border-primary border-secondary
-      dark:text-primary rounded-md flex relative min-h-[5.5rem] text-secondary
+      dark:text-primary rounded-md flex min-h-[5.5rem] text-secondary
       dark:focus-within:border-custom-indigo focus-within:border-custom-blue
       dark:focus-within:text-custom-indigo focus-within:text-custom-blue transition-colors`,
         errorMessage
