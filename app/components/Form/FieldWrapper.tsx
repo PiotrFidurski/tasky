@@ -18,10 +18,15 @@ export function FieldWrapper({
     <label
       htmlFor={htmlFor}
       {...htmlLabelProps}
-      className={`mb-4 w-full border-2 dark:border-primary border-secondary
-       dark:text-primary rounded-md flex relative min-h-[5.5rem] text-secondary
-       dark:focus-within:border-custom-indigo focus-within:border-custom-blue
-       dark:focus-within:text-custom-indigo focus-within:text-custom-blue transition-colors`}
+      className={twMerge(
+        `mb-4 w-full border-2 dark:border-primary border-secondary
+      dark:text-primary rounded-md flex relative min-h-[5.5rem] text-secondary
+      dark:focus-within:border-custom-indigo focus-within:border-custom-blue
+      dark:focus-within:text-custom-indigo focus-within:text-custom-blue transition-colors`,
+        errorMessage
+          ? 'border-rose-600 dark:border-rose-400'
+          : 'border-secondary dark:border-primary'
+      )}
     >
       <div className="w-full items-baseline flex flex-col h-full justify-between">
         <motion.div

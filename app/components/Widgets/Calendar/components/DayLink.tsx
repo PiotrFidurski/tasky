@@ -42,7 +42,7 @@ export function DayLink({ day, date, stats }: DayProps) {
         <span className="absolute h-1 top-[0.75rem] text-2xl">·</span>
       ) : null}
       {total && total === complete ? (
-        <span className="absolute h-1 top-[0.75rem] text-pink-600 text-2xl">
+        <span className="absolute h-1 top-[0.75rem] text-pink-600 text-2xl font-normal">
           ·
         </span>
       ) : null}
