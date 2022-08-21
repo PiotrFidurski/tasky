@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import { Day } from './Day';
 
@@ -18,7 +18,7 @@ export function Weeks({
         <div
           // eslint-disable-next-line react/no-array-index-key
           key={index}
-          className={clsx(
+          className={twMerge(
             isFirstRow(index) ? 'border-t' : null,
             isLastRow(index) ? 'border-b' : null,
             'grid grid-cols-[repeat(7,minmax(auto,1fr))]'

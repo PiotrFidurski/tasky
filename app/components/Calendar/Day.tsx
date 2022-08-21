@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import {
   format,
@@ -33,7 +33,7 @@ export function Day({
     <Link
       aria-label={day}
       to={`/calendar/${day}`}
-      className={clsx(
+      className={twMerge(
         'relative flex flex-col justify-center items-center min-h-[4rem] p-2 border-r',
         day === params.day ? '' : null,
         isToday(parseISO(day))
@@ -44,7 +44,7 @@ export function Day({
       {complete || total ? (
         <div className="absolute bottom-1 flex items-center justify-start max-w-[4rem] bg-transparent w-full border border-gray-400 dark:border-gray-500 transition-all h-2">
           <div
-            className={clsx(
+            className={twMerge(
               'h-full transition-all bg-gradient-to-r',
               complete === total
                 ? 'from-green-400 via-green-400 to-green-400'

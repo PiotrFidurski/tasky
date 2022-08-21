@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import { useState } from 'react';
 
@@ -29,7 +29,7 @@ export function MobileSidebar() {
         />
       ) : null}
       <div
-        className={clsx(
+        className={twMerge(
           `font-semibold text-lg flex flex-col justify-between fixed top-0 
           left-0 bottom-0 max-w-full z-50 bg-primary dark:bg-secondary w-full
           h-full py-4 transition-all`,

@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { twMerge } from 'tailwind-merge';
 
 type FieldWrapperProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
   errorMessage: string | string[];
@@ -25,7 +25,7 @@ export function FieldWrapper({
     >
       <div className="w-full items-baseline flex flex-col h-full justify-between">
         <motion.div
-          className={clsx(
+          className={twMerge(
             'px-2 text-xs font-normal min-w-[16rem] text-left',
             !errorMessage ? 'mt-1' : 'bg-primary dark:bg-secondary'
           )}

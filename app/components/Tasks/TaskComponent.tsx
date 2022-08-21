@@ -1,11 +1,11 @@
-import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { twMerge } from 'tailwind-merge';
 
 import { useFetcher } from '@remix-run/react';
 
-import { TaskMenuDropdown } from '~/components/TaskMenu';
-
 import { actionTypes } from '~/server/actions/actionTypes';
+
+import { TaskMenuDropdown } from '~/components/TaskMenu';
 
 import { JsonifiedTask } from '~/types';
 
@@ -38,7 +38,10 @@ export function TaskComponent({ task }: { task: JsonifiedTask }) {
         exit={{ opacity: 0 }}
         aria-label={task.body}
         style={{ display: isScheduling || isUnscheduling ? 'none' : 'block' }}
-        className={clsx('border  mb-2 flex flex-col', isComplete() ? '' : '')}
+        className={twMerge(
+          'border  mb-2 flex flex-col',
+          isComplete() ? '' : ''
+        )}
       >
         <div className="flex gap-2 flex-wrap items-center p-2 justify-between">
           {!task.scheduledFor ? (
