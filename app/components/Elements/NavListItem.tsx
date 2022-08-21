@@ -16,8 +16,8 @@ export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
           clsx(
             isActive && 'bg-active',
             `py-3 flex w-full items-center hover:bg-active
-             focus:ring-highlight focus:ring-2 focus:ring-inset focus:outline-none 
-             focus:bg-active transition-all`
+           focus:ring-highlight focus:ring-2 focus:ring-inset
+             focus:outline-none focus:bg-active transition-all`
           )
         }
       >

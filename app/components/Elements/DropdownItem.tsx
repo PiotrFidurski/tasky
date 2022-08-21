@@ -12,7 +12,8 @@ export const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
       <Item
         ref={ref}
         className={twMerge(
-          `font-semibold cursor-pointer px-2 py-4 flex items-center gap-4 outline-none focus:bg-[rgba(0,0,0,0.03)] dark:focus:bg-[rgba(255,255,255,0.05)]`,
+          `font-semibold cursor-pointer px-2 py-4 flex items-center gap-4
+           outline-none focus:bg-[rgba(0,0,0,0.03)] dark:focus:bg-[rgba(255,255,255,0.05)]`,
           className
         )}
         {...dropdownItemProps}
