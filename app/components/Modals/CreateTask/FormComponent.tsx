@@ -67,6 +67,7 @@ export function FormComponent({ draft }: Props) {
           value={SUBMIT_FORM}
           name="_action"
           primary
+          type="submit"
           className="flex absolute top-auto bottom-12 right-12 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>

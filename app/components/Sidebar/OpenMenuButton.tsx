@@ -11,7 +11,6 @@ export function OpenMenuButton({ onHandleOpen, show }: OpenMenuProps) {
     <Button
       className="w-auto border-transparent dark:border-transparent"
       onClick={onHandleOpen}
-      buttonType
       aria-controls="sidebar"
       aria-label="open sidebar"
       aria-expanded={show}

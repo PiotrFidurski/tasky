@@ -2,7 +2,6 @@ import {
   DropdownMenuTriggerProps,
   Trigger,
 } from '@radix-ui/react-dropdown-menu';
-import clsx from 'clsx';
 
 import { forwardRef } from 'react';
 
@@ -17,11 +16,7 @@ export const DropdownTrigger = forwardRef<
     <Trigger
       asChild
       ref={ref}
-      className={clsx(
-        `p-1 rounded-full
-         focus:outline-2 focus:outline-offset-4`,
-        className
-      )}
+      className="p-1 rounded-full focus:outline-2 focus:outline-offset-4"
       {...dropdownTriggerProps}
     >
       {children}

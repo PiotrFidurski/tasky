@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 import { NavLink } from '@remix-run/react';
 
 type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
@@ -9,20 +7,16 @@ type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
 
 export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
   return (
-    <li {...htmlLiProps}>
+    <li {...htmlLiProps} className="text-secondary dark:text-primary">
       <NavLink
         to={to}
-        className={({ isActive }) =>
-          clsx(
-            isActive && 'bg-active',
-            `py-3 flex w-full items-center hover:bg-active
-           focus:ring-highlight focus:ring-2 focus:ring-inset
-             focus:outline-none focus:bg-active transition-all`
-          )
-        }
+        className={`py-3 outline-none flex w-full font-normal px-2
+         focus:text-custom-blue dark:focus:text-custom-indigo
+           underline-offset-2 focus:underline hover:text-custom-blue
+         dark:hover:text-custom-indigo hover:underline`}
       >
         {({ isActive }) => (
-          <div className="flex items-center gap-4 transition-all">
+          <div className="flex items-center gap-4">
             {children({ isActive })}
           </div>
         )}

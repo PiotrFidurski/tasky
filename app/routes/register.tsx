@@ -106,7 +106,7 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button primary className="w-full">
+          <Button primary type="submit" className="w-full">
             <span>Register</span>
           </Button>
           <CustomLink to="/login" className="w-full flex justify-center">

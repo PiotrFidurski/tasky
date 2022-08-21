@@ -3,12 +3,14 @@ import { twMerge } from 'tailwind-merge';
 import { forwardRef } from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  buttonType?: boolean;
   primary?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, buttonType, className, primary, ...htmlButtonProps }, ref) => {
+  (
+    { children, type = 'button', className, primary, ...htmlButtonProps },
+    ref
+  ) => {
     return (
       <button
         ref={ref}
@@ -25,7 +27,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
              focus:border-custom-blue dark:focus:border-custom-indigo`,
           className
         )}
-        type={buttonType ? 'button' : 'submit'}
+        // eslint-disable-next-line react/button-has-type
+        type={type}
         {...htmlButtonProps}
       >
         {children}

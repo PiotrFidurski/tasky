@@ -30,6 +30,7 @@ export function DayButton({ day, date }: DayButtonProps) {
       />
       <Button
         name="_action"
+        type="submit"
         value={CREATE_DRAFT_DATE}
         className={clsx(
           'w-10 h-10 mb-2 flex items-center border-transparent dark:border-transparent justify-center',
