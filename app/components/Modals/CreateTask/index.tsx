@@ -30,7 +30,10 @@ export function CreateTask({ draft }: Props) {
   const [searchParams] = useSearchParams();
 
   const handleOpenChange = () => {
-    fetcher.submit({ _action: DESTROY_DRAFT }, { method: 'post' });
+    fetcher.submit(
+      { _action: DESTROY_DRAFT },
+      { method: 'post', action: `/${day}/create` }
+    );
 
     if (searchParams.get('date')) {
       return navigate(-2);
@@ -45,11 +48,7 @@ export function CreateTask({ draft }: Props) {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <fetcher.Form
-            method="post"
-            action={`/${day}/create`}
-            className="w-full flex p-4 items-center"
-          >
+          <fetcher.Form className="w-full flex p-4 items-center">
             <Dialog.Close asChild>
               <Button name="_action" value={DESTROY_DRAFT}>
                 <ArrowleftIcon />

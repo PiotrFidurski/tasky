@@ -65,7 +65,7 @@ export async function action({ params, request }: ActionArgs) {
         return await updateTaskDraftSession({
           request,
           data: { ...draft, scheduledFor },
-          redirectTo: `/${params.day}/create?selectedDate=${scheduledFor}`,
+          redirectTo: `/${params.day}/create?date=${scheduledFor}`,
         });
       }
 
