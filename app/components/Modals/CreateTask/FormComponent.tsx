@@ -32,7 +32,7 @@ export function FormComponent({ draft }: Props) {
   return (
     <Form
       method="post"
-      className="w-full p-12 flex flex-col justify-center items-start h-full"
+      className="w-full px-12 mt-28 flex flex-col items-start h-full"
     >
       <textarea
         name="body"
@@ -48,7 +48,7 @@ export function FormComponent({ draft }: Props) {
         name="_action"
         value={CREATE_DRAFT_BODY}
         type="submit"
-        className="flex gap-2 mb-20 items-center px-6 text-sm text-slate-500 dark:text-custom-indigo border-grayLight focus:border-slate-500 hover:border-slate-500"
+        className="flex gap-2 items-center px-6 text-sm text-slate-500 dark:text-custom-indigo border-grayLight focus:border-slate-500 hover:border-slate-500"
       >
         <CalendarIcon />
         <span>{selectedDate || 'Today'}</span>
@@ -68,7 +68,7 @@ export function FormComponent({ draft }: Props) {
         name="_action"
         primary
         type="submit"
-        className="flex absolute bottom-16 right-16 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
+        className="flex absolute bottom-20 right-8 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
       >
         <span>New task</span>
         <CaretUp />
