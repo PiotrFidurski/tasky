@@ -23,7 +23,7 @@ export function CalendarModal() {
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
           <div className="w-full flex p-4">
-            <Button className="w-auto" onClick={() => navigate(-1)}>
+            <Button className="w-auto" onClick={handleOpenChange}>
               <ArrowleftIcon />
             </Button>
           </div>
