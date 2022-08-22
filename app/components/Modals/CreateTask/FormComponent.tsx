@@ -63,16 +63,18 @@ export function FormComponent({ draft }: Props) {
         type="hidden"
       />
 
-      <Button
-        value={SUBMIT_FORM}
-        name="_action"
-        primary
-        type="submit"
-        className="flex absolute bottom-20 right-8 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
-      >
-        <span>New task</span>
-        <CaretUp />
-      </Button>
+      <div className="flex justify-end w-full">
+        <Button
+          value={SUBMIT_FORM}
+          name="_action"
+          primary
+          type="submit"
+          className="flex mt-28 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
+        >
+          <span>New task</span>
+          <CaretUp />
+        </Button>
+      </div>
     </Form>
   );
 }
