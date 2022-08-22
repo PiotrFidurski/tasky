@@ -1,12 +1,20 @@
 import * as Dialog from '@radix-ui/react-dialog';
 
-import { useFetcher, useNavigate, useSearchParams } from '@remix-run/react';
+import {
+  Form,
+  useFetcher,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from '@remix-run/react';
 
 import { CreateTaskProps } from '~/server/models/types';
 
+import { Button } from '~/components/Elements/Button';
+import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
+
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
-import { Header } from '../components/Header';
 import { FormComponent } from './FormComponent';
 
 type Props = {
@@ -15,6 +23,8 @@ type Props = {
 
 export function CreateTask({ draft }: Props) {
   const navigate = useNavigate();
+
+  const { day } = useParams<'day'>();
 
   const fetcher = useFetcher();
 
@@ -36,9 +46,28 @@ export function CreateTask({ draft }: Props) {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <Header srDescription="Create task dialog" shouldSubmitOnClose>
-            {null}
-          </Header>
+          <Form
+            method="post"
+            action={`/${day}/create`}
+            className="w-full flex p-4 max-w-full items-center"
+          >
+            <Dialog.Close asChild>
+              <Button
+                type="submit"
+                name="_action"
+                value={DESTROY_DRAFT}
+                className="w-auto"
+              >
+                <ArrowleftIcon />
+              </Button>
+            </Dialog.Close>
+            <div className="w-full text-center pr-[20px]">
+              <Dialog.Title className="font-bold">Create task</Dialog.Title>
+            </div>
+            <Dialog.Description className="sr-only">
+              Create task dialog
+            </Dialog.Description>
+          </Form>
           <FormComponent draft={draft} />
         </Dialog.Content>
       </Dialog.Portal>
