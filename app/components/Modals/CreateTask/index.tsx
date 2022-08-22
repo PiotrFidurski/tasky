@@ -49,20 +49,15 @@ export function CreateTask({ draft }: Props) {
           <Form
             method="post"
             action={`/${day}/create`}
-            className="w-full flex p-4 max-w-full items-center"
+            className="w-full flex p-4 items-center"
           >
             <Dialog.Close asChild>
-              <Button
-                type="submit"
-                name="_action"
-                value={DESTROY_DRAFT}
-                className="w-auto"
-              >
+              <Button type="submit" name="_action" value={DESTROY_DRAFT}>
                 <ArrowleftIcon />
               </Button>
             </Dialog.Close>
             <div className="w-full text-center pr-[20px]">
-              <Dialog.Title className="font-bold">Create task</Dialog.Title>
+              <Dialog.Title>Create task</Dialog.Title>
             </div>
             <Dialog.Description className="sr-only">
               Create task dialog
