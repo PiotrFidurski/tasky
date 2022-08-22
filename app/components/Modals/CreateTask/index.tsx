@@ -1,7 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 
 import {
-  Form,
   useFetcher,
   useNavigate,
   useParams,
@@ -33,7 +32,7 @@ export function CreateTask({ draft }: Props) {
   const handleOpenChange = () => {
     fetcher.submit({ _action: DESTROY_DRAFT }, { method: 'post' });
 
-    if (searchParams.get('selectedDate')) {
+    if (searchParams.get('date')) {
       return navigate(-2);
     }
 
@@ -46,23 +45,23 @@ export function CreateTask({ draft }: Props) {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <Form
+          <fetcher.Form
             method="post"
             action={`/${day}/create`}
             className="w-full flex p-4 items-center"
           >
             <Dialog.Close asChild>
-              <Button type="submit" name="_action" value={DESTROY_DRAFT}>
+              <Button name="_action" value={DESTROY_DRAFT}>
                 <ArrowleftIcon />
               </Button>
             </Dialog.Close>
-            <div className="w-full text-center pr-[20px]">
+            <div className="w-full text-center pr-5">
               <Dialog.Title>Create task</Dialog.Title>
             </div>
             <Dialog.Description className="sr-only">
               Create task dialog
             </Dialog.Description>
-          </Form>
+          </fetcher.Form>
           <FormComponent draft={draft} />
         </Dialog.Content>
       </Dialog.Portal>

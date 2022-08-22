@@ -22,10 +22,10 @@ export function FormComponent({ draft }: Props) {
   const actionData = useActionData<typeof action>();
 
   const [searchParams] = useSearchParams({
-    selectedDate: draft.scheduledFor ?? format(new Date(), DATE_FORMAT),
+    date: draft.scheduledFor ?? format(new Date(), DATE_FORMAT),
   });
 
-  const selectedDate = searchParams.get('selectedDate');
+  const date = searchParams.get('date');
 
   const { fieldErrors } = useErrors(actionData);
 
@@ -51,7 +51,7 @@ export function FormComponent({ draft }: Props) {
         className="flex gap-2 items-center px-6 text-sm text-slate-500 dark:text-custom-indigo border-grayLight focus:border-slate-500 hover:border-slate-500"
       >
         <CalendarIcon />
-        <span>{selectedDate || 'Today'}</span>
+        <span>{date || 'Today'}</span>
       </Button>
       <input
         value={
