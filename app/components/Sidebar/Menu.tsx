@@ -20,7 +20,7 @@ import { SettingsIcon } from '../Icons/SettingsIcon';
 import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
 import { UserMenu } from '../UserMenu';
 
-type MenuProps = {
+type Props = {
   visible: boolean;
   onHandleClose?: () => void;
   isMobile?: boolean;
@@ -30,7 +30,7 @@ export function Menu({
   visible,
   onHandleClose = () => {},
   isMobile = true,
-}: MenuProps) {
+}: Props) {
   const { day } = useParams<'day'>();
 
   const { user } = useUser();
@@ -38,31 +38,31 @@ export function Menu({
   const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
   return (
-    <nav aria-label="sidebar" id="sidebar" className="mt-12">
-      <div className="flex items-center">
-        {isMobile ? (
-          <div className="flex justify-end w-full px-16">
-            <Button
-              onClick={onHandleClose}
-              className="w-auto"
-              aria-controls="sidebar"
-              aria-label="close sidebar"
-              aria-expanded={visible}
-            >
-              <CaretLeft />
-            </Button>
-          </div>
-        ) : null}
-      </div>
+    <nav
+      aria-label="sidebar"
+      id="sidebar"
+      className="mt-12 text-secondary dark:text-primary"
+    >
+      {isMobile ? (
+        <div className="flex justify-end px-16">
+          <Button
+            onClick={onHandleClose}
+            className="w-auto"
+            aria-controls="sidebar"
+            aria-label="close sidebar"
+            aria-expanded={visible}
+          >
+            <CaretLeft />
+          </Button>
+        </div>
+      ) : null}
       <div className="mb-12 px-16">
         <UserMenu />
       </div>
       <div className="mb-12 px-16">
-        <p className="text-4xl text-secondary dark:text-primary">
-          {user?.username}
-        </p>
+        <p className="text-4xl">{user?.username}</p>
       </div>
-      <ul className="flex flex-col items-start text-base px-14">
+      <ul className="flex flex-col items-start px-14">
         <NavListItem to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
@@ -95,7 +95,7 @@ export function Menu({
             </>
           )}
         </NavListItem>
-        <div className="flex justify-end w-full pr-2">
+        <div className="flex w-full justify-end pr-2">
           <CustomLink to={`/${dayParam}/create`} aria-label="create task">
             <PlusIcon />
           </CustomLink>

@@ -7,10 +7,10 @@ type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
 
 export function NavListItem({ children, to, ...htmlLiProps }: ListItemProps) {
   return (
-    <li {...htmlLiProps} className="text-secondary dark:text-primary">
+    <li {...htmlLiProps}>
       <NavLink
         to={to}
-        className={`py-3 outline-none flex w-full font-normal px-2
+        className={`py-3 outline-none flex font-normal px-2
          focus:text-custom-blue dark:focus:text-custom-indigo
            underline-offset-2 focus:underline hover:text-custom-blue
          dark:hover:text-custom-indigo hover:underline`}
