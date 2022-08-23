@@ -21,13 +21,6 @@ export function MobileSidebar() {
       <div className="p-2">
         <OpenMenuButton show={expanded} onHandleOpen={handleOpenMenu} />
       </div>
-      {expanded ? (
-        <div
-          className="fixed inset-0 bg-gray-100 opacity-10"
-          onClick={handleCloseMenu}
-          role="none"
-        />
-      ) : null}
       <div
         className={twMerge(
           `font-semibold text-lg flex flex-col justify-between fixed top-0 

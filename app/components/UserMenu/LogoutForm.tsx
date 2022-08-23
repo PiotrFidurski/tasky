@@ -9,7 +9,12 @@ export function LogoutForm() {
   const { formRef, handleSubmit } = useProgrammaticSubmit();
 
   return (
-    <DropdownItem onClick={handleSubmit} asChild>
+    <DropdownItem
+      onClick={handleSubmit}
+      asChild
+      aria-label="logout"
+      role="button"
+    >
       <Form action="/logout" method="post" className="w-full" ref={formRef}>
         <LogoutIcon />
         <span>Logout</span>

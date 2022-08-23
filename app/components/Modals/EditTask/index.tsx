@@ -2,8 +2,10 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import { useNavigate } from '@remix-run/react';
 
+import { Button } from '~/components/Elements/Button';
+import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
+
 import { modalContent, modalOverlay } from '../classNames';
-import { Header } from '../components/Header';
 import { FormComponent } from './FormComponent';
 
 export function EditTask() {
@@ -19,9 +21,19 @@ export function EditTask() {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <Header srDescription="Create task dialog" shouldSubmitOnClose>
-            Edit task
-          </Header>
+          <div className="w-full flex p-4 max-w-full items-center">
+            <Dialog.Close asChild>
+              <Button className="w-auto">
+                <ArrowleftIcon />
+              </Button>
+            </Dialog.Close>
+            <div className="w-full text-center pr-[20px]">
+              <Dialog.Title className="font-bold">Edit task</Dialog.Title>
+            </div>
+            <Dialog.Description className="sr-only">
+              Edit task dialog
+            </Dialog.Description>
+          </div>
           <FormComponent />
         </Dialog.Content>
       </Dialog.Portal>
