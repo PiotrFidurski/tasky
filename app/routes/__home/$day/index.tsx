@@ -55,7 +55,7 @@ export default function IndexRoute() {
   const params = useParams<'day'>();
 
   return (
-    <div>
+    <div className="w-full max-w-sm bg-light-rgba dark:bg-dark-rgba">
       <h1>tasks for day: {params.day}</h1>
       <div>
         {tasks.map((task) => (

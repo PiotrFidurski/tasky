@@ -53,7 +53,6 @@ export default function DayRoute() {
         completed={completed}
         percentage={percentage}
       />
-
       <Outlet />
     </>
   );

@@ -2,34 +2,43 @@ import { twMerge } from 'tailwind-merge';
 
 import { useState } from 'react';
 
-import { Menuv2 } from './Menu';
-import { OpenMenuButton } from './OpenMenuButton';
+import { Button } from '../Elements/Button';
+import { HamburgerIcon } from '../Icons/HamburgerIcon';
+import { Menu } from './Menu';
 
 export function MobileSidebar() {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const handleOpenMenu = () => {
     setExpanded(true);
+    document.body.style.position = 'fixed';
   };
 
   const handleCloseMenu = () => {
     setExpanded(false);
+    document.body.style.position = 'unset';
   };
 
   return (
-    <div className="relative w-full md:hidden">
+    <div className="md:hidden">
       <div className="p-2">
-        <OpenMenuButton show={expanded} onHandleOpen={handleOpenMenu} />
+        <Button
+          className="border-transparent dark:border-transparent"
+          onClick={handleOpenMenu}
+          aria-controls="sidebar"
+          aria-label="open sidebar"
+          aria-expanded={expanded}
+        >
+          <HamburgerIcon />
+        </Button>
       </div>
       <div
         className={twMerge(
-          `font-semibold text-lg flex flex-col justify-between fixed top-0 
-          left-0 bottom-0 max-w-full z-50 bg-primary dark:bg-secondary w-full
-          h-full py-4 transition-all`,
+          `text-lg flex flex-col fixed inset-0 min-h-screen overflow-hidden max-w-full z-50 bg-primary dark:bg-secondary transition-all`,
           expanded ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <Menuv2 visible={expanded} onHandleClose={handleCloseMenu} />
+        <Menu visible={expanded} onHandleClose={handleCloseMenu} />
       </div>
     </div>
   );
