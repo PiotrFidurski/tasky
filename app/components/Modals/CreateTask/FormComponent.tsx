@@ -34,13 +34,17 @@ export function FormComponent({ draft }: Props) {
       method="post"
       className="w-full px-12 mt-28 flex flex-col items-start h-full"
     >
-      <textarea
-        name="body"
-        defaultValue={draft.body ?? ''}
-        rows={4}
-        placeholder="Enter new task"
-        className="w-full bg-primary dark:bg-secondary mb-6 placeholder-textGray resize-none text-secondary dark:text-primary caret-secondary dark:caret-primary outline-none"
-      />
+      <label htmlFor="body" id="body" className="w-full">
+        <textarea
+          name="body"
+          id="body"
+          aria-roledescription="body"
+          defaultValue={draft.body ?? ''}
+          rows={4}
+          placeholder="Enter new task"
+          className="w-full bg-primary dark:bg-secondary mb-6 placeholder-textGray resize-none text-secondary dark:text-primary caret-secondary dark:caret-primary outline-none"
+        />
+      </label>
       <div className="h-4 flex items-center mb-6 text-xs text-red-600 dark:text-rose-400">
         {fieldErrors?.body ? <span>{fieldErrors.body}</span> : null}
       </div>
