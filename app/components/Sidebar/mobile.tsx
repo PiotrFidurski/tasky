@@ -11,10 +11,12 @@ export function MobileSidebar() {
 
   const handleOpenMenu = () => {
     setExpanded(true);
+    document.body.style.position = 'fixed';
   };
 
   const handleCloseMenu = () => {
     setExpanded(false);
+    document.body.style.position = 'unset';
   };
 
   return (
