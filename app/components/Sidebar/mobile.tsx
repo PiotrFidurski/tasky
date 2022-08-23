@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge';
 
 import { useState } from 'react';
 
-import { Menuv2 } from './Menu';
+import { Menu } from './Menu';
 import { OpenMenuButton } from './OpenMenuButton';
 
 export function MobileSidebar() {
@@ -29,7 +29,7 @@ export function MobileSidebar() {
           expanded ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <Menuv2 visible={expanded} onHandleClose={handleCloseMenu} />
+        <Menu visible={expanded} onHandleClose={handleCloseMenu} />
       </div>
     </div>
   );
