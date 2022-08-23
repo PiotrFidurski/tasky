@@ -4,7 +4,9 @@ describe('task', () => {
   });
 
   beforeEach(() => {
-    cy.login();
+    const cookieValue = Cypress.env('TEST_COOKIE');
+
+    cy.setCookie('_auth', cookieValue);
   });
 
   it('should allow users to create new tasks', () => {
@@ -12,9 +14,7 @@ describe('task', () => {
 
     cy.findByRole('link', { name: /create task/i }).click();
 
-    cy.findByPlaceholderText('Enter new task')
-      .click()
-      .type('this is a test task');
+    cy.findByRole('textbox', { name: /body/i }).type('this is a test task');
 
     cy.findByRole('button', { name: /new task/i }).click();
 
@@ -25,7 +25,7 @@ describe('task', () => {
     cy.visit('/');
 
     cy.findByRole('link', { name: /create task/i }).click();
-    cy.findByPlaceholderText('Enter new task').click().type('k');
+    cy.findByRole('textbox', { name: /body/i }).type('ok');
 
     cy.findByRole('button', { name: /new task/i }).click();
 

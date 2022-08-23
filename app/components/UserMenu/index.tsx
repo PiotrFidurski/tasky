@@ -53,6 +53,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         </DropdownMenu.Label>
         <DropdownMenu.Separator className="bg-gray-200 dark:bg-slate-800 w-full h-px my-2" />
         <DropdownItem
+          role="button"
           className=" rounded-bl-md rounded-br-md"
           onClick={switchTheme}
           aria-label={

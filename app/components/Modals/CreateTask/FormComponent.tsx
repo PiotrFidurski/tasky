@@ -38,7 +38,7 @@ export function FormComponent({ draft }: Props) {
         <textarea
           name="body"
           id="body"
-          aria-roledescription="body"
+          aria-label="body"
           defaultValue={draft.body ?? ''}
           rows={4}
           placeholder="Enter new task"
