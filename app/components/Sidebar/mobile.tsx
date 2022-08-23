@@ -34,7 +34,7 @@ export function MobileSidebar() {
       </div>
       <div
         className={twMerge(
-          `text-lg flex flex-col fixed inset-0 max-w-full z-50 bg-primary dark:bg-secondary transition-all`,
+          `text-lg flex flex-col fixed inset-0 overflow-hidden max-w-full z-50 bg-primary dark:bg-secondary transition-all`,
           expanded ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
