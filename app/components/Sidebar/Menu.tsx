@@ -26,7 +26,7 @@ type MenuProps = {
   isMobile?: boolean;
 };
 
-export function Menuv2({
+export function Menu({
   visible,
   onHandleClose = () => {},
   isMobile = true,
