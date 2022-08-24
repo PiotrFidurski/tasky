@@ -11,14 +11,14 @@ import { Theme } from '~/components/Theme/themeContext';
 
 import { MoonIcon } from '../Icons/MoonIcon';
 import { SunIcon } from '../Icons/SunIcon';
+import { Avatar } from './Avatar';
 import { LogoutForm } from './LogoutForm';
-import { UserAvatar } from './UserAvatar';
 
-type UserMenuProps = {
+type Props = {
   isMobile?: boolean;
 };
 
-export function UserMenu({ isMobile }: UserMenuProps) {
+export function UserMenu({ isMobile }: Props) {
   const { theme, switchTheme } = useTheme();
 
   const { user } = useUser();
@@ -27,7 +27,7 @@ export function UserMenu({ isMobile }: UserMenuProps) {
     <DropdownMenu.Root modal={!isMobile}>
       <DropdownTrigger>
         <Button className="w-auto" aria-label="open menu" type="button">
-          <UserAvatar width={40} height={40} />
+          <Avatar width={40} height={40} />
         </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
