@@ -30,7 +30,7 @@ describe('login', () => {
 
     cy.findByRole('button', { name: /open menu/i }).click();
 
-    cy.findByRole('button', { name: /logout/i }).trigger('keydown', {
+    cy.findByRole('menuitem', { name: /logout/i }).trigger('keydown', {
       key: 'Enter',
     });
 
