@@ -54,14 +54,13 @@ export function UserMenu({ isMobile }: UserMenuProps) {
         <DropdownMenu.Separator className="bg-gray-200 dark:bg-slate-800 w-full h-px my-2" />
         <DropdownItem
           role="button"
-          className=" rounded-bl-md rounded-br-md"
+          className="rounded-bl-md rounded-br-md"
           onClick={switchTheme}
           aria-label={
             theme === Theme.light
               ? 'switch to dark mode'
               : 'switch to light mode'
           }
-          onSelect={(e) => e.preventDefault()}
         >
           {theme === Theme.light ? <MoonIcon /> : <SunIcon />}
           <span>{theme === Theme.light ? 'Dark' : 'Light'}</span>

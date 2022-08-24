@@ -3,22 +3,24 @@ import { Form } from '@remix-run/react';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 import { LogoutIcon } from '~/components/Icons/LogoutIcon';
 
-import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
+import { Button } from '../Elements/Button';
 
 export function LogoutForm() {
-  const { formRef, handleSubmit } = useProgrammaticSubmit();
-
   return (
-    <DropdownItem
-      onClick={handleSubmit}
-      asChild
-      aria-label="logout"
-      role="button"
-    >
-      <Form action="/logout" method="post" className="w-full" ref={formRef}>
-        <LogoutIcon />
-        <span>Logout</span>
-      </Form>
-    </DropdownItem>
+    <Form action="/logout" method="post" className="w-full">
+      <DropdownItem
+        asChild
+        aria-label="logout"
+        onSelect={(e) => e.preventDefault()}
+      >
+        <Button
+          type="submit"
+          className="border-0 rounded-none border-transparent dark:border-transparent w-full hover:bg-none"
+        >
+          <LogoutIcon />
+          <span>Logout</span>
+        </Button>
+      </DropdownItem>
+    </Form>
   );
 }
