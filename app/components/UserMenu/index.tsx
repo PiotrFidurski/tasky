@@ -14,17 +14,13 @@ import { SunIcon } from '../Icons/SunIcon';
 import { Avatar } from './Avatar';
 import { LogoutForm } from './LogoutForm';
 
-type Props = {
-  isMobile?: boolean;
-};
-
-export function UserMenu({ isMobile }: Props) {
+export function UserMenu() {
   const { theme, switchTheme } = useTheme();
 
   const { user } = useUser();
 
   return (
-    <DropdownMenu.Root modal={!isMobile}>
+    <DropdownMenu.Root>
       <DropdownTrigger>
         <Button className="w-auto" aria-label="open menu" type="button">
           <Avatar width={40} height={40} />
@@ -48,10 +44,10 @@ export function UserMenu({ isMobile }: Props) {
           <span>Settings</span>
         </DropdownItem>
         <LogoutForm />
-        <DropdownMenu.Label className="font-semibold text-xs py-4 px-2">
+        <DropdownMenu.Label className="text-xs py-4 px-2">
           <span>Options</span>
         </DropdownMenu.Label>
-        <DropdownMenu.Separator className="bg-gray-200 dark:bg-slate-800 w-full h-px my-2" />
+        <DropdownMenu.Separator className="bg-gray-200 dark:bg-[#202852] w-full h-px my-2" />
         <DropdownItem
           role="button"
           className="rounded-bl-md rounded-br-md"
