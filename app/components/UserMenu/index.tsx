@@ -11,23 +11,19 @@ import { Theme } from '~/components/Theme/themeContext';
 
 import { MoonIcon } from '../Icons/MoonIcon';
 import { SunIcon } from '../Icons/SunIcon';
+import { Avatar } from './Avatar';
 import { LogoutForm } from './LogoutForm';
-import { UserAvatar } from './UserAvatar';
 
-type UserMenuProps = {
-  isMobile?: boolean;
-};
-
-export function UserMenu({ isMobile }: UserMenuProps) {
+export function UserMenu() {
   const { theme, switchTheme } = useTheme();
 
   const { user } = useUser();
 
   return (
-    <DropdownMenu.Root modal={!isMobile}>
+    <DropdownMenu.Root>
       <DropdownTrigger>
         <Button className="w-auto" aria-label="open menu" type="button">
-          <UserAvatar width={40} height={40} />
+          <Avatar width={40} height={40} />
         </Button>
       </DropdownTrigger>
       <DropdownMenu.Content
@@ -48,20 +44,19 @@ export function UserMenu({ isMobile }: UserMenuProps) {
           <span>Settings</span>
         </DropdownItem>
         <LogoutForm />
-        <DropdownMenu.Label className="font-semibold text-xs py-4 px-2">
+        <DropdownMenu.Label className="text-xs py-4 px-2">
           <span>Options</span>
         </DropdownMenu.Label>
-        <DropdownMenu.Separator className="bg-gray-200 dark:bg-slate-800 w-full h-px my-2" />
+        <DropdownMenu.Separator className="bg-gray-200 dark:bg-[#202852] w-full h-px my-2" />
         <DropdownItem
           role="button"
-          className=" rounded-bl-md rounded-br-md"
+          className="rounded-bl-md rounded-br-md"
           onClick={switchTheme}
           aria-label={
             theme === Theme.light
               ? 'switch to dark mode'
               : 'switch to light mode'
           }
-          onSelect={(e) => e.preventDefault()}
         >
           {theme === Theme.light ? <MoonIcon /> : <SunIcon />}
           <span>{theme === Theme.light ? 'Dark' : 'Light'}</span>

@@ -1,9 +1,9 @@
-type UserAvatarProps = {
+type Props = {
   width: number;
   height: number;
 };
 
-export function UserAvatar({ width, height }: UserAvatarProps) {
+export function Avatar({ width, height }: Props) {
   return (
     <img
       src="//unsplash.it/40/40"

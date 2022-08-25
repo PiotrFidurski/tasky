@@ -5,19 +5,15 @@ import { actionTypes } from '~/server/actions/actionTypes';
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 
-import { useProgrammaticSubmit } from '~/utils/hooks/useProgrammaticSubmit';
-
 type DeleteTaskFormProps = {
   taskId: string;
   userId: string;
 };
 
 export function DeleteTaskForm({ taskId, userId }: DeleteTaskFormProps) {
-  const { formRef, handleSubmit } = useProgrammaticSubmit();
-
   return (
-    <DropdownItem onClick={handleSubmit} asChild>
-      <Form method="post" className="w-full" ref={formRef}>
+    <Form method="post" className="w-full">
+      <DropdownItem asChild onSelect={(e) => e.preventDefault()}>
         <Button
           type="submit"
           aria-label="delete task"
@@ -42,7 +38,7 @@ export function DeleteTaskForm({ taskId, userId }: DeleteTaskFormProps) {
           </svg>
           <span>Delete Task</span>
         </Button>
-      </Form>
-    </DropdownItem>
+      </DropdownItem>
+    </Form>
   );
 }
