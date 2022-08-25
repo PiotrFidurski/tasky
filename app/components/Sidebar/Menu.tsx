@@ -79,7 +79,7 @@ export function Menu({
             </>
           )}
         </NavListItem>
-        <NavListItem to="/calendar">
+        <NavListItem to="/">
           {() => (
             <>
               <EditIcon />
@@ -87,7 +87,7 @@ export function Menu({
             </>
           )}
         </NavListItem>
-        <NavListItem to="/calendar">
+        <NavListItem to="/">
           {({ isActive }) => (
             <>
               {isActive ? <SettingsIconFilled /> : <SettingsIcon />}
