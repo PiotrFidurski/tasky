@@ -41,7 +41,7 @@ export async function action({ request }: ActionArgs) {
     if (!isPasswordCorrect) {
       return badRequest({
         errors: {
-          password: [`Wrong password.`],
+          password: ['Wrong password.'],
         },
       });
     }
