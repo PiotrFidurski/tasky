@@ -59,7 +59,7 @@ describe('login', () => {
 
     cy.get('@usernameInput').clear().type(`${username}{enter}`);
 
-    cy.findByText(/The password you provided doesn't match./i);
+    cy.findByText(/Wrong password./i);
 
     cy.url().should('not.eq', `${Cypress.config().baseUrl}/home`);
 
