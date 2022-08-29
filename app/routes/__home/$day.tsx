@@ -1,6 +1,8 @@
+import nProgressStyles from 'nprogress/nprogress.css';
+
 import { format } from 'date-fns';
 
-import { LoaderArgs, json } from 'remix';
+import { LinksFunction, LoaderArgs, json } from 'remix';
 
 import { Outlet, useCatch, useLoaderData, useNavigate } from '@remix-run/react';
 
@@ -14,7 +16,12 @@ import { DayLink } from '~/components/Widgets/Calendar/components/DayLink';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { DATE_FORMAT } from '~/utils/date';
+import { useRouteTransition } from '~/utils/hooks/useRouteTransition';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
+
+export const links: LinksFunction = () => {
+  return [{ rel: 'stylesheet', href: nProgressStyles }];
+};
 
 export async function loader({ request }: LoaderArgs) {
   const userId = await requireUserId(request);
@@ -40,6 +47,8 @@ export async function loader({ request }: LoaderArgs) {
 export default function DayRoute() {
   const { completed, percentage, total, stats } =
     useLoaderData<typeof loader>();
+
+  useRouteTransition();
 
   return (
     <>
