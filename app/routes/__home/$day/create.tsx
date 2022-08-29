@@ -1,4 +1,6 @@
-import { LoaderArgs } from 'remix';
+import nProgressStyles from 'nprogress/nprogress.css';
+
+import { LinksFunction, LoaderArgs } from 'remix';
 
 import { useLoaderData } from '@remix-run/react';
 
@@ -7,7 +9,13 @@ import { getTaskDraftSession } from '~/server/session/taskdraft.server';
 
 import { CreateTask } from '~/components/Modals/CreateTask';
 
+import { useRouteTransition } from '~/utils/hooks/useRouteTransition';
+
 export { action };
+
+export const links: LinksFunction = () => {
+  return [{ rel: 'stylesheet', href: nProgressStyles }];
+};
 
 export async function loader({ request }: LoaderArgs) {
   const createTaskDataSession = await getTaskDraftSession(request);
@@ -22,6 +30,8 @@ export async function loader({ request }: LoaderArgs) {
 
 export default function CreateTaskRoute() {
   const draftData = useLoaderData<typeof loader>();
+
+  useRouteTransition();
 
   return <CreateTask draft={draftData} />;
 }
