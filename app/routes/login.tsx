@@ -15,9 +15,11 @@ import { Button } from '~/components/Elements/Button';
 import { CustomLink } from '~/components/Elements/CustomLink';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
+import { Spinner } from '~/components/Spinner';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { useActionTransition } from '~/utils/hooks/useActionTransition';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 export async function action({ request }: ActionArgs) {
@@ -63,6 +65,8 @@ export async function action({ request }: ActionArgs) {
 export default function LoginRoute() {
   const actionData = useActionData<typeof action>();
 
+  const { isSubmitting } = useActionTransition();
+
   const { fieldErrors } = useErrors(actionData);
 
   return (
@@ -98,8 +102,8 @@ export default function LoginRoute() {
           />
         </FieldWrapper>
         <div className="flex items-center justify-between w-full gap-4">
-          <Button primary type="submit" className="w-full">
-            Login
+          <Button primary type="submit" className="w-full justify-center flex">
+            {isSubmitting ? <Spinner /> : 'Login'}
           </Button>
           <CustomLink to="/register" className="w-full flex justify-center">
             <span>Register</span>

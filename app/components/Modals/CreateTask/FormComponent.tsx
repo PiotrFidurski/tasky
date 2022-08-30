@@ -8,8 +8,10 @@ import { CreateTaskProps } from '~/server/models/types';
 import { Button } from '~/components/Elements/Button';
 import { CalendarIcon } from '~/components/Icons/CalendarIcon';
 import { CaretUp } from '~/components/Icons/CaretUp';
+import { Spinner } from '~/components/Spinner';
 
 import { DATE_FORMAT } from '~/utils/date';
+import { useActionTransition } from '~/utils/hooks/useActionTransition';
 import { useErrors } from '~/utils/hooks/useErrors';
 
 import { CREATE_DRAFT_BODY, SUBMIT_FORM } from '../actionTypes';
@@ -20,6 +22,8 @@ type Props = {
 
 export function FormComponent({ draft }: Props) {
   const actionData = useActionData<typeof action>();
+
+  const { isSubmitting } = useActionTransition();
 
   const [searchParams] = useSearchParams({
     date: draft.scheduledFor ?? format(new Date(), DATE_FORMAT),
@@ -76,7 +80,7 @@ export function FormComponent({ draft }: Props) {
           className="flex mt-28 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>
-          <CaretUp />
+          {isSubmitting ? <Spinner /> : <CaretUp />}
         </Button>
       </div>
     </Form>
