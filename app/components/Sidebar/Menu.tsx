@@ -96,7 +96,11 @@ export function Menu({
           )}
         </NavListItem>
         <div className="flex w-full justify-end pr-2">
-          <CustomLink to={`/${dayParam}/create`} aria-label="create task">
+          <CustomLink
+            to={`/${dayParam}/create`}
+            aria-label="create task"
+            onClick={onHandleClose}
+          >
             <PlusIcon />
           </CustomLink>
         </div>

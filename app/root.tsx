@@ -11,10 +11,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  ShouldReloadFunction,
   useCatch,
   useLoaderData,
 } from '@remix-run/react';
 
+import { deleteMonthOldTasks } from '~/server/models/task';
 import { getUserById } from '~/server/models/user';
 import { getUserSession } from '~/server/session/session.server';
 import { getThemeSession } from '~/server/session/theme.server';
@@ -49,10 +51,13 @@ export function meta() {
   return { title: 'Tasky' };
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const unstable_shouldReload: ShouldReloadFunction = () => false;
+
 export async function loader({ request }: LoaderArgs) {
+  await deleteMonthOldTasks();
   const userSession = await getUserSession(request);
   const themeSession = await getThemeSession(request);
-
   const theme = themeSession.get('theme');
 
   if (userSession.has('userId')) {

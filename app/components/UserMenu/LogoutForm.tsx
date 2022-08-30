@@ -3,9 +3,14 @@ import { Form } from '@remix-run/react';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 import { LogoutIcon } from '~/components/Icons/LogoutIcon';
 
+import { useActionTransition } from '~/utils/hooks/useActionTransition';
+
 import { Button } from '../Elements/Button';
+import { Spinner } from '../Spinner';
 
 export function LogoutForm() {
+  const { isSubmitting } = useActionTransition();
+
   return (
     <Form action="/logout" method="post" className="w-full">
       <DropdownItem asChild onSelect={(e) => e.preventDefault()}>
@@ -16,6 +21,7 @@ export function LogoutForm() {
         >
           <LogoutIcon />
           <span>Logout</span>
+          {isSubmitting && <Spinner />}
         </Button>
       </DropdownItem>
     </Form>

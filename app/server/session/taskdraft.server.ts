@@ -8,7 +8,6 @@ export const taskDraftSessionStorage = createCookieSessionStorage({
     sameSite: 'lax',
     path: '/',
     httpOnly: true,
-    secrets: [process.env.TASK_DRAFT_SECRET || 'secret'],
     secure: process.env.NODE_ENV === 'production',
   },
 });
