@@ -11,6 +11,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  ShouldReloadFunction,
   useCatch,
   useLoaderData,
 } from '@remix-run/react';
@@ -48,6 +49,9 @@ export function links() {
 export function meta() {
   return { title: 'Tasky' };
 }
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const unstable_shouldReload: ShouldReloadFunction = () => false;
 
 export async function loader({ request }: LoaderArgs) {
   const userSession = await getUserSession(request);
