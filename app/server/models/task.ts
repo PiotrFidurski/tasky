@@ -1,3 +1,5 @@
+import { startOfMonth } from 'date-fns';
+
 import { db } from '~/server/db/db.server';
 
 import { CreateTaskProps } from './types';
@@ -76,5 +78,13 @@ export function unscheduleTask(id: string) {
   return db.task.update({
     where: { id },
     data: { scheduledFor: '', sortDate: new Date() },
+  });
+}
+
+export function deleteMonthOldTasks() {
+  const start = startOfMonth(new Date()).toISOString();
+
+  return db.task.deleteMany({
+    where: { scheduledFor: { not: '', lt: start } },
   });
 }
