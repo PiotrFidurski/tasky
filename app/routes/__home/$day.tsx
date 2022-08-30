@@ -36,7 +36,6 @@ export async function loader({ request, params }: LoaderArgs) {
   const userId = await requireUserId(request);
 
   const day = z
-
     .string({ invalid_type_error: 'expected a string.' })
     .parse(params.day);
 
@@ -47,9 +46,10 @@ export async function loader({ request, params }: LoaderArgs) {
     );
   }
 
-  const tasks = await getTasksForDay(day, userId);
-
-  const groupedTasks = await groupTasksByScheduledFor(userId);
+  const [tasks, groupedTasks] = await Promise.all([
+    getTasksForDay(day, userId),
+    groupTasksByScheduledFor(userId),
+  ]);
 
   const { completed, total } = getTotalTasksCount(groupedTasks);
 
@@ -70,6 +70,7 @@ export async function loader({ request, params }: LoaderArgs) {
 
 export default function DayRoute() {
   const params = useParams<'day'>();
+
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
 
