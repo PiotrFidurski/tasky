@@ -1,10 +1,8 @@
-import nProgressStyles from 'nprogress/nprogress.css';
-
 import { z } from 'zod';
 
 import { format, isValid } from 'date-fns';
 
-import { LinksFunction, LoaderArgs, json } from 'remix';
+import { LoaderArgs, json } from 'remix';
 
 import {
   Outlet,
@@ -27,10 +25,6 @@ import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
 import { useRouteTransition } from '~/utils/hooks/useRouteTransition';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
-
-export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: nProgressStyles }];
-};
 
 export async function loader({ request, params }: LoaderArgs) {
   const userId = await requireUserId(request);
