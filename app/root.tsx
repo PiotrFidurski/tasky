@@ -87,7 +87,7 @@ function Document({ children }: { children: React.ReactNode }) {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <html lang="en" className={twMerge(theme)}>
+    <html lang="en" className={twMerge(theme)} data-theme={theme}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -95,7 +95,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-primary dark:bg-secondary h-screen overflow-x-hidden dark:text-white">
+      <body className="bg-primary dark:bg-secondary overflow-x-hidden dark:text-white">
         {children}
         <ScrollRestoration />
         <Scripts />

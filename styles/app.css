@@ -21,15 +21,14 @@ input:focus-visible {
 
 .circle-progress {
   stroke: #2643c4;
-  fill: none;
+  fill: rgb(255, 255, 255, 1);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-body,
-.dark .circle-progress {
+[data-theme='dark'] .circle-progress {
   stroke: #adbaeb;
-  fill: none;
+  fill: rgba(9, 13, 36, 1);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -67,13 +66,11 @@ body,
 }
 
 /* dark mode colors */
-body,
-.dark #nprogress .bar {
+[data-theme='dark'] #nprogress .bar {
   background: #adbaeb;
 }
 
-body,
-.dark #nprogress .peg {
+[data-theme='dark'] #nprogress .peg {
   box-shadow: 0 0 10px #adbaeb, 0 0 5px #adbaeb;
 }
 
