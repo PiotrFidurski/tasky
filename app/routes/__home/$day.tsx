@@ -1,3 +1,7 @@
+import nProgress from 'nprogress';
+
+import { useEffect } from 'react';
+
 import { z } from 'zod';
 
 import { format, isValid } from 'date-fns';
@@ -10,6 +14,7 @@ import {
   useLoaderData,
   useNavigate,
   useParams,
+  useTransition,
 } from '@remix-run/react';
 
 import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
@@ -23,7 +28,6 @@ import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
-import { useRouteTransition } from '~/utils/hooks/useRouteTransition';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -68,7 +72,17 @@ export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
 
-  useRouteTransition();
+  const transition = useTransition();
+
+  useEffect(() => {
+    if (
+      transition.state === 'idle' ||
+      transition.location?.pathname === '/logout' ||
+      transition.location?.pathname === '/login'
+    )
+      nProgress.done();
+    else nProgress.start();
+  }, [transition]);
 
   return (
     <>
