@@ -33,6 +33,23 @@ input:focus-visible {
   stroke-linejoin: round;
 }
 
+@media (prefers-color-scheme: dark) {
+  .circle-progress {
+    stroke: #adbaeb;
+    fill: rgba(9, 13, 36, 1);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #nprogress .bar {
+    background: #adbaeb;
+  }
+
+  #nprogress .peg {
+    box-shadow: 0 0 10px #adbaeb, 0 0 5px #adbaeb;
+  }
+}
+
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
