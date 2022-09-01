@@ -6,8 +6,6 @@ export const getSystemTheme = () =>
   window.matchMedia(prefersLightMQ).matches ? Theme.light : Theme.dark;
 
 const userThemePreferences = `
-// this piece of code will run before document body is rendered
-// essentially blocking rendering until user preferences are loaded on the server.
 ;(() => {
     const preferredTheme = window.matchMedia(${JSON.stringify(
       prefersLightMQ
@@ -23,6 +21,8 @@ const userThemePreferences = `
         console.warn("Something went wrong, you shouldn't be seeing this.")
     }
     
+
+    document.documentElement.dataset.theme = preferredTheme
     htmlClassList.add(preferredTheme)
 })();
 `;

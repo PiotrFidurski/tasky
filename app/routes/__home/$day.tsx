@@ -1,10 +1,12 @@
-import nProgressStyles from 'nprogress/nprogress.css';
+import nProgress from 'nprogress';
+
+import { useEffect } from 'react';
 
 import { z } from 'zod';
 
 import { format, isValid } from 'date-fns';
 
-import { LinksFunction, LoaderArgs, json } from 'remix';
+import { LoaderArgs, json } from 'remix';
 
 import {
   Outlet,
@@ -12,6 +14,7 @@ import {
   useLoaderData,
   useNavigate,
   useParams,
+  useTransition,
 } from '@remix-run/react';
 
 import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
@@ -25,12 +28,7 @@ import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 
 import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
-import { useRouteTransition } from '~/utils/hooks/useRouteTransition';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
-
-export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: nProgressStyles }];
-};
 
 export async function loader({ request, params }: LoaderArgs) {
   const userId = await requireUserId(request);
@@ -74,7 +72,17 @@ export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
 
-  useRouteTransition();
+  const transition = useTransition();
+
+  useEffect(() => {
+    if (
+      transition.state === 'idle' ||
+      transition.location?.pathname === '/logout' ||
+      transition.location?.pathname === '/login'
+    )
+      nProgress.done();
+    else nProgress.start();
+  }, [transition]);
 
   return (
     <>
