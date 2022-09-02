@@ -15,7 +15,11 @@ export function CompletedTasks({
   return (
     <div className="w-full max-w-sm mb-4 rounded-2xl bg-light-rgba dark:bg-dark-rgba">
       <div className="flex items-center justify-between w-full p-8">
-        <TextContent total={total} completed={completed} />
+        <TextContent
+          total={total}
+          completed={completed}
+          percentage={percentage}
+        />
         <div className="w-full flex justify-end">
           <CircularProgress
             strokeWidth={10}
