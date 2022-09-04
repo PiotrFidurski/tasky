@@ -23,7 +23,7 @@ type Props = {
 export function FormComponent({ draft }: Props) {
   const actionData = useActionData<typeof action>();
 
-  const { isSubmitting } = useActionTransition();
+  const { isSubmitting, transition } = useActionTransition();
 
   const [searchParams] = useSearchParams({
     date: draft.scheduledFor ?? format(new Date(), DATE_FORMAT),
@@ -32,7 +32,6 @@ export function FormComponent({ draft }: Props) {
   const date = searchParams.get('date');
 
   const { fieldErrors } = useErrors(actionData);
-
   return (
     <Form
       method="post"
@@ -80,7 +79,12 @@ export function FormComponent({ draft }: Props) {
           className="flex mt-28 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>
-          {isSubmitting ? <Spinner /> : <CaretUp />}
+          {isSubmitting &&
+          transition.submission?.formData.get('_action') === 'SUBMIT_FORM' ? (
+            <Spinner />
+          ) : (
+            <CaretUp />
+          )}
         </Button>
       </div>
     </Form>
