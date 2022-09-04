@@ -1,11 +1,11 @@
 import { useTransition } from 'remix';
 
 export function useActionTransition() {
-  const { state, type } = useTransition();
+  const transition = useTransition();
 
   const isSubmitting =
-    (state === 'submitting' && type === 'actionSubmission') ||
-    (state === 'loading' && type === 'actionRedirect');
-
-  return { isSubmitting };
+    (transition.state === 'submitting' &&
+      transition.type === 'actionSubmission') ||
+    (transition.state === 'loading' && transition.type === 'actionRedirect');
+  return { isSubmitting, transition };
 }
