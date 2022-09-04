@@ -15,21 +15,18 @@ function getTextContent(percentage: number) {
   });
 }
 
-type TextContentProps = {
+type Props = {
   completed: number;
   total: number;
   percentage: number;
 };
 
-export function TextContent({
-  completed,
-  total,
-  percentage,
-}: TextContentProps) {
-  const textContentIndex = getTextContent(percentage);
+export function TextContent({ completed, total, percentage }: Props) {
+  const textContentKey = getTextContent(percentage);
+
   return (
     <div className="w-full">
-      <p className="font-extrabold text-xl mb-2">{content[textContentIndex]}</p>
+      <p className="font-extrabold text-xl mb-2">{content[textContentKey]}</p>
       <span className="font-semibold text-sm">
         {completed} out of {total} completed
       </span>
