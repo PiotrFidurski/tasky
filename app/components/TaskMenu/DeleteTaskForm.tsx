@@ -5,12 +5,12 @@ import { actionTypes } from '~/server/actions/actionTypes';
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 
-type DeleteTaskFormProps = {
+type Props = {
   taskId: string;
   userId: string;
 };
 
-export function DeleteTaskForm({ taskId, userId }: DeleteTaskFormProps) {
+export function DeleteTaskForm({ taskId, userId }: Props) {
   return (
     <Form method="post" className="w-full">
       <DropdownItem asChild onSelect={(e) => e.preventDefault()}>

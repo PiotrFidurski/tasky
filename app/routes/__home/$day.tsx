@@ -82,7 +82,7 @@ export default function DayRoute() {
     )
       nProgress.done();
     else nProgress.start();
-  }, [transition]);
+  }, [transition.location?.pathname, transition.state]);
 
   return (
     <>

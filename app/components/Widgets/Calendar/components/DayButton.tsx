@@ -9,12 +9,12 @@ import { CREATE_DRAFT_DATE } from '~/components/Modals/actionTypes';
 
 import { DATE_FORMAT } from '~/utils/date';
 
-type DayButtonProps = {
+type Props = {
   day: string;
   date: Date;
 };
 
-export function DayButton({ day, date }: DayButtonProps) {
+export function DayButton({ day, date }: Props) {
   const currentDate = new Date(day);
 
   const params = useParams<'day'>();

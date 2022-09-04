@@ -1,4 +1,4 @@
-type CircularProgressProps = {
+type Props = {
   squareSize: number;
   strokeWidth: number;
   percentage: number;
@@ -8,7 +8,7 @@ export function CircularProgress({
   squareSize,
   strokeWidth,
   percentage,
-}: CircularProgressProps) {
+}: Props) {
   // SVG centers the stroke width on the radius, subtract out so circle fits in square
   const radius = (squareSize - strokeWidth) / 2;
   // Enclose cicle in a circumscribing square

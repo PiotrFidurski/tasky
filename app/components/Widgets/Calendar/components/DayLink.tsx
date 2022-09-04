@@ -6,13 +6,13 @@ import { useParams } from '@remix-run/react';
 
 import { CustomLink } from '~/components/Elements/CustomLink';
 
-type DayProps = {
+type Props = {
   day: string;
   date: Date;
   stats: { [key: string]: number[] };
 };
 
-export function DayLink({ day, date, stats }: DayProps) {
+export function DayLink({ day, date, stats }: Props) {
   const currentDate = new Date(day);
 
   const dayOfMonth = format(currentDate, 'dd');

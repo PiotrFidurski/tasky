@@ -5,7 +5,7 @@ import { useFetcher } from '@remix-run/react';
 import { getSystemTheme } from './systemTheme';
 import { Theme, themeContext } from './themeContext';
 
-type ThemeProviderProps = {
+type Props = {
   children: React.ReactNode;
   storedTheme: Theme;
 };
@@ -16,7 +16,7 @@ export function isValidTheme(value: unknown): value is Theme {
   );
 }
 
-export function ThemeProvider({ children, storedTheme }: ThemeProviderProps) {
+export function ThemeProvider({ children, storedTheme }: Props) {
   const updateTheme = useFetcher();
   const isMountedRef = useRef(false);
 

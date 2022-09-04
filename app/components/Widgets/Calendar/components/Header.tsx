@@ -7,13 +7,13 @@ import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { ArrowrightIcon } from '~/components/Icons/ArrowrightIcon';
 
-type HeaderProps = {
+type Props = {
   date: Date;
   onPrevMonth: () => void;
   onNextMonth: () => void;
 };
 
-export function Header({ date, onPrevMonth, onNextMonth }: HeaderProps) {
+export function Header({ date, onPrevMonth, onNextMonth }: Props) {
   const headerContent = format(date, 'dd MMMM, yyyy');
 
   return (

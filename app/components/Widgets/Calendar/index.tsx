@@ -19,7 +19,7 @@ type RenderProps = {
   stats: { [key: string]: number[] };
 };
 
-type CalendarProps = {
+type Props = {
   startingDate: Date;
   stats: { [key: string]: number[] };
   weeksCount?: number;
@@ -31,7 +31,7 @@ export function Calendar({
   stats,
   weeksCount = 5,
   children,
-}: CalendarProps) {
+}: Props) {
   const [date, setDate] = useState(startingDate);
 
   const params = useParams<'day'>();
