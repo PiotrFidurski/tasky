@@ -1,9 +1,9 @@
 const content: Record<string, string> = {
-  '0': "You're just getting started!",
-  '25': "You're on a great pace",
-  '50': "You're halfway done",
-  '75': "You're almost there",
-  '100': "Great you're all done",
+  0: "You're just getting started!",
+  25: "You're on a great pace",
+  50: "You're halfway done",
+  75: "You're almost there",
+  100: "Great you're all done",
 };
 
 function getTextContent(percentage: number) {
