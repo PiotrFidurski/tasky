@@ -7,5 +7,6 @@ export function useActionTransition() {
     (transition.state === 'submitting' &&
       transition.type === 'actionSubmission') ||
     (transition.state === 'loading' && transition.type === 'actionRedirect');
+
   return { isSubmitting, transition };
 }
