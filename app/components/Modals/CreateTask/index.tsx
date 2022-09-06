@@ -1,5 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { twMerge } from 'tailwind-merge';
 
 import { useState } from 'react';
 
@@ -15,6 +14,7 @@ import { CreateTaskProps } from '~/server/models/types';
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
+import { Warning } from '../Warning';
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
@@ -24,7 +24,10 @@ type Props = {
 };
 
 export function CreateTask({ draft }: Props) {
-  const [open, setOpen] = useState({ create: true, warn: false });
+  const [open, setOpen] = useState({
+    create: true,
+    warning: false,
+  });
 
   const navigate = useNavigate();
 
@@ -47,22 +50,22 @@ export function CreateTask({ draft }: Props) {
     return navigate(-1);
   };
 
-  const handleWarningOpenChange = () => {
-    setOpen((prev) => ({ ...prev, warn: !prev.warn }));
+  const handleWarningChange = () => {
+    setOpen((prev) => ({ ...prev, warning: !prev.warning }));
   };
 
-  const handleOpenChange = () => {
+  const handleChange = () => {
     if (draft.body || draft.scheduledFor) {
-      setOpen((prev) => ({ ...prev, warn: !prev.warn }));
+      handleWarningChange();
     } else {
-      setOpen((prev) => ({ ...prev, create: !prev.create }));
+      setOpen((prev) => ({ ...prev, create: false }));
       navigate(-1);
     }
   };
 
   return (
     <>
-      <Dialog.Root open={open.create} onOpenChange={handleOpenChange}>
+      <Dialog.Root open={open.create} onOpenChange={handleChange}>
         <Dialog.Trigger />
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
@@ -84,37 +87,11 @@ export function CreateTask({ draft }: Props) {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-      <Dialog.Root open={open.warn} onOpenChange={handleWarningOpenChange}>
-        <Dialog.Trigger />
-        <Dialog.Portal>
-          <Dialog.Overlay className={modalOverlay} />
-          <Dialog.Content
-            className={twMerge(
-              modalContent,
-              'justify-center lg:top-[40%] rounded-md md:top-[40%] top-[40%] text-center w-[350px] h-[220px]'
-            )}
-          >
-            <p className="p-4">Are you sure u want to discard the changes?</p>
-            <div className="flex items-center gap-4">
-              <Button
-                onClick={handleWarningOpenChange}
-                className="min-w-[140px]"
-              >
-                Go Back
-              </Button>
-              <Button
-                onClick={handleDestroyDraft}
-                className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
-              >
-                Discard
-              </Button>
-            </div>
-            <Dialog.Description className="sr-only">
-              Task draft warning
-            </Dialog.Description>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+      <Warning
+        open={open.warning}
+        onChange={handleWarningChange}
+        onDiscard={handleDestroyDraft}
+      />
     </>
   );
 }
