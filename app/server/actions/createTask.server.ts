@@ -79,7 +79,10 @@ export async function action({ params, request }: ActionArgs) {
           scheduledFor: format(new Date(scheduledFor), DATE_FORMAT),
         });
 
-        return await destroyTaskDraftSession({ request, redirectTo: path });
+        return await destroyTaskDraftSession({
+          request,
+          redirectTo: `/${scheduledFor}`,
+        });
       }
 
       default: {
