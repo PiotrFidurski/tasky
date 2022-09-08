@@ -52,22 +52,30 @@ export function meta() {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const unstable_shouldReload: ShouldReloadFunction = () => false;
+// export const unstable_shouldReload: ShouldReloadFunction = () => false;
 
 export async function loader({ request }: LoaderArgs) {
   await deleteMonthOldTasks();
   const userSession = await getUserSession(request);
   const themeSession = await getThemeSession(request);
-
   const theme = themeSession.get('theme');
 
-  const userId = userSession.get('userId');
+  if (userSession.has('userId')) {
+    const userId = userSession.get('userId');
 
-  const user = await getUserById(userId);
+    const user = await getUserById(userId);
+
+    const data = {
+      theme,
+      user,
+    };
+
+    return data;
+  }
 
   const data = {
     theme,
-    user,
+    user: null,
   };
 
   return data;
