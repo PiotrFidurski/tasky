@@ -58,24 +58,16 @@ export async function loader({ request }: LoaderArgs) {
   await deleteMonthOldTasks();
   const userSession = await getUserSession(request);
   const themeSession = await getThemeSession(request);
+
   const theme = themeSession.get('theme');
 
-  if (userSession.has('userId')) {
-    const userId = userSession.get('userId');
+  const userId = userSession.get('userId');
 
-    const user = await getUserById(userId);
-
-    const data = {
-      theme,
-      user,
-    };
-
-    return data;
-  }
+  const user = await getUserById(userId);
 
   const data = {
     theme,
-    user: null,
+    user,
   };
 
   return data;
