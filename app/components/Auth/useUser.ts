@@ -1,13 +1,9 @@
-import { useContext } from 'react';
-
-import { authContext } from './authContext';
+import { useMatches } from 'remix';
 
 export function useUser() {
-  const context = useContext(authContext);
+  const root = useMatches()[0];
 
-  if (!context) {
-    throw new Error('You are using authContext outside of AuthProvider.');
-  }
+  const { user } = root.data;
 
-  return context;
+  return user;
 }

@@ -18,7 +18,7 @@ type TaskMenuDropdownProps = {
 };
 
 export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
-  const { user } = useUser();
+  const user = useUser();
 
   return (
     <DropdownMenu.Root>

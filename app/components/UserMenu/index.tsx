@@ -17,7 +17,7 @@ import { LogoutForm } from './LogoutForm';
 export function UserMenu() {
   const { theme, switchTheme } = useTheme();
 
-  const { user } = useUser();
+  const user = useUser();
 
   return (
     <DropdownMenu.Root>

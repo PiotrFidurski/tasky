@@ -33,7 +33,7 @@ export function Menu({
 }: Props) {
   const { day } = useParams<'day'>();
 
-  const { user } = useUser();
+  const user = useUser();
 
   const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
