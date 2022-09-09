@@ -2,12 +2,13 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { Link } from '@remix-run/react';
 
-import { useUser } from '~/components/Auth/useUser';
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
 import { CaretDown } from '~/components/Icons/CaretDown';
 import { EditIcon } from '~/components/Icons/EditIcon';
+
+import { useUser } from '~/utils/hooks/useUser';
 
 import { JsonifiedTask } from '~/types';
 

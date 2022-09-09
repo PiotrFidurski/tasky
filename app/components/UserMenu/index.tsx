@@ -1,6 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { useUser } from '~/components/Auth/useUser';
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
@@ -8,6 +7,8 @@ import { ProfileIcon } from '~/components/Icons/ProfileIcon';
 import { SettingsIcon } from '~/components/Icons/SettingsIcon';
 import { useTheme } from '~/components/Theme/ThemeProvider';
 import { Theme } from '~/components/Theme/themeContext';
+
+import { useUser } from '~/utils/hooks/useUser';
 
 import { MoonIcon } from '../Icons/MoonIcon';
 import { SunIcon } from '../Icons/SunIcon';

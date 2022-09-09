@@ -6,8 +6,8 @@ import { NavListItem } from '~/components/Elements/NavListItem';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { DATE_FORMAT } from '~/utils/date';
+import { useUser } from '~/utils/hooks/useUser';
 
-import { useUser } from '../Auth/useUser';
 import { Button } from '../Elements/Button';
 import { CustomLink } from '../Elements/CustomLink';
 import { CaretLeft } from '../Icons/CaretLeft';
