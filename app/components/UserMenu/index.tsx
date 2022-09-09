@@ -1,6 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { useUser } from '~/components/Auth/useUser';
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
@@ -8,6 +7,10 @@ import { ProfileIcon } from '~/components/Icons/ProfileIcon';
 import { SettingsIcon } from '~/components/Icons/SettingsIcon';
 import { useTheme } from '~/components/Theme/ThemeProvider';
 import { Theme } from '~/components/Theme/themeContext';
+
+import { useRouteData } from '~/utils/hooks/useRouteData';
+
+import { JsonifiedUser } from '~/types';
 
 import { MoonIcon } from '../Icons/MoonIcon';
 import { SunIcon } from '../Icons/SunIcon';
@@ -17,7 +20,7 @@ import { LogoutForm } from './LogoutForm';
 export function UserMenu() {
   const { theme, switchTheme } = useTheme();
 
-  const { user } = useUser();
+  const data = useRouteData<{ user: JsonifiedUser }>('root');
 
   return (
     <DropdownMenu.Root>
@@ -37,7 +40,7 @@ export function UserMenu() {
           className="rounded-tl-md rounded-tr-md px-2 py-4"
         >
           <ProfileIcon />
-          <span>{user?.username}</span>
+          <span>{data?.user?.username}</span>
         </DropdownItem>
         <DropdownItem aria-label="settings">
           <SettingsIcon />

@@ -11,7 +11,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  ShouldReloadFunction,
   useCatch,
   useLoaderData,
 } from '@remix-run/react';
@@ -21,7 +20,6 @@ import { getUserById } from '~/server/models/user';
 import { getUserSession } from '~/server/session/session.server';
 import { getThemeSession } from '~/server/session/theme.server';
 
-import { AuthProvider } from '~/components/Auth/AuthProvider';
 import { ThemeProvider, useTheme } from '~/components/Theme/ThemeProvider';
 import { LoadUserThemePreferences } from '~/components/Theme/systemTheme';
 
@@ -50,9 +48,6 @@ export function links() {
 export function meta() {
   return { title: 'Tasky' };
 }
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const unstable_shouldReload: ShouldReloadFunction = () => false;
 
 export async function loader({ request }: LoaderArgs) {
   await deleteMonthOldTasks();
@@ -109,13 +104,11 @@ export default function App() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <AuthProvider user={data.user}>
-      <ThemeProvider storedTheme={data.theme}>
-        <Document>
-          <Outlet />
-        </Document>
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider storedTheme={data.theme}>
+      <Document>
+        <Outlet />
+      </Document>
+    </ThemeProvider>
   );
 }
 

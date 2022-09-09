@@ -6,8 +6,10 @@ import { NavListItem } from '~/components/Elements/NavListItem';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { DATE_FORMAT } from '~/utils/date';
+import { useRouteData } from '~/utils/hooks/useRouteData';
 
-import { useUser } from '../Auth/useUser';
+import { JsonifiedUser } from '~/types';
+
 import { Button } from '../Elements/Button';
 import { CustomLink } from '../Elements/CustomLink';
 import { CaretLeft } from '../Icons/CaretLeft';
@@ -33,7 +35,7 @@ export function Menu({
 }: Props) {
   const { day } = useParams<'day'>();
 
-  const { user } = useUser();
+  const data = useRouteData<{ user: JsonifiedUser }>('root');
 
   const dayParam = !day ? format(new Date(), DATE_FORMAT) : day;
 
@@ -60,7 +62,7 @@ export function Menu({
         <UserMenu />
       </div>
       <div className="mb-12 px-16">
-        <p className="text-4xl">{user?.username}</p>
+        <p className="text-4xl">{data?.user?.username}</p>
       </div>
       <ul className="flex flex-col items-start px-14">
         <NavListItem to={`/${dayParam}`}>
