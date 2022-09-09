@@ -8,9 +8,9 @@ import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
 import { CaretDown } from '~/components/Icons/CaretDown';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
-import { useUser } from '~/utils/hooks/useUser';
+import { useRouteData } from '~/utils/hooks/useRouteData';
 
-import { JsonifiedTask } from '~/types';
+import { JsonifiedTask, JsonifiedUser } from '~/types';
 
 import { DeleteTaskForm } from './DeleteTaskForm';
 
@@ -19,7 +19,7 @@ type TaskMenuDropdownProps = {
 };
 
 export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
-  const user = useUser();
+  const data = useRouteData<{ user: JsonifiedUser }>('root');
 
   return (
     <DropdownMenu.Root>
@@ -33,10 +33,10 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
         className="rounded-lg min-w-[15rem] border bg-white dark:bg-black transition-colors"
       >
         <DropdownMenu.Arrow className="fill-white" offset={20} />
-        {user?.id === task.userId ? (
-          <DeleteTaskForm userId={user.id} taskId={task.id} />
+        {data?.user?.id === task.userId ? (
+          <DeleteTaskForm userId={data.user.id} taskId={task.id} />
         ) : null}
-        {user?.id === task.userId ? (
+        {data?.user?.id === task.userId ? (
           <DropdownItem className="w-full" asChild>
             <Link
               to={`${task.id}/edit`}
