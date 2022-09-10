@@ -1,4 +1,4 @@
-import { LoaderArgs } from 'remix';
+import { LoaderArgs, json } from 'remix';
 
 import { useLoaderData } from '@remix-run/react';
 
@@ -17,7 +17,9 @@ export async function loader({ request }: LoaderArgs) {
     scheduledFor: createTaskDataSession.get('taskDraft.scheduledFor') || '',
   };
 
-  return data;
+  return json(data, {
+    headers: { 'Cache-Control': 'public, max-age=3600, s-max-age=86000' },
+  });
 }
 
 export default function CreateTaskRoute() {
