@@ -15,7 +15,6 @@ import {
   useLoaderData,
 } from '@remix-run/react';
 
-import { deleteMonthOldTasks } from '~/server/models/task';
 import { getUserById } from '~/server/models/user';
 import { getUserSession } from '~/server/session/session.server';
 import { getThemeSession } from '~/server/session/theme.server';
@@ -50,9 +49,11 @@ export function meta() {
 }
 
 export async function loader({ request }: LoaderArgs) {
-  await deleteMonthOldTasks();
-  const userSession = await getUserSession(request);
-  const themeSession = await getThemeSession(request);
+  const [userSession, themeSession] = await Promise.all([
+    getUserSession(request),
+    getThemeSession(request),
+  ]);
+
   const theme = themeSession.get('theme');
 
   if (userSession.has('userId')) {
