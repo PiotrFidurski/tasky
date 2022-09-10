@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { useFetcher } from '@remix-run/react';
 
@@ -18,7 +18,6 @@ export function isValidTheme(value: unknown): value is Theme {
 
 export function ThemeProvider({ children, storedTheme }: Props) {
   const updateTheme = useFetcher();
-  const isMountedRef = useRef(false);
 
   const [theme, setTheme] = useState(() => {
     if (storedTheme && isValidTheme(storedTheme)) {
@@ -41,11 +40,6 @@ export function ThemeProvider({ children, storedTheme }: Props) {
   }
 
   useEffect(() => {
-    if (!isMountedRef.current) {
-      isMountedRef.current = true;
-      return;
-    }
-
     if (!theme) {
       return;
     }
