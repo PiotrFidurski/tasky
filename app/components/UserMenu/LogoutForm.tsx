@@ -21,7 +21,7 @@ export function LogoutForm() {
         >
           <LogoutIcon />
           <span>Logout</span>
-          {isSubmitting && <Spinner />}
+          {isSubmitting ? <Spinner /> : null}
         </Button>
       </DropdownItem>
     </Form>
