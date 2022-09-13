@@ -13,10 +13,10 @@ import {
   useCatch,
   useLoaderData,
   useNavigate,
-  useParams,
   useTransition,
 } from '@remix-run/react';
 
+import { action } from '~/server/actions/task.server';
 import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
 
@@ -25,10 +25,13 @@ import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
 import { DayLink } from '~/components/Widgets/Calendar/components/DayLink';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
+import { Task } from '~/components/Widgets/Task';
 
 import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
+
+export { action };
 
 export async function loader({ request, params }: LoaderArgs) {
   const userId = await requireUserId(request);
@@ -67,8 +70,6 @@ export async function loader({ request, params }: LoaderArgs) {
 }
 
 export default function DayRoute() {
-  const params = useParams<'day'>();
-
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
 
@@ -96,16 +97,10 @@ export default function DayRoute() {
         completed={completed}
         percentage={percentage}
       />
-      <div className="w-full max-w-sm bg-light-rgba dark:bg-dark-rgba">
-        <h1>tasks for day: {params.day}</h1>
-        <div>
-          {tasks.map((task) => (
-            <div key={task.id}>
-              <span>{task.body}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+
+      {tasks.map((task) => (
+        <Task key={task.id} task={task} />
+      ))}
       <Outlet />
     </>
   );

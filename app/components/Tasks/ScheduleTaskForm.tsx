@@ -27,7 +27,6 @@ export function ScheduleTaskForm({
       />
       <input name="id" value={task.id} type="hidden" />
       <Button type="submit" aria-label="schedule task">
-        {/* arrow icon */}
         <ArrowleftIcon />
       </Button>
     </fetcher.Form>
