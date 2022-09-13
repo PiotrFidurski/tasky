@@ -27,7 +27,11 @@ export function CalendarModal() {
               <ArrowleftIcon />
             </Button>
           </div>
-          <Calendar startingDate={new Date()} stats={{}}>
+          <Calendar
+            startingDate={new Date()}
+            stats={{}}
+            wrapperClassname="bg-transparent dark:bg-transparent max-w-md"
+          >
             {({ date, day }) => <DayButton day={day} date={date} key={day} />}
           </Calendar>
         </Dialog.Content>

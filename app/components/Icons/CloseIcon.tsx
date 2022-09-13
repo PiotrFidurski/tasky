@@ -1,3 +1,5 @@
+// not used anywhere
+
 export function CloseIcon() {
   return (
     <svg

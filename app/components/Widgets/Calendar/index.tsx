@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { twMerge } from 'tailwind-merge';
 
 import { useState } from 'react';
 
@@ -24,6 +25,7 @@ type Props = {
   stats: { [key: string]: number[] };
   weeksCount?: number;
   children: (props: RenderProps) => JSX.Element;
+  wrapperClassname?: string;
 };
 
 export function Calendar({
@@ -31,6 +33,7 @@ export function Calendar({
   stats,
   weeksCount = 5,
   children,
+  wrapperClassname,
 }: Props) {
   const [date, setDate] = useState(startingDate);
 
@@ -55,7 +58,10 @@ export function Calendar({
 
   return (
     <div
-      className="bg-light-rgba dark:bg-dark-rgba w-full max-w-sm p-4 rounded-xl relative overflow-hidden mb-4 text-secondary dark:text-primary"
+      className={twMerge(
+        'bg-light-rgba dark:bg-dark-rgba w-full max-w-sm p-4 rounded-xl relative overflow-hidden mb-4 text-secondary dark:text-primary',
+        wrapperClassname
+      )}
       style={{
         minHeight: `calc(${weeksCount} * ${ROW_SIZE}rem + ${HEADER_SIZE}rem + ${ROWS_POSTION_TOP}rem)`,
       }}
