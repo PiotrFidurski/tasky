@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-import { Form, useActionData, useSearchParams } from '@remix-run/react';
+import { Form, useActionData, useParams } from '@remix-run/react';
 
 import { action } from '~/server/actions/createTask.server';
 import { CreateTaskProps } from '~/server/models/types';
@@ -23,15 +23,22 @@ type Props = {
 export function FormComponent({ draft }: Props) {
   const actionData = useActionData<typeof action>();
 
+  const params = useParams<'day'>();
+
   const { isSubmitting, transition } = useActionTransition();
 
-  const [searchParams] = useSearchParams({
-    date: draft.scheduledFor ?? format(new Date(), DATE_FORMAT),
-  });
-
-  const date = searchParams.get('date');
-
   const { fieldErrors } = useErrors(actionData);
+
+  function getDateParam() {
+    if (draft.scheduledFor) {
+      return draft.scheduledFor;
+    }
+
+    return params.day
+      ? format(new Date(params.day), DATE_FORMAT)
+      : draft.scheduledFor;
+  }
+
   return (
     <Form
       method="post"
@@ -58,17 +65,9 @@ export function FormComponent({ draft }: Props) {
         className="flex gap-2 items-center px-6 text-sm text-slate-500 dark:text-custom-indigo border-grayLight focus:border-slate-500 hover:border-slate-500"
       >
         <CalendarIcon />
-        <span>{date || 'Today'}</span>
+        <span>{getDateParam()}</span>
       </Button>
-      <input
-        value={
-          draft.scheduledFor
-            ? draft.scheduledFor
-            : format(new Date(), DATE_FORMAT)
-        }
-        name="scheduledFor"
-        type="hidden"
-      />
+      <input value={getDateParam()} name="scheduledFor" type="hidden" />
 
       <div className="flex justify-end w-full">
         <Button

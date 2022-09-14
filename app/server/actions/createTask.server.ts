@@ -71,12 +71,16 @@ export async function action({ params, request }: ActionArgs) {
 
       case SUBMIT_FORM: {
         const { body } = schema.parse(form);
+
         const { scheduledFor } = scheduledForSchema.parse(form);
 
         await createTask({
           body,
           userId,
-          scheduledFor: format(new Date(scheduledFor), DATE_FORMAT),
+          scheduledFor: format(
+            new Date(scheduledFor || params.day!),
+            DATE_FORMAT
+          ),
         });
 
         return await destroyTaskDraftSession({
