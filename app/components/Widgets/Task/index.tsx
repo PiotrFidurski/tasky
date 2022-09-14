@@ -15,6 +15,7 @@ type Props = {
 
 export function Task({ task }: Props) {
   const fetcher = useFetcher();
+
   const isComplete = (): boolean => {
     const currentAction = fetcher.submission?.formData.get('_action');
 

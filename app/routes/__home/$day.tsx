@@ -97,7 +97,6 @@ export default function DayRoute() {
         completed={completed}
         percentage={percentage}
       />
-
       {tasks.map((task) => (
         <Task key={task.id} task={task} />
       ))}
