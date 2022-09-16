@@ -12,6 +12,7 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedUser } from '~/types';
 
+import { DropdownContent } from '../Elements/DropdownContent';
 import { MoonIcon } from '../Icons/MoonIcon';
 import { SunIcon } from '../Icons/SunIcon';
 import { Avatar } from './Avatar';
@@ -29,16 +30,8 @@ export function UserMenu() {
           <Avatar width={40} height={40} />
         </Button>
       </DropdownTrigger>
-      <DropdownMenu.Content
-        loop
-        sideOffset={10}
-        alignOffset={0}
-        className="rounded-lg min-w-[14rem] dark:bg-secondary bg-primary shadow-custom-light dark:shadow-custom-dark"
-      >
-        <DropdownItem
-          aria-label="user profile"
-          className="rounded-tl-md rounded-tr-md px-2 py-4"
-        >
+      <DropdownContent loop sideOffset={10} alignOffset={0}>
+        <DropdownItem aria-label="user profile" isFirstItem>
           <ProfileIcon />
           <span>{data?.user?.username}</span>
         </DropdownItem>
@@ -53,7 +46,7 @@ export function UserMenu() {
         <DropdownMenu.Separator className="bg-gray-200 dark:bg-[#202852] w-full h-px my-2" />
         <DropdownItem
           role="button"
-          className="rounded-bl-md rounded-br-md"
+          isLastItem
           onClick={switchTheme}
           aria-label={
             theme === Theme.light
@@ -64,7 +57,7 @@ export function UserMenu() {
           {theme === Theme.light ? <MoonIcon /> : <SunIcon />}
           <span>{theme === Theme.light ? 'Dark' : 'Light'}</span>
         </DropdownItem>
-      </DropdownMenu.Content>
+      </DropdownContent>
     </DropdownMenu.Root>
   );
 }

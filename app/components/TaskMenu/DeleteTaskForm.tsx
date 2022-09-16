@@ -15,15 +15,11 @@ type Props = {
 export function DeleteTaskForm({ taskId, userId }: Props) {
   return (
     <Form method="post" className="w-full">
-      <DropdownItem
-        asChild
-        className="rounded-tl-md rounded-tr-md px-2 py-4"
-        onSelect={(e) => e.preventDefault()}
-      >
+      <DropdownItem asChild isFirstItem onSelect={(e) => e.preventDefault()}>
         <Button
           type="submit"
           aria-label="delete task"
-          className="border-0 rounded-none border-transparent dark:border-transparent w-full hover:bg-none"
+          className="border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
         >
           <input name="_action" value={actionTypes.DELETE_TASK} type="hidden" />
           <input name="id" value={taskId} type="hidden" />

@@ -12,6 +12,7 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
+import { DropdownContent } from '../Elements/DropdownContent';
 import { DeleteTaskForm } from './DeleteTaskForm';
 
 type TaskMenuDropdownProps = {
@@ -28,19 +29,12 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
           <CaretDown />
         </Button>
       </DropdownTrigger>
-      <DropdownMenu.Content
-        loop
-        sideOffset={10}
-        className="rounded-lg min-w-[14rem] dark:bg-secondary bg-primary shadow-custom-light dark:shadow-custom-dark"
-      >
+      <DropdownContent loop sideOffset={10}>
         {data?.user?.id === task.userId ? (
           <DeleteTaskForm userId={data.user.id} taskId={task.id} />
         ) : null}
         {data?.user?.id === task.userId ? (
-          <DropdownItem
-            className="rounded-tl-md rounded-tr-md px-2 py-4"
-            asChild
-          >
+          <DropdownItem asChild isLastItem>
             <Link
               to={`${task.id}/edit`}
               className="flex items-center gap-4 w-full px-2 py-4"
@@ -50,7 +44,7 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
             </Link>
           </DropdownItem>
         ) : null}
-      </DropdownMenu.Content>
+      </DropdownContent>
     </DropdownMenu.Root>
   );
 }
