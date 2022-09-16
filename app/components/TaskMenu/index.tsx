@@ -25,7 +25,11 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
   return (
     <DropdownMenu.Root>
       <DropdownTrigger>
-        <Button className="w-auto" aria-label="open task menu">
+        <Button
+          primary
+          className="flex justify-center items-center p-0 max-w-[24px] h-[24px] w-full"
+          aria-label="open task menu"
+        >
           <CaretDown />
         </Button>
       </DropdownTrigger>
