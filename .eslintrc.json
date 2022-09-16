@@ -45,7 +45,8 @@
           "Trigger",
           "textarea",
           "Item",
-          "Link"
+          "Link",
+          "Content"
         ]
       }
     ],
