@@ -6,7 +6,7 @@ import { Button } from '../Elements/Button';
 import { HamburgerIcon } from '../Icons/HamburgerIcon';
 import { Menu } from './Menu';
 
-export function MobileSidebar() {
+export default function MobileSidebar() {
   const [expanded, setExpanded] = useState(false);
 
   const handleOpenMenu = () => {

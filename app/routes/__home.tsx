@@ -1,7 +1,7 @@
+import { Suspense, lazy, useEffect, useRef } from 'react';
+
 import { Outlet } from '@remix-run/react';
 
-import { DesktopSidebar } from '~/components/Sidebar/desktop';
-import { MobileSidebar } from '~/components/Sidebar/mobile';
 import {
   ContentLayout,
   MainLayout,
@@ -9,12 +9,33 @@ import {
   SidebarLayout,
 } from '~/components/layout';
 
+import { useRouteData } from '~/utils/hooks/useRouteData';
+
+const DesktopSidebar = lazy(() => import('../components/Sidebar/desktop'));
+const MobileSidebar = lazy(() => import('../components/Sidebar/mobile'));
+
 export default function HomeRoute() {
+  const data = useRouteData<{ isMobile: boolean }>('root');
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
   return (
     <RootLayout>
       <SidebarLayout>
-        <DesktopSidebar />
-        <MobileSidebar />
+        {!data?.isMobile && mountedRef.current ? (
+          <Suspense fallback="">
+            <DesktopSidebar />
+          </Suspense>
+        ) : null}
+        {data?.isMobile && mountedRef.current ? (
+          <Suspense fallback="">
+            <MobileSidebar />
+          </Suspense>
+        ) : null}
       </SidebarLayout>
       <MainLayout>
         <ContentLayout>
