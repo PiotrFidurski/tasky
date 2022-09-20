@@ -14,8 +14,9 @@ export const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(
     <Content
       ref={ref}
       className={twMerge(
-        `rounded-lg min-w-[14rem] dark:bg-secondary bg-primary 
+        `rounded-lg min-w-full w-full dark:bg-secondary bg-primary
          shadow-custom-light dark:shadow-custom-dark`,
+
         className
       )}
       {...dropdownContentProps}

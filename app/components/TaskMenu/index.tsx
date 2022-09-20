@@ -15,11 +15,11 @@ import { JsonifiedTask, JsonifiedUser } from '~/types';
 import { DropdownContent } from '../Elements/DropdownContent';
 import { DeleteTaskForm } from './DeleteTaskForm';
 
-type TaskMenuDropdownProps = {
+type Props = {
   task: JsonifiedTask;
 };
 
-export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
+export function TaskMenu({ task }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
 
   return (
@@ -33,7 +33,7 @@ export function TaskMenuDropdown({ task }: TaskMenuDropdownProps) {
           <CaretDown />
         </Button>
       </DropdownTrigger>
-      <DropdownContent loop sideOffset={10}>
+      <DropdownContent loop>
         {data?.user?.id === task.userId ? (
           <DeleteTaskForm userId={data.user.id} taskId={task.id} />
         ) : null}

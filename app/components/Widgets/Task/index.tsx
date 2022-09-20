@@ -6,7 +6,7 @@ import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
 import { CheckmarkIcon } from '~/components/Icons/CheckmarkIcon';
-import { TaskMenuDropdown } from '~/components/TaskMenu';
+import { TaskMenu } from '~/components/TaskMenu';
 
 import { JsonifiedTask } from '~/types';
 
@@ -56,7 +56,7 @@ export function Task({ task }: Props) {
         <div className="max-w-sm w-full line-clamp-4">
           <span>{task.body}</span>
         </div>
-        <TaskMenuDropdown task={task} />
+        <TaskMenu task={task} />
       </div>
     </div>
   );
