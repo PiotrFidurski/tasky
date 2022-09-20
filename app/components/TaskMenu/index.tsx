@@ -19,12 +19,11 @@ type Props = {
   task: JsonifiedTask;
 };
 
-export function TaskMenu({ task }: Props) {
+export default function TaskMenu({ task }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
-
   return (
     <DropdownMenu.Root>
-      <DropdownTrigger>
+      <DropdownTrigger asChild>
         <Button
           primary
           className="flex justify-center items-center p-0 max-w-[24px] h-[24px] w-full"
@@ -33,7 +32,7 @@ export function TaskMenu({ task }: Props) {
           <CaretDown />
         </Button>
       </DropdownTrigger>
-      <DropdownContent loop>
+      <DropdownContent loop sideOffset={10}>
         {data?.user?.id === task.userId ? (
           <DeleteTaskForm userId={data.user.id} taskId={task.id} />
         ) : null}

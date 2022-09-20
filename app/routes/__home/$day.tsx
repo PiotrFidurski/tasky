@@ -1,6 +1,6 @@
 import nProgress from 'nprogress';
 
-import { Suspense, lazy, useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import { z } from 'zod';
 
@@ -29,10 +29,7 @@ import { Task } from '~/components/Widgets/Task';
 
 import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
-import { useRouteData } from '~/utils/hooks/useRouteData';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
-
-const LazyComp = lazy(() => import('../../components/LazyComponent'));
 
 export { action };
 
@@ -75,15 +72,8 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
-  const data = useRouteData<{ isMobile: boolean }>('root');
-  const mountedRef = useRef(false);
   const transition = useTransition();
-  useEffect(() => {
-    mountedRef.current = true;
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
+
   useEffect(() => {
     if (
       transition.state === 'idle' ||
@@ -106,11 +96,6 @@ export default function DayRoute() {
         completed={completed}
         percentage={percentage}
       />
-      {data?.isMobile && mountedRef.current ? (
-        <Suspense fallback={<div>loading...</div>}>
-          <LazyComp />
-        </Suspense>
-      ) : null}
 
       {tasks.map((task) => (
         <Task key={task.id} task={task} />

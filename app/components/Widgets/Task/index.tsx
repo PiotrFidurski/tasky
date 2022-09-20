@@ -1,14 +1,22 @@
 import { twMerge } from 'tailwind-merge';
 
+import { Suspense, lazy, useState } from 'react';
+
 import { useFetcher } from 'remix';
 
 import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
 import { CheckmarkIcon } from '~/components/Icons/CheckmarkIcon';
-import { TaskMenu } from '~/components/TaskMenu';
+import { Spinner } from '~/components/Spinner';
+
+import { useHydrated } from '~/utils/hooks/useHydrated';
+import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask } from '~/types';
+
+const TaskOptions = lazy(() => import('../../Modals/TaskOptions'));
+const TaskMenu = lazy(() => import('../../TaskMenu'));
 
 type Props = {
   task: JsonifiedTask;
@@ -16,6 +24,16 @@ type Props = {
 
 export function Task({ task }: Props) {
   const fetcher = useFetcher();
+
+  const data = useRouteData<{ isMobile: boolean }>('root');
+
+  const [open, setOpen] = useState(false);
+
+  const isHydrated = useHydrated();
+
+  const handleOpenChange = () => {
+    setOpen((prevState) => !prevState);
+  };
 
   const isComplete = (): boolean => {
     const currentAction = fetcher.submission?.formData.get('_action');
@@ -26,7 +44,6 @@ export function Task({ task }: Props) {
 
     return task.isComplete;
   };
-
   return (
     <div
       className={twMerge(
@@ -56,7 +73,19 @@ export function Task({ task }: Props) {
         <div className="max-w-sm w-full line-clamp-4">
           <span>{task.body}</span>
         </div>
-        <TaskMenu task={task} />
+        {isHydrated ? (
+          <Suspense fallback={<Spinner />}>
+            {!data?.isMobile ? (
+              <TaskMenu task={task} />
+            ) : (
+              <TaskOptions
+                open={open}
+                task={task}
+                handleOpenChange={handleOpenChange}
+              />
+            )}
+          </Suspense>
+        ) : null}
       </div>
     </div>
   );
