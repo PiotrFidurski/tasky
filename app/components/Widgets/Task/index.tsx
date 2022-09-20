@@ -44,6 +44,7 @@ export function Task({ task }: Props) {
 
     return task.isComplete;
   };
+
   return (
     <div
       className={twMerge(

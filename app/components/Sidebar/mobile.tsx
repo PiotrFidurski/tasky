@@ -1,6 +1,8 @@
 import { twMerge } from 'tailwind-merge';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useActionTransition } from '~/utils/hooks/useActionTransition';
 
 import { Button } from '../Elements/Button';
 import { HamburgerIcon } from '../Icons/HamburgerIcon';
@@ -8,6 +10,8 @@ import { Menu } from './Menu';
 
 export default function MobileSidebar() {
   const [expanded, setExpanded] = useState(false);
+
+  const { isSubmitting } = useActionTransition();
 
   const handleOpenMenu = () => {
     setExpanded(true);
@@ -19,6 +23,14 @@ export default function MobileSidebar() {
     setExpanded(false);
     document.body.style.position = 'unset';
   };
+
+  useEffect(() => {
+    return function cleanup() {
+      if (!isSubmitting) {
+        handleCloseMenu();
+      }
+    };
+  }, []);
 
   return (
     <div className="md:hidden">
