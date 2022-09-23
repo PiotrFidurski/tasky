@@ -67,7 +67,7 @@ export function Task({ task }: Props) {
             {isComplete() ? <CheckmarkIcon /> : null}
           </Button>
         </fetcher.Form>
-        <div className="max-w-sm w-full line-clamp-4">
+        <div className="max-w-sm w-full line-clamp-4 break-words">
           <span>{task.body}</span>
         </div>
 
