@@ -23,16 +23,18 @@ export function CompletedTasks({ completed, total, percentage }: Props) {
         actionTypes.MARK_TASK_COMPLETE
       ) {
         optimisticStats.completed = completed + 1;
-        optimisticStats.percentage =
-          (optimisticStats.completed / optimisticStats.total) * 100;
+        optimisticStats.percentage = Number(
+          ((optimisticStats.completed / optimisticStats.total) * 100).toFixed()
+        );
       }
       if (
         fetcher.submission?.formData.get('_action') ===
         actionTypes.MARK_TASK_INCOMPLETE
       ) {
         optimisticStats.completed = completed - 1;
-        optimisticStats.percentage =
-          (optimisticStats.completed / optimisticStats.total) * 100;
+        optimisticStats.percentage = Number(
+          ((optimisticStats.completed / optimisticStats.total) * 100).toFixed()
+        );
       }
     });
   }

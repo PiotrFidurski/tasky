@@ -19,5 +19,9 @@ export function MainLayout({ children }: LayoutProps) {
 }
 
 export function ContentLayout({ children }: LayoutProps) {
-  return <div className="w-full md:mt-0 p-2">{children}</div>;
+  return (
+    <div className="w-full p-2 grid lg:grid-cols-24rem-auto1fr grid-cols-col-32 gap-6">
+      {children}
+    </div>
+  );
 }

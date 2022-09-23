@@ -86,20 +86,24 @@ export default function DayRoute() {
 
   return (
     <>
-      <Calendar startingDate={new Date()} stats={stats}>
-        {({ day, date }) => (
-          <DayLink stats={stats} day={day} key={day} date={date} />
-        )}
-      </Calendar>
-      <CompletedTasks
-        total={total}
-        completed={completed}
-        percentage={percentage}
-      />
-      {tasks.map((task) => (
-        <Task key={task.id} task={task} />
-      ))}
-      <Outlet />
+      <div className="lg:sticky top-2 h-max">
+        <Calendar startingDate={new Date()} stats={stats}>
+          {({ day, date }) => (
+            <DayLink stats={stats} day={day} key={day} date={date} />
+          )}
+        </Calendar>
+        <CompletedTasks
+          total={total}
+          completed={completed}
+          percentage={percentage}
+        />
+        <Outlet />
+      </div>
+      <div>
+        {tasks.map((task) => (
+          <Task key={task.id} task={task} />
+        ))}
+      </div>
     </>
   );
 }

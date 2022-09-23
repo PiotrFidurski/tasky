@@ -44,7 +44,7 @@ export function Task({ task }: Props) {
   return (
     <div
       className={twMerge(
-        'bg-light-rgba dark:bg-dark-rgba max-w-sm rounded-2xl mb-4 p-4 border-2 border-shadowSecondary',
+        'bg-light-rgba dark:bg-dark-rgba rounded-2xl mb-4 p-4 border-2 border-shadowSecondary',
         isComplete() && 'bg-shadowPrimary dark:bg-shadowSecondary'
       )}
     >
