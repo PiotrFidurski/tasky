@@ -22,6 +22,9 @@ type Props = {
   handleOpenChange: () => void;
 };
 
+const MENU_ITEM_HEIGHT = 4; // rem
+const PADDING_Y = 1; // rem
+
 export default function TaskOptions({ open, handleOpenChange, task }: Props) {
   const data = useRouteData<{ isMobile: boolean; user: JsonifiedUser }>('root');
   return (
@@ -38,16 +41,19 @@ export default function TaskOptions({ open, handleOpenChange, task }: Props) {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content
-          className={twMerge(
-            modalContent,
-            'bottom-0 top-auto min-h-[200px] max-h-[200px]'
-          )}
+          className={twMerge(modalContent, 'bottom-0 top-auto rounded-t-md')}
+          style={{
+            maxHeight: `${MENU_ITEM_HEIGHT * 2 + PADDING_Y}rem`,
+            paddingTop: `${PADDING_Y}rem`,
+            paddingBottom: `${PADDING_Y}rem`,
+          }}
         >
           {data?.user?.id === task.userId ? (
             <Button
               type="submit"
               aria-label="delete task"
-              className="border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
+              className="flex items-center px-2 py-4 gap-4 border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
+              style={{ height: `${MENU_ITEM_HEIGHT}rem` }}
             >
               <input
                 name="_action"
@@ -64,6 +70,7 @@ export default function TaskOptions({ open, handleOpenChange, task }: Props) {
             <Link
               to={`${task.id}/edit`}
               className="flex items-center gap-4 w-full px-2 py-4"
+              style={{ height: `${MENU_ITEM_HEIGHT}rem` }}
             >
               <EditIcon />
               <span>Edit Task</span>
