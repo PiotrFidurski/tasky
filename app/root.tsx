@@ -103,7 +103,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-primary dark:bg-secondary overflow-x-hidden dark:text-white">
+      <body className="bg-primary dark:bg-secondary dark:text-white">
         {children}
         <ScrollRestoration />
         <Scripts />
