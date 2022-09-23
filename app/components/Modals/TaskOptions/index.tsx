@@ -1,11 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { twMerge } from 'tailwind-merge';
 
-import { Link } from 'remix';
-
 import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
+import { CustomLink } from '~/components/Elements/CustomLink';
 import { CaretDown } from '~/components/Icons/CaretDown';
 import { EditIcon } from '~/components/Icons/EditIcon';
 import { TrashIcon } from '~/components/Icons/TrashIcon';
@@ -67,14 +66,14 @@ export default function TaskOptions({ open, handleOpenChange, task }: Props) {
             </Button>
           ) : null}
           {data?.user?.id === task.userId ? (
-            <Link
+            <CustomLink
               to={`${task.id}/edit`}
-              className="flex items-center gap-4 w-full px-2 py-4"
+              className="flex items-center px-2 py-4 gap-4 border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
               style={{ height: `${MENU_ITEM_HEIGHT}rem` }}
             >
               <EditIcon />
               <span>Edit Task</span>
-            </Link>
+            </CustomLink>
           ) : null}
         </Dialog.Content>
       </Dialog.Portal>
