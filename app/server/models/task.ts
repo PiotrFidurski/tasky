@@ -12,10 +12,35 @@ export function getTask(id: string) {
   return db.task.findUnique({ where: { id } });
 }
 
-export function getTasksForDay(day: string, userId: string) {
+type GetTaskForDayProps = {
+  day: string;
+  userId: string;
+  take: number;
+  skip?: number;
+  cursor?: string;
+};
+
+export async function getTasksForDay({
+  userId,
+  day,
+  take,
+  skip,
+  cursor,
+}: GetTaskForDayProps) {
+  if (cursor) {
+    db.task.findMany({
+      take,
+      skip,
+      where: { scheduledFor: day, userId },
+      orderBy: { createdAt: 'desc' },
+      cursor: { id: cursor },
+    });
+  }
+
   return db.task.findMany({
+    take,
     where: { scheduledFor: day, userId },
-    orderBy: { sortDate: 'asc' },
+    orderBy: { createdAt: 'desc' },
   });
 }
 

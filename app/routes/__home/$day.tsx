@@ -48,7 +48,11 @@ export async function loader({ request, params }: LoaderArgs) {
   }
 
   const [tasks, groupedTasks] = await Promise.all([
-    getTasksForDay(day, userId),
+    getTasksForDay({
+      userId,
+      day,
+      take: 8,
+    }),
     groupTasksByScheduledFor(userId),
   ]);
 
