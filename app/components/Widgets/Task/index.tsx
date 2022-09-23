@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 
-import { Suspense, lazy, useState } from 'react';
+import { useState } from 'react';
 
 import { useFetcher } from 'remix';
 
@@ -8,15 +8,13 @@ import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
 import { CheckmarkIcon } from '~/components/Icons/CheckmarkIcon';
-import { Spinner } from '~/components/Spinner';
 
-import { useHydrated } from '~/utils/hooks/useHydrated';
 import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask } from '~/types';
 
-const TaskOptions = lazy(() => import('../../Modals/TaskOptions'));
-const TaskMenu = lazy(() => import('../../TaskMenu'));
+import TaskOptions from '../../Modals/TaskOptions';
+import TaskMenu from '../../TaskMenu';
 
 type Props = {
   task: JsonifiedTask;
@@ -28,8 +26,6 @@ export function Task({ task }: Props) {
   const data = useRouteData<{ isMobile: boolean }>('root');
 
   const [open, setOpen] = useState(false);
-
-  const isHydrated = useHydrated();
 
   const handleOpenChange = () => {
     setOpen((prevState) => !prevState);
@@ -74,19 +70,16 @@ export function Task({ task }: Props) {
         <div className="max-w-sm w-full line-clamp-4">
           <span>{task.body}</span>
         </div>
-        {isHydrated ? (
-          <Suspense fallback={<Spinner />}>
-            {!data?.isMobile ? (
-              <TaskMenu task={task} />
-            ) : (
-              <TaskOptions
-                open={open}
-                task={task}
-                handleOpenChange={handleOpenChange}
-              />
-            )}
-          </Suspense>
-        ) : null}
+
+        {!data?.isMobile ? (
+          <TaskMenu task={task} />
+        ) : (
+          <TaskOptions
+            open={open}
+            task={task}
+            handleOpenChange={handleOpenChange}
+          />
+        )}
       </div>
     </div>
   );
