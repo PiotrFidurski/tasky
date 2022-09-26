@@ -20,7 +20,7 @@ type GetTaskForDayProps = {
   cursor?: string;
 };
 
-export async function getTasksForDay({
+export function getTasksForDay({
   userId,
   day,
   take,
@@ -28,7 +28,7 @@ export async function getTasksForDay({
   cursor,
 }: GetTaskForDayProps) {
   if (cursor) {
-    db.task.findMany({
+    return db.task.findMany({
       take,
       skip,
       where: { scheduledFor: day, userId },
@@ -39,6 +39,7 @@ export async function getTasksForDay({
 
   return db.task.findMany({
     take,
+    skip,
     where: { scheduledFor: day, userId },
     orderBy: { createdAt: 'desc' },
   });
