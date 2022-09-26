@@ -9,6 +9,7 @@ import { format, isValid } from 'date-fns';
 import { LoaderArgs, json } from 'remix';
 
 import {
+  Form,
   Outlet,
   useCatch,
   useLoaderData,
@@ -16,6 +17,7 @@ import {
   useTransition,
 } from '@remix-run/react';
 
+import { actionTypes } from '~/server/actions/actionTypes';
 import { action } from '~/server/actions/task.server';
 import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
@@ -108,6 +110,16 @@ export default function DayRoute() {
           <Task key={task.id} task={task} />
         ))}
       </div>
+      <Form method="post">
+        <input type="hidden" name="id" value={tasks[tasks.length - 1].id} />
+        <Button
+          name="_action"
+          value={actionTypes.LOAD_MORE_TASKS}
+          type="submit"
+        >
+          load more
+        </Button>
+      </Form>
     </>
   );
 }
