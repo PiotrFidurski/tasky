@@ -36,6 +36,7 @@ export async function action({ request, params }: ActionArgs) {
       .parse(params.day);
 
     const id = form.get('id');
+    const take = form.get('take');
     const dateField = form.get('date');
     const ownerId = form.get('ownerId');
     const taskId = z
@@ -44,7 +45,12 @@ export async function action({ request, params }: ActionArgs) {
 
     switch (actionType) {
       case actionTypes.LOAD_MORE_TASKS: {
-        return await getTasksForDay({ userId, day, take: 8, cursor: taskId });
+        return await getTasksForDay({
+          userId,
+          day,
+          take: Number(take) + 8,
+          cursor: taskId,
+        });
       }
       case actionTypes.MARK_TASK_COMPLETE: {
         return await markTaskComplete(taskId);

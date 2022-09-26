@@ -112,6 +112,7 @@ export default function DayRoute() {
       </div>
       <Form method="post">
         <input type="hidden" name="id" value={tasks[tasks.length - 1].id} />
+        <input type="hidden" name="take" value={tasks.length} />
         <Button
           name="_action"
           value={actionTypes.LOAD_MORE_TASKS}

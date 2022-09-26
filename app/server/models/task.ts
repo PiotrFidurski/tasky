@@ -39,7 +39,6 @@ export function getTasksForDay({
 
   return db.task.findMany({
     take,
-    skip,
     where: { scheduledFor: day, userId },
     orderBy: { createdAt: 'desc' },
   });
