@@ -6,6 +6,7 @@ import { ActionArgs, json } from 'remix';
 
 import {
   deleteTask,
+  getTasksForDay,
   markTaskComplete,
   markTaskIncomplete,
   scheduleTask,
@@ -22,13 +23,17 @@ function unauthorizedResponse(message: string) {
   return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
 }
 
-export async function action({ request }: ActionArgs) {
+export async function action({ request, params }: ActionArgs) {
   try {
     const userId = await requireUserId(request);
 
     const form = await request.formData();
 
     const actionType = form.get('_action');
+
+    const day = z
+      .string({ invalid_type_error: 'expected a string.' })
+      .parse(params.day);
 
     const id = form.get('id');
     const dateField = form.get('date');
@@ -38,6 +43,9 @@ export async function action({ request }: ActionArgs) {
       .parse(id);
 
     switch (actionType) {
+      case actionTypes.LOAD_MORE_TASKS: {
+        return await getTasksForDay({ userId, day, take: 8, cursor: taskId });
+      }
       case actionTypes.MARK_TASK_COMPLETE: {
         return await markTaskComplete(taskId);
       }
