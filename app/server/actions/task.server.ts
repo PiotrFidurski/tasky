@@ -48,7 +48,8 @@ export async function action({ request, params }: ActionArgs) {
         return await getTasksForDay({
           userId,
           day,
-          take: Number(take) + 8,
+          skip: Number(take),
+          take: 5,
           cursor: taskId,
         });
       }

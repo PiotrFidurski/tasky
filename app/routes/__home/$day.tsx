@@ -11,6 +11,7 @@ import { LoaderArgs, json } from 'remix';
 import {
   Form,
   Outlet,
+  useActionData,
   useCatch,
   useLoaderData,
   useNavigate,
@@ -53,7 +54,7 @@ export async function loader({ request, params }: LoaderArgs) {
     getTasksForDay({
       userId,
       day,
-      take: 8,
+      take: 1,
     }),
     groupTasksByScheduledFor(userId),
   ]);
@@ -79,6 +80,7 @@ export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
   const transition = useTransition();
+  const data = useActionData();
 
   useEffect(() => {
     if (
@@ -89,6 +91,8 @@ export default function DayRoute() {
       nProgress.done();
     else nProgress.start();
   }, [transition.location?.pathname, transition.state]);
+
+  const tasksData = data ? tasks.concat(data) : tasks;
 
   return (
     <>
@@ -106,13 +110,17 @@ export default function DayRoute() {
         <Outlet />
       </div>
       <div>
-        {tasks.map((task) => (
+        {tasksData.map((task) => (
           <Task key={task.id} task={task} />
         ))}
       </div>
       <Form method="post">
-        <input type="hidden" name="id" value={tasks[tasks.length - 1].id} />
-        <input type="hidden" name="take" value={tasks.length} />
+        <input
+          type="hidden"
+          name="id"
+          value={tasksData[tasksData.length - 1]?.id}
+        />
+        <input type="hidden" name="take" value={tasksData.length} />
         <Button
           name="_action"
           value={actionTypes.LOAD_MORE_TASKS}
