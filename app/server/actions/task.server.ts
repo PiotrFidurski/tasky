@@ -36,7 +36,6 @@ export async function action({ request, params }: ActionArgs) {
       .parse(params.day);
 
     const id = form.get('id');
-    const take = form.get('take');
     const dateField = form.get('date');
     const ownerId = form.get('ownerId');
     const taskId = z
@@ -48,7 +47,6 @@ export async function action({ request, params }: ActionArgs) {
         return await getTasksForDay({
           userId,
           day,
-          skip: Number(take),
           take: 5,
           cursor: taskId,
         });

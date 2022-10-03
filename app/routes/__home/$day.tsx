@@ -43,6 +43,8 @@ export async function loader({ request, params }: LoaderArgs) {
     .string({ invalid_type_error: 'expected a string.' })
     .parse(params.day);
 
+  const take = 10;
+
   if (!isValid(new Date(day))) {
     throw badRequest(
       'No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".',
@@ -54,7 +56,7 @@ export async function loader({ request, params }: LoaderArgs) {
     getTasksForDay({
       userId,
       day,
-      take: 1,
+      take,
     }),
     groupTasksByScheduledFor(userId),
   ]);
@@ -120,7 +122,6 @@ export default function DayRoute() {
           name="id"
           value={tasksData[tasksData.length - 1]?.id}
         />
-        <input type="hidden" name="take" value={tasksData.length} />
         <Button
           name="_action"
           value={actionTypes.LOAD_MORE_TASKS}
