@@ -43,8 +43,6 @@ export async function loader({ request, params }: LoaderArgs) {
     .string({ invalid_type_error: 'expected a string.' })
     .parse(params.day);
 
-  const take = 10;
-
   if (!isValid(new Date(day))) {
     throw badRequest(
       'No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".',
@@ -56,7 +54,7 @@ export async function loader({ request, params }: LoaderArgs) {
     getTasksForDay({
       userId,
       day,
-      take,
+      take: 2,
     }),
     groupTasksByScheduledFor(userId),
   ]);
@@ -83,12 +81,12 @@ export default function DayRoute() {
     useLoaderData<typeof loader>();
   const transition = useTransition();
   const data = useActionData();
-
   useEffect(() => {
     if (
       transition.state === 'idle' ||
       transition.location?.pathname === '/logout' ||
-      transition.location?.pathname === '/login'
+      transition.location?.pathname === '/login' ||
+      transition.submission?.action !== actionTypes.LOAD_MORE_TASKS
     )
       nProgress.done();
     else nProgress.start();
@@ -123,6 +121,7 @@ export default function DayRoute() {
           value={tasksData[tasksData.length - 1]?.id}
         />
         <Button
+          // onClick={() => setNewEntries((prev) => prev.concat(data))}
           name="_action"
           value={actionTypes.LOAD_MORE_TASKS}
           type="submit"
