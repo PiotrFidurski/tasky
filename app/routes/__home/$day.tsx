@@ -1,6 +1,6 @@
 import nProgress from 'nprogress';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { z } from 'zod';
 
@@ -85,15 +85,17 @@ export default function DayRoute() {
   const fetcher = useFetcher();
   const tasksData = fetcher.data ? tasks.concat(state) : tasks;
 
-  const handleLoadMore = useCallback(() => {
+  const handleLoadMore = (id: string | null) => {
+    if (!id) return null;
+
     return fetcher.submit(
       {
-        id: tasksData[tasksData.length - 1]?.id,
+        id,
         _action: actionTypes.LOAD_MORE_TASKS,
       },
       { method: 'post' }
     );
-  }, [tasksData.length]);
+  };
 
   useEffect(() => {
     if (fetcher.data) {
@@ -118,11 +120,11 @@ export default function DayRoute() {
 
   useEffect(() => {
     observer.current = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        handleLoadMore();
+      if (entry.isIntersecting && entry.target) {
+        handleLoadMore(entry.target.getAttribute('data-id'));
       }
     });
-  }, [handleLoadMore]);
+  }, []);
 
   useEffect(() => {
     const currentElement = element;
@@ -156,7 +158,7 @@ export default function DayRoute() {
       </div>
       <div>
         {tasksData.map((task) => (
-          <div ref={setElement} key={task.id}>
+          <div ref={setElement} key={task.id} data-id={task.id}>
             <Task key={task.id} task={task} />
           </div>
         ))}
