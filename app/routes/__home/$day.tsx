@@ -1,6 +1,6 @@
 import nProgress from 'nprogress';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { z } from 'zod';
 
@@ -34,6 +34,8 @@ import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
 
+import { JsonifiedTask } from '~/types';
+
 export { action };
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -54,7 +56,6 @@ export async function loader({ request, params }: LoaderArgs) {
     getTasksForDay({
       userId,
       day,
-      take: 2,
     }),
     groupTasksByScheduledFor(userId),
   ]);
@@ -79,8 +80,21 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
+
   const transition = useTransition();
+
   const data = useActionData();
+
+  const [state, setState] = useState<JsonifiedTask[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setState((prev) => {
+        return [...prev, ...data];
+      });
+    }
+  }, [data]);
+
   useEffect(() => {
     if (
       transition.state === 'idle' ||
@@ -92,7 +106,7 @@ export default function DayRoute() {
     else nProgress.start();
   }, [transition.location?.pathname, transition.state]);
 
-  const tasksData = data ? tasks.concat(data) : tasks;
+  const tasksData = data ? tasks.concat(state) : tasks;
 
   return (
     <>
@@ -114,21 +128,22 @@ export default function DayRoute() {
           <Task key={task.id} task={task} />
         ))}
       </div>
-      <Form method="post">
-        <input
-          type="hidden"
-          name="id"
-          value={tasksData[tasksData.length - 1]?.id}
-        />
-        <Button
-          // onClick={() => setNewEntries((prev) => prev.concat(data))}
-          name="_action"
-          value={actionTypes.LOAD_MORE_TASKS}
-          type="submit"
-        >
-          load more
-        </Button>
-      </Form>
+      {tasksData.length > 0 ? (
+        <Form method="post">
+          <input
+            type="hidden"
+            name="id"
+            value={tasksData[tasksData.length - 1]?.id}
+          />
+          <Button
+            name="_action"
+            value={actionTypes.LOAD_MORE_TASKS}
+            type="submit"
+          >
+            load more
+          </Button>
+        </Form>
+      ) : null}
     </>
   );
 }

@@ -47,7 +47,6 @@ export async function action({ request, params }: ActionArgs) {
         return await getTasksForDay({
           userId,
           day,
-          take: 2,
           cursor: taskId,
         });
       }

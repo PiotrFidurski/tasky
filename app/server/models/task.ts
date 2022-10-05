@@ -15,14 +15,14 @@ export function getTask(id: string) {
 type GetTaskForDayProps = {
   day: string;
   userId: string;
-  take: number;
+  take?: number;
   cursor?: string;
 };
 
 export function getTasksForDay({
   userId,
   day,
-  take,
+  take = 20,
   cursor,
 }: GetTaskForDayProps) {
   if (cursor) {
