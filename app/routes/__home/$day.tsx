@@ -1,6 +1,6 @@
 import nProgress from 'nprogress';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { z } from 'zod';
 
@@ -9,10 +9,9 @@ import { format, isValid } from 'date-fns';
 import { LoaderArgs, json } from 'remix';
 
 import {
-  Form,
   Outlet,
-  useActionData,
   useCatch,
+  useFetcher,
   useLoaderData,
   useNavigate,
   useTransition,
@@ -82,18 +81,25 @@ export default function DayRoute() {
     useLoaderData<typeof loader>();
 
   const transition = useTransition();
-
-  const data = useActionData();
-
   const [state, setState] = useState<JsonifiedTask[]>([]);
+  const fetcher = useFetcher();
+  const tasksData = fetcher.data ? tasks.concat(state) : tasks;
+
+  const handleLoadMore = useCallback(() => {
+    return fetcher.submit(
+      {
+        id: tasksData[tasksData.length - 1]?.id,
+        _action: actionTypes.LOAD_MORE_TASKS,
+      },
+      { method: 'post' }
+    );
+  }, [tasksData.length]);
 
   useEffect(() => {
-    if (data) {
-      setState((prev) => {
-        return [...prev, ...data];
-      });
+    if (fetcher.data) {
+      setState((prev) => [...prev, ...fetcher.data]);
     }
-  }, [data]);
+  }, [fetcher.data]);
 
   useEffect(() => {
     if (
@@ -106,7 +112,32 @@ export default function DayRoute() {
     else nProgress.start();
   }, [transition.location?.pathname, transition.state]);
 
-  const tasksData = data ? tasks.concat(state) : tasks;
+  const observer = useRef<null | IntersectionObserver>(null);
+
+  const [element, setElement] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    observer.current = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        handleLoadMore();
+      }
+    });
+  }, [handleLoadMore]);
+
+  useEffect(() => {
+    const currentElement = element;
+    const currentObserver = observer.current;
+
+    if (currentElement) {
+      currentObserver?.observe(currentElement!);
+    }
+
+    return () => {
+      if (currentElement) {
+        currentObserver?.unobserve(currentElement!);
+      }
+    };
+  }, [element]);
 
   return (
     <>
@@ -125,25 +156,12 @@ export default function DayRoute() {
       </div>
       <div>
         {tasksData.map((task) => (
-          <Task key={task.id} task={task} />
+          <div ref={setElement} key={task.id}>
+            <Task key={task.id} task={task} />
+          </div>
         ))}
       </div>
-      {tasksData.length > 0 ? (
-        <Form method="post">
-          <input
-            type="hidden"
-            name="id"
-            value={tasksData[tasksData.length - 1]?.id}
-          />
-          <Button
-            name="_action"
-            value={actionTypes.LOAD_MORE_TASKS}
-            type="submit"
-          >
-            load more
-          </Button>
-        </Form>
-      ) : null}
+      {tasksData.length > 0 ? <fetcher.Form method="post" /> : null}
     </>
   );
 }

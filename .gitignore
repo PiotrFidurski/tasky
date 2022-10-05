@@ -10,3 +10,4 @@ api/_build
 cypress.env.json
 /app/styles/app.css
 todo.md
+.vscode

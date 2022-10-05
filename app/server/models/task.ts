@@ -22,7 +22,7 @@ type GetTaskForDayProps = {
 export function getTasksForDay({
   userId,
   day,
-  take = 20,
+  take = 15,
   cursor,
 }: GetTaskForDayProps) {
   if (cursor) {
