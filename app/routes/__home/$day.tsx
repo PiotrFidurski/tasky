@@ -81,9 +81,10 @@ export default function DayRoute() {
     useLoaderData<typeof loader>();
 
   const transition = useTransition();
-  const [state, setState] = useState<JsonifiedTask[]>([]);
+
   const fetcher = useFetcher();
-  const tasksData = fetcher.data ? tasks.concat(state) : tasks;
+
+  const [tasksData, setTasksData] = useState<JsonifiedTask[]>([]);
 
   const handleLoadMore = (id: string | null) => {
     if (!id) return null;
@@ -99,7 +100,7 @@ export default function DayRoute() {
 
   useEffect(() => {
     if (fetcher.data) {
-      setState((prev) => [...prev, ...fetcher.data]);
+      setTasksData((prevTasks) => [...prevTasks, ...fetcher.data]);
     }
   }, [fetcher.data]);
 
@@ -124,7 +125,7 @@ export default function DayRoute() {
         handleLoadMore(entry.target.getAttribute('data-id'));
       }
     });
-  }, []);
+  }, [fetcher.data]);
 
   useEffect(() => {
     const currentElement = element;
@@ -157,13 +158,13 @@ export default function DayRoute() {
         <Outlet />
       </div>
       <div>
-        {tasksData.map((task) => (
+        {tasks.concat(tasksData).map((task) => (
           <div ref={setElement} key={task.id} data-id={task.id}>
             <Task key={task.id} task={task} />
           </div>
         ))}
       </div>
-      {tasksData.length > 0 ? <fetcher.Form method="post" /> : null}
+      {tasks.length > 0 ? <fetcher.Form method="post" /> : null}
     </>
   );
 }
