@@ -1,6 +1,6 @@
 import nProgress from 'nprogress';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 
 import { z } from 'zod';
 
@@ -11,7 +11,6 @@ import { LoaderArgs, json } from 'remix';
 import {
   Outlet,
   useCatch,
-  useFetcher,
   useLoaderData,
   useNavigate,
   useTransition,
@@ -31,9 +30,8 @@ import { Task } from '~/components/Widgets/Task';
 
 import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
+import { useInfiniteLoader } from '~/utils/hooks/useInfiniteLoader';
 import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
-
-import { JsonifiedTask } from '~/types';
 
 export { action };
 
@@ -79,30 +77,9 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<typeof loader>();
-
   const transition = useTransition();
 
-  const fetcher = useFetcher();
-
-  const [tasksData, setTasksData] = useState<JsonifiedTask[]>([]);
-
-  const handleLoadMore = (id: string | null) => {
-    if (!id) return null;
-
-    return fetcher.submit(
-      {
-        id,
-        _action: actionTypes.LOAD_MORE_TASKS,
-      },
-      { method: 'post' }
-    );
-  };
-
-  useEffect(() => {
-    if (fetcher.data) {
-      setTasksData((prevTasks) => [...prevTasks, ...fetcher.data]);
-    }
-  }, [fetcher.data]);
+  const { tasksData, setElement, Form } = useInfiniteLoader();
 
   useEffect(() => {
     if (
@@ -114,33 +91,6 @@ export default function DayRoute() {
       nProgress.done();
     else nProgress.start();
   }, [transition.location?.pathname, transition.state]);
-
-  const observer = useRef<null | IntersectionObserver>(null);
-
-  const [element, setElement] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    observer.current = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && entry.target) {
-        handleLoadMore(entry.target.getAttribute('data-id'));
-      }
-    });
-  }, [fetcher.data]);
-
-  useEffect(() => {
-    const currentElement = element;
-    const currentObserver = observer.current;
-
-    if (currentElement) {
-      currentObserver?.observe(currentElement!);
-    }
-
-    return () => {
-      if (currentElement) {
-        currentObserver?.unobserve(currentElement!);
-      }
-    };
-  }, [element]);
 
   return (
     <>
@@ -164,7 +114,7 @@ export default function DayRoute() {
           </div>
         ))}
       </div>
-      {tasks.length > 0 ? <fetcher.Form method="post" /> : null}
+      {tasks.length > 0 ? <Form method="post" /> : null}
     </>
   );
 }
