@@ -2,7 +2,9 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { useState } from 'react';
 
-import { Link } from '@remix-run/react';
+import { Link, useFetcher } from '@remix-run/react';
+
+import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/DropdownItem';
@@ -24,7 +26,7 @@ type Props = {
 
 export default function TaskMenu({ task }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
-
+  const fetcher = useFetcher();
   const [open, setOpen] = useState({ dropdown: false, warning: false });
 
   const handleOpenChange = () => {
@@ -35,9 +37,20 @@ export default function TaskMenu({ task }: Props) {
     setOpen((p) => ({ ...p, warning: !p.warning, dropdown: false }));
   };
 
+  const handleDeleteTask = () => {
+    fetcher.submit(
+      { _action: actionTypes.DELETE_TASK, id: task.id, ownerId: task.userId },
+      { method: 'post' }
+    );
+  };
+
   return (
     <>
-      <DropdownMenu.Root open={open.dropdown} onOpenChange={handleOpenChange}>
+      <DropdownMenu.Root
+        open={open.dropdown}
+        modal={false}
+        onOpenChange={handleOpenChange}
+      >
         <DropdownTrigger asChild>
           <Button
             primary
@@ -72,8 +85,11 @@ export default function TaskMenu({ task }: Props) {
       <Warning
         open={open.warning}
         onChange={handleWarningChange}
-        onDiscard={() => {}}
-      />
+        onCompleteAction={handleDeleteTask}
+        completeActionName="Delete"
+      >
+        Are you sure you want to delete this task?
+      </Warning>
     </>
   );
 }

@@ -90,8 +90,10 @@ export function CreateTask({ draft }: Props) {
       <Warning
         open={open.warning}
         onChange={handleWarningChange}
-        onDiscard={handleDestroyDraft}
-      />
+        onCompleteAction={handleDestroyDraft}
+      >
+        Are you sure you want to discard the changes?
+      </Warning>
     </>
   );
 }

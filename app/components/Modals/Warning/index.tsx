@@ -1,6 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { twMerge } from 'tailwind-merge';
 
+import { ReactNode } from 'react';
+
 import { Button } from '~/components/Elements/Button';
 
 import { modalContent, modalOverlay } from '../classNames';
@@ -8,10 +10,18 @@ import { modalContent, modalOverlay } from '../classNames';
 type Props = {
   open: boolean;
   onChange: () => void;
-  onDiscard: () => void;
+  onCompleteAction: () => void;
+  completeActionName?: string;
+  children: ReactNode;
 };
 
-export function Warning({ open, onDiscard, onChange }: Props) {
+export function Warning({
+  open,
+  onCompleteAction,
+  onChange,
+  completeActionName = 'Discard',
+  children,
+}: Props) {
   return (
     <Dialog.Root open={open} onOpenChange={onChange}>
       <Dialog.Trigger />
@@ -23,16 +33,16 @@ export function Warning({ open, onDiscard, onChange }: Props) {
             'justify-center lg:top-[40%] rounded-md md:top-[40%] top-[40%] text-center w-[350px] h-[220px]'
           )}
         >
-          <p className="p-4">Are you sure u want to discard the changes?</p>
+          <p className="p-4">{children}</p>
           <div className="flex items-center gap-4">
             <Button onClick={onChange} className="min-w-[140px]">
               Go Back
             </Button>
             <Button
-              onClick={onDiscard}
+              onClick={onCompleteAction}
               className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
             >
-              Discard
+              {completeActionName}
             </Button>
           </div>
           <Dialog.Description className="sr-only">
