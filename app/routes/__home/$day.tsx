@@ -16,7 +16,6 @@ import {
   useTransition,
 } from '@remix-run/react';
 
-import { actionTypes } from '~/server/actions/actionTypes';
 import { action } from '~/server/actions/task.server';
 import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
@@ -85,8 +84,7 @@ export default function DayRoute() {
     if (
       transition.state === 'idle' ||
       transition.location?.pathname === '/logout' ||
-      transition.location?.pathname === '/login' ||
-      transition.submission?.action !== actionTypes.LOAD_MORE_TASKS
+      transition.location?.pathname === '/login'
     )
       nProgress.done();
     else nProgress.start();
