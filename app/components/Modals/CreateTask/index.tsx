@@ -13,7 +13,7 @@ import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { Warning } from '../Warning';
-import { useWarnBeforeAction } from '../Warning/useWarnBeforeAction';
+import { Types, useWarnBeforeAction } from '../Warning/useWarnBeforeAction';
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
@@ -23,8 +23,9 @@ type Props = {
 };
 
 export function CreateTask({ draft }: Props) {
-  const { open, handleWarningModalChange, setOpen } =
-    useWarnBeforeAction(DESTROY_DRAFT);
+  const { open, handleWarningModalChange, setOpen } = useWarnBeforeAction(
+    Types.DESTROY_DRAFT
+  );
 
   const navigate = useNavigate();
 

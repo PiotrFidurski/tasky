@@ -16,7 +16,10 @@ import { JsonifiedTask, JsonifiedUser } from '~/types';
 
 import { DropdownContent } from '../Elements/DropdownContent';
 import { Warning } from '../Modals/Warning';
-import { useWarnBeforeAction } from '../Modals/Warning/useWarnBeforeAction';
+import {
+  Types,
+  useWarnBeforeAction,
+} from '../Modals/Warning/useWarnBeforeAction';
 import { DeleteTaskForm } from './DeleteTaskForm';
 
 type Props = {
@@ -29,7 +32,7 @@ export default function TaskMenu({ task }: Props) {
   const fetcher = useFetcher();
 
   const { open, toggleAction, handleWarningModalChange } = useWarnBeforeAction(
-    actionTypes.DELETE_TASK
+    Types.DELETE_TASK
   );
 
   const handleDeleteTask = () => {
@@ -42,7 +45,7 @@ export default function TaskMenu({ task }: Props) {
   return (
     <>
       <DropdownMenu.Root
-        open={open.dropdown}
+        open={open.DELETE_TASK}
         modal={false}
         onOpenChange={toggleAction}
       >

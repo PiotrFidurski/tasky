@@ -1,9 +1,16 @@
 import { useState } from 'react';
 
-export function useWarnBeforeAction<T extends string | number>(action: T) {
-  const [open, setOpen] = useState({
+export enum Types {
+  warning = 'warning',
+  DESTROY_DRAFT = 'DESTROY_DRAFT',
+  DELETE_TASK = 'DELETE_TASK',
+}
+
+export function useWarnBeforeAction(action: Types) {
+  const [open, setOpen] = useState<Record<Types, boolean>>({
     warning: false,
-    [action]: false,
+    DELETE_TASK: false,
+    DESTROY_DRAFT: false,
   });
 
   const toggleAction = () => {
