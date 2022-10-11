@@ -1,7 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { useState } from 'react';
-
 import { Link, useFetcher } from '@remix-run/react';
 
 import { actionTypes } from '~/server/actions/actionTypes';
@@ -18,6 +16,7 @@ import { JsonifiedTask, JsonifiedUser } from '~/types';
 
 import { DropdownContent } from '../Elements/DropdownContent';
 import { Warning } from '../Modals/Warning';
+import { useWarnBeforeAction } from '../Modals/Warning/useWarnBeforeAction';
 import { DeleteTaskForm } from './DeleteTaskForm';
 
 type Props = {
@@ -26,16 +25,12 @@ type Props = {
 
 export default function TaskMenu({ task }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
+
   const fetcher = useFetcher();
-  const [open, setOpen] = useState({ dropdown: false, warning: false });
 
-  const handleOpenChange = () => {
-    setOpen((p) => ({ ...p, dropdown: !p.dropdown }));
-  };
-
-  const handleWarningChange = () => {
-    setOpen((p) => ({ ...p, warning: !p.warning, dropdown: false }));
-  };
+  const { open, toggleAction, handleWarningModalChange } = useWarnBeforeAction(
+    actionTypes.DELETE_TASK
+  );
 
   const handleDeleteTask = () => {
     fetcher.submit(
@@ -49,7 +44,7 @@ export default function TaskMenu({ task }: Props) {
       <DropdownMenu.Root
         open={open.dropdown}
         modal={false}
-        onOpenChange={handleOpenChange}
+        onOpenChange={toggleAction}
       >
         <DropdownTrigger asChild>
           <Button
@@ -63,8 +58,8 @@ export default function TaskMenu({ task }: Props) {
         <DropdownContent loop sideOffset={10}>
           {data?.user?.id === task.userId ? (
             <DeleteTaskForm
-              handleWarningChange={handleWarningChange}
-              handleOpenChange={handleOpenChange}
+              handleWarningChange={handleWarningModalChange}
+              handleOpenChange={toggleAction}
               userId={data.user.id}
               taskId={task.id}
             />
@@ -84,7 +79,7 @@ export default function TaskMenu({ task }: Props) {
       </DropdownMenu.Root>
       <Warning
         open={open.warning}
-        onChange={handleWarningChange}
+        onChange={handleWarningModalChange}
         onCompleteAction={handleDeleteTask}
         completeActionName="Delete"
       >

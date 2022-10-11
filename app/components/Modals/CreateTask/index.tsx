@@ -1,7 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
 
-import { useState } from 'react';
-
 import {
   useFetcher,
   useNavigate,
@@ -15,6 +13,7 @@ import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { Warning } from '../Warning';
+import { useWarnBeforeAction } from '../Warning/useWarnBeforeAction';
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
@@ -24,10 +23,8 @@ type Props = {
 };
 
 export function CreateTask({ draft }: Props) {
-  const [open, setOpen] = useState({
-    create: true,
-    warning: false,
-  });
+  const { open, handleWarningModalChange, setOpen } =
+    useWarnBeforeAction(DESTROY_DRAFT);
 
   const navigate = useNavigate();
 
@@ -50,13 +47,9 @@ export function CreateTask({ draft }: Props) {
     return navigate(-1);
   };
 
-  const handleWarningChange = () => {
-    setOpen((prev) => ({ ...prev, warning: !prev.warning }));
-  };
-
   const handleChange = () => {
     if (draft.body || draft.scheduledFor) {
-      handleWarningChange();
+      handleWarningModalChange();
     } else {
       setOpen((prev) => ({ ...prev, create: false }));
       navigate(-1);
@@ -65,7 +58,7 @@ export function CreateTask({ draft }: Props) {
 
   return (
     <>
-      <Dialog.Root open={open.create} onOpenChange={handleChange}>
+      <Dialog.Root open={open.DESTROY_DRAFT} onOpenChange={handleChange}>
         <Dialog.Trigger />
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
@@ -89,7 +82,7 @@ export function CreateTask({ draft }: Props) {
       </Dialog.Root>
       <Warning
         open={open.warning}
-        onChange={handleWarningChange}
+        onChange={handleWarningModalChange}
         onCompleteAction={handleDestroyDraft}
       >
         Are you sure you want to discard the changes?
