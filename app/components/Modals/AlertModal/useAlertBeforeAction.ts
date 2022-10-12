@@ -1,27 +1,27 @@
 import { useState } from 'react';
 
-export enum Types {
-  warning = 'warning',
-  DESTROY_DRAFT = 'DESTROY_DRAFT',
-  DELETE_TASK = 'DELETE_TASK',
+export enum Modals {
+  ALERT_MODAL = 'ALERT_MODAL',
+  DESTROY_DRAFT_MODAL = 'DESTROY_DRAFT_MODAL',
+  DELETE_TASK_MODAL = 'DELETE_TASK_MODAL',
 }
 
-export function useAlertBeforeAction(action: Types) {
-  const [open, setOpen] = useState<Record<Types, boolean>>({
-    warning: false,
-    DELETE_TASK: false,
-    DESTROY_DRAFT: false,
+export function useAlertBeforeAction(modalType: Modals) {
+  const [open, setOpen] = useState({
+    ALERT_MODAL: false,
+    DELETE_TASK_MODAL: false,
+    DESTROY_DRAFT_MODAL: false,
   });
 
   const toggleAction = () => {
-    setOpen((prevOpen) => ({ ...prevOpen, [action]: !prevOpen[action] }));
+    setOpen((prevOpen) => ({ ...prevOpen, [modalType]: !prevOpen[modalType] }));
   };
 
   const toggleAlert = () => {
     setOpen((prevOpen) => ({
       ...prevOpen,
-      warning: !prevOpen.warning,
-      [action]: false,
+      warning: !prevOpen.ALERT_MODAL,
+      [modalType]: false,
     }));
   };
 

@@ -14,7 +14,7 @@ import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { AlertModal } from '../AlertModal';
 import {
-  Types,
+  Modals,
   useAlertBeforeAction,
 } from '../AlertModal/useAlertBeforeAction';
 import { DESTROY_DRAFT } from '../actionTypes';
@@ -27,7 +27,7 @@ type Props = {
 
 export function CreateTask({ draft }: Props) {
   const { open, toggleAlert, setOpen } = useAlertBeforeAction(
-    Types.DESTROY_DRAFT
+    Modals.DESTROY_DRAFT_MODAL
   );
 
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export function CreateTask({ draft }: Props) {
 
   return (
     <>
-      <Dialog.Root open={open.DESTROY_DRAFT} onOpenChange={handleChange}>
+      <Dialog.Root open={open.DESTROY_DRAFT_MODAL} onOpenChange={handleChange}>
         <Dialog.Trigger />
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
@@ -85,7 +85,7 @@ export function CreateTask({ draft }: Props) {
         </Dialog.Portal>
       </Dialog.Root>
       <AlertModal
-        open={open.warning}
+        open={open.ALERT_MODAL}
         onChange={toggleAlert}
         onCompleteAction={handleDestroyDraft}
       >

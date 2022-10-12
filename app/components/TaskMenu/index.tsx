@@ -17,7 +17,7 @@ import { JsonifiedTask, JsonifiedUser } from '~/types';
 import { DropdownContent } from '../Elements/DropdownContent';
 import { AlertModal } from '../Modals/AlertModal';
 import {
-  Types,
+  Modals,
   useAlertBeforeAction,
 } from '../Modals/AlertModal/useAlertBeforeAction';
 import { DeleteTaskForm } from './DeleteTaskForm';
@@ -32,7 +32,7 @@ export default function TaskMenu({ task }: Props) {
   const fetcher = useFetcher();
 
   const { open, toggleAction, toggleAlert } = useAlertBeforeAction(
-    Types.DELETE_TASK
+    Modals.DELETE_TASK_MODAL
   );
 
   const handleDeleteTask = () => {
@@ -45,7 +45,7 @@ export default function TaskMenu({ task }: Props) {
   return (
     <>
       <DropdownMenu.Root
-        open={open.DELETE_TASK}
+        open={open.DELETE_TASK_MODAL}
         modal={false}
         onOpenChange={toggleAction}
       >
@@ -81,7 +81,7 @@ export default function TaskMenu({ task }: Props) {
         </DropdownContent>
       </DropdownMenu.Root>
       <AlertModal
-        open={open.warning}
+        open={open.ALERT_MODAL}
         onChange={toggleAlert}
         onCompleteAction={handleDeleteTask}
         completeActionName="Delete"
