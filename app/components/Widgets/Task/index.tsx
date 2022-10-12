@@ -13,7 +13,7 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask } from '~/types';
 
-import TaskOptions from '../../Modals/TaskOptions';
+import TaskOptions from '../../Modals/TaskOptionsModal';
 import TaskMenu from '../../TaskMenu';
 
 type Props = {

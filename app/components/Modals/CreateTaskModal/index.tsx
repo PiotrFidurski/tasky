@@ -25,7 +25,7 @@ type Props = {
   draft: Omit<CreateTaskProps, 'userId'>;
 };
 
-export function CreateTask({ draft }: Props) {
+export function CreateTaskModal({ draft }: Props) {
   const { open, toggleAlert, setOpen } = useAlertBeforeAction(
     Modals.DESTROY_DRAFT_MODAL
   );

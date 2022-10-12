@@ -8,7 +8,7 @@ import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
 
-export function EditTask() {
+export function EditTaskModal() {
   const navigate = useNavigate();
 
   const handleOpenChange = () => {
