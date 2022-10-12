@@ -12,8 +12,11 @@ import { CreateTaskProps } from '~/server/models/types';
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
-import { Warning } from '../Warning';
-import { Types, useWarnBeforeAction } from '../Warning/useWarnBeforeAction';
+import { AlertModal } from '../AlertModal';
+import {
+  Types,
+  useAlertBeforeAction,
+} from '../AlertModal/useAlertBeforeAction';
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
@@ -23,7 +26,7 @@ type Props = {
 };
 
 export function CreateTask({ draft }: Props) {
-  const { open, handleWarningModalChange, setOpen } = useWarnBeforeAction(
+  const { open, toggleAlert, setOpen } = useAlertBeforeAction(
     Types.DESTROY_DRAFT
   );
 
@@ -50,7 +53,7 @@ export function CreateTask({ draft }: Props) {
 
   const handleChange = () => {
     if (draft.body || draft.scheduledFor) {
-      handleWarningModalChange();
+      toggleAlert();
     } else {
       setOpen((prev) => ({ ...prev, create: false }));
       navigate(-1);
@@ -81,13 +84,13 @@ export function CreateTask({ draft }: Props) {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-      <Warning
+      <AlertModal
         open={open.warning}
-        onChange={handleWarningModalChange}
+        onChange={toggleAlert}
         onCompleteAction={handleDestroyDraft}
       >
         Are you sure you want to discard the changes?
-      </Warning>
+      </AlertModal>
     </>
   );
 }

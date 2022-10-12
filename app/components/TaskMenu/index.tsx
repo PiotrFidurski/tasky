@@ -15,11 +15,11 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
 import { DropdownContent } from '../Elements/DropdownContent';
-import { Warning } from '../Modals/Warning';
+import { AlertModal } from '../Modals/AlertModal';
 import {
   Types,
-  useWarnBeforeAction,
-} from '../Modals/Warning/useWarnBeforeAction';
+  useAlertBeforeAction,
+} from '../Modals/AlertModal/useAlertBeforeAction';
 import { DeleteTaskForm } from './DeleteTaskForm';
 
 type Props = {
@@ -31,7 +31,7 @@ export default function TaskMenu({ task }: Props) {
 
   const fetcher = useFetcher();
 
-  const { open, toggleAction, handleWarningModalChange } = useWarnBeforeAction(
+  const { open, toggleAction, toggleAlert } = useAlertBeforeAction(
     Types.DELETE_TASK
   );
 
@@ -61,7 +61,7 @@ export default function TaskMenu({ task }: Props) {
         <DropdownContent loop sideOffset={10}>
           {data?.user?.id === task.userId ? (
             <DeleteTaskForm
-              handleWarningChange={handleWarningModalChange}
+              handleWarningChange={toggleAlert}
               handleOpenChange={toggleAction}
               userId={data.user.id}
               taskId={task.id}
@@ -80,14 +80,14 @@ export default function TaskMenu({ task }: Props) {
           ) : null}
         </DropdownContent>
       </DropdownMenu.Root>
-      <Warning
+      <AlertModal
         open={open.warning}
-        onChange={handleWarningModalChange}
+        onChange={toggleAlert}
         onCompleteAction={handleDeleteTask}
         completeActionName="Delete"
       >
         Are you sure you want to delete this task?
-      </Warning>
+      </AlertModal>
     </>
   );
 }
