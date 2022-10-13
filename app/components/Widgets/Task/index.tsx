@@ -13,8 +13,8 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask } from '~/types';
 
-import TaskOptions from '../../Modals/TaskOptionsModal';
-import TaskMenu from '../../TaskMenu';
+import { TaskOptionsModal } from '../../Modals/TaskOptionsModal';
+import { TaskDropdown } from '../../TaskDropdown';
 
 type Props = {
   task: JsonifiedTask;
@@ -72,9 +72,9 @@ export function Task({ task }: Props) {
         </div>
 
         {!data?.isMobile ? (
-          <TaskMenu task={task} />
+          <TaskDropdown task={task} />
         ) : (
-          <TaskOptions
+          <TaskOptionsModal
             open={open}
             task={task}
             handleOpenChange={handleOpenChange}

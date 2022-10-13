@@ -6,11 +6,14 @@ export enum Modals {
   DELETE_TASK_MODAL = 'DELETE_TASK_MODAL',
 }
 
-export function useAlertBeforeAction(modalType: Modals) {
+export function useAlertBeforeAction(
+  modalType: Modals,
+  initialValue?: boolean
+) {
   const [open, setOpen] = useState({
     ALERT_MODAL: false,
-    DELETE_TASK_MODAL: false,
-    DESTROY_DRAFT_MODAL: false,
+    DELETE_TASK_MODAL: initialValue || false,
+    DESTROY_DRAFT_MODAL: initialValue || false,
   });
 
   const toggleAction = () => {
@@ -20,8 +23,8 @@ export function useAlertBeforeAction(modalType: Modals) {
   const toggleAlert = () => {
     setOpen((prevOpen) => ({
       ...prevOpen,
-      warning: !prevOpen.ALERT_MODAL,
-      [modalType]: false,
+      ALERT_MODAL: !prevOpen.ALERT_MODAL,
+      [modalType]: initialValue,
     }));
   };
 

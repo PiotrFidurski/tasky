@@ -24,11 +24,7 @@ type Props = {
 const MENU_ITEM_HEIGHT = 4; // rem
 const PADDING_Y = 1; // rem
 
-export default function TaskOptionsModal({
-  open,
-  handleOpenChange,
-  task,
-}: Props) {
+export function TaskOptionsModal({ open, handleOpenChange, task }: Props) {
   const data = useRouteData<{ isMobile: boolean; user: JsonifiedUser }>('root');
   return (
     <Dialog.Root open={open && data?.isMobile} onOpenChange={handleOpenChange}>

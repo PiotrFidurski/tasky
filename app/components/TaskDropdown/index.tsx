@@ -26,7 +26,7 @@ type Props = {
   task: JsonifiedTask;
 };
 
-export default function TaskMenu({ task }: Props) {
+export function TaskDropdown({ task }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
 
   const fetcher = useFetcher();

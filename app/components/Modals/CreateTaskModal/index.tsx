@@ -27,7 +27,8 @@ type Props = {
 
 export function CreateTaskModal({ draft }: Props) {
   const { open, toggleAlert, setOpen } = useAlertBeforeAction(
-    Modals.DESTROY_DRAFT_MODAL
+    Modals.DESTROY_DRAFT_MODAL,
+    true
   );
 
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export function CreateTaskModal({ draft }: Props) {
     if (draft.body || draft.scheduledFor) {
       toggleAlert();
     } else {
-      setOpen((prev) => ({ ...prev, create: false }));
+      setOpen((prev) => ({ ...prev, DESTROY_DRAFT_MODAL: false }));
       navigate(-1);
     }
   };
