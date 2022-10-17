@@ -77,9 +77,9 @@ export function TaskDropdown({ task }: Props) {
       </DropdownMenu.Root>
       <AlertModal
         open={open.alert}
-        onChange={toggleAlert}
-        onCompleteAction={handleDeleteTask}
-        completeActionName="Delete"
+        onOpenChange={toggleAlert}
+        onConfirm={handleDeleteTask}
+        confirmBtnName="Delete"
       >
         Are you sure you want to delete this task?
       </AlertModal>

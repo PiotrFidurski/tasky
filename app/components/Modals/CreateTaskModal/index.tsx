@@ -23,7 +23,7 @@ type Props = {
 };
 
 export function CreateTaskModal({ draft }: Props) {
-  const { open, toggleAlert, setOpen } = useAlert({
+  const { open, toggleAlert, toggleElement } = useAlert({
     initialElementState: true,
   });
 
@@ -52,7 +52,7 @@ export function CreateTaskModal({ draft }: Props) {
     if (draft.body || draft.scheduledFor) {
       toggleAlert();
     } else {
-      setOpen((prev) => ({ ...prev, element: false }));
+      toggleElement();
       navigate(-1);
     }
   };
@@ -83,8 +83,8 @@ export function CreateTaskModal({ draft }: Props) {
       </Dialog.Root>
       <AlertModal
         open={open.alert}
-        onChange={toggleAlert}
-        onCompleteAction={handleDestroyDraft}
+        onOpenChange={toggleAlert}
+        onConfirm={handleDestroyDraft}
       >
         Are you sure you want to discard the changes?
       </AlertModal>

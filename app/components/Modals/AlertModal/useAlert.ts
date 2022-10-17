@@ -22,5 +22,5 @@ export function useAlert({ initialElementState }: Props = {}) {
     }));
   };
 
-  return { open, setOpen, toggleElement, toggleAlert };
+  return { open, toggleElement, toggleAlert };
 }
