@@ -18,7 +18,7 @@ export function useAlert({ initialElementState }: Props = {}) {
     setOpen((prevState) => ({
       ...prevState,
       alert: !prevState.alert,
-      element: initialElementState || false,
+      element: prevState.element || false,
     }));
   };
 
