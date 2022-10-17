@@ -16,10 +16,7 @@ import { JsonifiedTask, JsonifiedUser } from '~/types';
 
 import { DropdownContent } from '../Elements/DropdownContent';
 import { AlertModal } from '../Modals/AlertModal';
-import {
-  Modals,
-  useAlertBeforeAction,
-} from '../Modals/AlertModal/useAlertBeforeAction';
+import { useAlert } from '../Modals/AlertModal/useAlert';
 import { DeleteTaskForm } from './DeleteTaskForm';
 
 type Props = {
@@ -31,9 +28,7 @@ export function TaskDropdown({ task }: Props) {
 
   const fetcher = useFetcher();
 
-  const { open, toggleAction, toggleAlert } = useAlertBeforeAction(
-    Modals.DELETE_TASK_MODAL
-  );
+  const { open, toggleElement, toggleAlert } = useAlert();
 
   const handleDeleteTask = () => {
     fetcher.submit(
@@ -45,9 +40,9 @@ export function TaskDropdown({ task }: Props) {
   return (
     <>
       <DropdownMenu.Root
-        open={open.DELETE_TASK_MODAL}
+        open={open.element}
         modal={false}
-        onOpenChange={toggleAction}
+        onOpenChange={toggleElement}
       >
         <DropdownTrigger asChild>
           <Button
@@ -62,7 +57,7 @@ export function TaskDropdown({ task }: Props) {
           {data?.user?.id === task.userId ? (
             <DeleteTaskForm
               handleWarningChange={toggleAlert}
-              handleOpenChange={toggleAction}
+              handleOpenChange={toggleElement}
               userId={data.user.id}
               taskId={task.id}
             />
@@ -81,7 +76,7 @@ export function TaskDropdown({ task }: Props) {
         </DropdownContent>
       </DropdownMenu.Root>
       <AlertModal
-        open={open.ALERT_MODAL}
+        open={open.alert}
         onChange={toggleAlert}
         onCompleteAction={handleDeleteTask}
         completeActionName="Delete"

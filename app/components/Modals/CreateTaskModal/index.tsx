@@ -13,10 +13,7 @@ import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 import { AlertModal } from '../AlertModal';
-import {
-  Modals,
-  useAlertBeforeAction,
-} from '../AlertModal/useAlertBeforeAction';
+import { useAlert } from '../AlertModal/useAlert';
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
@@ -26,10 +23,9 @@ type Props = {
 };
 
 export function CreateTaskModal({ draft }: Props) {
-  const { open, toggleAlert, setOpen } = useAlertBeforeAction(
-    Modals.DESTROY_DRAFT_MODAL,
-    true
-  );
+  const { open, toggleAlert, setOpen } = useAlert({
+    initialElementState: true,
+  });
 
   const navigate = useNavigate();
 
@@ -56,14 +52,14 @@ export function CreateTaskModal({ draft }: Props) {
     if (draft.body || draft.scheduledFor) {
       toggleAlert();
     } else {
-      setOpen((prev) => ({ ...prev, DESTROY_DRAFT_MODAL: false }));
+      setOpen((prev) => ({ ...prev, element: false }));
       navigate(-1);
     }
   };
 
   return (
     <>
-      <Dialog.Root open={open.DESTROY_DRAFT_MODAL} onOpenChange={handleChange}>
+      <Dialog.Root open={open.element} onOpenChange={handleChange}>
         <Dialog.Trigger />
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
@@ -86,7 +82,7 @@ export function CreateTaskModal({ draft }: Props) {
         </Dialog.Portal>
       </Dialog.Root>
       <AlertModal
-        open={open.ALERT_MODAL}
+        open={open.alert}
         onChange={toggleAlert}
         onCompleteAction={handleDestroyDraft}
       >
