@@ -23,7 +23,7 @@ export function EditTaskModal() {
         <Dialog.Content className={modalContent}>
           <div className="w-full flex p-4 items-center">
             <Dialog.Close asChild>
-              <Button onClick={handleOpenChange}>
+              <Button aria-label="close dialog">
                 <ArrowleftIcon />
               </Button>
             </Dialog.Close>

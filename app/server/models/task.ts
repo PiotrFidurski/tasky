@@ -72,6 +72,13 @@ export function createTask({ body, userId, scheduledFor }: CreateTaskProps) {
   });
 }
 
+export function updateTask({ id, body }: { body: string; id: string }) {
+  return db.task.update({
+    where: { id },
+    data: { body },
+  });
+}
+
 export function deleteTask(id: string) {
   return db.task.delete({ where: { id } });
 }

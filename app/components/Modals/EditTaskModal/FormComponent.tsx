@@ -1,16 +1,21 @@
 import { useEffect, useRef } from 'react';
 
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData, useParams } from '@remix-run/react';
 
-import { loader } from '~/server/loaders/editTask.server';
+import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
 import { InputField } from '~/components/Form/InputField';
 
-export function FormComponent() {
-  const { body } = useLoaderData<typeof loader>();
+import { useRouteData } from '~/utils/hooks/useRouteData';
 
+import { JsonifiedUser } from '~/types';
+
+export function FormComponent() {
+  const { body } = useLoaderData();
+  const data = useRouteData<{ user: JsonifiedUser }>('root');
+  const params = useParams<'day' | 'taskId'>();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -20,12 +25,19 @@ export function FormComponent() {
   }, []);
 
   return (
-    <Form method="post" className="w-full p-4">
+    <Form method="post" className="w-full p-4" action={`/${params.day}`}>
+      <input type="hidden" name="id" value={params.taskId} />
+      <input type="hidden" name="ownerId" value={data?.user?.id} />
       <FieldWrapper htmlFor="body" errorMessage="" labelName="Task body">
-        <InputField ref={inputRef} defaultValue={body} />
+        <InputField ref={inputRef} defaultValue={body} name="body" />
       </FieldWrapper>
       <div className="flex justify-end">
-        <Button primary type="submit">
+        <Button
+          primary
+          type="submit"
+          name="_action"
+          value={actionTypes.UPDATE_TASK}
+        >
           Update
         </Button>
       </div>

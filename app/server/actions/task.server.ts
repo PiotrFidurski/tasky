@@ -11,6 +11,7 @@ import {
   markTaskIncomplete,
   scheduleTask,
   unscheduleTask,
+  updateTask,
 } from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
 
@@ -38,6 +39,7 @@ export async function action({ request, params }: ActionArgs) {
     const id = form.get('id');
     const dateField = form.get('date');
     const ownerId = form.get('ownerId');
+
     const taskId = z
       .string({ invalid_type_error: 'expected an id.' })
       .parse(id);
@@ -90,8 +92,17 @@ export async function action({ request, params }: ActionArgs) {
             'You are not allowed to update this task.'
           );
         }
+        const bodyField = form.get('body');
 
-        // update task here
+        const body = z
+          .string({ invalid_type_error: 'expected a string.' })
+          .optional()
+          .parse(bodyField);
+
+        if (body) {
+          return await updateTask({ body, id: taskId });
+        }
+
         return null;
       }
 
