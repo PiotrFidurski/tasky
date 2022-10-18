@@ -21,14 +21,14 @@ export function EditTaskModal() {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <div className="w-full flex p-4 max-w-full items-center">
+          <div className="w-full flex p-4 items-center">
             <Dialog.Close asChild>
-              <Button className="w-auto">
+              <Button onClick={handleOpenChange}>
                 <ArrowleftIcon />
               </Button>
             </Dialog.Close>
-            <div className="w-full text-center pr-[20px]">
-              <Dialog.Title className="font-bold">Edit task</Dialog.Title>
+            <div className="w-full text-center pr-5">
+              <Dialog.Title>Edit task</Dialog.Title>
             </div>
             <Dialog.Description className="sr-only">
               Edit task dialog
