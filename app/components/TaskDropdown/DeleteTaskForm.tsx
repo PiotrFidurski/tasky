@@ -1,7 +1,7 @@
 import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
-import { DropdownItem } from '~/components/Elements/DropdownItem';
+import { DropdownItem } from '~/components/Elements/Dropdown/DropdownItem';
 
 import { TrashIcon } from '../Icons/TrashIcon';
 

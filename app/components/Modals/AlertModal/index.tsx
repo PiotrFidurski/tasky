@@ -35,18 +35,23 @@ export function AlertModal({
         >
           <p className="p-4">{children}</p>
           <div className="flex items-center gap-4">
-            <Button onClick={onOpenChange} className="min-w-[140px]">
+            <Button
+              onClick={onOpenChange}
+              className="min-w-[140px]"
+              aria-label="Go back"
+            >
               Go Back
             </Button>
             <Button
               onClick={onConfirm}
               className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
+              aria-label={confirmBtnName}
             >
               {confirmBtnName}
             </Button>
           </div>
           <Dialog.Description className="sr-only">
-            Task draft warning
+            Alert dialog
           </Dialog.Description>
         </Dialog.Content>
       </Dialog.Portal>

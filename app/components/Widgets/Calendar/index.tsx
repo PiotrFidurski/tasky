@@ -17,12 +17,12 @@ import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 type RenderProps = {
   day: string;
   date: Date;
-  stats: { [key: string]: number[] };
+  stats?: { [key: string]: number[] };
 };
 
 type Props = {
   startingDate: Date;
-  stats: { [key: string]: number[] };
+  stats?: { [key: string]: number[] };
   weeksCount?: number;
   children: (props: RenderProps) => JSX.Element;
   wrapperClassname?: string;

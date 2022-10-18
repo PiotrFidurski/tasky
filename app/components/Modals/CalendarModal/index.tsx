@@ -29,7 +29,6 @@ export function CalendarModal() {
           </div>
           <Calendar
             startingDate={new Date()}
-            stats={{}}
             wrapperClassname="bg-transparent dark:bg-transparent max-w-md"
           >
             {({ date, day }) => <DayButton day={day} date={date} key={day} />}

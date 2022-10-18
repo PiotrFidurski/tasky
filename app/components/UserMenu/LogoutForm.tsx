@@ -1,6 +1,6 @@
 import { Form } from '@remix-run/react';
 
-import { DropdownItem } from '~/components/Elements/DropdownItem';
+import { DropdownItem } from '~/components/Elements/Dropdown/DropdownItem';
 import { LogoutIcon } from '~/components/Icons/LogoutIcon';
 
 import { useActionTransition } from '~/utils/hooks/useActionTransition';

@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
-import { NavListItem } from '~/components/Elements/NavListItem';
+import { NavListItemLink } from '~/components/Elements/NavListItemLink';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { DATE_FORMAT } from '~/utils/date';
@@ -65,38 +65,38 @@ export function Menu({
         <p className="text-4xl">{data?.user?.username}</p>
       </div>
       <ul className="flex flex-col items-start px-14">
-        <NavListItem to={`/${dayParam}`}>
+        <NavListItemLink to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
               {isActive ? <HomeIconFilled /> : <HomeIcon />}
               <span>Home</span>
             </>
           )}
-        </NavListItem>
-        <NavListItem to="/">
+        </NavListItemLink>
+        <NavListItemLink to="/">
           {({ isActive }) => (
             <>
               {isActive ? <GridIconFilled /> : <GridIcon />}
               <span>Categories</span>
             </>
           )}
-        </NavListItem>
-        <NavListItem to="/">
+        </NavListItemLink>
+        <NavListItemLink to="/">
           {() => (
             <>
               <EditIcon />
               <span>Tasks</span>
             </>
           )}
-        </NavListItem>
-        <NavListItem to="/">
+        </NavListItemLink>
+        <NavListItemLink to="/">
           {({ isActive }) => (
             <>
               {isActive ? <SettingsIconFilled /> : <SettingsIcon />}
               <span>Settings</span>
             </>
           )}
-        </NavListItem>
+        </NavListItemLink>
         <div className="flex w-full justify-end pr-2">
           <CustomLink
             to={`/${dayParam}/create`}

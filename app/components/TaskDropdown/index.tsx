@@ -5,8 +5,8 @@ import { Link, useFetcher } from '@remix-run/react';
 import { actionTypes } from '~/server/actions/actionTypes';
 
 import { Button } from '~/components/Elements/Button';
-import { DropdownItem } from '~/components/Elements/DropdownItem';
-import { DropdownTrigger } from '~/components/Elements/DropdownTrigger';
+import { DropdownItem } from '~/components/Elements/Dropdown/DropdownItem';
+import { DropdownTrigger } from '~/components/Elements/Dropdown/DropdownTrigger';
 import { CaretDown } from '~/components/Icons/CaretDown';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
@@ -14,7 +14,7 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
-import { DropdownContent } from '../Elements/DropdownContent';
+import { DropdownContent } from '../Elements/Dropdown/DropdownContent';
 import { AlertModal } from '../Modals/AlertModal';
 import { useAlert } from '../Modals/AlertModal/useAlert';
 import { DeleteTaskForm } from './DeleteTaskForm';
