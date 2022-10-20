@@ -2,11 +2,7 @@ import nProgress from 'nprogress';
 
 import { useEffect } from 'react';
 
-import { z } from 'zod';
-
-import { format, isValid } from 'date-fns';
-
-import { LoaderArgs, json } from 'remix';
+import { format } from 'date-fns';
 
 import {
   Outlet,
@@ -17,8 +13,7 @@ import {
 } from '@remix-run/react';
 
 import { action } from '~/server/actions/task.server';
-import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
-import { requireUserId } from '~/server/session/auth.server';
+import { loader } from '~/server/loaders/$day.server';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
@@ -27,51 +22,12 @@ import { DayLink } from '~/components/Widgets/Calendar/components/DayLink';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
 import { Task } from '~/components/Widgets/Task';
 
-import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
 import { useInfiniteLoader } from '~/utils/hooks/useInfiniteLoader';
-import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
+
+export { loader };
 
 export { action };
-
-export async function loader({ request, params }: LoaderArgs) {
-  const userId = await requireUserId(request);
-
-  const day = z
-    .string({ invalid_type_error: 'expected a string.' })
-    .parse(params.day);
-
-  if (!isValid(new Date(day))) {
-    throw badRequest(
-      'No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".',
-      404
-    );
-  }
-
-  const [tasks, groupedTasks] = await Promise.all([
-    getTasksForDay({
-      userId,
-      day,
-    }),
-    groupTasksByScheduledFor(userId),
-  ]);
-
-  const { completed, total } = getTotalTasksCount(groupedTasks);
-
-  const percentage = ((completed / total) * 100).toFixed();
-
-  const stats = getTaskStatsForEachDay(groupedTasks);
-
-  const data = {
-    stats,
-    completed,
-    total,
-    percentage: !Number.isNaN(Number(percentage)) ? Number(percentage) : 0,
-    tasks,
-  };
-
-  return json(data, { status: 200 });
-}
 
 export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =

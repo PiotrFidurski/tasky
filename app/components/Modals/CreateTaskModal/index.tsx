@@ -2,12 +2,13 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import {
   useFetcher,
+  useLoaderData,
   useNavigate,
   useParams,
   useSearchParams,
 } from '@remix-run/react';
 
-import { CreateTaskProps } from '~/server/models/types';
+import { loader } from '~/server/loaders/$day.create.server';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
@@ -18,11 +19,9 @@ import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
 
-type Props = {
-  draft: Omit<CreateTaskProps, 'userId'>;
-};
+export function CreateTaskModal() {
+  const draft = useLoaderData<typeof loader>();
 
-export function CreateTaskModal({ draft }: Props) {
   const { open, toggleAlert, toggleElement } = useAlert({
     initialElementState: true,
   });

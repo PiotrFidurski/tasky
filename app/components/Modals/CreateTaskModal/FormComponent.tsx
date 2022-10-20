@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 import { Form, useActionData, useParams } from '@remix-run/react';
 
-import { action } from '~/server/actions/createTask.server';
+import { action } from '~/server/actions/$day.create.server';
 import { CreateTaskProps } from '~/server/models/types';
 
 import { Button } from '~/components/Elements/Button';

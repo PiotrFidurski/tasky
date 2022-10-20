@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { Form, useLoaderData, useParams } from '@remix-run/react';
 
 import { actionTypes } from '~/server/actions/actionTypes';
-import { loader } from '~/server/loaders/taskId.edit.server';
+import { loader } from '~/server/loaders/$day.taskId.edit.server';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
