@@ -2,7 +2,7 @@ import { ZodError, z } from 'zod';
 
 import { isValid } from 'date-fns';
 
-import { ActionArgs, json } from 'remix';
+import { ActionArgs, json, redirect } from 'remix';
 
 import {
   deleteTask,
@@ -92,15 +92,22 @@ export async function action({ request, params }: ActionArgs) {
             'You are not allowed to update this task.'
           );
         }
+
         const bodyField = form.get('body');
+        const scheduledForField = form.get('scheduledFor');
 
         const body = z
           .string({ invalid_type_error: 'expected a string.' })
           .optional()
           .parse(bodyField);
 
+        const scheduledFor = z
+          .string({ invalid_type_error: 'expected a string.' })
+          .parse(scheduledForField);
+
         if (body) {
-          return await updateTask({ body, id: taskId });
+          await updateTask({ body, id: taskId });
+          return redirect(`/${scheduledFor}`);
         }
 
         return null;
