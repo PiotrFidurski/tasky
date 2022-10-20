@@ -79,7 +79,7 @@ export function FormComponent({ draft }: Props) {
         >
           <span>New task</span>
           {isSubmitting &&
-          transition.submission?.formData.get('_action') === 'SUBMIT_FORM' ? (
+          transition.submission?.formData.get('_action') === SUBMIT_FORM ? (
             <Spinner />
           ) : (
             <CaretUp />
