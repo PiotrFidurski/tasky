@@ -21,7 +21,6 @@ export function EditTaskModal() {
         <Dialog.Content className={modalContent}>
           <div className="w-full flex p-4 items-center">
             <ModalHeader>Edit task</ModalHeader>
-
             <Dialog.Description className="sr-only">
               Edit task dialog
             </Dialog.Description>

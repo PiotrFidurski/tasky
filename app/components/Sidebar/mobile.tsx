@@ -16,7 +16,6 @@ export default function MobileSidebar() {
   const handleOpenMenu = () => {
     setExpanded(true);
     document.body.style.position = 'fixed';
-    document.body.style.inset = '0';
   };
 
   const handleCloseMenu = () => {

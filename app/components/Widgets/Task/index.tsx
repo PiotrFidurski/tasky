@@ -1,7 +1,5 @@
 import { twMerge } from 'tailwind-merge';
 
-import { useState } from 'react';
-
 import { useFetcher } from 'remix';
 
 import { actionTypes } from '~/server/actions/actionTypes';
@@ -24,12 +22,6 @@ export function Task({ task }: Props) {
   const fetcher = useFetcher();
 
   const data = useRouteData<{ isMobile: boolean }>('root');
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpenChange = () => {
-    setOpen((prevState) => !prevState);
-  };
 
   const isComplete = (): boolean => {
     const currentAction = fetcher.submission?.formData.get('_action');
@@ -74,11 +66,7 @@ export function Task({ task }: Props) {
         {!data?.isMobile ? (
           <TaskDropdown task={task} />
         ) : (
-          <TaskOptionsModal
-            open={open}
-            task={task}
-            handleOpenChange={handleOpenChange}
-          />
+          <TaskOptionsModal task={task} />
         )}
       </div>
     </div>

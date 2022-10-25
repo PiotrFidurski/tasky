@@ -2,8 +2,8 @@ import { Close, Title } from '@radix-ui/react-dialog';
 
 import { ReactNode } from 'react';
 
-import { Button } from '../Elements/Button';
-import { ArrowleftIcon } from '../Icons/ArrowleftIcon';
+import { Button } from '~/components/Elements/Button';
+import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 type Props = {
   buttonName?: string;

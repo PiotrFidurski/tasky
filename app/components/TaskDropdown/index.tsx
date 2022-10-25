@@ -1,8 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { Link, useFetcher } from '@remix-run/react';
-
-import { actionTypes } from '~/server/actions/actionTypes';
+import { Link } from '@remix-run/react';
 
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/Dropdown/DropdownItem';
@@ -10,14 +8,15 @@ import { DropdownTrigger } from '~/components/Elements/Dropdown/DropdownTrigger'
 import { CaretDown } from '~/components/Icons/CaretDown';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
+import { useDeleteTask } from '~/utils/hooks/useDeleteTask';
 import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
 import { DropdownContent } from '../Elements/Dropdown/DropdownContent';
+import { TrashIcon } from '../Icons/TrashIcon';
 import { AlertModal } from '../Modals/AlertModal';
 import { useAlert } from '../Modals/AlertModal/useAlert';
-import { DeleteTaskForm } from './DeleteTaskForm';
 
 type Props = {
   task: JsonifiedTask;
@@ -26,16 +25,12 @@ type Props = {
 export function TaskDropdown({ task }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
 
-  const fetcher = useFetcher();
+  const { handleDeleteTask } = useDeleteTask({
+    taskId: task.id,
+    userId: task.userId,
+  });
 
   const { open, toggleElement, toggleAlert } = useAlert();
-
-  const handleDeleteTask = () => {
-    fetcher.submit(
-      { _action: actionTypes.DELETE_TASK, id: task.id, ownerId: task.userId },
-      { method: 'post' }
-    );
-  };
 
   return (
     <>
@@ -55,12 +50,17 @@ export function TaskDropdown({ task }: Props) {
         </DropdownTrigger>
         <DropdownContent loop sideOffset={10}>
           {data?.user?.id === task.userId ? (
-            <DeleteTaskForm
-              handleWarningChange={toggleAlert}
-              handleOpenChange={toggleElement}
-              userId={data.user.id}
-              taskId={task.id}
-            />
+            <DropdownItem asChild isFirstItem>
+              <Button
+                className="border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
+                type="submit"
+                onClick={toggleAlert}
+                aria-label="delete task"
+              >
+                <TrashIcon />
+                <span>Delete Task</span>
+              </Button>
+            </DropdownItem>
           ) : null}
           {data?.user?.id === task.userId ? (
             <DropdownItem asChild isLastItem>
@@ -77,8 +77,8 @@ export function TaskDropdown({ task }: Props) {
       </DropdownMenu.Root>
       <AlertModal
         open={open.alert}
-        onOpenChange={toggleAlert}
-        onConfirm={handleDeleteTask}
+        handleOpenChange={toggleAlert}
+        handleConfirm={handleDeleteTask}
         confirmBtnName="Delete"
       >
         Are you sure you want to delete this task?
