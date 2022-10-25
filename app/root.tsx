@@ -24,6 +24,8 @@ import { LoadUserThemePreferences } from '~/components/Theme/systemTheme';
 
 import styles from '~/styles/app.css';
 
+import { isMobile } from './utils/isMobile';
+
 export function links() {
   return [
     { rel: 'stylesheet', href: styles },
@@ -48,16 +50,6 @@ export function meta() {
   return { title: 'Tasky' };
 }
 
-export function isMobile(userAgent: string | null) {
-  if (userAgent) {
-    return /android|blackberry|iphone|ipad|ipod|opera mini|iemobile|wpdesktop/i.test(
-      userAgent
-    );
-  }
-
-  return false;
-}
-
 export async function loader({ request }: LoaderArgs) {
   const [userSession, themeSession] = await Promise.all([
     getUserSession(request),
@@ -65,6 +57,10 @@ export async function loader({ request }: LoaderArgs) {
   ]);
 
   const theme = themeSession.get('theme');
+
+  const clonedRequest = request.clone();
+
+  const mobile = isMobile(clonedRequest.headers.get('user-agent'));
 
   if (userSession.has('userId')) {
     const userId = userSession.get('userId');
@@ -74,7 +70,7 @@ export async function loader({ request }: LoaderArgs) {
     const data = {
       theme,
       user,
-      isMobile: isMobile(request.headers.get('user-agent')),
+      isMobile: mobile,
     };
 
     return data;
@@ -83,7 +79,7 @@ export async function loader({ request }: LoaderArgs) {
   const data = {
     theme,
     user: null,
-    isMobile: isMobile(request.headers.get('user-agent')),
+    isMobile: mobile,
   };
 
   return data;
