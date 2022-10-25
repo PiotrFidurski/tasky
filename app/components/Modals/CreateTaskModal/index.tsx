@@ -10,11 +10,9 @@ import {
 
 import { loader } from '~/server/loaders/$day.create.server';
 
-import { Button } from '~/components/Elements/Button';
-import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
-
 import { AlertModal } from '../AlertModal';
 import { useAlert } from '../AlertModal/useAlert';
+import { ModalHeader } from '../ModalHeader';
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
@@ -63,14 +61,9 @@ export function CreateTaskModal() {
           <Dialog.Overlay className={modalOverlay} />
           <Dialog.Content className={modalContent}>
             <fetcher.Form className="w-full flex p-4 items-center">
-              <Dialog.Close asChild>
-                <Button name="_action" value={DESTROY_DRAFT}>
-                  <ArrowleftIcon />
-                </Button>
-              </Dialog.Close>
-              <div className="w-full text-center pr-5">
-                <Dialog.Title>Create task</Dialog.Title>
-              </div>
+              <ModalHeader buttonName="_action" btnValue={DESTROY_DRAFT}>
+                Create task
+              </ModalHeader>
               <Dialog.Description className="sr-only">
                 Create task dialog
               </Dialog.Description>

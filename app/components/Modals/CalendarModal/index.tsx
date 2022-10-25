@@ -2,11 +2,10 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import { useNavigate } from '@remix-run/react';
 
-import { Button } from '~/components/Elements/Button';
-import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
 import { DayButton } from '~/components/Widgets/Calendar/components/DayButton';
 
+import { ModalHeader } from '../ModalHeader';
 import { modalContent, modalOverlay } from '../classNames';
 
 export function CalendarModal() {
@@ -22,10 +21,8 @@ export function CalendarModal() {
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
         <Dialog.Content className={modalContent}>
-          <div className="w-full flex p-4">
-            <Button className="w-auto" onClick={handleOpenChange}>
-              <ArrowleftIcon />
-            </Button>
+          <div className="flex w-full p-4 items-center">
+            <ModalHeader>Calendar</ModalHeader>
           </div>
           <Calendar
             startingDate={new Date()}
