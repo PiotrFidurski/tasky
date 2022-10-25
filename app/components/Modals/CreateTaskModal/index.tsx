@@ -22,7 +22,7 @@ import { FormComponent } from './FormComponent';
 export function CreateTaskModal() {
   const draft = useLoaderData<typeof loader>();
 
-  const { open, toggleAlert, toggleElement } = useAlert({
+  const { open, toggleAlert } = useAlert({
     initialElementState: true,
   });
 
@@ -51,8 +51,7 @@ export function CreateTaskModal() {
     if (draft.body || draft.scheduledFor) {
       toggleAlert();
     } else {
-      toggleElement();
-      navigate(-1);
+      navigate(`/${day}`);
     }
   };
 
