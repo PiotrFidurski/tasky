@@ -24,15 +24,11 @@ import { UserMenu } from '../UserMenu';
 
 type Props = {
   visible: boolean;
-  onHandleClose?: () => void;
+  onClose?: () => void;
   isMobile?: boolean;
 };
 
-export function Menu({
-  visible,
-  onHandleClose = () => {},
-  isMobile = true,
-}: Props) {
+export function Menu({ visible, onClose = () => {}, isMobile = true }: Props) {
   const { day } = useParams<'day'>();
 
   const data = useRouteData<{ user: JsonifiedUser }>('root');
@@ -48,7 +44,7 @@ export function Menu({
       {isMobile ? (
         <div className="flex justify-end px-16">
           <Button
-            onClick={onHandleClose}
+            onClick={onClose}
             className="w-auto"
             aria-controls="sidebar"
             aria-label="close sidebar"
@@ -101,7 +97,7 @@ export function Menu({
           <CustomLink
             to={`/${dayParam}/create`}
             aria-label="create task"
-            onClick={onHandleClose}
+            onClick={onClose}
           >
             <PlusIcon />
           </CustomLink>

@@ -26,6 +26,7 @@ const PADDING_Y = 1; // rem
 
 export function TaskOptionsModal({ open, handleOpenChange, task }: Props) {
   const data = useRouteData<{ isMobile: boolean; user: JsonifiedUser }>('root');
+
   return (
     <Dialog.Root open={open && data?.isMobile} onOpenChange={handleOpenChange}>
       <Dialog.Trigger asChild>

@@ -81,8 +81,8 @@ export function CreateTaskModal() {
       </Dialog.Root>
       <AlertModal
         open={open.alert}
-        onOpenChange={toggleAlert}
-        onConfirm={handleDestroyDraft}
+        handleOpenChange={toggleAlert}
+        handleConfirm={handleDestroyDraft}
       >
         Are you sure you want to discard the changes?
       </AlertModal>

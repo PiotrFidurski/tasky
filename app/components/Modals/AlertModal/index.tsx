@@ -9,21 +9,21 @@ import { modalContent, modalOverlay } from '../classNames';
 
 type Props = {
   open: boolean;
-  onOpenChange: () => void;
-  onConfirm: () => void;
+  handleOpenChange: () => void;
+  handleConfirm: () => void;
   confirmBtnName?: string;
   children: ReactNode;
 };
 
 export function AlertModal({
   open,
-  onOpenChange,
-  onConfirm,
+  handleOpenChange,
+  handleConfirm,
   confirmBtnName = 'Discard',
   children,
 }: Props) {
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className={modalOverlay} />
@@ -36,14 +36,14 @@ export function AlertModal({
           <p className="p-4">{children}</p>
           <div className="flex items-center gap-4">
             <Button
-              onClick={onOpenChange}
+              onClick={handleOpenChange}
               className="min-w-[140px]"
               aria-label="Go back"
             >
               Go Back
             </Button>
             <Button
-              onClick={onConfirm}
+              onClick={handleConfirm}
               className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
               aria-label={confirmBtnName}
             >
