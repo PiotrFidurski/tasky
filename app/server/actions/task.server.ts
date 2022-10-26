@@ -2,7 +2,7 @@ import { ZodError, z } from 'zod';
 
 import { isValid } from 'date-fns';
 
-import { ActionArgs, json, redirect } from 'remix';
+import { ActionArgs, json } from 'remix';
 
 import {
   deleteTask,
@@ -11,7 +11,6 @@ import {
   markTaskIncomplete,
   scheduleTask,
   unscheduleTask,
-  updateTask,
 } from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
 
@@ -20,7 +19,7 @@ import { getErrorMessage } from '~/utils/getErrorMessage';
 
 import { actionTypes } from './actionTypes';
 
-function unauthorizedResponse(message: string) {
+export function unauthorizedResponse(message: string) {
   return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
 }
 
@@ -86,33 +85,6 @@ export async function action({ request, params }: ActionArgs) {
         return await deleteTask(taskId);
       }
 
-      case actionTypes.UPDATE_TASK: {
-        if (userId !== ownerId) {
-          throw unauthorizedResponse(
-            'You are not allowed to update this task.'
-          );
-        }
-
-        const bodyField = form.get('body');
-        const scheduledForField = form.get('scheduledFor');
-
-        const body = z
-          .string({ invalid_type_error: 'expected a string.' })
-          .optional()
-          .parse(bodyField);
-
-        const scheduledFor = z
-          .string({ invalid_type_error: 'expected a string.' })
-          .parse(scheduledForField);
-
-        if (body) {
-          await updateTask({ body, id: taskId });
-          return redirect(`/${scheduledFor}`);
-        }
-
-        return null;
-      }
-
       default: {
         throw badRequest(`Unknown action ${actionType}`);
       }
@@ -128,8 +100,6 @@ export async function action({ request, params }: ActionArgs) {
       throw error;
     }
 
-    const message = getErrorMessage(error);
-
-    throw badRequest(message);
+    throw badRequest(getErrorMessage(error));
   }
 }
