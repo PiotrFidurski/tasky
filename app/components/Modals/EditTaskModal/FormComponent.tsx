@@ -7,7 +7,7 @@ import {
   useParams,
 } from '@remix-run/react';
 
-import { action } from '~/server/actions/$day.create.server';
+import { action } from '~/server/actions/$day.taskId.edit.server';
 import { actionTypes } from '~/server/actions/actionTypes';
 import { loader } from '~/server/loaders/$day.taskId.edit.server';
 
@@ -37,6 +37,7 @@ export function FormComponent() {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
 
   const params = useParams<'day' | 'taskId'>();
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -46,16 +47,17 @@ export function FormComponent() {
   }, []);
 
   return (
-    <Form method="post" className="w-full p-4" action={`/${params.day}/create`}>
+    <Form method="post" className="w-full p-4">
       <input type="hidden" name="id" value={params.taskId} />
       <input type="hidden" name="ownerId" value={data?.user?.id} />
       <input type="hidden" name="scheduledFor" value={scheduledFor} />
       <FieldWrapper
+        id="body"
         htmlFor="body"
         errorMessage={fieldErrors?.body || ''}
         labelName="Task body"
       >
-        <InputField ref={inputRef} defaultValue={body} name="body" />
+        <InputField ref={inputRef} defaultValue={body} name="body" id="body" />
       </FieldWrapper>
       <div className="flex justify-end">
         <Button
