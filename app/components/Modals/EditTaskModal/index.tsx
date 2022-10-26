@@ -21,11 +21,11 @@ export function EditTaskModal() {
         <Dialog.Content className={modalContent}>
           <div className="w-full flex p-4 items-center">
             <ModalHeader>Edit task</ModalHeader>
-            <Dialog.Description className="sr-only">
-              Edit task dialog
-            </Dialog.Description>
           </div>
           <FormComponent />
+          <Dialog.Description className="sr-only">
+            Edit task dialog
+          </Dialog.Description>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

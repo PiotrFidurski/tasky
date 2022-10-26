@@ -80,6 +80,9 @@ export function TaskOptionsModal({ task }: Props) {
                 <span>Edit Task</span>
               </CustomLink>
             ) : null}
+            <Dialog.Description className="sr-only">
+              Task options dialog
+            </Dialog.Description>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

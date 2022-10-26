@@ -64,11 +64,11 @@ export function CreateTaskModal() {
               <ModalHeader buttonName="_action" btnValue={DESTROY_DRAFT}>
                 Create task
               </ModalHeader>
-              <Dialog.Description className="sr-only">
-                Create task dialog
-              </Dialog.Description>
             </fetcher.Form>
             <FormComponent draft={draft} />
+            <Dialog.Description className="sr-only">
+              Create task dialog
+            </Dialog.Description>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

@@ -30,6 +30,9 @@ export function CalendarModal() {
           >
             {({ date, day }) => <DayButton day={day} date={date} key={day} />}
           </Calendar>
+          <Dialog.Description className="sr-only">
+            Calendar dialog
+          </Dialog.Description>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
