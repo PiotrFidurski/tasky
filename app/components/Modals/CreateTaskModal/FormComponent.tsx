@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import { format } from 'date-fns';
 
 import { Form, useActionData, useParams } from '@remix-run/react';
@@ -25,18 +27,18 @@ export function FormComponent({ draft }: Props) {
 
   const params = useParams<'day'>();
 
-  const { isSubmitting, transition } = useActionTransition();
+  const { isSubmitting, currentAction } = useActionTransition();
 
   const { fieldErrors } = useErrors(actionData);
 
   function getDateParam() {
-    if (draft.scheduledFor) {
-      return draft.scheduledFor;
+    if (!draft.scheduledFor) {
+      const dayParam = z.string().parse(params.day);
+
+      return format(new Date(dayParam), DATE_FORMAT);
     }
 
-    return params.day
-      ? format(new Date(params.day), DATE_FORMAT)
-      : draft.scheduledFor;
+    return draft.scheduledFor;
   }
 
   return (
@@ -68,7 +70,6 @@ export function FormComponent({ draft }: Props) {
         <span>{getDateParam()}</span>
       </Button>
       <input value={getDateParam()} name="scheduledFor" type="hidden" />
-
       <div className="flex justify-end w-full">
         <Button
           value={SUBMIT_FORM}
@@ -78,8 +79,7 @@ export function FormComponent({ draft }: Props) {
           className="flex mt-28 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>
-          {isSubmitting &&
-          transition.submission?.formData.get('_action') === SUBMIT_FORM ? (
+          {isSubmitting && currentAction === SUBMIT_FORM ? (
             <Spinner />
           ) : (
             <CaretUp />

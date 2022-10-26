@@ -5,7 +5,6 @@ import {
   useLoaderData,
   useNavigate,
   useParams,
-  useSearchParams,
 } from '@remix-run/react';
 
 import { loader } from '~/server/loaders/$day.create.server';
@@ -30,22 +29,14 @@ export function CreateTaskModal() {
 
   const fetcher = useFetcher();
 
-  const [searchParams] = useSearchParams();
-
   const handleDestroyDraft = () => {
     fetcher.submit(
       { _action: DESTROY_DRAFT },
       { method: 'post', action: `/${day}/create` }
     );
-
-    if (searchParams.get('date')) {
-      return navigate(-2);
-    }
-
-    return navigate(-1);
   };
 
-  const handleChange = () => {
+  const handleOpenChange = () => {
     if (draft.body || draft.scheduledFor) {
       toggleAlert();
     } else {
@@ -55,7 +46,7 @@ export function CreateTaskModal() {
 
   return (
     <>
-      <Dialog.Root open={open.element} onOpenChange={handleChange}>
+      <Dialog.Root open={open.element} onOpenChange={handleOpenChange}>
         <Dialog.Trigger />
         <Dialog.Portal>
           <Dialog.Overlay className={modalOverlay} />
