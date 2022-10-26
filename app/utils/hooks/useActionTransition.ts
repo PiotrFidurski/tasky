@@ -8,5 +8,7 @@ export function useActionTransition() {
       transition.type === 'actionSubmission') ||
     (transition.state === 'loading' && transition.type === 'actionRedirect');
 
-  return { isSubmitting, transition };
+  const currentAction = transition.submission?.formData.get('_action');
+
+  return { transition, isSubmitting, currentAction };
 }
