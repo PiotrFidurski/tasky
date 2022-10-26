@@ -4,7 +4,7 @@ type Props = {
   initialElementState?: boolean;
 };
 
-export function useAlert({ initialElementState }: Props = {}) {
+export function useAlertWithElement({ initialElementState }: Props = {}) {
   const [open, setOpen] = useState({
     alert: false,
     element: initialElementState || false,

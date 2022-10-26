@@ -16,7 +16,7 @@ import { JsonifiedTask, JsonifiedUser } from '~/types';
 import { DropdownContent } from '../Elements/Dropdown/DropdownContent';
 import { TrashIcon } from '../Icons/TrashIcon';
 import { AlertModal } from '../Modals/AlertModal';
-import { useAlert } from '../Modals/AlertModal/useAlert';
+import { useAlertWithElement } from '../Modals/AlertModal/useAlertWithElement';
 
 type Props = {
   task: JsonifiedTask;
@@ -30,7 +30,7 @@ export function TaskDropdown({ task }: Props) {
     userId: task.userId,
   });
 
-  const { open, toggleElement, toggleAlert } = useAlert();
+  const { open, toggleElement, toggleAlert } = useAlertWithElement();
 
   return (
     <>

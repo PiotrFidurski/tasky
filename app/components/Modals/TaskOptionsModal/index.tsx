@@ -13,7 +13,7 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
 import { AlertModal } from '../AlertModal';
-import { useAlert } from '../AlertModal/useAlert';
+import { useAlertWithElement } from '../AlertModal/useAlertWithElement';
 import { modalContent, modalOverlay } from '../classNames';
 
 type Props = {
@@ -26,7 +26,7 @@ const PADDING_Y = 1; // rem
 export function TaskOptionsModal({ task }: Props) {
   const data = useRouteData<{ isMobile: boolean; user: JsonifiedUser }>('root');
 
-  const { open, toggleAlert, toggleElement } = useAlert();
+  const { open, toggleAlert, toggleElement } = useAlertWithElement();
 
   const { handleDeleteTask } = useDeleteTask({
     taskId: task.id,

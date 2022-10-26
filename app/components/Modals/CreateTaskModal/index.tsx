@@ -11,7 +11,7 @@ import {
 import { loader } from '~/server/loaders/$day.create.server';
 
 import { AlertModal } from '../AlertModal';
-import { useAlert } from '../AlertModal/useAlert';
+import { useAlertWithElement } from '../AlertModal/useAlertWithElement';
 import { ModalHeader } from '../ModalHeader';
 import { DESTROY_DRAFT } from '../actionTypes';
 import { modalContent, modalOverlay } from '../classNames';
@@ -20,7 +20,7 @@ import { FormComponent } from './FormComponent';
 export function CreateTaskModal() {
   const draft = useLoaderData<typeof loader>();
 
-  const { open, toggleAlert } = useAlert({
+  const { open, toggleAlert } = useAlertWithElement({
     initialElementState: true,
   });
 
