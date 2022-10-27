@@ -56,6 +56,7 @@ export function FormComponent() {
         htmlFor="body"
         errorMessage={fieldErrors?.body || ''}
         labelName="Task body"
+        className="mb-3"
       >
         <InputField ref={inputRef} defaultValue={body} name="body" id="body" />
       </FieldWrapper>
