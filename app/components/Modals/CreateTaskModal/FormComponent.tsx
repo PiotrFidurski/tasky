@@ -16,7 +16,7 @@ import { DATE_FORMAT } from '~/utils/date';
 import { useActionTransition } from '~/utils/hooks/useActionTransition';
 import { useErrors } from '~/utils/hooks/useErrors';
 
-import { CREATE_DRAFT_BODY, SUBMIT_FORM } from '../actionTypes';
+import { CREATE_DRAFT_BODY, CREATE_TASK } from '../actionTypes';
 
 type Props = {
   draft: Omit<CreateTaskProps, 'userId'>;
@@ -72,14 +72,14 @@ export function FormComponent({ draft }: Props) {
       <input value={getDateParam()} name="scheduledFor" type="hidden" />
       <div className="flex justify-end w-full">
         <Button
-          value={SUBMIT_FORM}
+          value={CREATE_TASK}
           name="_action"
           primary
           type="submit"
           className="flex mt-28 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>
-          {isSubmitting && currentAction === SUBMIT_FORM ? (
+          {isSubmitting && currentAction === CREATE_TASK ? (
             <Spinner />
           ) : (
             <CaretUp />

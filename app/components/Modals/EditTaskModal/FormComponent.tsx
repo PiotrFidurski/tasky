@@ -47,7 +47,7 @@ export function FormComponent() {
   }, []);
 
   return (
-    <Form method="post" className="w-full p-4">
+    <Form method="post" replace className="w-full p-4">
       <input type="hidden" name="id" value={params.taskId} />
       <input type="hidden" name="ownerId" value={data?.user?.id} />
       <input type="hidden" name="scheduledFor" value={scheduledFor} />
