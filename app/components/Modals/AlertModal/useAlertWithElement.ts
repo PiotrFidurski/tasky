@@ -11,14 +11,16 @@ export function useAlertWithElement({ initialElementState }: Props = {}) {
   });
 
   const toggleElement = () => {
-    setOpen((prevState) => ({ ...prevState, element: !prevState.element }));
+    setOpen((state) => ({
+      alert: state.alert,
+      element: !state.element,
+    }));
   };
 
   const toggleAlert = () => {
-    setOpen((prevState) => ({
-      ...prevState,
-      alert: !prevState.alert,
-      element: prevState.element || false,
+    setOpen((state) => ({
+      alert: !state.alert,
+      element: state.element || false,
     }));
   };
 
