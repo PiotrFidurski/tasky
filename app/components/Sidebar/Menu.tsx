@@ -23,12 +23,16 @@ import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
 import { UserMenu } from '../UserMenu';
 
 type Props = {
-  visible: boolean;
-  onClose?: () => void;
+  expanded: boolean;
+  onCloseMenu?: () => void;
   isMobile?: boolean;
 };
 
-export function Menu({ visible, onClose = () => {}, isMobile = true }: Props) {
+export function Menu({
+  expanded,
+  onCloseMenu = () => {},
+  isMobile = true,
+}: Props) {
   const { day } = useParams<'day'>();
 
   const data = useRouteData<{ user: JsonifiedUser }>('root');
@@ -44,11 +48,11 @@ export function Menu({ visible, onClose = () => {}, isMobile = true }: Props) {
       {isMobile ? (
         <div className="flex justify-end px-16">
           <Button
-            onClick={onClose}
+            onClick={onCloseMenu}
             className="w-auto"
             aria-controls="sidebar"
             aria-label="close sidebar"
-            aria-expanded={visible}
+            aria-expanded={expanded}
           >
             <CaretLeft />
           </Button>
@@ -97,7 +101,7 @@ export function Menu({ visible, onClose = () => {}, isMobile = true }: Props) {
           <CustomLink
             to={`/${dayParam}/create`}
             aria-label="create task"
-            onClick={onClose}
+            onClick={onCloseMenu}
           >
             <PlusIcon />
           </CustomLink>
