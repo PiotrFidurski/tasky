@@ -50,7 +50,7 @@ export default function MobileSidebar() {
           expanded ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <Menu expanded={expanded} onCloseMenu={handleCloseMenu} />
+        <Menu expanded={expanded} handleCloseMenu={handleCloseMenu} />
       </div>
     </div>
   );

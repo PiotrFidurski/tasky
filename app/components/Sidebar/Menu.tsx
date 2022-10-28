@@ -24,13 +24,13 @@ import { UserMenu } from '../UserMenu';
 
 type Props = {
   expanded: boolean;
-  onCloseMenu?: () => void;
+  handleCloseMenu?: () => void;
   isMobile?: boolean;
 };
 
 export function Menu({
   expanded,
-  onCloseMenu = () => {},
+  handleCloseMenu = () => {},
   isMobile = true,
 }: Props) {
   const { day } = useParams<'day'>();
@@ -48,7 +48,7 @@ export function Menu({
       {isMobile ? (
         <div className="flex justify-end px-16">
           <Button
-            onClick={onCloseMenu}
+            onClick={handleCloseMenu}
             className="w-auto"
             aria-controls="sidebar"
             aria-label="close sidebar"
@@ -101,7 +101,7 @@ export function Menu({
           <CustomLink
             to={`/${dayParam}/create`}
             aria-label="create task"
-            onClick={onCloseMenu}
+            onClick={handleCloseMenu}
           >
             <PlusIcon />
           </CustomLink>
