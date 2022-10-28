@@ -26,7 +26,8 @@ const PADDING_Y = 1; // rem
 export function TaskOptionsModal({ task }: Props) {
   const data = useRouteData<{ isMobile: boolean; user: JsonifiedUser }>('root');
 
-  const { open, toggleAlert, toggleElement } = useAlertWithElement();
+  const { open, handleToggleAlert, handleToggleElement } =
+    useAlertWithElement();
 
   const { handleDeleteTask } = useDeleteTask({
     taskId: task.id,
@@ -34,7 +35,7 @@ export function TaskOptionsModal({ task }: Props) {
   });
 
   const handleOpenChange = () => {
-    toggleElement();
+    handleToggleElement();
   };
 
   return (
@@ -63,7 +64,7 @@ export function TaskOptionsModal({ task }: Props) {
               <Button
                 className="flex items-center px-2 py-4 gap-4 border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
                 type="submit"
-                onClick={toggleAlert}
+                onClick={handleToggleAlert}
                 aria-label="delete task"
               >
                 <TrashIcon />
@@ -88,7 +89,7 @@ export function TaskOptionsModal({ task }: Props) {
       </Dialog.Root>
       <AlertModal
         open={open.alert}
-        handleOpenChange={toggleAlert}
+        handleOpenChange={handleToggleAlert}
         handleConfirm={handleDeleteTask}
         confirmBtnName="Delete"
       >

@@ -19,7 +19,7 @@ import { FormComponent } from './FormComponent';
 export function CreateTaskModal() {
   const draft = useLoaderData<typeof loader>();
 
-  const { open, toggleAlert } = useAlertWithElement({
+  const { open, handleToggleAlert } = useAlertWithElement({
     initialElementState: true,
   });
 
@@ -38,7 +38,7 @@ export function CreateTaskModal() {
 
   const handleOpenChange = () => {
     if (draft.body || draft.scheduledFor) {
-      toggleAlert();
+      handleToggleAlert();
     } else {
       navigate(`/${day}`);
     }
@@ -65,7 +65,7 @@ export function CreateTaskModal() {
       </Dialog.Root>
       <AlertModal
         open={open.alert}
-        handleOpenChange={toggleAlert}
+        handleOpenChange={handleToggleAlert}
         handleConfirm={handleDestroyDraft}
       >
         Are you sure you want to discard the changes?

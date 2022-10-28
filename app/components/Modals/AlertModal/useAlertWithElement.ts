@@ -10,19 +10,19 @@ export function useAlertWithElement({ initialElementState }: Props = {}) {
     element: initialElementState || false,
   });
 
-  const toggleElement = () => {
+  const handleToggleElement = () => {
     setOpen((state) => ({
       alert: state.alert,
       element: !state.element,
     }));
   };
 
-  const toggleAlert = () => {
+  const handleToggleAlert = () => {
     setOpen((state) => ({
       alert: !state.alert,
       element: state.element || false,
     }));
   };
 
-  return { open, toggleElement, toggleAlert };
+  return { open, handleToggleElement, handleToggleAlert };
 }

@@ -30,14 +30,15 @@ export function TaskDropdown({ task }: Props) {
     userId: task.userId,
   });
 
-  const { open, toggleElement, toggleAlert } = useAlertWithElement();
+  const { open, handleToggleElement, handleToggleAlert } =
+    useAlertWithElement();
 
   return (
     <>
       <DropdownMenu.Root
         open={open.element}
         modal={false}
-        onOpenChange={toggleElement}
+        onOpenChange={handleToggleElement}
       >
         <DropdownTrigger asChild>
           <Button
@@ -54,7 +55,7 @@ export function TaskDropdown({ task }: Props) {
               <Button
                 className="border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
                 type="submit"
-                onClick={toggleAlert}
+                onClick={handleToggleAlert}
                 aria-label="delete task"
               >
                 <TrashIcon />
@@ -77,7 +78,7 @@ export function TaskDropdown({ task }: Props) {
       </DropdownMenu.Root>
       <AlertModal
         open={open.alert}
-        handleOpenChange={toggleAlert}
+        handleOpenChange={handleToggleAlert}
         handleConfirm={handleDeleteTask}
         confirmBtnName="Delete"
       >
