@@ -12,3 +12,5 @@ export async function loader({ request }: LoaderArgs) {
 
   return data;
 }
+
+export type CreateTaskLoader = typeof loader;

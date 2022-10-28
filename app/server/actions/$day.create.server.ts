@@ -98,3 +98,5 @@ export async function action({ params, request }: ActionArgs) {
     return getFormattedErrors(error);
   }
 }
+
+export type CreateTaskAction = typeof action;

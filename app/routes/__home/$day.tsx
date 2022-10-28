@@ -13,7 +13,7 @@ import {
 } from '@remix-run/react';
 
 import { action } from '~/server/actions/task.server';
-import { loader } from '~/server/loaders/$day.server';
+import { DayLoader, loader } from '~/server/loaders/$day.server';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
@@ -31,7 +31,7 @@ export { action };
 
 export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
-    useLoaderData<typeof loader>();
+    useLoaderData<DayLoader>();
   const transition = useTransition();
 
   const { tasksData, setElement, Form } = useInfiniteLoader();

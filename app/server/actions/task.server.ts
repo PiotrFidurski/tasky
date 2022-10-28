@@ -103,3 +103,5 @@ export async function action({ request, params }: ActionArgs) {
     throw badRequest(getErrorMessage(error));
   }
 }
+
+export type TaskAction = typeof action;

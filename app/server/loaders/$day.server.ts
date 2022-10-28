@@ -48,3 +48,5 @@ export async function loader({ request, params }: LoaderArgs) {
 
   return json(data, { status: 200 });
 }
+
+export type DayLoader = typeof loader;

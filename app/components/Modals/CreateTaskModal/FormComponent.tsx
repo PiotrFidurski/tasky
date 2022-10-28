@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 import { Form, useActionData, useParams } from '@remix-run/react';
 
-import { action } from '~/server/actions/$day.create.server';
+import { CreateTaskAction } from '~/server/actions/$day.create.server';
 import { CreateTaskProps } from '~/server/models/types';
 
 import { Button } from '~/components/Elements/Button';
@@ -23,7 +23,7 @@ type Props = {
 };
 
 export function FormComponent({ draft }: Props) {
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<CreateTaskAction>();
 
   const params = useParams<'day'>();
 

@@ -51,3 +51,5 @@ export async function action({ request }: ActionArgs) {
     return badRequest({ message: getErrorMessage(error) });
   }
 }
+
+export type LoginAction = typeof action;

@@ -7,9 +7,9 @@ import {
   useParams,
 } from '@remix-run/react';
 
-import { action } from '~/server/actions/$day.taskId.edit.server';
+import { EditTaskAction } from '~/server/actions/$day.taskId.edit.server';
 import { actionTypes } from '~/server/actions/actionTypes';
-import { loader } from '~/server/loaders/$day.taskId.edit.server';
+import { EditTaskLoader } from '~/server/loaders/$day.taskId.edit.server';
 
 import { Button } from '~/components/Elements/Button';
 import { FieldWrapper } from '~/components/Form/FieldWrapper';
@@ -26,9 +26,9 @@ import { JsonifiedUser } from '~/types';
 import { UPDATE_TASK } from '../actionTypes';
 
 export function FormComponent() {
-  const { body, scheduledFor } = useLoaderData<typeof loader>();
+  const { body, scheduledFor } = useLoaderData<EditTaskLoader>();
 
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<EditTaskAction>();
 
   const { fieldErrors } = useErrors(actionData);
 

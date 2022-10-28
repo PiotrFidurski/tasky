@@ -1,6 +1,6 @@
 import { Form, useActionData } from '@remix-run/react';
 
-import { action } from '~/server/actions/register.server';
+import { RegisterAction, action } from '~/server/actions/register.server';
 
 import { Button } from '~/components/Elements/Button';
 import { CustomLink } from '~/components/Elements/CustomLink';
@@ -12,7 +12,7 @@ import { useErrors } from '~/utils/hooks/useErrors';
 export { action };
 
 export default function LoginRoute() {
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<RegisterAction>();
 
   const { fieldErrors } = useErrors(actionData);
 

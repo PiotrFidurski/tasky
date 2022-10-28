@@ -41,3 +41,5 @@ export async function loader({ params }: LoaderArgs) {
     throw badRequest({ message: getErrorMessage(error) });
   }
 }
+
+export type EditTaskLoader = typeof loader;

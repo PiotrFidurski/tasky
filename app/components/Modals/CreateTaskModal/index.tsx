@@ -7,7 +7,7 @@ import {
   useParams,
 } from '@remix-run/react';
 
-import { loader } from '~/server/loaders/$day.create.server';
+import { CreateTaskLoader } from '~/server/loaders/$day.create.server';
 
 import { AlertModal } from '../AlertModal';
 import { useAlertWithElement } from '../AlertModal/useAlertWithElement';
@@ -17,7 +17,7 @@ import { modalContent, modalOverlay } from '../classNames';
 import { FormComponent } from './FormComponent';
 
 export function CreateTaskModal() {
-  const draft = useLoaderData<typeof loader>();
+  const draft = useLoaderData<CreateTaskLoader>();
 
   const { open, handleToggleAlert } = useAlertWithElement({
     initialElementState: true,
