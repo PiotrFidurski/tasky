@@ -29,7 +29,7 @@ export default function MobileSidebar() {
         handleCloseMenu();
       }
     };
-  }, []);
+  }, [isSubmitting]);
 
   return (
     <div className="md:hidden">
@@ -50,7 +50,7 @@ export default function MobileSidebar() {
           expanded ? 'translate-x-0 visible' : 'translate-x-[-100%] invisible'
         )}
       >
-        <Menu visible={expanded} onClose={handleCloseMenu} />
+        <Menu expanded={expanded} onCloseMenu={handleCloseMenu} />
       </div>
     </div>
   );
