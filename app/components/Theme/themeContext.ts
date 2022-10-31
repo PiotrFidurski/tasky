@@ -7,7 +7,7 @@ export enum Theme {
 
 type ContextProps = {
   theme: Theme | null;
-  switchTheme: () => void;
+  handleSwitchTheme: () => void;
 };
 
 export const themeContext = React.createContext<ContextProps | null>(null);

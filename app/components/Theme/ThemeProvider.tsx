@@ -31,7 +31,7 @@ export function ThemeProvider({ children, storedTheme }: Props) {
     return getSystemTheme();
   });
 
-  function switchTheme() {
+  function handleSwitchTheme() {
     if (theme === Theme.light) {
       return setTheme(Theme.dark);
     }
@@ -57,18 +57,18 @@ export function ThemeProvider({ children, storedTheme }: Props) {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <themeContext.Provider value={{ theme, switchTheme }}>
+    <themeContext.Provider value={{ theme, handleSwitchTheme }}>
       {children}
     </themeContext.Provider>
   );
 }
 
 export function useTheme() {
-  const theme = useContext(themeContext);
+  const contextValue = useContext(themeContext);
 
-  if (!theme)
+  if (!contextValue)
     throw new Error(`useTheme hook must be used within ThemeProvider
     , check if the component you're using the hook in is wrapped in a ThemeProvider.`);
 
-  return theme;
+  return contextValue;
 }
