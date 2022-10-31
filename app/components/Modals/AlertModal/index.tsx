@@ -11,7 +11,7 @@ type Props = {
   open: boolean;
   handleOpenChange: () => void;
   handleConfirm: () => void;
-  confirmBtnName?: string;
+  confirmButtonContent?: string;
   children: ReactNode;
 };
 
@@ -19,7 +19,7 @@ export function AlertModal({
   open,
   handleOpenChange,
   handleConfirm,
-  confirmBtnName = 'Discard',
+  confirmButtonContent = 'Discard',
   children,
 }: Props) {
   return (
@@ -45,9 +45,9 @@ export function AlertModal({
             <Button
               onClick={handleConfirm}
               className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
-              aria-label={confirmBtnName}
+              aria-label={confirmButtonContent}
             >
-              {confirmBtnName}
+              {confirmButtonContent}
             </Button>
           </div>
           <Dialog.Description className="sr-only">

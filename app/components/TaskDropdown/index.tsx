@@ -80,7 +80,7 @@ export function TaskDropdown({ task }: Props) {
         open={open.alert}
         handleOpenChange={handleToggleAlert}
         handleConfirm={handleDeleteTask}
-        confirmBtnName="Delete"
+        confirmButtonContent="Delete"
       >
         Are you sure you want to delete this task?
       </AlertModal>
