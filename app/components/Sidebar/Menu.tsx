@@ -20,7 +20,7 @@ import { HomeIconFilled } from '../Icons/HomeIconFilled';
 import { PlusIcon } from '../Icons/PlusIcon';
 import { SettingsIcon } from '../Icons/SettingsIcon';
 import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
-import { UserMenu } from '../UserMenu';
+import { UserDropdown } from '../UserDropdown';
 
 type Props = {
   expanded: boolean;
@@ -59,7 +59,7 @@ export function Menu({
         </div>
       ) : null}
       <div className="mb-12 px-16">
-        <UserMenu />
+        <UserDropdown />
       </div>
       <div className="mb-12 px-16">
         <p className="text-4xl">{data?.user?.username}</p>

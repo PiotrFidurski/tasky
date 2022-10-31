@@ -18,8 +18,8 @@ import { SunIcon } from '../Icons/SunIcon';
 import { Avatar } from './Avatar';
 import { LogoutForm } from './LogoutForm';
 
-export function UserMenu() {
-  const { theme, switchTheme } = useTheme();
+export function UserDropdown() {
+  const { theme, handleSwitchTheme } = useTheme();
 
   const data = useRouteData<{ user: JsonifiedUser }>('root');
 
@@ -47,7 +47,7 @@ export function UserMenu() {
         <DropdownItem
           role="button"
           isLastItem
-          onClick={switchTheme}
+          onClick={handleSwitchTheme}
           aria-label={
             theme === Theme.light
               ? 'switch to dark mode'
