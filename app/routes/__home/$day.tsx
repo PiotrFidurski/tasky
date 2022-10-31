@@ -33,7 +33,6 @@ export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =
     useLoaderData<DayLoader>();
   const transition = useTransition();
-
   const { tasksData, setElement, Form } = useInfiniteLoader();
 
   useEffect(() => {

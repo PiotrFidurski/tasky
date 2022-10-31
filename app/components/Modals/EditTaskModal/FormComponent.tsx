@@ -28,9 +28,9 @@ import { UPDATE_TASK } from '../actionTypes';
 export function FormComponent() {
   const { body, scheduledFor } = useLoaderData<EditTaskLoader>();
 
-  const actionData = useActionData<EditTaskAction>();
+  const editTaskActionData = useActionData<EditTaskAction>();
 
-  const { fieldErrors } = useErrors(actionData);
+  const { fieldErrors } = useErrors(editTaskActionData);
 
   const { isSubmitting, currentAction } = useActionTransition();
 

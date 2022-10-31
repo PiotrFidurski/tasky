@@ -23,13 +23,13 @@ type Props = {
 };
 
 export function FormComponent({ draft }: Props) {
-  const actionData = useActionData<CreateTaskAction>();
+  const createTaskActionData = useActionData<CreateTaskAction>();
 
   const params = useParams<'day'>();
 
   const { isSubmitting, currentAction } = useActionTransition();
 
-  const { fieldErrors } = useErrors(actionData);
+  const { fieldErrors } = useErrors(createTaskActionData);
 
   function getDateParam() {
     if (!draft.scheduledFor) {
