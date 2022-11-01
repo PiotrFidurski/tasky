@@ -7,6 +7,7 @@ import { scheduledForSchema, schema } from '~/validation/task';
 import { createTask } from '~/server/models/task';
 import { getAuthUserId } from '~/server/session/session.server';
 import {
+  SessionFields,
   destroyTaskDraftSession,
   getTaskDraftSession,
   updateTaskDraftSession,
@@ -57,8 +58,7 @@ export async function action({ params, request }: ActionArgs) {
         const { scheduledFor } = scheduledForSchema.parse(form);
 
         const draft = {
-          title: createTaskDataSession.get('taskDraft:title') || '',
-          body: createTaskDataSession.get('taskDraft:body') || '',
+          body: createTaskDataSession.get(SessionFields.body) || '',
           scheduledFor:
             createTaskDataSession.get('taskDraft.scheduledFor') || '',
         };
