@@ -32,7 +32,7 @@ export async function updateTaskDraftSession({
   const session = await getTaskDraftSession(request);
 
   session.set('taskDraft:body', data.body);
-  session.set('taskDraft.scheduledFor', data.scheduledFor);
+  session.set('taskDraft:scheduledFor', data.scheduledFor);
 
   return redirect(redirectTo, {
     headers: {

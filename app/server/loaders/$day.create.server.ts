@@ -7,7 +7,7 @@ export async function loader({ request }: LoaderArgs) {
 
   const data = {
     body: createTaskDataSession.get('taskDraft:body') || '',
-    scheduledFor: createTaskDataSession.get('taskDraft.scheduledFor') || '',
+    scheduledFor: createTaskDataSession.get('taskDraft:scheduledFor') || '',
   };
 
   return data;
