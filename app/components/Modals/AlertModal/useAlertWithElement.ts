@@ -4,10 +4,12 @@ type Props = {
   initialElementState?: boolean;
 };
 
-export function useAlertWithElement({ initialElementState }: Props = {}) {
+export function useAlertWithElement({
+  initialElementState = false,
+}: Props = {}) {
   const [open, setOpen] = useState({
     alert: false,
-    element: initialElementState || false,
+    element: initialElementState,
   });
 
   const handleToggleElement = () => {
