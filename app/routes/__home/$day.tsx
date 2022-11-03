@@ -25,9 +25,7 @@ import { Task } from '~/components/Widgets/Task';
 import { DATE_FORMAT } from '~/utils/date';
 import { useInfiniteLoader } from '~/utils/hooks/useInfiniteLoader';
 
-export { loader };
-
-export { action };
+export { loader, action };
 
 export default function DayRoute() {
   const { completed, percentage, total, stats, tasks } =

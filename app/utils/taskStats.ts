@@ -1,9 +1,9 @@
-export type GroupedTask = {
+type TaskStats = {
   scheduledFor: string;
   _count: { isComplete: number; scheduledFor: number };
 };
 
-export function getTaskStatsForEachDay(data: Array<GroupedTask>) {
+export function getTaskStatsForEachDay(data: Array<TaskStats>) {
   return data.reduce<Record<string, number[]>>((acc, value) => {
     // eslint-disable-next-line no-param-reassign
     acc = {
@@ -18,7 +18,7 @@ export function getTaskStatsForEachDay(data: Array<GroupedTask>) {
   }, {});
 }
 
-export function getTotalTasksCount(data: Array<GroupedTask>) {
+export function getTotalAndCompletedTasksCount(data: Array<TaskStats>) {
   return data.reduce(
     (acc, value) => {
       acc.total += value._count.scheduledFor;

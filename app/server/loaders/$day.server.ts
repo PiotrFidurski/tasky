@@ -8,7 +8,10 @@ import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
 import { requireUserId } from '~/server/session/auth.server';
 
 import { badRequest } from '~/utils/badRequest';
-import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
+import {
+  getTaskStatsForEachDay,
+  getTotalAndCompletedTasksCount,
+} from '~/utils/taskStats';
 
 export async function loader({ request, params }: LoaderArgs) {
   const userId = await requireUserId(request);
@@ -32,7 +35,7 @@ export async function loader({ request, params }: LoaderArgs) {
     groupTasksByScheduledFor(userId),
   ]);
 
-  const { completed, total } = getTotalTasksCount(groupedTasks);
+  const { completed, total } = getTotalAndCompletedTasksCount(groupedTasks);
 
   const percentage = ((completed / total) * 100).toFixed();
 
