@@ -42,6 +42,7 @@ input:focus-visible {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
