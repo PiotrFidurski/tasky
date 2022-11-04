@@ -11,7 +11,7 @@ export function useInfiniteLoader() {
 
   const [tasksData, setTasksData] = useState<JsonifiedTask[]>([]);
 
-  const handleLoadMore = (id: string | null) => {
+  const handleLoadMoreData = (id: string | null) => {
     if (!id) return null;
 
     return fetcher.submit(
@@ -30,7 +30,7 @@ export function useInfiniteLoader() {
   useEffect(() => {
     observer.current = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && entry.target) {
-        handleLoadMore(entry.target.getAttribute('data-id'));
+        handleLoadMoreData(entry.target.getAttribute('data-id'));
       }
     });
   }, []);

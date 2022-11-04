@@ -1,7 +1,7 @@
 import { json } from 'remix';
 
 /**
- * Generic 4xx response.
+ * Generic 4xx or 5xx response.
  *
  * @param data - Data you want to be included in response.
  * @returns `Response` - https://developer.mozilla.org/en-US/docs/Web/API/Response
