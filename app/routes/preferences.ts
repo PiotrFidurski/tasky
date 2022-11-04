@@ -13,7 +13,9 @@ export async function action({ request }: ActionArgs) {
     const theme = searchParams.get('theme');
 
     if (!isValidTheme(theme)) {
-      throw badRequest('theme has to be a valid string.');
+      throw badRequest(
+        'theme has to be one of following strings: light or dark'
+      );
     }
 
     return await updateThemeSession(request, theme);
