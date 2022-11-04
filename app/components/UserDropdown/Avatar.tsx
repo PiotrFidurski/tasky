@@ -6,7 +6,7 @@ type Props = {
 export function Avatar({ width, height }: Props) {
   return (
     <img
-      src="//unsplash.it/40/40"
+      src="/images/avatar.webp"
       width={width}
       height={height}
       alt="user avatar"
