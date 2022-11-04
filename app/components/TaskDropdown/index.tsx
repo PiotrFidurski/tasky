@@ -13,10 +13,10 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
+import { AlertDialog } from '../Dialogs/AlertDialog';
+import { useAlertDialogWithElement } from '../Dialogs/AlertDialog/useAlertDialogWithElement';
 import { DropdownContent } from '../Elements/Dropdown/DropdownContent';
 import { TrashIcon } from '../Icons/TrashIcon';
-import { AlertModal } from '../Modals/AlertModal';
-import { useAlertWithElement } from '../Modals/AlertModal/useAlertWithElement';
 
 type Props = {
   task: JsonifiedTask;
@@ -31,7 +31,7 @@ export function TaskDropdown({ task }: Props) {
   });
 
   const { open, handleToggleElement, handleToggleAlert } =
-    useAlertWithElement();
+    useAlertDialogWithElement();
 
   return (
     <>
@@ -76,14 +76,14 @@ export function TaskDropdown({ task }: Props) {
           ) : null}
         </DropdownContent>
       </DropdownMenu.Root>
-      <AlertModal
+      <AlertDialog
         open={open.alert}
         handleOpenChange={handleToggleAlert}
         handleConfirm={handleDeleteTask}
         confirmButtonContent="Delete"
       >
         Are you sure you want to delete this task?
-      </AlertModal>
+      </AlertDialog>
     </>
   );
 }

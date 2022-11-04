@@ -1,6 +1,8 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Modal from '@radix-ui/react-dialog';
 import { twMerge } from 'tailwind-merge';
 
+import { AlertDialog } from '~/components/Dialogs/AlertDialog';
+import { useAlertDialogWithElement } from '~/components/Dialogs/AlertDialog/useAlertDialogWithElement';
 import { Button } from '~/components/Elements/Button';
 import { CustomLink } from '~/components/Elements/CustomLink';
 import { CaretDown } from '~/components/Icons/CaretDown';
@@ -12,9 +14,7 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
-import { AlertModal } from '../AlertModal';
-import { useAlertWithElement } from '../AlertModal/useAlertWithElement';
-import { modalContent, modalOverlay } from '../classNames';
+import { contentClassnames, overlayClassnames } from '../classNames';
 
 type Props = {
   task: JsonifiedTask;
@@ -27,7 +27,7 @@ export function TaskOptionsModal({ task }: Props) {
   const data = useRouteData<{ isMobile: boolean; user: JsonifiedUser }>('root');
 
   const { open, handleToggleAlert, handleToggleElement } =
-    useAlertWithElement();
+    useAlertDialogWithElement();
 
   const { handleDeleteTask } = useDeleteTask({
     taskId: task.id,
@@ -40,8 +40,8 @@ export function TaskOptionsModal({ task }: Props) {
 
   return (
     <>
-      <Dialog.Root open={open.element} onOpenChange={handleOpenChange}>
-        <Dialog.Trigger asChild>
+      <Modal.Root open={open.element} onOpenChange={handleOpenChange}>
+        <Modal.Trigger asChild>
           <Button
             primary
             className="flex justify-center items-center p-0 max-w-[24px] h-[24px] w-full"
@@ -49,11 +49,14 @@ export function TaskOptionsModal({ task }: Props) {
           >
             <CaretDown />
           </Button>
-        </Dialog.Trigger>
-        <Dialog.Portal>
-          <Dialog.Overlay className={modalOverlay} />
-          <Dialog.Content
-            className={twMerge(modalContent, 'bottom-0 top-auto rounded-t-md')}
+        </Modal.Trigger>
+        <Modal.Portal>
+          <Modal.Overlay className={overlayClassnames} />
+          <Modal.Content
+            className={twMerge(
+              contentClassnames,
+              'bottom-0 top-auto rounded-t-md'
+            )}
             style={{
               maxHeight: `${MENU_ITEM_HEIGHT * 2 + PADDING_Y}rem`,
               paddingTop: `${PADDING_Y}rem`,
@@ -81,20 +84,20 @@ export function TaskOptionsModal({ task }: Props) {
                 <span>Edit Task</span>
               </CustomLink>
             ) : null}
-            <Dialog.Description className="sr-only">
-              Task options dialog
-            </Dialog.Description>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-      <AlertModal
+            <Modal.Description className="sr-only">
+              Task options modal
+            </Modal.Description>
+          </Modal.Content>
+        </Modal.Portal>
+      </Modal.Root>
+      <AlertDialog
         open={open.alert}
         handleOpenChange={handleToggleAlert}
         handleConfirm={handleDeleteTask}
         confirmButtonContent="Delete"
       >
         Are you sure you want to delete this task?
-      </AlertModal>
+      </AlertDialog>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Modal from '@radix-ui/react-dialog';
 
 import { useNavigate } from '@remix-run/react';
 
@@ -6,7 +6,7 @@ import { Calendar } from '~/components/Widgets/Calendar';
 import { DayButton } from '~/components/Widgets/Calendar/components/DayButton';
 
 import { ModalHeader } from '../ModalHeader';
-import { modalContent, modalOverlay } from '../classNames';
+import { contentClassnames, overlayClassnames } from '../classNames';
 
 export function CalendarModal() {
   const navigate = useNavigate();
@@ -16,11 +16,11 @@ export function CalendarModal() {
   };
 
   return (
-    <Dialog.Root defaultOpen onOpenChange={handleOpenChange}>
-      <Dialog.Trigger />
-      <Dialog.Portal>
-        <Dialog.Overlay className={modalOverlay} />
-        <Dialog.Content className={modalContent}>
+    <Modal.Root defaultOpen onOpenChange={handleOpenChange}>
+      <Modal.Trigger />
+      <Modal.Portal>
+        <Modal.Overlay className={overlayClassnames} />
+        <Modal.Content className={contentClassnames}>
           <div className="flex w-full p-4 items-center">
             <ModalHeader>Calendar</ModalHeader>
           </div>
@@ -30,11 +30,11 @@ export function CalendarModal() {
           >
             {({ date, day }) => <DayButton day={day} date={date} key={day} />}
           </Calendar>
-          <Dialog.Description className="sr-only">
-            Calendar dialog
-          </Dialog.Description>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+          <Modal.Description className="sr-only">
+            Calendar modal
+          </Modal.Description>
+        </Modal.Content>
+      </Modal.Portal>
+    </Modal.Root>
   );
 }

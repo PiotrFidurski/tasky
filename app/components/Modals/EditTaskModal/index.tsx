@@ -1,9 +1,9 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Modal from '@radix-ui/react-dialog';
 
 import { useNavigate } from '@remix-run/react';
 
 import { ModalHeader } from '../ModalHeader';
-import { modalContent, modalOverlay } from '../classNames';
+import { contentClassnames, overlayClassnames } from '../classNames';
 import { FormComponent } from './FormComponent';
 
 export function EditTaskModal() {
@@ -14,20 +14,20 @@ export function EditTaskModal() {
   };
 
   return (
-    <Dialog.Root defaultOpen onOpenChange={handleOpenChange}>
-      <Dialog.Trigger />
-      <Dialog.Portal>
-        <Dialog.Overlay className={modalOverlay} />
-        <Dialog.Content className={modalContent}>
+    <Modal.Root defaultOpen onOpenChange={handleOpenChange}>
+      <Modal.Trigger />
+      <Modal.Portal>
+        <Modal.Overlay className={overlayClassnames} />
+        <Modal.Content className={contentClassnames}>
           <div className="w-full flex p-4 items-center">
             <ModalHeader>Edit task</ModalHeader>
           </div>
           <FormComponent />
-          <Dialog.Description className="sr-only">
-            Edit task dialog
-          </Dialog.Description>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+          <Modal.Description className="sr-only">
+            Edit task modal
+          </Modal.Description>
+        </Modal.Content>
+      </Modal.Portal>
+    </Modal.Root>
   );
 }

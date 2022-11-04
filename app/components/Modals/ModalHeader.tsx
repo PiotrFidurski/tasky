@@ -19,7 +19,7 @@ export function ModalHeader({ buttonName, btnValue, children }: Props) {
           name={buttonName}
           value={btnValue}
           className="w-auto"
-          aria-label="close dialog"
+          aria-label={`close ${children} modal`}
         >
           <ArrowleftIcon />
         </Button>

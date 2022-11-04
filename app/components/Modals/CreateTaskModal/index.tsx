@@ -1,4 +1,4 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Modal from '@radix-ui/react-dialog';
 
 import {
   useFetcher,
@@ -9,17 +9,17 @@ import {
 
 import { CreateTaskLoader } from '~/server/loaders/$day.create.server';
 
-import { AlertModal } from '../AlertModal';
-import { useAlertWithElement } from '../AlertModal/useAlertWithElement';
+import { AlertDialog } from '../../Dialogs/AlertDialog';
+import { useAlertDialogWithElement } from '../../Dialogs/AlertDialog/useAlertDialogWithElement';
 import { ModalHeader } from '../ModalHeader';
 import { DESTROY_DRAFT } from '../actionTypes';
-import { modalContent, modalOverlay } from '../classNames';
+import { contentClassnames, overlayClassnames } from '../classNames';
 import { FormComponent } from './FormComponent';
 
 export function CreateTaskModal() {
   const draft = useLoaderData<CreateTaskLoader>();
 
-  const { open, handleToggleAlert } = useAlertWithElement({
+  const { open, handleToggleAlert } = useAlertDialogWithElement({
     initialElementState: true,
   });
 
@@ -46,30 +46,30 @@ export function CreateTaskModal() {
 
   return (
     <>
-      <Dialog.Root open={open.element} onOpenChange={handleOpenChange}>
-        <Dialog.Trigger />
-        <Dialog.Portal>
-          <Dialog.Overlay className={modalOverlay} />
-          <Dialog.Content className={modalContent}>
+      <Modal.Root open={open.element} onOpenChange={handleOpenChange}>
+        <Modal.Trigger />
+        <Modal.Portal>
+          <Modal.Overlay className={overlayClassnames} />
+          <Modal.Content className={contentClassnames}>
             <fetcher.Form className="w-full flex p-4 items-center">
               <ModalHeader buttonName="_action" btnValue={DESTROY_DRAFT}>
                 Create task
               </ModalHeader>
             </fetcher.Form>
             <FormComponent draft={draft} />
-            <Dialog.Description className="sr-only">
-              Create task dialog
-            </Dialog.Description>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-      <AlertModal
+            <Modal.Description className="sr-only">
+              Create task modal
+            </Modal.Description>
+          </Modal.Content>
+        </Modal.Portal>
+      </Modal.Root>
+      <AlertDialog
         open={open.alert}
         handleOpenChange={handleToggleAlert}
         handleConfirm={handleDestroyDraft}
       >
         Are you sure you want to discard the changes?
-      </AlertModal>
+      </AlertDialog>
     </>
   );
 }
