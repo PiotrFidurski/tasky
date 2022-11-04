@@ -23,8 +23,6 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedUser } from '~/types';
 
-import { UPDATE_TASK } from '../actionTypes';
-
 export function FormComponent() {
   const { body, scheduledFor } = useLoaderData<EditTaskLoader>();
 
@@ -65,7 +63,7 @@ export function FormComponent() {
           primary
           type="submit"
           name="_action"
-          value={UPDATE_TASK}
+          value={actionTypes.UPDATE_TASK}
           className="flex items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>Update</span>

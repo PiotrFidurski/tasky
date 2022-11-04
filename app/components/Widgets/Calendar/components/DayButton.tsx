@@ -4,8 +4,9 @@ import { format, isBefore, isSameMonth, isToday, parseISO } from 'date-fns';
 
 import { Form, useParams } from '@remix-run/react';
 
+import { actionTypes } from '~/server/actions/actionTypes';
+
 import { Button } from '~/components/Elements/Button';
-import { CREATE_DRAFT_DATE } from '~/components/Modals/actionTypes';
 
 import { DATE_FORMAT } from '~/utils/date';
 
@@ -31,7 +32,7 @@ export function DayButton({ day, date }: Props) {
       <Button
         name="_action"
         type="submit"
-        value={CREATE_DRAFT_DATE}
+        value={actionTypes.CREATE_DRAFT_DATE}
         className={twMerge(
           'w-10 h-10 mb-2 flex items-center border-transparent dark:border-transparent justify-center',
           !isSameMonth(currentDate, date) &&

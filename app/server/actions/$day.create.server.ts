@@ -13,15 +13,10 @@ import {
   updateTaskDraftSession,
 } from '~/server/session/taskdraft.server';
 
-import {
-  CREATE_DRAFT_BODY,
-  CREATE_DRAFT_DATE,
-  CREATE_TASK,
-  DESTROY_DRAFT,
-} from '~/components/Modals/actionTypes';
-
 import { DATE_FORMAT } from '~/utils/date';
 import { getFormattedErrors } from '~/utils/getFormattedErrors';
+
+import { actionTypes } from './actionTypes';
 
 export function unauthorizedResponse(message: string) {
   return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
@@ -38,11 +33,11 @@ export async function action({ params, request }: ActionArgs) {
     const path = `/${params.day}`;
 
     switch (actionType) {
-      case DESTROY_DRAFT: {
+      case actionTypes.DESTROY_DRAFT: {
         return await destroyTaskDraftSession({ request, redirectTo: path });
       }
 
-      case CREATE_DRAFT_BODY: {
+      case actionTypes.CREATE_DRAFT_BODY: {
         const data = schema.parse(form);
 
         return await updateTaskDraftSession({
@@ -52,7 +47,7 @@ export async function action({ params, request }: ActionArgs) {
         });
       }
 
-      case CREATE_DRAFT_DATE: {
+      case actionTypes.CREATE_DRAFT_DATE: {
         const createTaskDataSession = await getTaskDraftSession(request);
 
         const { scheduledFor } = scheduledForSchema.parse(form);
@@ -70,7 +65,7 @@ export async function action({ params, request }: ActionArgs) {
         });
       }
 
-      case CREATE_TASK: {
+      case actionTypes.CREATE_TASK: {
         const { body } = schema.parse(form);
 
         const { scheduledFor } = scheduledForSchema.parse(form);

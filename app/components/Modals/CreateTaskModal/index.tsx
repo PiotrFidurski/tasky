@@ -7,12 +7,12 @@ import {
   useParams,
 } from '@remix-run/react';
 
+import { actionTypes } from '~/server/actions/actionTypes';
 import { CreateTaskLoader } from '~/server/loaders/$day.create.server';
 
 import { AlertDialog } from '../../Dialogs/AlertDialog';
 import { useAlertDialogWithElement } from '../../Dialogs/AlertDialog/useAlertDialogWithElement';
 import { ModalHeader } from '../ModalHeader';
-import { DESTROY_DRAFT } from '../actionTypes';
 import { contentClassnames, overlayClassnames } from '../classNames';
 import { FormComponent } from './FormComponent';
 
@@ -31,7 +31,7 @@ export function CreateTaskModal() {
 
   const handleDestroyDraft = () => {
     fetcher.submit(
-      { _action: DESTROY_DRAFT },
+      { _action: actionTypes.DESTROY_DRAFT },
       { method: 'post', action: `/${day}/create` }
     );
   };
@@ -52,7 +52,10 @@ export function CreateTaskModal() {
           <Modal.Overlay className={overlayClassnames} />
           <Modal.Content className={contentClassnames}>
             <fetcher.Form className="w-full flex p-4 items-center">
-              <ModalHeader buttonName="_action" btnValue={DESTROY_DRAFT}>
+              <ModalHeader
+                buttonName="_action"
+                btnValue={actionTypes.DESTROY_DRAFT}
+              >
                 Create task
               </ModalHeader>
             </fetcher.Form>

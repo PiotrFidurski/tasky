@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { Form, useActionData, useParams } from '@remix-run/react';
 
 import { CreateTaskAction } from '~/server/actions/$day.create.server';
+import { actionTypes } from '~/server/actions/actionTypes';
 import { CreateTaskProps } from '~/server/models/types';
 
 import { Button } from '~/components/Elements/Button';
@@ -15,8 +16,6 @@ import { Spinner } from '~/components/Spinner';
 import { DATE_FORMAT } from '~/utils/date';
 import { useActionTransition } from '~/utils/hooks/useActionTransition';
 import { useErrors } from '~/utils/hooks/useErrors';
-
-import { CREATE_DRAFT_BODY, CREATE_TASK } from '../actionTypes';
 
 type Props = {
   draft: Omit<CreateTaskProps, 'userId'>;
@@ -62,7 +61,7 @@ export function FormComponent({ draft }: Props) {
       </div>
       <Button
         name="_action"
-        value={CREATE_DRAFT_BODY}
+        value={actionTypes.CREATE_DRAFT_BODY}
         type="submit"
         className="flex gap-2 items-center px-6 text-sm text-slate-500 dark:text-custom-indigo border-grayLight focus:border-slate-500 hover:border-slate-500"
       >
@@ -72,14 +71,14 @@ export function FormComponent({ draft }: Props) {
       <input value={getDateParam()} name="scheduledFor" type="hidden" />
       <div className="flex justify-end w-full">
         <Button
-          value={CREATE_TASK}
+          value={actionTypes.CREATE_TASK}
           name="_action"
           primary
           type="submit"
           className="flex mt-28 items-center gap-4 px-8 py-4 text-sm shadow-md shadow-shadowSecondary dark:shadow-shadowPrimary"
         >
           <span>New task</span>
-          {isSubmitting && currentAction === CREATE_TASK ? (
+          {isSubmitting && currentAction === actionTypes.CREATE_TASK ? (
             <Spinner />
           ) : (
             <CaretUp />
