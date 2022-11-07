@@ -2,12 +2,16 @@ import { User } from '@prisma/client';
 
 import { db } from '~/server/db/db.server';
 
+import { getTrimmedString } from '~/utils/getTrimmedString';
+
 export function getUserByUsername(username: string) {
+  const trimmedUsername = getTrimmedString(username);
+
   return db.user.findFirst({
     where: {
       username: {
         mode: 'insensitive',
-        equals: username,
+        equals: trimmedUsername,
       },
     },
   });
