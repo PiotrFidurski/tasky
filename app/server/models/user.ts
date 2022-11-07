@@ -3,7 +3,14 @@ import { User } from '@prisma/client';
 import { db } from '~/server/db/db.server';
 
 export function getUserByUsername(username: string) {
-  return db.user.findFirst({ where: { username } });
+  return db.user.findFirst({
+    where: {
+      username: {
+        mode: 'insensitive',
+        equals: username,
+      },
+    },
+  });
 }
 
 export function getUserById(id: string) {
