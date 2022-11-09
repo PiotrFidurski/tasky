@@ -2,10 +2,10 @@ import { User } from '@prisma/client';
 
 import { db } from '~/server/db/db.server';
 
-import { getTrimmedString } from '~/utils/getTrimmedString';
+import { trimSpaces } from '~/utils/trimSpaces';
 
 export function getUserByUsername(username: string) {
-  const trimmedUsername = getTrimmedString(username);
+  const trimmedUsername = trimSpaces(username);
 
   return db.user.findFirst({
     where: {

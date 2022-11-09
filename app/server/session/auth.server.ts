@@ -7,7 +7,7 @@ import { redirect } from 'remix';
 import { createUser, getUserByUsername } from '~/server/models/user';
 import { getUserSession } from '~/server/session/session.server';
 
-import { getTrimmedString } from '~/utils/getTrimmedString';
+import { trimSpaces } from '~/utils/trimSpaces';
 
 /**
  * Partial fields of User Model.
@@ -35,7 +35,8 @@ export async function login(username: UserInput['username']) {
  */
 export async function register({ username, password }: UserInput) {
   const passwordHash = await bcrypt.hash(password, 10);
-  const trimmedUsername = getTrimmedString(username);
+
+  const trimmedUsername = trimSpaces(username);
 
   return createUser({ username: trimmedUsername, password: passwordHash });
 }
