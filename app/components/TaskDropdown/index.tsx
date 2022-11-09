@@ -1,22 +1,20 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { Link } from '@remix-run/react';
-
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/Dropdown/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/Dropdown/DropdownTrigger';
 import { CaretDown } from '~/components/Icons/CaretDown';
-import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { useDeleteTask } from '~/utils/hooks/useDeleteTask';
 import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
+import { DeleteTaskButton } from '../DeleteTaskButton';
 import { AlertDialog } from '../Dialogs/AlertDialog';
 import { useAlertDialogWithElement } from '../Dialogs/AlertDialog/useAlertDialogWithElement';
+import { EditTaskLink } from '../EditTaskLink';
 import { DropdownContent } from '../Elements/Dropdown/DropdownContent';
-import { TrashIcon } from '../Icons/TrashIcon';
 
 type Props = {
   task: JsonifiedTask;
@@ -51,28 +49,20 @@ export function TaskDropdown({ task }: Props) {
         </DropdownTrigger>
         <DropdownContent loop sideOffset={10}>
           {data?.user?.id === task.userId ? (
-            <DropdownItem asChild isFirstItem>
-              <Button
-                className="border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
-                type="submit"
-                onClick={handleToggleAlert}
-                aria-label="delete task"
-              >
-                <TrashIcon />
-                <span>Delete Task</span>
-              </Button>
-            </DropdownItem>
-          ) : null}
-          {data?.user?.id === task.userId ? (
-            <DropdownItem asChild isLastItem>
-              <Link
-                to={`${task.id}/edit`}
-                className="flex items-center gap-4 w-full px-2 py-4"
-              >
-                <EditIcon />
-                <span>Edit Task</span>
-              </Link>
-            </DropdownItem>
+            <>
+              <DropdownItem asChild isFirstItem>
+                <DeleteTaskButton onClick={handleToggleAlert} />
+              </DropdownItem>
+              <DropdownItem asChild isFirstItem>
+                <DeleteTaskButton onClick={handleToggleAlert} />
+              </DropdownItem>
+              <DropdownItem asChild isFirstItem>
+                <DeleteTaskButton onClick={handleToggleAlert} />
+              </DropdownItem>
+              <DropdownItem asChild isLastItem>
+                <EditTaskLink taskId={task.id} />
+              </DropdownItem>
+            </>
           ) : null}
         </DropdownContent>
       </DropdownMenu.Root>

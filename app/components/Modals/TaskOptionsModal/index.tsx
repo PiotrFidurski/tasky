@@ -1,13 +1,12 @@
 import * as Modal from '@radix-ui/react-dialog';
 import { twMerge } from 'tailwind-merge';
 
+import { DeleteTaskButton } from '~/components/DeleteTaskButton';
 import { AlertDialog } from '~/components/Dialogs/AlertDialog';
 import { useAlertDialogWithElement } from '~/components/Dialogs/AlertDialog/useAlertDialogWithElement';
+import { EditTaskLink } from '~/components/EditTaskLink';
 import { Button } from '~/components/Elements/Button';
-import { CustomLink } from '~/components/Elements/CustomLink';
 import { CaretDown } from '~/components/Icons/CaretDown';
-import { EditIcon } from '~/components/Icons/EditIcon';
-import { TrashIcon } from '~/components/Icons/TrashIcon';
 
 import { useDeleteTask } from '~/utils/hooks/useDeleteTask';
 import { useRouteData } from '~/utils/hooks/useRouteData';
@@ -64,26 +63,12 @@ export function TaskOptionsModal({ task }: Props) {
             }}
           >
             {data?.user?.id === task.userId ? (
-              <Button
-                className="flex items-center px-2 py-4 gap-4 border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
-                onClick={handleToggleAlert}
-                aria-label="delete task"
-                style={{ height: `${MENU_ITEM_HEIGHT}rem` }}
-              >
-                <TrashIcon />
-                <span>Delete Task</span>
-              </Button>
+              <>
+                <DeleteTaskButton onClick={handleToggleAlert} />
+                <EditTaskLink taskId={task.id} />
+              </>
             ) : null}
-            {data?.user?.id === task.userId ? (
-              <CustomLink
-                to={`${task.id}/edit`}
-                className="flex items-center px-2 py-4 gap-4 border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
-                style={{ height: `${MENU_ITEM_HEIGHT}rem` }}
-              >
-                <EditIcon />
-                <span>Edit Task</span>
-              </CustomLink>
-            ) : null}
+
             <Modal.Description className="sr-only">
               Task options modal
             </Modal.Description>
