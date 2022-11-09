@@ -21,9 +21,7 @@ export function CalendarModal() {
       <Modal.Portal>
         <Modal.Overlay className={overlayClassnames} />
         <Modal.Content className={contentClassnames}>
-          <div className="flex w-full p-4 items-center">
-            <ModalHeader>Calendar</ModalHeader>
-          </div>
+          <ModalHeader>Calendar</ModalHeader>
           <Calendar
             startingDate={new Date()}
             wrapperClassname="bg-transparent dark:bg-transparent max-w-md"

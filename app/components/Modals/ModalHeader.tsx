@@ -13,7 +13,7 @@ type Props = {
 
 export function ModalHeader({ buttonName, btnValue, children }: Props) {
   return (
-    <>
+    <div className="w-full flex p-4 items-center">
       <Close asChild>
         <Button
           name={buttonName}
@@ -27,6 +27,6 @@ export function ModalHeader({ buttonName, btnValue, children }: Props) {
       <div className="w-full text-center pr-5">
         <Title>{children}</Title>
       </div>
-    </>
+    </div>
   );
 }

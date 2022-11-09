@@ -19,9 +19,7 @@ export function EditTaskModal() {
       <Modal.Portal>
         <Modal.Overlay className={overlayClassnames} />
         <Modal.Content className={contentClassnames}>
-          <div className="w-full flex p-4 items-center">
-            <ModalHeader>Edit task</ModalHeader>
-          </div>
+          <ModalHeader>Edit task</ModalHeader>
           <FormComponent />
           <Modal.Description className="sr-only">
             Edit task modal

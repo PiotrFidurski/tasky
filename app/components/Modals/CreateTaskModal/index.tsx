@@ -51,7 +51,7 @@ export function CreateTaskModal() {
         <Modal.Portal>
           <Modal.Overlay className={overlayClassnames} />
           <Modal.Content className={contentClassnames}>
-            <fetcher.Form className="w-full flex p-4 items-center">
+            <fetcher.Form className="w-full">
               <ModalHeader
                 buttonName="_action"
                 btnValue={actionTypes.DESTROY_DRAFT}
