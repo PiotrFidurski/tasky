@@ -66,9 +66,9 @@ export function TaskOptionsModal({ task }: Props) {
             {data?.user?.id === task.userId ? (
               <Button
                 className="flex items-center px-2 py-4 gap-4 border-0 rounded-none w-full rounded-tl-md rounded-tr-md"
-                type="submit"
                 onClick={handleToggleAlert}
                 aria-label="delete task"
+                style={{ height: `${MENU_ITEM_HEIGHT}rem` }}
               >
                 <TrashIcon />
                 <span>Delete Task</span>
@@ -92,8 +92,8 @@ export function TaskOptionsModal({ task }: Props) {
       </Modal.Root>
       <AlertDialog
         open={open.alert}
-        handleOpenChange={handleToggleAlert}
-        handleConfirm={handleDeleteTask}
+        onOpenChange={handleToggleAlert}
+        onConfirm={handleDeleteTask}
         confirmButtonContent="Delete"
       >
         Are you sure you want to delete this task?
