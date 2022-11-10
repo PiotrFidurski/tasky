@@ -5,7 +5,6 @@ import { useNavigate } from 'remix';
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/Dropdown/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/Dropdown/DropdownTrigger';
-import { CaretDown } from '~/components/Icons/CaretDown';
 
 import { useDeleteTask } from '~/utils/hooks/useDeleteTask';
 import { useRouteData } from '~/utils/hooks/useRouteData';
@@ -16,6 +15,7 @@ import { AlertDialog } from '../Dialogs/AlertDialog';
 import { useAlertDialogWithElement } from '../Dialogs/AlertDialog/useAlertDialogWithElement';
 import { DropdownContent } from '../Elements/Dropdown/DropdownContent';
 import { EditIcon } from '../Icons/EditIcon';
+import { EllipsisHorizontal } from '../Icons/EllipsisHorizontal';
 import { TrashIcon } from '../Icons/TrashIcon';
 
 type Props = {
@@ -28,11 +28,17 @@ type Props = {
 
 export function TaskDropdown({ task, isModal }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
+
   const navigate = useNavigate();
+
   const { handleDeleteTask } = useDeleteTask({
     taskId: task.id,
     userId: task.userId,
   });
+
+  const handleNavigation = () => {
+    navigate(`${task.id}/edit`);
+  };
 
   const { open, handleToggleElement, handleToggleAlert } =
     useAlertDialogWithElement();
@@ -46,11 +52,10 @@ export function TaskDropdown({ task, isModal }: Props) {
       >
         <DropdownTrigger asChild>
           <Button
-            primary
-            className="flex justify-center items-center p-0 max-w-[24px] h-[24px] w-full"
+            className="flex justify-center items-center max-w-[24px] h-[24px] w-full p-0 dark:text-primary border-transparent dark:border-transparent"
             aria-label="open task menu"
           >
-            <CaretDown />
+            <EllipsisHorizontal />
           </Button>
         </DropdownTrigger>
         <DropdownContent loop sideOffset={10}>
@@ -60,10 +65,7 @@ export function TaskDropdown({ task, isModal }: Props) {
                 <TrashIcon />
                 <span>Delete task</span>
               </DropdownItem>
-              <DropdownItem
-                isLastItem
-                onClick={() => navigate(`${task.id}/edit`)}
-              >
+              <DropdownItem isLastItem onClick={handleNavigation}>
                 <EditIcon />
                 <span>Edit task</span>
               </DropdownItem>

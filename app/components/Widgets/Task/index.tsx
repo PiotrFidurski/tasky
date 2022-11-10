@@ -36,8 +36,8 @@ export function Task({ task }: Props) {
   return (
     <div
       className={twMerge(
-        'bg-light-rgba dark:bg-dark-rgba rounded-2xl mb-4 p-4 border-2 border-shadowSecondary',
-        isComplete() && 'bg-shadowPrimary dark:bg-shadowSecondary'
+        'bg-light-rgba dark:bg-dark-rgba rounded-2xl mb-4 p-4',
+        isComplete() && 'bg-shadowPrimary dark:bg-[#0d122a]'
       )}
     >
       <div className="flex gap-4">
@@ -59,10 +59,9 @@ export function Task({ task }: Props) {
             {isComplete() ? <CheckmarkIcon /> : null}
           </Button>
         </fetcher.Form>
-        <div className="max-w-sm w-full line-clamp-4 break-words">
+        <div className="max-w-sm w-full line-clamp-4 break-all">
           <span>{task.body}</span>
         </div>
-
         {!data?.isMobile ? (
           <TaskDropdown task={task} />
         ) : (

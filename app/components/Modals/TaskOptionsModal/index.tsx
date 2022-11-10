@@ -5,8 +5,8 @@ import { AlertDialog } from '~/components/Dialogs/AlertDialog';
 import { useAlertDialogWithElement } from '~/components/Dialogs/AlertDialog/useAlertDialogWithElement';
 import { Button } from '~/components/Elements/Button';
 import { CustomLink } from '~/components/Elements/CustomLink';
-import { CaretDown } from '~/components/Icons/CaretDown';
 import { EditIcon } from '~/components/Icons/EditIcon';
+import { EllipsisHorizontal } from '~/components/Icons/EllipsisHorizontal';
 import { TrashIcon } from '~/components/Icons/TrashIcon';
 
 import { useDeleteTask } from '~/utils/hooks/useDeleteTask';
@@ -43,11 +43,10 @@ export function TaskOptionsModal({ task }: Props) {
       <Modal.Root open={open.element} onOpenChange={handleOpenChange}>
         <Modal.Trigger asChild>
           <Button
-            primary
-            className="flex justify-center items-center p-0 max-w-[24px] h-[24px] w-full"
+            className="flex justify-center items-center max-w-[24px] h-[24px] w-full p-0 dark:text-primary border-transparent dark:border-transparent"
             aria-label="open task menu"
           >
-            <CaretDown />
+            <EllipsisHorizontal />
           </Button>
         </Modal.Trigger>
         <Modal.Portal>
