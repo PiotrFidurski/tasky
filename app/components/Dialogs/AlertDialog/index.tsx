@@ -1,4 +1,4 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Dialog from '@radix-ui/react-alert-dialog';
 import { twMerge } from 'tailwind-merge';
 
 import { ReactNode } from 'react';
@@ -24,7 +24,6 @@ export function AlertDialog({
 }: Props) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
-      <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className={overlayClassnames} />
         <Dialog.Content
@@ -33,26 +32,23 @@ export function AlertDialog({
             'justify-center lg:top-[40%] rounded-md md:top-[40%] top-[40%] text-center w-[350px] h-[220px]'
           )}
         >
-          <p className="p-4">{children}</p>
+          <Dialog.Description className="p-4">{children}</Dialog.Description>
           <div className="flex items-center gap-4">
-            <Button
-              onClick={onOpenChange}
-              className="min-w-[140px]"
-              aria-label="Go back"
-            >
-              Go Back
-            </Button>
-            <Button
-              onClick={onConfirm}
-              className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
-              aria-label={confirmButtonContent}
-            >
-              {confirmButtonContent}
-            </Button>
+            <Dialog.Cancel asChild>
+              <Button className="min-w-[140px]" aria-label="Go back">
+                Go Back
+              </Button>
+            </Dialog.Cancel>
+            <Dialog.Action asChild>
+              <Button
+                onClick={onConfirm}
+                className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
+                aria-label={confirmButtonContent}
+              >
+                {confirmButtonContent}
+              </Button>
+            </Dialog.Action>
           </div>
-          <Dialog.Description className="sr-only">
-            Alert dialog
-          </Dialog.Description>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
