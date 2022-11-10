@@ -1,5 +1,7 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
+import { useNavigate } from 'remix';
+
 import { Button } from '~/components/Elements/Button';
 import { DropdownItem } from '~/components/Elements/Dropdown/DropdownItem';
 import { DropdownTrigger } from '~/components/Elements/Dropdown/DropdownTrigger';
@@ -10,19 +12,23 @@ import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedTask, JsonifiedUser } from '~/types';
 
-import { DeleteTaskButton } from '../DeleteTaskButton';
 import { AlertDialog } from '../Dialogs/AlertDialog';
 import { useAlertDialogWithElement } from '../Dialogs/AlertDialog/useAlertDialogWithElement';
-import { EditTaskLink } from '../EditTaskLink';
 import { DropdownContent } from '../Elements/Dropdown/DropdownContent';
+import { EditIcon } from '../Icons/EditIcon';
+import { TrashIcon } from '../Icons/TrashIcon';
 
 type Props = {
   task: JsonifiedTask;
+  isModal?: boolean;
 };
 
-export function TaskDropdown({ task }: Props) {
-  const data = useRouteData<{ user: JsonifiedUser }>('root');
+// try to make it a dropdown that can be used
+// on mobile too
 
+export function TaskDropdown({ task, isModal }: Props) {
+  const data = useRouteData<{ user: JsonifiedUser }>('root');
+  const navigate = useNavigate();
   const { handleDeleteTask } = useDeleteTask({
     taskId: task.id,
     userId: task.userId,
@@ -35,7 +41,7 @@ export function TaskDropdown({ task }: Props) {
     <>
       <DropdownMenu.Root
         open={open.element}
-        modal={false}
+        modal={isModal}
         onOpenChange={handleToggleElement}
       >
         <DropdownTrigger asChild>
@@ -50,17 +56,16 @@ export function TaskDropdown({ task }: Props) {
         <DropdownContent loop sideOffset={10}>
           {data?.user?.id === task.userId ? (
             <>
-              <DropdownItem asChild isFirstItem>
-                <DeleteTaskButton onClick={handleToggleAlert} />
+              <DropdownItem onClick={handleToggleAlert} isFirstItem>
+                <TrashIcon />
+                <span>Delete task</span>
               </DropdownItem>
-              <DropdownItem asChild isFirstItem>
-                <DeleteTaskButton onClick={handleToggleAlert} />
-              </DropdownItem>
-              <DropdownItem asChild isFirstItem>
-                <DeleteTaskButton onClick={handleToggleAlert} />
-              </DropdownItem>
-              <DropdownItem asChild isLastItem>
-                <EditTaskLink taskId={task.id} />
+              <DropdownItem
+                isLastItem
+                onClick={() => navigate(`${task.id}/edit`)}
+              >
+                <EditIcon />
+                <span>Edit task</span>
               </DropdownItem>
             </>
           ) : null}
