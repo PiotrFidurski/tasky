@@ -6,18 +6,17 @@ import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 
 type Props = {
-  buttonName?: string;
-  btnValue?: string;
+  buttonValue?: string;
   children: ReactNode;
 };
 
-export function ModalHeader({ buttonName, btnValue, children }: Props) {
+export function ModalHeader({ buttonValue, children }: Props) {
   return (
     <div className="w-full flex p-4 items-center">
       <Close asChild>
         <Button
-          name={buttonName}
-          value={btnValue}
+          name={buttonValue ? '_action' : undefined}
+          value={buttonValue}
           className="w-auto"
           aria-label={`close ${children} modal`}
         >

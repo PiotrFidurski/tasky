@@ -23,9 +23,6 @@ type Props = {
   isModal?: boolean;
 };
 
-// try to make it a dropdown that can be used
-// on mobile too
-
 export function TaskDropdown({ task, isModal }: Props) {
   const data = useRouteData<{ user: JsonifiedUser }>('root');
 

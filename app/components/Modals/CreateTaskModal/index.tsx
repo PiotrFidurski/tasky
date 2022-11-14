@@ -52,10 +52,7 @@ export function CreateTaskModal() {
           <Modal.Overlay className={overlayClassnames} />
           <Modal.Content className={contentClassnames}>
             <fetcher.Form className="w-full">
-              <ModalHeader
-                buttonName="_action"
-                btnValue={actionTypes.DESTROY_DRAFT}
-              >
+              <ModalHeader buttonValue={actionTypes.DESTROY_DRAFT}>
                 Create task
               </ModalHeader>
             </fetcher.Form>
