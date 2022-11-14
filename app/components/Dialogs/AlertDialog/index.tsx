@@ -1,4 +1,4 @@
-import * as Dialog from '@radix-ui/react-alert-dialog';
+import * as Dialog from '@radix-ui/react-dialog';
 import { twMerge } from 'tailwind-merge';
 
 import { ReactNode } from 'react';
@@ -34,20 +34,20 @@ export function AlertDialog({
         >
           <Dialog.Description className="p-4">{children}</Dialog.Description>
           <div className="flex items-center gap-4">
-            <Dialog.Cancel asChild>
-              <Button className="min-w-[140px]" aria-label="Go back">
-                Go Back
-              </Button>
-            </Dialog.Cancel>
-            <Dialog.Action asChild>
-              <Button
-                onClick={onConfirm}
-                className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
-                aria-label={confirmButtonContent}
-              >
-                {confirmButtonContent}
-              </Button>
-            </Dialog.Action>
+            <Button
+              className="min-w-[140px]"
+              aria-label="Go back"
+              onClick={onOpenChange}
+            >
+              Go Back
+            </Button>
+            <Button
+              onClick={onConfirm}
+              className="min-w-[140px] border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400 hover:text-secondary dark:hover:text-primary"
+              aria-label={confirmButtonContent}
+            >
+              {confirmButtonContent}
+            </Button>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
