@@ -2,7 +2,7 @@ import { ZodError, z } from 'zod';
 
 import { isValid } from 'date-fns';
 
-import { ActionArgs, json } from 'remix';
+import { ActionArgs } from 'remix';
 
 import {
   deleteTask,
@@ -16,12 +16,9 @@ import { requireUserId } from '~/server/session/auth.server';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { unauthorizedResponse } from '~/utils/unauthorizedResponse';
 
 import { actionTypes } from './actionTypes';
-
-export function unauthorizedResponse(message: string) {
-  return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
-}
 
 export async function action({ request, params }: ActionArgs) {
   try {

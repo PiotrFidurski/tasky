@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { ActionArgs, json, redirect } from 'remix';
+import { ActionArgs, redirect } from 'remix';
 
 import { schema } from '~/validation/task';
 
@@ -8,10 +8,7 @@ import { updateTask } from '~/server/models/task';
 import { getAuthUserId } from '~/server/session/session.server';
 
 import { getFormattedErrors } from '~/utils/getFormattedErrors';
-
-export function unauthorizedResponse(message: string) {
-  return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
-}
+import { unauthorizedResponse } from '~/utils/unauthorizedResponse';
 
 export async function action({ request }: ActionArgs) {
   try {

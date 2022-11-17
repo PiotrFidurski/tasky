@@ -23,7 +23,7 @@ export async function action({ request }: ActionArgs) {
     if (!user) {
       return badRequest({
         errors: {
-          username: [`No user with that username exists.`],
+          username: ['No user with that username exists.'],
         },
       });
     }
