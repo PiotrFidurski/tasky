@@ -10,17 +10,12 @@ import { Button } from '~/components/Elements/Button';
 
 import { DATE_FORMAT } from '~/utils/date';
 
-import { useCalendar } from '../useCalendar';
-
 type Props = {
   day: string;
   date: Date;
 };
 
 export function DayButton({ day, date }: Props) {
-  const context = useCalendar();
-
-  console.log({ context });
   const currentDate = new Date(day);
 
   const params = useParams<'day'>();
