@@ -24,7 +24,7 @@ type UpdateTaskDraftSessionProps = {
   redirectTo: string;
 };
 
-export enum SessionFields {
+export enum DraftSessionFields {
   'body' = 'taskDraft:body',
   'scheduledFor' = 'taskDraft:scheduledFor',
 }
@@ -36,8 +36,8 @@ export async function updateTaskDraftSession({
 }: UpdateTaskDraftSessionProps) {
   const session = await getTaskDraftSession(request);
 
-  session.set(SessionFields.body, data.body);
-  session.set(SessionFields.scheduledFor, data.scheduledFor);
+  session.set(DraftSessionFields.body, data.body);
+  session.set(DraftSessionFields.scheduledFor, data.scheduledFor);
 
   return redirect(redirectTo, {
     headers: {
