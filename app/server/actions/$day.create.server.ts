@@ -1,13 +1,13 @@
 import { format } from 'date-fns';
 
-import { ActionArgs, json } from 'remix';
+import { ActionArgs } from 'remix';
 
 import { scheduledForSchema, schema } from '~/validation/task';
 
 import { createTask } from '~/server/models/task';
 import { getAuthUserId } from '~/server/session/session.server';
 import {
-  SessionFields,
+  DraftSessionFields,
   destroyTaskDraftSession,
   getTaskDraftSession,
   updateTaskDraftSession,
@@ -18,10 +18,6 @@ import { getFormattedErrors } from '~/utils/getFormattedErrors';
 
 import { actionTypes } from './actionTypes';
 
-export function unauthorizedResponse(message: string) {
-  return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
-}
-
 export async function action({ params, request }: ActionArgs) {
   try {
     const userId = await getAuthUserId(request);
@@ -30,11 +26,11 @@ export async function action({ params, request }: ActionArgs) {
 
     const actionType = form.get('_action');
 
-    const path = `/${params.day}`;
+    const redirectTo = `/${params.day}`;
 
     switch (actionType) {
       case actionTypes.DESTROY_DRAFT: {
-        return await destroyTaskDraftSession({ request, redirectTo: path });
+        return await destroyTaskDraftSession({ request, redirectTo });
       }
 
       case actionTypes.CREATE_DRAFT_BODY: {
@@ -42,7 +38,7 @@ export async function action({ params, request }: ActionArgs) {
 
         return await updateTaskDraftSession({
           request,
-          data: { ...data, scheduledFor: '' },
+          data: { body: data.body, scheduledFor: '' },
           redirectTo: `/${params.day}/calendar`,
         });
       }
@@ -53,14 +49,14 @@ export async function action({ params, request }: ActionArgs) {
         const { scheduledFor } = scheduledForSchema.parse(form);
 
         const draft = {
-          body: createTaskDataSession.get(SessionFields.body) || '',
+          body: createTaskDataSession.get(DraftSessionFields.body) || '',
           scheduledFor:
-            createTaskDataSession.get('taskDraft.scheduledFor') || '',
+            createTaskDataSession.get(DraftSessionFields.scheduledFor) || '',
         };
 
         return await updateTaskDraftSession({
           request,
-          data: { ...draft, scheduledFor },
+          data: { body: draft.body, scheduledFor },
           redirectTo: `/${params.day}/create?date=${scheduledFor}`,
         });
       }
@@ -86,7 +82,7 @@ export async function action({ params, request }: ActionArgs) {
       }
 
       default: {
-        return await destroyTaskDraftSession({ request, redirectTo: path });
+        return await destroyTaskDraftSession({ request, redirectTo });
       }
     }
   } catch (error) {
