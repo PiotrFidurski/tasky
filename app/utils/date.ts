@@ -46,7 +46,7 @@ export function getCalendarData({
   weeksCount = 18,
 }: CalendarDataProps) {
   let startingDate = getStartOfWeek(date, weekStartsOn);
-  console.log('getting calendar data');
+
   const weekRows = getWeekRows(weeksCount);
 
   const calendarData: Array<Array<string>> = [];
