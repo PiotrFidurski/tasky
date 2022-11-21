@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react';
-
 import {
   Form,
   useActionData,
@@ -19,6 +17,7 @@ import { Spinner } from '~/components/Spinner';
 
 import { useActionTransition } from '~/utils/hooks/useActionTransition';
 import { useErrors } from '~/utils/hooks/useErrors';
+import { useInputFocusOnMount } from '~/utils/hooks/useInputFocusOnMount';
 import { useRouteData } from '~/utils/hooks/useRouteData';
 
 import { JsonifiedUser } from '~/types';
@@ -36,13 +35,7 @@ export function FormComponent() {
 
   const params = useParams<'day' | 'taskId'>();
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (inputRef?.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+  const inputRef = useInputFocusOnMount<HTMLInputElement>();
 
   return (
     <Form method="post" replace className="w-full p-4">

@@ -16,6 +16,7 @@ import { Spinner } from '~/components/Spinner';
 import { DATE_FORMAT } from '~/utils/date';
 import { useActionTransition } from '~/utils/hooks/useActionTransition';
 import { useErrors } from '~/utils/hooks/useErrors';
+import { useInputFocusOnMount } from '~/utils/hooks/useInputFocusOnMount';
 
 type Props = {
   draft: Omit<CreateTaskProps, 'userId'>;
@@ -25,6 +26,8 @@ export function FormComponent({ draft }: Props) {
   const createTaskActionData = useActionData<CreateTaskAction>();
 
   const params = useParams<'day'>();
+
+  const inputRef = useInputFocusOnMount<HTMLTextAreaElement>();
 
   const { isSubmitting, currentAction } = useActionTransition();
 
@@ -47,6 +50,7 @@ export function FormComponent({ draft }: Props) {
     >
       <label htmlFor="body" id="body" className="w-full">
         <textarea
+          ref={inputRef}
           name="body"
           id="body"
           aria-label="body"
