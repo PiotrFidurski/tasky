@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 let hydrating = true;
 
 /**
- * copied from: https://github.com/sergiodxa/remix-utils/blob/main/src/react/use-hydrated.ts
+ * borrowed from sergio: https://github.com/sergiodxa/remix-utils/blob/main/src/react/use-hydrated.ts
  *
  * Return a boolean indicating if the JS has been hydrated already.
  * When doing Server-Side Rendering, the result will always be false.

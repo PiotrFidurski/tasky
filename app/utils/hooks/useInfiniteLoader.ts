@@ -42,16 +42,13 @@ export function useInfiniteLoader() {
   }, [fetcher.data]);
 
   useEffect(() => {
-    const currentElement = element;
-    const currentObserver = observer.current;
-
-    if (currentElement) {
-      currentObserver?.observe(currentElement!);
+    if (observer.current && element) {
+      observer.current.observe(element);
     }
 
     return () => {
-      if (currentElement) {
-        currentObserver?.unobserve(currentElement!);
+      if (observer.current && element) {
+        observer.current.unobserve(element);
       }
     };
   }, [element]);
