@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 import { useParams } from '@remix-run/react';
 
-import { NavListItem } from '~/components/Elements/NavListItem';
+import { NavListItemLink } from '~/components/Elements/NavListItemLink';
 import { EditIcon } from '~/components/Icons/EditIcon';
 
 import { DATE_FORMAT } from '~/utils/date';
@@ -20,17 +20,17 @@ import { HomeIconFilled } from '../Icons/HomeIconFilled';
 import { PlusIcon } from '../Icons/PlusIcon';
 import { SettingsIcon } from '../Icons/SettingsIcon';
 import { SettingsIconFilled } from '../Icons/SettingsIconFilled';
-import { UserMenu } from '../UserMenu';
+import { UserDropdown } from '../UserDropdown';
 
 type Props = {
-  visible: boolean;
-  onHandleClose?: () => void;
+  expanded: boolean;
+  handleCloseMenu?: () => void;
   isMobile?: boolean;
 };
 
 export function Menu({
-  visible,
-  onHandleClose = () => {},
+  expanded,
+  handleCloseMenu = () => {},
   isMobile = true,
 }: Props) {
   const { day } = useParams<'day'>();
@@ -48,60 +48,60 @@ export function Menu({
       {isMobile ? (
         <div className="flex justify-end px-16">
           <Button
-            onClick={onHandleClose}
+            onClick={handleCloseMenu}
             className="w-auto"
             aria-controls="sidebar"
             aria-label="close sidebar"
-            aria-expanded={visible}
+            aria-expanded={expanded}
           >
             <CaretLeft />
           </Button>
         </div>
       ) : null}
       <div className="mb-12 px-16">
-        <UserMenu />
+        <UserDropdown />
       </div>
       <div className="mb-12 px-16">
         <p className="text-4xl">{data?.user?.username}</p>
       </div>
       <ul className="flex flex-col items-start px-14">
-        <NavListItem to={`/${dayParam}`}>
+        <NavListItemLink to={`/${dayParam}`}>
           {({ isActive }) => (
             <>
               {isActive ? <HomeIconFilled /> : <HomeIcon />}
               <span>Home</span>
             </>
           )}
-        </NavListItem>
-        <NavListItem to="/">
+        </NavListItemLink>
+        <NavListItemLink to="/">
           {({ isActive }) => (
             <>
               {isActive ? <GridIconFilled /> : <GridIcon />}
               <span>Categories</span>
             </>
           )}
-        </NavListItem>
-        <NavListItem to="/">
+        </NavListItemLink>
+        <NavListItemLink to="/">
           {() => (
             <>
               <EditIcon />
               <span>Tasks</span>
             </>
           )}
-        </NavListItem>
-        <NavListItem to="/">
+        </NavListItemLink>
+        <NavListItemLink to="/">
           {({ isActive }) => (
             <>
               {isActive ? <SettingsIconFilled /> : <SettingsIcon />}
               <span>Settings</span>
             </>
           )}
-        </NavListItem>
+        </NavListItemLink>
         <div className="flex w-full justify-end pr-2">
           <CustomLink
             to={`/${dayParam}/create`}
             aria-label="create task"
-            onClick={onHandleClose}
+            onClick={handleCloseMenu}
           >
             <PlusIcon />
           </CustomLink>

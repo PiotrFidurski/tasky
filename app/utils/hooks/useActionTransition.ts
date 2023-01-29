@@ -3,10 +3,13 @@ import { useTransition } from 'remix';
 export function useActionTransition() {
   const transition = useTransition();
 
-  const isSubmitting =
-    (transition.state === 'submitting' &&
-      transition.type === 'actionSubmission') ||
-    (transition.state === 'loading' && transition.type === 'actionRedirect');
+  const { type, state } = transition;
 
-  return { isSubmitting, transition };
+  const isSubmitting =
+    (state === 'submitting' && type === 'actionSubmission') ||
+    (state === 'loading' && type === 'actionRedirect');
+
+  const currentAction = transition.submission?.formData.get('_action');
+
+  return { transition, isSubmitting, currentAction };
 }

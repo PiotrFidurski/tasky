@@ -12,10 +12,33 @@ export function getTask(id: string) {
   return db.task.findUnique({ where: { id } });
 }
 
-export function getTasksForDay(day: string, userId: string) {
+type GetTaskForDayProps = {
+  day: string;
+  userId: string;
+  take?: number;
+  cursor?: string;
+};
+
+export function getTasksForDay({
+  userId,
+  day,
+  take = 15,
+  cursor,
+}: GetTaskForDayProps) {
+  if (cursor) {
+    return db.task.findMany({
+      take,
+      skip: 1,
+      where: { scheduledFor: day, userId },
+      orderBy: { createdAt: 'desc' },
+      cursor: { id: cursor },
+    });
+  }
+
   return db.task.findMany({
+    take,
     where: { scheduledFor: day, userId },
-    orderBy: { sortDate: 'asc' },
+    orderBy: { createdAt: 'desc' },
   });
 }
 
@@ -46,6 +69,13 @@ export function createTask({ body, userId, scheduledFor }: CreateTaskProps) {
       scheduledFor,
       userId,
     },
+  });
+}
+
+export function updateTask({ id, body }: { body: string; id: string }) {
+  return db.task.update({
+    where: { id },
+    data: { body },
   });
 }
 

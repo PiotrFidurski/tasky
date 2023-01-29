@@ -1,7 +1,7 @@
 import { Outlet } from '@remix-run/react';
 
-import { DesktopSidebar } from '~/components/Sidebar/desktop';
-import { MobileSidebar } from '~/components/Sidebar/mobile';
+import DesktopSidebar from '~/components/Sidebar/desktop';
+import MobileSidebar from '~/components/Sidebar/mobile';
 import {
   ContentLayout,
   MainLayout,

@@ -2,77 +2,36 @@ import nProgress from 'nprogress';
 
 import { useEffect } from 'react';
 
-import { z } from 'zod';
-
-import { format, isValid } from 'date-fns';
-
-import { LoaderArgs, json } from 'remix';
+import { format } from 'date-fns';
 
 import {
   Outlet,
   useCatch,
   useLoaderData,
   useNavigate,
-  useParams,
   useTransition,
 } from '@remix-run/react';
 
-import { getTasksForDay, groupTasksByScheduledFor } from '~/server/models/task';
-import { requireUserId } from '~/server/session/auth.server';
+import { action } from '~/server/actions/task.server';
+import { DayLoader, loader } from '~/server/loaders/$day.server';
 
 import { Button } from '~/components/Elements/Button';
 import { ArrowleftIcon } from '~/components/Icons/ArrowleftIcon';
 import { Calendar } from '~/components/Widgets/Calendar';
 import { DayLink } from '~/components/Widgets/Calendar/components/DayLink';
 import { CompletedTasks } from '~/components/Widgets/CompletedTasks';
+import { Task } from '~/components/Widgets/Task';
 
-import { badRequest } from '~/utils/badRequest';
 import { DATE_FORMAT } from '~/utils/date';
-import { getTaskStatsForEachDay, getTotalTasksCount } from '~/utils/taskStats';
+import { useInfiniteLoader } from '~/utils/hooks/useInfiniteLoader';
 
-export async function loader({ request, params }: LoaderArgs) {
-  const userId = await requireUserId(request);
-
-  const day = z
-    .string({ invalid_type_error: 'expected a string.' })
-    .parse(params.day);
-
-  if (!isValid(new Date(day))) {
-    throw badRequest(
-      'No tasks found for this date, please check if the date is a valid date format (yyyy-MM-dd) eg: "2022-02-22".',
-      404
-    );
-  }
-
-  const [tasks, groupedTasks] = await Promise.all([
-    getTasksForDay(day, userId),
-    groupTasksByScheduledFor(userId),
-  ]);
-
-  const { completed, total } = getTotalTasksCount(groupedTasks);
-
-  const percentage = ((completed / total) * 100).toFixed();
-
-  const stats = getTaskStatsForEachDay(groupedTasks);
-
-  const data = {
-    stats,
-    completed,
-    total,
-    percentage: !Number.isNaN(Number(percentage)) ? Number(percentage) : 0,
-    tasks,
-  };
-
-  return json(data, { status: 200 });
-}
+export { loader, action };
 
 export default function DayRoute() {
-  const params = useParams<'day'>();
-
   const { completed, percentage, total, stats, tasks } =
-    useLoaderData<typeof loader>();
-
+    useLoaderData<DayLoader>();
   const transition = useTransition();
+  const { tasksData, setElement, Form } = useInfiniteLoader();
 
   useEffect(() => {
     if (
@@ -86,27 +45,27 @@ export default function DayRoute() {
 
   return (
     <>
-      <Calendar startingDate={new Date()} stats={stats}>
-        {({ day, date }) => (
-          <DayLink stats={stats} day={day} key={day} date={date} />
-        )}
-      </Calendar>
-      <CompletedTasks
-        total={total}
-        completed={completed}
-        percentage={percentage}
-      />
-      <div className="w-full max-w-sm bg-light-rgba dark:bg-dark-rgba">
-        <h1>tasks for day: {params.day}</h1>
-        <div>
-          {tasks.map((task) => (
-            <div key={task.id}>
-              <span>{task.body}</span>
-            </div>
-          ))}
-        </div>
+      <div className="lg:sticky top-2 h-max">
+        <Calendar startingDate={new Date()} stats={stats}>
+          {({ day, date }) => (
+            <DayLink stats={stats} day={day} key={day} date={date} />
+          )}
+        </Calendar>
+        <CompletedTasks
+          total={total}
+          completed={completed}
+          percentage={percentage}
+        />
+        <Outlet />
       </div>
-      <Outlet />
+      <div>
+        {tasks.concat(tasksData).map((task) => (
+          <div ref={setElement} key={task.id} data-id={task.id}>
+            <Task key={task.id} task={task} />
+          </div>
+        ))}
+      </div>
+      {tasks.length > 0 ? <Form method="post" /> : null}
     </>
   );
 }

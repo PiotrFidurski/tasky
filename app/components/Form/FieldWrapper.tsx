@@ -24,6 +24,7 @@ export function FieldWrapper({
       dark:text-primary rounded-md flex min-h-[5.5rem] text-secondary
       dark:focus-within:border-custom-indigo focus-within:border-custom-blue
       dark:focus-within:text-custom-indigo focus-within:text-custom-blue transition-colors`,
+          className,
           errorMessage
             ? 'border-rose-600 dark:border-rose-400 text-rose-600 dark:text-rose-400'
             : 'border-secondary dark:border-primary'

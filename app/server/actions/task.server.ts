@@ -2,10 +2,11 @@ import { ZodError, z } from 'zod';
 
 import { isValid } from 'date-fns';
 
-import { ActionArgs, json } from 'remix';
+import { ActionArgs } from 'remix';
 
 import {
   deleteTask,
+  getTasksForDay,
   markTaskComplete,
   markTaskIncomplete,
   scheduleTask,
@@ -15,14 +16,11 @@ import { requireUserId } from '~/server/session/auth.server';
 
 import { badRequest } from '~/utils/badRequest';
 import { getErrorMessage } from '~/utils/getErrorMessage';
+import { unauthorizedResponse } from '~/utils/unauthorizedResponse';
 
 import { actionTypes } from './actionTypes';
 
-function unauthorizedResponse(message: string) {
-  return json({ error: message }, { status: 401, statusText: 'Unauthorized' });
-}
-
-export async function action({ request }: ActionArgs) {
+export async function action({ request, params }: ActionArgs) {
   try {
     const userId = await requireUserId(request);
 
@@ -30,14 +28,26 @@ export async function action({ request }: ActionArgs) {
 
     const actionType = form.get('_action');
 
+    const day = z
+      .string({ invalid_type_error: 'expected a string.' })
+      .parse(params.day);
+
     const id = form.get('id');
     const dateField = form.get('date');
     const ownerId = form.get('ownerId');
+
     const taskId = z
       .string({ invalid_type_error: 'expected an id.' })
       .parse(id);
 
     switch (actionType) {
+      case actionTypes.LOAD_MORE_TASKS: {
+        return await getTasksForDay({
+          userId,
+          day,
+          cursor: taskId,
+        });
+      }
       case actionTypes.MARK_TASK_COMPLETE: {
         return await markTaskComplete(taskId);
       }
@@ -72,17 +82,6 @@ export async function action({ request }: ActionArgs) {
         return await deleteTask(taskId);
       }
 
-      case actionTypes.UPDATE_TASK: {
-        if (userId !== ownerId) {
-          throw unauthorizedResponse(
-            'You are not allowed to update this task.'
-          );
-        }
-
-        // update task here
-        return null;
-      }
-
       default: {
         throw badRequest(`Unknown action ${actionType}`);
       }
@@ -98,8 +97,8 @@ export async function action({ request }: ActionArgs) {
       throw error;
     }
 
-    const message = getErrorMessage(error);
-
-    throw badRequest(message);
+    throw badRequest(getErrorMessage(error));
   }
 }
+
+export type TaskAction = typeof action;

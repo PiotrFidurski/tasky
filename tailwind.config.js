@@ -5,6 +5,10 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        '24rem-auto1fr': '24rem minmax(auto, 32rem)',
+        'col-32': 'repeat(1, minmax(auto, 32rem))',
+      },
       boxShadow: {
         'custom-light': '0px 0px 15px 2px rgb(0 0 0 / 10%)',
         'custom-dark': '0px 0px 15px 2px rgb(255 255 255 / 15%)',
@@ -27,5 +31,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };

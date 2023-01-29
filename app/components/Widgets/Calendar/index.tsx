@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { addMonths, startOfMonth, subMonths } from 'date-fns';
 
@@ -17,12 +17,12 @@ import { HEADER_SIZE, ROWS_POSTION_TOP, ROW_SIZE } from './consts';
 type RenderProps = {
   day: string;
   date: Date;
-  stats: { [key: string]: number[] };
+  stats?: { [key: string]: number[] };
 };
 
 type Props = {
   startingDate: Date;
-  stats: { [key: string]: number[] };
+  stats?: { [key: string]: number[] };
   weeksCount?: number;
   children: (props: RenderProps) => JSX.Element;
   wrapperClassname?: string;
@@ -41,10 +41,14 @@ export function Calendar({
 
   const [slideDirection, setSlideDirection] = useState('right');
 
-  const calendarData = getCalendarData({
-    date: startOfMonth(date),
-    weeksCount,
-  });
+  const calendarData = useMemo(
+    () =>
+      getCalendarData({
+        date: startOfMonth(date),
+        weeksCount,
+      }),
+    [date]
+  );
 
   const handleNextMonth = () => {
     setDate((prevDate) => addMonths(prevDate, 1));

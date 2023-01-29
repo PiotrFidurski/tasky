@@ -24,6 +24,8 @@ import { LoadUserThemePreferences } from '~/components/Theme/systemTheme';
 
 import styles from '~/styles/app.css';
 
+import { isMobile } from './utils/isMobile';
+
 export function links() {
   return [
     { rel: 'stylesheet', href: styles },
@@ -56,6 +58,10 @@ export async function loader({ request }: LoaderArgs) {
 
   const theme = themeSession.get('theme');
 
+  const clonedRequest = request.clone();
+
+  const mobile = isMobile(clonedRequest.headers.get('user-agent'));
+
   if (userSession.has('userId')) {
     const userId = userSession.get('userId');
 
@@ -64,6 +70,7 @@ export async function loader({ request }: LoaderArgs) {
     const data = {
       theme,
       user,
+      isMobile: mobile,
     };
 
     return data;
@@ -72,6 +79,7 @@ export async function loader({ request }: LoaderArgs) {
   const data = {
     theme,
     user: null,
+    isMobile: mobile,
   };
 
   return data;
@@ -91,7 +99,7 @@ function Document({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-primary dark:bg-secondary overflow-x-hidden dark:text-white">
+      <body className="bg-primary dark:bg-secondary dark:text-white">
         {children}
         <ScrollRestoration />
         <Scripts />

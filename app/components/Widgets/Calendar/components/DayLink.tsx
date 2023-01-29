@@ -19,7 +19,7 @@ export function DayLink({ day, date, stats }: Props) {
 
   const params = useParams<'day'>();
 
-  const [total, complete] = stats[day] ?? [];
+  const [total, complete] = stats[day] ?? [0, 0];
 
   const isActive = day === params.day;
 
